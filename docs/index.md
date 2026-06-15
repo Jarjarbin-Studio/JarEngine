@@ -5,9 +5,9 @@ sidebar: sidebar
 permalink: /
 ---
 
-# 📦 Epitech Base
+# 📦 JarEngine
 
-> Centralized repository of reusable C libraries, build tools, and project templates designed for EPITECH development workflows.
+> JarEngine is a lightweight Python wrapper over pygame for building modular game systems. It is currently in early development.
 
 **Get started by selecting a page in the sidebar.**
 

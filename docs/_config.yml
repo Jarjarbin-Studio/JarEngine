@@ -37,7 +37,7 @@ exclude:
   - vendor
 # these are the files and directories that jekyll will exclude from the build
 
-feedback_subject_line: Epitech Base
+feedback_subject_line: JarEngine
 
 feedback_email: nathan.amaraggi@outlook.fr
 # used as a contact email for the Feedback link in the top navigation bar
@@ -106,7 +106,7 @@ defaults:
 sidebars:
 - sidebar
 
-description: "Centralized repository of reusable C libraries, build tools, and project templates designed for EPITECH development workflows."
+description: "JarEngine is a lightweight Python wrapper over pygame for building modular game systems. It is currently in early development."
 # the description is used in the feed.xml file
 
 # needed for sitemap.xml file only
