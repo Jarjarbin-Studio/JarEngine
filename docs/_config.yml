@@ -1,5 +1,8 @@
 repository: Jarjarbin06/JarEngine
 
+plugins:
+  - jekyll-sitemap
+
 output: web
 # this property is useful for conditional filtering of content that is separate from the PDF.
 
