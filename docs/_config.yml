@@ -113,7 +113,7 @@ description: "JarEngine is a lightweight Python wrapper over pygame for building
 # the description is used in the feed.xml file
 
 # needed for sitemap.xml file only
-# url: http://idratherbewriting.com
+url: https://jarjarbin06.github.io/JarEngine
 # baseurl: /documentation-theme-jekyll
 
 
