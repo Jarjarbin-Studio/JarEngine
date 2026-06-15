@@ -1,12 +1,12 @@
-repository: Jarjarbin06/Epitech_Base
+repository: Jarjarbin06/JarEngine
 
 output: web
 # this property is useful for conditional filtering of content that is separate from the PDF.
 
-topnav_title: Epitech Libs, Tools & Templates
+topnav_title: JarEngine Docs
 # this appears on the top navigation bar next to the home button
 
-site_title: Epitech Libs, Tools & Templates
+site_title: Documentation
 # this appears in the html browser tab for the site title (seen mostly by search engines, not users)
 
 company_name: Jarjarbin06
@@ -26,6 +26,9 @@ host: 127.0.0.1
 
 port: 4000
 # the port where the preview is rendered. You can leave this as is unless you have other Jekyll builds using this same port that might cause conflicts. in that case, use another port such as 4006.
+
+include:
+  - google7ac7617c22e39946.html
 
 exclude:
   - .idea/
