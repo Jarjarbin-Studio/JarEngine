@@ -1,0 +1,13 @@
+name: Docs lint/link checker
+
+on:
+  push:
+    branches: [ documentation ]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Placeholder
+        run: echo "Docs lint/link checker"

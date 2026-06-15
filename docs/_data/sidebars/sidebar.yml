@@ -1,0 +1,52 @@
+entries:
+  - title: sidebar
+    product: JarEngine
+    version: 0.0.1
+    folders:
+
+      - title:
+        output: pdf
+        type: frontmatter
+        folderitems:
+          - title:
+            url: /titlepage.html
+            output: pdf
+            type: frontmatter
+          - title:
+            url: /tocpage.html
+            output: pdf
+            type: frontmatter
+
+      - title: Overview
+        output: web, pdf
+        folderitems:
+
+          - title: Home
+            url: /overview_home.html
+            output: web, pdf
+            type: homepage
+
+      - title: Library NewCSFML
+        output: web, pdf
+        folderitems:
+
+          - title: NewCSFML
+            url: /lib_newcsfml_doc.html
+            output: web, pdf
+
+            subfolders:
+              - title: Audios • SubModules
+                output: web, pdf
+                subfolderitems:
+
+                  - title: Audios • Music
+                    url: /lib_newcsfml_doc_modules_audios_music.html
+                    output: web, pdf
+
+      - title: Library NewError
+        output: web, pdf
+        folderitems:
+
+          - title: NewError
+            url: /lib_newerror_doc.html
+            output: web, pdf
