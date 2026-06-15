@@ -1,0 +1,13 @@
+trace
+coverage.xml
+*.jar-log
+*.json
+*.egg-info
+perso
+dist
+dist_done
+htmlcov
+__pycache__
+.idea
+.obsidian
+.coverage
