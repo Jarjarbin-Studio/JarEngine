@@ -22,30 +22,6 @@
         It is a custom abstraction layer built on top of Pygame.
 """
 
-from types import NoneType
-from typing import Self
+__all__ = [
 
-from sources.systems import JEIntern_Error
-
-class JE_Game:
-
-    _instance: Self = None
-    _is_created = False
-
-    def __new__(cls, *args, **kwargs):
-        if cls._instance is not None:
-            JEIntern_Error.JEIntern_Warning("JEGame", "instance already exists. Only one game is allowed.")
-            return cls._instance
-        cls._instance = super().__new__(cls)
-        return cls._instance
-
-    def __init__(self):
-        if JE_Game._is_created:
-            return
-        JE_Game._is_created = True
-        _screen: NoneType = None
-        _ressource: NoneType = None
-        _envent: NoneType = None
-        _config: NoneType = None
-        _clocks: NoneType = None
-        _app_state: NoneType = None
+]

@@ -23,20 +23,24 @@
 """
 
 __all__ = [
-    "JEIntern_PyGame",
-    "JTKIntern_Time",
-    "JTKIntern_Console",
-    "JTKIntern_Action",
-    "JEIntern_Error",
-    "JEIntern_Log",
-    "JEIntern_Config"
+    "JEInternPyGame",
+    "JEInternBaseClasses",
+    "JEInternClasses",
+    "JTKInternTime",
+    "JTKInternConsole",
+    "JTKInternAction",
+    "JTKInternError",
+    "JEInternLog",
+    "JEInternConfig"
 ]
 
-import pygame as JEIntern_PyGame
-import jarbin_toolkit_log as JTKIntern_Time
-import jarbin_toolkit_console as JTKIntern_Console
-import jarbin_toolkit_action as JTKIntern_Action
+import pygame as JEInternPyGame
+import jarbin_toolkit_time as JTKInternTime
+import jarbin_toolkit_console as JTKInternConsole
+import jarbin_toolkit_action as JTKInternAction
+import jarbin_toolkit_error as JTKInternError
 
-import sources.systems.error as JEIntern_Error
-import sources.systems.log as JEIntern_Log
-import sources.systems.config as JEIntern_Config
+import sources.systems.base_classes as JEInternBaseClasses
+import sources.systems.classes as JEInternClasses
+import sources.systems.log as JEInternLog
+import sources.systems.config as JEInternConfig

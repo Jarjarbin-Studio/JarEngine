@@ -23,9 +23,19 @@
 """
 
 __all__ = [
-    "Systems"
+    'Audios',
+    'Games',
+    'Graphics',
+    'Systems'
 ]
 
-import sources.engine as Engine
+import sources.audios as Audios
+import sources.games as Games
 import sources.graphics as Graphics
 import sources.systems as Systems
+
+def init() -> tuple[int, int]:
+    return Systems.JEInternPyGame.init()
+
+def quit() -> None:
+    Systems.JEInternPyGame.quit()

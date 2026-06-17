@@ -1,10 +1,16 @@
 import sources as JarEngine
 
-pg = JarEngine.Systems.JEIntern_PyGame
+pg = JarEngine.Systems.JEInternPyGame
 
-JE = JarEngine.Engine.JE_Game()
+JarEngine.init()
 
-pg.init()
+game = JarEngine.Games.JEGame()
+game.set_window(JarEngine.Games.JEWindow())
+
+s = JarEngine.Systems.JEInternClasses.JEInternClassGraphicalObject("my object")
+game.window.ressource.font.add(s)
+
+print(game.dump())
 
 screen = pg.display.set_mode((800, 600))
 pg.display.set_caption("JarEngine - Minimal Window")
@@ -20,4 +26,4 @@ while running:
 
     pg.display.flip()
 
-pg.quit()
+JarEngine.quit()

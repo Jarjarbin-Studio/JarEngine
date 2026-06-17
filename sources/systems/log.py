@@ -22,4 +22,4 @@
         It is a custom abstraction layer built on top of Pygame.
 """
 
-import jarbin_toolkit_log as JTKInternLog
+from jarbin_toolkit_log import Log as JTKInternLog

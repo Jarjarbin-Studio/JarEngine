@@ -22,15 +22,10 @@
         It is a custom abstraction layer built on top of Pygame.
 """
 
-import jarbin_toolkit_error as JTKInternError
+__all__ = [
+    "JEGame",
+    "JEWindow"
+]
 
-def JEIntern_Fatal(err: str, msg: str) -> None:
-    print(JTKInternError.BaseError(msg, error=f"Fatal({err})"))
-    exit(84)
-
-def JEIntern_Error(err: str, msg: str) -> None:
-    print(JTKInternError.BaseError(msg, error=f"Error({err})"))
-    exit(1)
-
-def JEIntern_Warning(err: str, msg: str) -> None:
-    print(JTKInternError.BaseError(msg, error=f"Warning({err})"))
+from sources.games.window import JEWindow
+from sources.games.game import JEGame
