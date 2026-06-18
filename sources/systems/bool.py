@@ -24,8 +24,39 @@
 
 from __future__ import annotations
 
-__all__ = [
-    "JESprite"
-]
+from typing import (
+    Any as _Any,
+    final as _final,
+    Self as _Self
+)
+from sources.interns.base_classes import JEInternClassBase as _JEInternClassBase
 
-import sources.graphics.sprite as JESprite
+@_final
+class JEBool(_JEInternClassBase):
+
+    _instances: dict[bool, _Self] = {}
+
+    def __new__(
+            cls,
+            value: _Any
+        ) -> _Self:
+        val = bool(value)
+
+        if val not in cls._instances:
+            instance = super().__new__(cls)
+            cls._instances[val] = instance
+
+        return cls._instances[val]
+
+    def __init__(
+            self,
+            value: _Any
+        ) -> None:
+        if hasattr(self, "_initialized"):
+            return
+
+        super().__init__()
+        self._bool = bool(value)
+
+    def __bool__(self) -> bool:
+        return self._bool

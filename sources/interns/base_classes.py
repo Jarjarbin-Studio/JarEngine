@@ -22,15 +22,17 @@
         It is a custom abstraction layer built on top of Pygame.
 """
 
-import uuid
-from typing import Any
+from __future__ import annotations
 
-from sources.systems import JTKInternError
+from uuid import uuid4 as _uuid4
+from typing import Any as _Any
+
+from sources.interns import JTKInternError as _JTKInternError
 
 class JEInternClassBase:
 
     def __init__(self) -> None:
-        self.id: str = uuid.uuid4().hex
+        self.id: str = _uuid4().hex
 
     def __str__(self) -> str:
         name = getattr(self, "name", None)
@@ -58,7 +60,7 @@ class JEInternClassBase:
 
     def to_dict(self) -> dict:
 
-        def get_value(value: Any) -> Any:
+        def get_value(value: _Any) -> _Any:
             if isinstance(value, JEInternClassBase):
                 return value.to_dict()
             else:
@@ -74,7 +76,7 @@ class JEInternClassBase:
             }
         }
 
-    def dump(self, prefix: str = "", is_last: bool = True, is_root: bool = True, show_root: bool = True) -> str:
+    def dump(self, prefix: str = "", is_last: bool = True, is_root: bool = True, show_root: bool = False) -> str:
         lines = []
         name = getattr(self, "name", None)
         class_name = self.__class__.__name__
@@ -96,7 +98,7 @@ class JEInternClassBase:
             if isinstance(attr, property) and not attr_name.startswith("_"):
                 try:
                     props[f"@{attr_name}"] = getattr(self, attr_name)
-                except JTKInternError.BaseError as err:
+                except _JTKInternError.BaseError as err:
                     props[f"@{attr_name}"] = f"<error: {err.message.strip().removesuffix(".")}>"
 
         all_attrs = {**public_attrs, **props}

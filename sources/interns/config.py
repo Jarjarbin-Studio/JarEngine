@@ -22,4 +22,26 @@
         It is a custom abstraction layer built on top of Pygame.
 """
 
-from jarbin_toolkit_log import Log as JTKInternLog
+from __future__ import annotations
+
+from typing import final as _final
+
+from jarbin_toolkit_config import Config as _JTKInternConfig
+
+@_final
+class JEInternConfig(_JTKInternConfig):
+
+    path: str = (
+        "../.je-config"
+        if _JTKInternConfig.exist("../.je-config", file_name="je-base.ini") else
+        f"{__file__.split('sources')[0]}.je-config/"
+    )
+
+    def __init__(self, name: str):
+        super().__init__(JEInternConfig.path, {"INFO": {"name": name}}, file_name=f"je-{name}.ini")
+
+def get_game_config() -> JEInternConfig:
+    return JEInternConfig("game")
+
+def get_window_config() -> JEInternConfig:
+    return JEInternConfig("window")

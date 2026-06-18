@@ -22,28 +22,51 @@
         It is a custom abstraction layer built on top of Pygame.
 """
 
-from typing import Self
+from __future__ import annotations
 
-from sources.systems import JTKInternError, JEInternBaseClasses, JEInternClasses, JEInternConfig, JEInternPyGame
+from typing import (
+    Self as _Self,
+    final as _final
+)
 
-class JEInternRessources(JEInternBaseClasses.JEInternClassBase):
+from sources.interns.base_classes import JEInternClassBase as _JEInternClassBase
+from sources.interns.classes import JEInternGraphic as _JEInternGraphic
+from sources.interns.config import (
+    JEInternConfig as _JEInternConfig,
+    get_window_config as _get_window_config
+)
+from sources.interns import (
+    JTKInternError as _JTKInternError,
+    JEInternPyGame as _JEInternPyGame
+)
+from sources.systems.container import JEContainer as _JEContainer
+from sources.systems.color import JEColor as _JEColor
+from sources.systems.bool import JEBool as _JEBool
+
+@_final
+class JEInternRessources(_JEInternClassBase):
 
     def __init__(self):
         super().__init__()
 
-        self.textures: JEInternClasses.JEInternContainer = JEInternClasses.JEInternContainer(JEInternClasses.JEInternClassGraphic)
-        self.animations: JEInternClasses.JEInternContainer = JEInternClasses.JEInternContainer(JEInternClasses.JEInternClassGraphic)
-        self.font: JEInternClasses.JEInternContainer = JEInternClasses.JEInternContainer(JEInternClasses.JEInternClassGraphic)
+        self.textures: _JEContainer = _JEContainer(_JEInternGraphic)
+        self.animations: _JEContainer = _JEContainer(_JEInternGraphic)
+        self.font: _JEContainer = _JEContainer(_JEInternGraphic)
 
-class JEWindow(JEInternBaseClasses.JEInternClassBase):
+@_final
+class JEWindow(_JEInternClassBase):
 
-    _instance: Self = None
-    _is_created = False
+    _instance: _Self = None
+    _is_created: _JEBool = _JEBool(0)
 
-    def __new__(cls, *args, **kwargs):
+    def __new__(
+            cls,
+            *args,
+            **kwargs
+        ) -> _Self:
         if cls._instance is not None:
-            raise JTKInternError.Error.ErrorRuntime(
-                "\ninstance already exists. Only one window is allowed."
+            raise _JTKInternError.Error.ErrorRuntime(
+                "\nInstance already exists. Only one window is allowed."
             )
 
         cls._instance = super().__new__(cls)
@@ -51,18 +74,27 @@ class JEWindow(JEInternBaseClasses.JEInternClassBase):
 
     def __init__(
             self,
+            *,
             size: tuple[int, int] = (0, 0),
             flags: int = 0,
             depth: int = 0,
             display: int = 0,
-            vsync: int = 0
+            vsync: int = 0,
+            title: str = "JarEngine Game"
         ):
 
         if JEWindow._is_created:
             return
-        JEWindow._is_created = True
+        JEWindow._is_created = _JEBool(1)
         super().__init__()
-        self._screen: JEInternPyGame.Surface = JEInternPyGame.display.set_mode(size, flags, depth, display, vsync)
+        self._screen: _JEInternPyGame.Surface = _JEInternPyGame.display.set_mode(size, flags, depth, display, vsync)
         self.ressource: JEInternRessources = JEInternRessources()
-        self._event: list[JEInternPyGame.event.Event] = []
-        self._config: JEInternConfig.JTKInternConfig = JEInternConfig.get_window_config()
+        self._event: list[_JEInternPyGame.event.Event] = []
+        self._config: _JEInternConfig = _get_window_config()
+        _JEInternPyGame.display.set_caption(title)
+
+    def fill(
+            self,
+            color: _JEColor | tuple[int, int, int] | tuple[int, int, int]
+        ) -> None:
+        self._screen.fill(color.rgba if isinstance(color, _JEColor) else color)

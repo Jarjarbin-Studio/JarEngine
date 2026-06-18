@@ -24,8 +24,36 @@
 
 from __future__ import annotations
 
-__all__ = [
-    "JESprite"
-]
+from typing import (
+    Any as _Any,
+    final as _final
+)
+from types import MappingProxyType as _MappingProxyType
 
-import sources.graphics.sprite as JESprite
+from sources.interns.base_classes import JEInternClassBase as _JEInternClassBase
+
+@_final
+class JEImmutable(_JEInternClassBase):
+
+    def __init__(
+            self,
+            value: _Any
+        ) -> None:
+        super().__init__()
+
+        self._type: type = type(value)
+        self._mpt: _MappingProxyType = _MappingProxyType(value)
+
+    @property
+    def type(self) -> type:
+        return self._type
+
+    @property
+    def data(self) -> _Any:
+        return self._type(self._mpt)
+
+    def __str__(self) -> str:
+        return f"{self._type(self._mpt)} (Immutable)"
+
+    def __repr__(self) -> str:
+        return f"{self._type(self._mpt)!r} (Immutable)"

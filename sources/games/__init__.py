@@ -22,10 +22,14 @@
         It is a custom abstraction layer built on top of Pygame.
 """
 
+from __future__ import annotations
+
 __all__ = [
     "JEGame",
-    "JEWindow"
+    "JEWindow",
+    "JEEvent"
 ]
 
 from sources.games.window import JEWindow
 from sources.games.game import JEGame
+import sources.games.events as JEEvent

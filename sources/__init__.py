@@ -22,20 +22,46 @@
         It is a custom abstraction layer built on top of Pygame.
 """
 
+from __future__ import annotations
+
 __all__ = [
-    'Audios',
-    'Games',
-    'Graphics',
-    'Systems'
+    ##Imports##
+    'Interns',
+    #Audios
+    #Games
+    'JEEvent',
+    'JEGame',
+    'JEWindow',
+    #Graphics
+    'JESprite',
+    #Systems
+    'JEBool',
+    'JEColor',
+    'JEContainer',
+    'JEImmutable',
+    'JEVector',
+    ##Functions##
+    'init',
+    'quit',
+    ##Shortcuts##
+    'JETrue',
+    'JEFalse'
 ]
 
-import sources.audios as Audios
-import sources.games as Games
-import sources.graphics as Graphics
-import sources.systems as Systems
+##Imports##
+import sources.interns as Interns
+from sources.audios import *
+from sources.games import *
+from sources.graphics import *
+from sources.systems import *
 
+##Functions##
 def init() -> tuple[int, int]:
-    return Systems.JEInternPyGame.init()
+    return interns.JEInternPyGame.init()
 
 def quit() -> None:
-    Systems.JEInternPyGame.quit()
+    interns.JEInternPyGame.quit()
+
+##Shortcuts##
+JEFalse: JEBool = JEBool(0)
+JETrue: JEBool = JEBool(1)

@@ -24,8 +24,44 @@
 
 from __future__ import annotations
 
-__all__ = [
-    "JESprite"
-]
+from typing import final as _final
 
-import sources.graphics.sprite as JESprite
+from sources.interns.base_classes import JEInternClassBase as _JEInternClassBase
+
+@_final
+class JEColor(_JEInternClassBase):
+
+    def __init__(
+            self,
+            r: int = 0,
+            g: int = 0,
+            b: int = 0,
+            a: int = 0
+        ) -> None:
+        super().__init__()
+
+        self._color: list[int] = [r, g, b, a]
+
+    @property
+    def r(self) -> int:
+        return self._color[0]
+
+    @property
+    def g(self) -> int:
+        return self._color[1]
+
+    @property
+    def b(self) -> int:
+        return self._color[2]
+
+    @property
+    def a(self) -> int:
+        return self._color[3]
+
+    @property
+    def rgb(self) -> tuple[int, ...]:
+        return tuple(self._color[:3])
+
+    @property
+    def rgba(self) -> tuple[int, ...]:
+        return tuple(self._color)

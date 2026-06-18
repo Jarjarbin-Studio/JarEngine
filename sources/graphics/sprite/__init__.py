@@ -22,6 +22,8 @@
         It is a custom abstraction layer built on top of Pygame.
 """
 
+from __future__ import annotations
+
 __all__ = [
     
 ]

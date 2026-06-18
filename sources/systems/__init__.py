@@ -22,25 +22,18 @@
         It is a custom abstraction layer built on top of Pygame.
 """
 
+from __future__ import annotations
+
 __all__ = [
-    "JEInternPyGame",
-    "JEInternBaseClasses",
-    "JEInternClasses",
-    "JTKInternTime",
-    "JTKInternConsole",
-    "JTKInternAction",
-    "JTKInternError",
-    "JEInternLog",
-    "JEInternConfig"
+    'JEVector',
+    'JEColor',
+    'JEBool',
+    'JEContainer',
+    'JEImmutable'
 ]
 
-import pygame as JEInternPyGame
-import jarbin_toolkit_time as JTKInternTime
-import jarbin_toolkit_console as JTKInternConsole
-import jarbin_toolkit_action as JTKInternAction
-import jarbin_toolkit_error as JTKInternError
-
-import sources.systems.base_classes as JEInternBaseClasses
-import sources.systems.classes as JEInternClasses
-import sources.systems.log as JEInternLog
-import sources.systems.config as JEInternConfig
+import sources.systems.vector as JEVector
+from sources.systems.color import JEColor
+from sources.systems.bool import JEBool
+from sources.systems.container import JEContainer
+from sources.systems.immutable import JEImmutable

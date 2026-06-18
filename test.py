@@ -1,29 +1,24 @@
 import sources as JarEngine
 
-pg = JarEngine.Systems.JEInternPyGame
-
 JarEngine.init()
 
-game = JarEngine.Games.JEGame()
-game.set_window(JarEngine.Games.JEWindow())
+game = JarEngine.JEGame()
+game.set_window(JarEngine.JEWindow(size=(800, 600), title="JarEngine - Minimal Window"))
 
-s = JarEngine.Systems.JEInternClasses.JEInternClassGraphicalObject("my object")
-game.window.ressource.font.add(s)
+s = JarEngine.Interns.JEInternClasses.JEInternGraphicalObject("my object")
+game.wdw.ressource.font.add(s)
+
+def handle_exit(je_game, evt):
+    print(evt.dump())
+    je_game.close()
+
+exit_watcher = JarEngine.JEEvent.JEEventWatcher(JarEngine.JEEvent.JEEvtQuit, handle_exit)
+game.event.add(exit_watcher)
+
+while game.is_open:
+    game.wdw.fill((0, 0, 0))
+    game.update()
 
 print(game.dump())
-
-screen = pg.display.set_mode((800, 600))
-pg.display.set_caption("JarEngine - Minimal Window")
-
-running = True
-
-while running:
-    for event in pg.event.get():
-        if event.type == pg.QUIT:
-            running = False
-
-    screen.fill((0, 0, 0))
-
-    pg.display.flip()
 
 JarEngine.quit()
