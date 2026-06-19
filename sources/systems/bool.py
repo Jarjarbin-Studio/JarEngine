@@ -29,7 +29,7 @@ from typing import (
     final as _final,
     Self as _Self
 )
-from sources.interns.base_classes import JEInternClassBase as _JEInternClassBase
+from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
 
 @_final
 class JEBool(_JEInternClassBase):
@@ -60,3 +60,9 @@ class JEBool(_JEInternClassBase):
 
     def __bool__(self) -> bool:
         return self._bool
+
+    def __deepcopy__(
+            self,
+            memo
+        ):
+        return self

@@ -41,6 +41,6 @@ import jarbin_toolkit_console as JTKInternConsole
 import jarbin_toolkit_action as JTKInternAction
 import jarbin_toolkit_error as JTKInternError
 
-from sources.interns.base_classes import JEInternClassBase
+from sources.interns.base_classe import JEInternClassBase
 import sources.interns.classes as JEInternClasses
 import sources.interns.config as JEInternConfig

@@ -28,9 +28,44 @@ from typing import (
     Any as _Any,
     final as _final
 )
-from types import MappingProxyType as _MappingProxyType
+from copy import deepcopy as _deepcopy
 
-from sources.interns.base_classes import JEInternClassBase as _JEInternClassBase
+from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
+
+def _freeze(value: _Any) -> _Any:
+    if isinstance(value, (int, float, str, bool, bytes, type(None))):
+        return value
+
+    if isinstance(value, tuple):
+        return tuple(_freeze(v) for v in value)
+
+    if isinstance(value, list):
+        return tuple(_freeze(v) for v in value)
+
+    if isinstance(value, set):
+        return frozenset(_freeze(v) for v in value)
+
+    if isinstance(value, dict):
+        return frozenset(
+            (_freeze(k), _freeze(v))
+            for k, v in value.items()
+        )
+
+    return _deepcopy(value)
+
+
+def _unfreeze(value: _Any) -> _Any:
+    if isinstance(value, tuple):
+        return [_unfreeze(v) for v in value]
+
+    if isinstance(value, frozenset):
+        try:
+            return {k: _unfreeze(v) for k, v in value}
+        except Exception:
+            return set(_unfreeze(v) for v in value)
+
+    return value
+
 
 @_final
 class JEImmutable(_JEInternClassBase):
@@ -42,7 +77,7 @@ class JEImmutable(_JEInternClassBase):
         super().__init__()
 
         self._type: type = type(value)
-        self._mpt: _MappingProxyType = _MappingProxyType(value)
+        self._frozen: _Any = _freeze(value)
 
     @property
     def type(self) -> type:
@@ -50,10 +85,10 @@ class JEImmutable(_JEInternClassBase):
 
     @property
     def data(self) -> _Any:
-        return self._type(self._mpt)
+        return _unfreeze(self._frozen)
 
     def __str__(self) -> str:
-        return f"{self._type(self._mpt)} (Immutable)"
+        return f"{self._frozen} (Immutable)"
 
     def __repr__(self) -> str:
-        return f"{self._type(self._mpt)!r} (Immutable)"
+        return f"{self._frozen!r} (Immutable)"

@@ -29,7 +29,7 @@ from typing import (
     final as _final
 )
 
-from sources.interns.base_classes import JEInternClassBase as _JEInternClassBase
+from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
 from sources.interns.classes import JEInternGraphic as _JEInternGraphic
 from sources.interns.config import (
     JEInternConfig as _JEInternConfig,
@@ -95,6 +95,12 @@ class JEWindow(_JEInternClassBase):
 
     def fill(
             self,
-            color: _JEColor | tuple[int, int, int] | tuple[int, int, int]
+            color: _JEColor | tuple[int, int, int] | tuple[int, int, int, int]
         ) -> None:
         self._screen.fill(color.rgba if isinstance(color, _JEColor) else color)
+
+    def __deepcopy__(
+            self,
+            memo
+        ):
+        return self

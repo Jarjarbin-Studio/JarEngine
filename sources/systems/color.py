@@ -26,7 +26,7 @@ from __future__ import annotations
 
 from typing import final as _final
 
-from sources.interns.base_classes import JEInternClassBase as _JEInternClassBase
+from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
 
 @_final
 class JEColor(_JEInternClassBase):
@@ -65,3 +65,9 @@ class JEColor(_JEInternClassBase):
     @property
     def rgba(self) -> tuple[int, ...]:
         return tuple(self._color)
+
+    def __deepcopy__(
+            self,
+            memo
+        ):
+        return JEColor(*self._color)

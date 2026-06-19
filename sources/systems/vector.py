@@ -26,7 +26,7 @@ from __future__ import annotations
 
 from typing import final as _final
 
-from sources.interns.base_classes import JEInternClassBase as _JEInternClassBase
+from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
 
 @_final
 class JEVector2D(_JEInternClassBase):
@@ -47,6 +47,12 @@ class JEVector2D(_JEInternClassBase):
     @property
     def y(self) -> float:
         return self._vector[1]
+
+    def __deepcopy__(
+            self,
+            memo
+        ):
+        return JEVector2D(*self._vector)
 
 @_final
 class JEVector3D(_JEInternClassBase):
@@ -72,3 +78,9 @@ class JEVector3D(_JEInternClassBase):
     @property
     def z(self) -> float:
         return self._vector[2]
+
+    def __deepcopy__(
+            self,
+            memo
+        ):
+        return JEVector2D(*self._vector)

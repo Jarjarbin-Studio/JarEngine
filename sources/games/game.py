@@ -31,7 +31,7 @@ from typing import (
 
 from sources.games.window import JEWindow as _JEWindow
 from sources.games.events import JEEventHandler as _JEEventHandler
-from sources.interns.base_classes import JEInternClassBase as _JEInternClassBase
+from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
 from sources.interns.config import (
     JEInternConfig as _JEInternConfig,
     get_game_config as _get_game_config
@@ -108,3 +108,9 @@ class JEGame(_JEInternClassBase):
     def update(self) -> None:
         self._event_manager.process(self)
         _JEInternPyGame.display.flip()
+
+    def __deepcopy__(
+            self,
+            memo
+        ):
+        return self

@@ -30,12 +30,13 @@ from typing import (
     Self as _Self
 )
 
-from sources.interns.base_classes import JEInternClassBase as _JEInternClassBase
+from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
 from sources.interns import (
     JTKInternError as _JTKInternError,
     JEInternPyGame as _JEInternPyGame
 )
 from sources.systems.bool import JEBool as _JEBool
+from sources.systems.immutable import JEImmutable as _JEImmutable
 
 @_final
 class JEEventCode(_JEInternClassBase):
@@ -66,8 +67,20 @@ class JEEventCode(_JEInternClassBase):
         self._event: int = int(event)
         self._name: str = event_name
 
-    def __int__(self):
+    def __int__(self) -> int:
         return self._event
+
+    @property
+    def info(self) -> str:
+        code: int = self._event
+        name: str = self._name
+        return f"{code=}, {name=}"
+
+    def __deepcopy__(
+            self,
+            memo
+        ):
+        return self
 
     @staticmethod
     def get_name(
@@ -147,11 +160,11 @@ class JEEvent(_JEInternClassBase):
         self._event : _JEInternPyGame.event.Event = event
 
     @property
-    def type(self):
+    def type(self) -> int:
         return self._event.type
 
     @property
-    def name(self):
+    def name(self) -> str:
         return JEEventCode.get_name(self.type)
 
 @_final
@@ -197,6 +210,13 @@ class JEEventWatcher(_JEInternClassBase):
         ) -> None:
         self._do(game, event)
 
+    @property
+    def on(self) -> _JEImmutable:
+        return _JEImmutable(self._on)
+
+    @property
+    def do(self) -> str:
+        return f"{self._do.__name__}(JEGame, JEEvent)"
 
 @_final
 class JEEventHandler(_JEInternClassBase):
@@ -221,6 +241,10 @@ class JEEventHandler(_JEInternClassBase):
         JEEventHandler._is_created = _JEBool(1)
         super().__init__()
         self._watchers: list[JEEventWatcher] = []
+
+    @property
+    def watchers(self) -> _JEImmutable:
+        return _JEImmutable(self._watchers)
 
     def add(
             self,
@@ -272,3 +296,9 @@ class JEEventHandler(_JEInternClassBase):
             for watcher in self._watchers:
                 if watcher == event_code:
                     watcher(game, event)
+
+    def __deepcopy__(
+            self,
+            memo
+        ):
+        return self

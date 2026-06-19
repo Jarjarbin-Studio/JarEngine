@@ -27,7 +27,7 @@ from __future__ import annotations
 from typing import Callable as _Callable
 
 from sources.interns import JTKInternAction as _JTKInternAction
-from sources.interns.base_classes import JEInternClassBase as _JEInternClassBase
+from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
 from sources.systems.bool import JEBool as _JEBool
 
 class JEInternGraphic(_JEInternClassBase):

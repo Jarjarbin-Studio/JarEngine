@@ -27,7 +27,7 @@ from __future__ import annotations
 from typing import final as _final
 
 from sources.interns import JTKInternError as _JTKInternError
-from sources.interns.base_classes import JEInternClassBase as _JEInternClassBase
+from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
 from sources.systems.immutable import JEImmutable as _JEImmutable
 
 @_final
