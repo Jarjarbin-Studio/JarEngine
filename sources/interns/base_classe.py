@@ -78,22 +78,29 @@ class JEInternClassBase:
 
     def dump(
             self,
+            *,
             prefix: str = "",
             is_last: bool = True,
             is_root: bool = True,
             show_root: bool = True,
-            _visited: set | None = None
+            _visited: set | None = None,
+            _stack: set | None = None
     ) -> str:
-        lines = []
 
         if _visited is None:
             _visited = set()
 
-        obj_id = id(self)
-        if obj_id in _visited:
-            return f"{prefix} └─ <recursive {self.__class__.__name__}>"
+        if _stack is None:
+            _stack = set()
 
-        _visited.add(obj_id)
+        obj_id = id(self)
+
+        if obj_id in _stack:
+            return f"{prefix}└─ <recursive> {self.__class__.__name__}"
+
+        _stack.add(obj_id)
+
+        lines = []
 
         name = getattr(self, "name", None)
         class_name = self.__class__.__name__
@@ -101,15 +108,16 @@ class JEInternClassBase:
 
         if is_root and show_root:
             lines.append(label)
+        else:
+            connector = "└─ " if is_last else "├─ "
+            lines.append(f"{prefix}{connector}{label}")
 
         new_prefix = prefix + ("  " if is_last else "│ ")
 
-        public_attrs = {}
-        if hasattr(self, "__dict__"):
-            public_attrs = {
-                k: v for k, v in self.__dict__.items()
-                if not k.startswith("_")
-            }
+        public_attrs = {
+            k: v for k, v in getattr(self, "__dict__", {}).items()
+            if not k.startswith("_")
+        }
 
         props = {}
         for attr_name in dir(self.__class__):
@@ -125,8 +133,7 @@ class JEInternClassBase:
         items = list(all_attrs.items())
 
         def is_je_object(v):
-            return hasattr(v, "dump") and callable(getattr(v, "dump", None)) \
-                and isinstance(v, JEInternClassBase)
+            return isinstance(v, JEInternClassBase)
 
         def is_mapping(v):
             return isinstance(v, dict)
@@ -142,13 +149,15 @@ class JEInternClassBase:
                 lines.append(f"{new_prefix}{connector}{k} ({v.__class__.__name__})")
 
                 child_prefix = new_prefix + ("  " if last else "│ ")
+
                 lines.extend(
                     v.dump(
-                        child_prefix,
-                        is_last=True,
-                        is_root=False,
-                        show_root=False,
-                        _visited=_visited
+                        prefix = child_prefix,
+                        is_last = True,
+                        is_root = False,
+                        show_root = False,
+                        _visited = _visited,
+                        _stack = _stack
                     ).split("\n")
                 )
 
@@ -159,46 +168,45 @@ class JEInternClassBase:
 
                 for j, (sub_k, sub_v) in enumerate(v.items()):
                     sub_last = j == len(v) - 1
-                    sub_connector = " └─ " if sub_last else " ├─ "
+                    sub_connector = "└─ " if sub_last else "├─ "
 
                     if is_je_object(sub_v):
                         lines.append(f"{child_prefix}{sub_connector}{sub_k} ({sub_v.__class__.__name__})")
 
-                        sub_child_prefix = child_prefix + ("  " if sub_last else "│ ")
                         lines.extend(
                             sub_v.dump(
-                                sub_child_prefix,
-                                is_last=True,
-                                is_root=False,
-                                show_root=False,
-                                _visited=_visited
+                                prefix = child_prefix + ("  " if sub_last else "│ "),
+                                is_last = True,
+                                is_root = False,
+                                show_root = False,
+                                _visited = _visited,
+                                _stack = _stack
                             ).split("\n")
                         )
                     else:
                         lines.append(f"{child_prefix}{sub_connector}{sub_k} = {sub_v!r}")
 
             elif is_iterable(v):
+                v_list = list(v)
                 lines.append(f"{new_prefix}{connector}{k} = []")
 
                 child_prefix = new_prefix + ("  " if last else "│ ")
 
-                v_list = list(v)
-
                 for j, sub_v in enumerate(v_list):
                     sub_last = j == len(v_list) - 1
-                    sub_connector = " └─ " if sub_last else " ├─ "
+                    sub_connector = "└─ " if sub_last else "├─ "
 
                     if is_je_object(sub_v):
                         lines.append(f"{child_prefix}{sub_connector}[{j}] ({sub_v.__class__.__name__})")
 
-                        sub_child_prefix = child_prefix + ("  " if sub_last else "│ ")
                         lines.extend(
                             sub_v.dump(
-                                sub_child_prefix,
-                                is_last=True,
-                                is_root=False,
-                                show_root=False,
-                                _visited=_visited
+                                prefix = child_prefix + ("  " if sub_last else "│ "),
+                                is_last = True,
+                                is_root = False,
+                                show_root = False,
+                                _visited = _visited,
+                                _stack = _stack
                             ).split("\n")
                         )
                     else:
@@ -206,5 +214,7 @@ class JEInternClassBase:
 
             else:
                 lines.append(f"{new_prefix}{connector}{k} = {v!r}")
+
+        _stack.remove(obj_id)
 
         return "\n".join(lines)

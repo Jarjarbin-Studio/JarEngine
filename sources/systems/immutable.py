@@ -28,6 +28,7 @@ from typing import (
     Any as _Any,
     final as _final
 )
+from builtins import type as _type
 from copy import deepcopy as _deepcopy
 
 from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
@@ -80,7 +81,7 @@ class JEImmutable(_JEInternClassBase):
         self._frozen: _Any = _freeze(value)
 
     @property
-    def type(self) -> type:
+    def type(self) -> _type:
         return self._type
 
     @property
@@ -92,3 +93,154 @@ class JEImmutable(_JEInternClassBase):
 
     def __repr__(self) -> str:
         return f"{self._frozen!r} (Immutable)"
+
+    def __call__(self) -> _Any:
+        data = self.data
+
+        try:
+            if self._type in (list, tuple, set, dict):
+                return self._type(data)
+
+            return data
+
+        except Exception as err:
+            raise TypeError(
+                f"JEImmutable: cannot safely reconstruct {self._type.__name__}"
+            ) from err
+
+    def __iter__(self) -> _Any:
+        data = self.data
+
+        if not hasattr(data, "__iter__"):
+            raise TypeError(
+                f"JEImmutable: {self._type.__name__} is not iterable"
+            )
+
+        return iter(data)
+
+    def __len__(self) -> int:
+        value = self.data
+
+        if not hasattr(value, "__len__"):
+            raise TypeError(f"{self._type.__name__} has no len()")
+
+        return len(value)
+
+    def __getitem__(
+            self,
+            item
+        ) -> _Any:
+        value = self.data
+
+        if not hasattr(value, "__getitem__"):
+            raise TypeError(f"{self._type.__name__} is not indexable")
+
+        return value[item]
+
+    def __contains__(
+            self,
+            item: _Any
+        ) -> bool:
+        return item in self.data
+
+    def __bool__(self) -> bool:
+        return bool(self.data)
+
+    def __reversed__(self) -> _Any:
+        value = self.data
+
+        if not hasattr(value, "__reversed__"):
+            raise TypeError(f"{self._type.__name__} is not reversible")
+
+        return reversed(value)
+
+    def count(
+            self,
+            value: _Any
+        ) -> int:
+        data = self.data
+        if not hasattr(data, "count"):
+            raise TypeError(f"{self._type.__name__} has no count()")
+        return data.count(value)
+
+    def index(
+            self,
+            value: _Any
+        ) -> int:
+        data = self.data
+        if not hasattr(data, "index"):
+            raise TypeError(f"{self._type.__name__} has no index()")
+        return data.index(value)
+
+    def keys(self) -> _Any:
+        value = self.data
+        if not hasattr(value, "keys"):
+            raise TypeError(f"{self._type.__name__} is not a mapping")
+        return value.keys()
+
+    def values(self) -> _Any:
+        value = self.data
+        if not hasattr(value, "values"):
+            raise TypeError(f"{self._type.__name__} is not a mapping")
+        return value.values()
+
+    def items(self) -> _Any:
+        value = self.data
+        if not hasattr(value, "items"):
+            raise TypeError(f"{self._type.__name__} is not a mapping")
+        return value.items()
+
+    def get(
+            self,
+            key: _Any,
+            default: _Any = None
+        ) -> _Any:
+        value = self.data
+        if not hasattr(value, "get"):
+            raise TypeError(f"{self._type.__name__} has no get()")
+        return value.get(key, default)
+
+    def map(
+            self,
+            func
+        ) -> list:
+        return list(map(func, self.data))
+
+    def filter(
+            self,
+            func
+        ) -> list:
+        return list(filter(func, self.data))
+
+    def any(self) -> bool:
+        return any(self.data)
+
+    def all(self) -> bool:
+        return all(self.data)
+
+    def to_list(self) -> list:
+        value = self.data
+        if isinstance(value, (list, tuple, set)):
+            return list(value)
+        raise TypeError(f"{self._type.__name__} cannot be converted to list")
+
+    def to_dict(self) -> dict:
+        value = self.data
+        if isinstance(value, dict):
+            return dict(value)
+        raise TypeError(f"{self._type.__name__} cannot be converted to dict")
+
+    def clone(self) -> JEImmutable:
+        return JEImmutable(self.data)
+
+    def __eq__(
+            self,
+            other: _Any
+        ) -> bool:
+        return self.data == other
+
+    def __ne__(
+            self,
+            other: _Any
+        ) -> bool:
+        return self.data != other

@@ -36,118 +36,210 @@ from sources.interns import (
     JEInternPyGame as _JEInternPyGame
 )
 from sources.systems.bool import JEBool as _JEBool
-from sources.systems.immutable import JEImmutable as _JEImmutable
 
 @_final
 class JEEventCode(_JEInternClassBase):
 
     _instances: dict[int, _Self] = {}
+    _name_cache: dict[int, str] = {}
+
+    @classmethod
+    def _build_cache(cls) -> None:
+        if cls._name_cache:
+            return
+
+        cls._name_cache[_JEInternPyGame.QUIT] = "Quit"
+        cls._name_cache[_JEInternPyGame.HIDDEN] = "Hidden"
 
     def __new__(
             cls,
-            event: int,
-            event_name: str
+            event: int | None = None
         ) -> _Self:
+        if event is None:
+            return super().__new__(cls)
 
         if event not in cls._instances:
-            instance = super().__new__(cls)
-            cls._instances[event] = instance
+            cls._instances[event] = super().__new__(cls)
 
         return cls._instances[event]
 
     def __init__(
             self,
-            event: int,
-            event_name: str
+            event: int | None = None
         ) -> None:
-        if hasattr(self, "_initialized"):
+        if hasattr(self, "_initialized") or event is None:
             return
 
         super().__init__()
-        self._event: int = int(event)
-        self._name: str = event_name
+        self._event = int(event)
+        self._build_cache()
+        self._name = self._name_cache.get(self._event, f"Unknown({self._event})")
+        self._initialized = True
 
     def __int__(self) -> int:
         return self._event
 
     @property
-    def info(self) -> str:
-        code: int = self._event
-        name: str = self._name
-        return f"{code=}, {name=}"
+    def name(self) -> str:
+        return self._name
 
-    def __deepcopy__(
+JEEvtQuit: JEEventCode = JEEventCode(_JEInternPyGame.QUIT)
+JEEvtHidden: JEEventCode = JEEventCode(_JEInternPyGame.HIDDEN)
+JEEvtKeyDown: JEEventCode = JEEventCode(_JEInternPyGame.KEYDOWN)
+JEEvtMouseButtonDown: JEEventCode = JEEventCode(_JEInternPyGame.MOUSEBUTTONDOWN)
+
+@_final
+class JEKey(_JEInternClassBase):
+
+    _instances: dict[int, _Self] = {}
+    _cache: dict[int, str] = {}
+
+    @classmethod
+    def _build_cache(cls) -> None:
+        if cls._cache:
+            return
+
+        for c in range(ord("a"), ord("z") + 1):
+            code = getattr(_JEInternPyGame, f"K_{chr(c)}")
+            cls._cache[code] = chr(c).upper()
+
+        for i in range(10):
+            code = getattr(_JEInternPyGame, f"K_{i}")
+            cls._cache[code] = str(i)
+
+        cls._cache.update({
+            _JEInternPyGame.K_RETURN: "ENTER",
+            _JEInternPyGame.K_BACKSPACE: "BACKSPACE",
+            _JEInternPyGame.K_DELETE: "DELETE",
+            _JEInternPyGame.K_TAB: "TAB",
+            _JEInternPyGame.K_ESCAPE: "ESCAPE",
+            _JEInternPyGame.K_UP: "UP",
+            _JEInternPyGame.K_DOWN: "DOWN",
+            _JEInternPyGame.K_LEFT: "LEFT",
+            _JEInternPyGame.K_RIGHT: "RIGHT",
+        })
+
+    def __new__(
+            cls,
+            key: int
+        ) -> _Self:
+        if key not in cls._instances:
+            cls._instances[key] = super().__new__(cls)
+        return cls._instances[key]
+
+    def __init__(
             self,
-            memo
-        ):
-        return self
+            key: int
+        ) -> None:
+        if hasattr(self, "_initialized"):
+            return
 
-    @staticmethod
-    def get_name(
-            event: int,
-            *,
-            error: _JEBool = _JEBool(1)
-        ) -> str:
-        for k in JEEventCode._instances:
-            if k == event:
-                return JEEventCode._instances[k]._name
+        super().__init__()
+        self._key = int(key)
+        self._build_cache()
+        self._name = self._cache.get(self._key, f"UNKNOWN_KEY({self._key})")
+        self._initialized = True
 
-        if error:
-            raise _JTKInternError.Error.ErrorType(
-                "\nevent not available in current version of JarEngine."
-            )
-        return "event not available in current version of JarEngine."
+    @property
+    def name(self) -> str:
+        return self._name
 
-JEEvtQuit = JEEventCode(_JEInternPyGame.QUIT, "Quit")
-JEEvtButtonLeft = JEEventCode(_JEInternPyGame.BUTTON_LEFT, "ButtonLeft")
-JEEvtButtonMiddle = JEEventCode(_JEInternPyGame.BUTTON_MIDDLE, "ButtonMiddle")
-JEEvtButtonRight = JEEventCode(_JEInternPyGame.BUTTON_RIGHT, "ButtonRight")
-JEEvtHidden = JEEventCode(_JEInternPyGame.HIDDEN, "Hidden")
-JEEvtKey_A = JEEventCode(_JEInternPyGame.K_a, "Key_A")
-JEEvtKey_B = JEEventCode(_JEInternPyGame.K_b, "Key_B")
-JEEvtKey_C = JEEventCode(_JEInternPyGame.K_c, "Key_C")
-JEEvtKey_D = JEEventCode(_JEInternPyGame.K_d, "Key_D")
-JEEvtKey_E = JEEventCode(_JEInternPyGame.K_e, "Key_E")
-JEEvtKey_F = JEEventCode(_JEInternPyGame.K_f, "Key_F")
-JEEvtKey_G = JEEventCode(_JEInternPyGame.K_g, "Key_G")
-JEEvtKey_H = JEEventCode(_JEInternPyGame.K_h, "Key_H")
-JEEvtKey_I = JEEventCode(_JEInternPyGame.K_i, "Key_I")
-JEEvtKey_J = JEEventCode(_JEInternPyGame.K_j, "Key_J")
-JEEvtKey_K = JEEventCode(_JEInternPyGame.K_k, "Key_K")
-JEEvtKey_L = JEEventCode(_JEInternPyGame.K_l, "Key_L")
-JEEvtKey_M = JEEventCode(_JEInternPyGame.K_m, "Key_M")
-JEEvtKey_N = JEEventCode(_JEInternPyGame.K_n, "Key_N")
-JEEvtKey_O = JEEventCode(_JEInternPyGame.K_o, "Key_O")
-JEEvtKey_P = JEEventCode(_JEInternPyGame.K_p, "Key_P")
-JEEvtKey_Q = JEEventCode(_JEInternPyGame.K_q, "Key_Q")
-JEEvtKey_R = JEEventCode(_JEInternPyGame.K_r, "Key_R")
-JEEvtKey_S = JEEventCode(_JEInternPyGame.K_s, "Key_S")
-JEEvtKey_T = JEEventCode(_JEInternPyGame.K_t, "Key_T")
-JEEvtKey_U = JEEventCode(_JEInternPyGame.K_u, "Key_U")
-JEEvtKey_V = JEEventCode(_JEInternPyGame.K_v, "Key_V")
-JEEvtKey_W = JEEventCode(_JEInternPyGame.K_w, "Key_W")
-JEEvtKey_X = JEEventCode(_JEInternPyGame.K_x, "Key_X")
-JEEvtKey_Y = JEEventCode(_JEInternPyGame.K_y, "Key_Y")
-JEEvtKey_Z = JEEventCode(_JEInternPyGame.K_z, "Key_Z")
-JEEvtKey_0 = JEEventCode(_JEInternPyGame.K_0, "Key_0")
-JEEvtKey_1 = JEEventCode(_JEInternPyGame.K_1, "Key_1")
-JEEvtKey_2 = JEEventCode(_JEInternPyGame.K_2, "Key_2")
-JEEvtKey_3 = JEEventCode(_JEInternPyGame.K_3, "Key_3")
-JEEvtKey_4 = JEEventCode(_JEInternPyGame.K_4, "Key_4")
-JEEvtKey_5 = JEEventCode(_JEInternPyGame.K_5, "Key_5")
-JEEvtKey_6 = JEEventCode(_JEInternPyGame.K_6, "Key_6")
-JEEvtKey_7 = JEEventCode(_JEInternPyGame.K_7, "Key_7")
-JEEvtKey_8 = JEEventCode(_JEInternPyGame.K_8, "Key_8")
-JEEvtKey_9 = JEEventCode(_JEInternPyGame.K_9, "Key_9")
-JEEvtKey_Enter = JEEventCode(_JEInternPyGame.K_RETURN, "Key_Enter")
-JEEvtKey_Backspace = JEEventCode(_JEInternPyGame.K_BACKSPACE, "Key_Backspace")
-JEEvtKey_Delete = JEEventCode(_JEInternPyGame.K_DELETE, "Key_Delete")
-JEEvtKey_Tab = JEEventCode(_JEInternPyGame.K_TAB, "Key_Tab")
-JEEvtKey_Escape = JEEventCode(_JEInternPyGame.K_ESCAPE, "Key_Escape")
-JEEvtKey_Up = JEEventCode(_JEInternPyGame.K_UP, "Key_Up")
-JEEvtKey_Down = JEEventCode(_JEInternPyGame.K_DOWN, "Key_Down")
-JEEvtKey_Left = JEEventCode(_JEInternPyGame.K_LEFT, "Key_Left")
-JEEvtKey_Right = JEEventCode(_JEInternPyGame.K_RIGHT, "Key_Right")
+    def __int__(self) -> int:
+        return self._key
+
+    def __eq__(self, other):
+        return int(self) == int(other)
+
+JEKey_A: JEKey = JEKey(_JEInternPyGame.K_a)
+JEKey_B: JEKey = JEKey(_JEInternPyGame.K_b)
+JEKey_C: JEKey = JEKey(_JEInternPyGame.K_c)
+JEKey_D: JEKey = JEKey(_JEInternPyGame.K_d)
+JEKey_E: JEKey = JEKey(_JEInternPyGame.K_e)
+JEKey_F: JEKey = JEKey(_JEInternPyGame.K_f)
+JEKey_G: JEKey = JEKey(_JEInternPyGame.K_g)
+JEKey_H: JEKey = JEKey(_JEInternPyGame.K_h)
+JEKey_I: JEKey = JEKey(_JEInternPyGame.K_i)
+JEKey_J: JEKey = JEKey(_JEInternPyGame.K_j)
+JEKey_K: JEKey = JEKey(_JEInternPyGame.K_k)
+JEKey_L: JEKey = JEKey(_JEInternPyGame.K_l)
+JEKey_M: JEKey = JEKey(_JEInternPyGame.K_m)
+JEKey_N: JEKey = JEKey(_JEInternPyGame.K_n)
+JEKey_O: JEKey = JEKey(_JEInternPyGame.K_o)
+JEKey_P: JEKey = JEKey(_JEInternPyGame.K_p)
+JEKey_Q: JEKey = JEKey(_JEInternPyGame.K_q)
+JEKey_R: JEKey = JEKey(_JEInternPyGame.K_r)
+JEKey_S: JEKey = JEKey(_JEInternPyGame.K_s)
+JEKey_T: JEKey = JEKey(_JEInternPyGame.K_t)
+JEKey_U: JEKey = JEKey(_JEInternPyGame.K_u)
+JEKey_V: JEKey = JEKey(_JEInternPyGame.K_v)
+JEKey_W: JEKey = JEKey(_JEInternPyGame.K_w)
+JEKey_X: JEKey = JEKey(_JEInternPyGame.K_x)
+JEKey_Y: JEKey = JEKey(_JEInternPyGame.K_y)
+JEKey_Z: JEKey = JEKey(_JEInternPyGame.K_z)
+JEKey_0: JEKey = JEKey(_JEInternPyGame.K_0)
+JEKey_1: JEKey = JEKey(_JEInternPyGame.K_1)
+JEKey_2: JEKey = JEKey(_JEInternPyGame.K_2)
+JEKey_3: JEKey = JEKey(_JEInternPyGame.K_3)
+JEKey_4: JEKey = JEKey(_JEInternPyGame.K_4)
+JEKey_5: JEKey = JEKey(_JEInternPyGame.K_5)
+JEKey_6: JEKey = JEKey(_JEInternPyGame.K_6)
+JEKey_7: JEKey = JEKey(_JEInternPyGame.K_7)
+JEKey_8: JEKey = JEKey(_JEInternPyGame.K_8)
+JEKey_9: JEKey = JEKey(_JEInternPyGame.K_9)
+JEKey_Enter: JEKey = JEKey(_JEInternPyGame.K_RETURN)
+JEKey_Backspace: JEKey = JEKey(_JEInternPyGame.K_BACKSPACE)
+JEKey_Delete: JEKey = JEKey(_JEInternPyGame.K_DELETE)
+JEKey_Tab: JEKey = JEKey(_JEInternPyGame.K_TAB)
+JEKey_Escape: JEKey = JEKey(_JEInternPyGame.K_ESCAPE,)
+JEKey_Up: JEKey = JEKey(_JEInternPyGame.K_UP)
+JEKey_Down: JEKey = JEKey(_JEInternPyGame.K_DOWN)
+JEKey_Left: JEKey = JEKey(_JEInternPyGame.K_LEFT)
+JEKey_Right: JEKey = JEKey(_JEInternPyGame.K_RIGHT)
+
+@_final
+class JEMouse(_JEInternClassBase):
+
+    _instances: dict[int, _Self] = {}
+
+    _cache = {
+        _JEInternPyGame.BUTTON_LEFT: "LEFT",
+        _JEInternPyGame.BUTTON_MIDDLE: "MIDDLE",
+        _JEInternPyGame.BUTTON_RIGHT: "RIGHT",
+    }
+
+    def __new__(
+            cls,
+            button: int
+        ) -> _Self:
+        if button not in cls._instances:
+            cls._instances[button] = super().__new__(cls)
+        return cls._instances[button]
+
+    def __init__(
+            self,
+            button: int
+        ) -> None:
+        if hasattr(self, "_initialized"):
+            return
+
+        super().__init__()
+        self._button = int(button)
+        self._name = self._cache.get(self._button, f"BUTTON_{self._button}")
+        self._initialized = True
+
+    @property
+    def name(self) -> str:
+        return self._name
+
+    def __int__(self) -> int:
+        return self._button
+
+    def __eq__(self, other):
+        return int(self) == int(other)
+
+JEMouse_Left: JEMouse = JEMouse(_JEInternPyGame.BUTTON_LEFT)
+JEMouse_Middle: JEMouse = JEMouse(_JEInternPyGame.BUTTON_MIDDLE)
+JEMouse_Right: JEMouse = JEMouse(_JEInternPyGame.BUTTON_RIGHT)
 
 @_final
 class JEEvent(_JEInternClassBase):
@@ -157,62 +249,75 @@ class JEEvent(_JEInternClassBase):
             event: _JEInternPyGame.event.Event
         ) -> None:
         super().__init__()
-        self._event : _JEInternPyGame.event.Event = event
+        self._event = event
+
+        self._type: int = event.type
+        self._key: int | None = getattr(event, "key", None)
+        self._button: int | None = getattr(event, "button", None)
+        self._pos = getattr(event, "pos", None)
 
     @property
-    def type(self) -> int:
-        return self._event.type
+    def type_code(self) -> JEEventCode:
+        return JEEventCode(self._type)
 
     @property
-    def name(self) -> str:
-        return JEEventCode.get_name(self.type)
+    def key_code(self) -> JEKey | None:
+        return JEKey(self._key) if self._key is not None else None
+
+    @property
+    def mouse_code(self) -> JEMouse | None:
+        return JEMouse(self._button) if self._button is not None else None
 
 @_final
 class JEEventWatcher(_JEInternClassBase):
 
     def __init__(
-            self,
-            on: JEEventCode,
-            do: _Callable[["JEGame", JEEvent], None],
-        ) -> None:
-        if not isinstance(on, JEEventCode):
-            raise _JTKInternError.Error.ErrorType(
-                "\non must be JEEventCode."
-            )
+        self,
+        on: JEEventCode | JEKey | JEMouse | list[JEEventCode | JEKey | JEMouse],
+        do: _Callable[["JEGame", JEEvent], None],
+    ) -> None:
 
-        if not isinstance(do, _Callable):
+        if not isinstance(on, (JEEventCode, JEKey, JEMouse, list)):
             raise _JTKInternError.Error.ErrorType(
-                "\ndo must be Callable."
+                "on must be JEEventCode, JEKey, JEMouse or list"
             )
 
         super().__init__()
-        self._on : JEEventCode = on
-        self._do : _Callable[["JEGame", JEEvent], None] = do
+        self._on = on if isinstance(on, list) else [on]
+        self._do = do
 
-    def __int__(self) -> int:
-        return int(self._on)
+    def _match_rule(self, rule, event: JEEvent) -> _JEBool:
+        if isinstance(rule, JEEventCode):
+            return _JEBool(event.type_code == rule)
 
-    def __eq__(
-            self,
-            other: JEEventCode
-        ) -> _JEBool:
-        if not isinstance(other, JEEventCode):
-            raise _JTKInternError.Error.ErrorType(
-                "\nJEEventWatcher must be compared with JEEvent."
+        if isinstance(rule, JEKey):
+            return _JEBool(
+                event.type_code == JEEvtKeyDown
+                and event.key_code is not None
+                and event.key_code == rule
             )
 
-        return _JEBool(int(self._on) == int(other))
+        if isinstance(rule, JEMouse):
+            return _JEBool(
+                event.type_code == JEEvtMouseButtonDown
+                and event.mouse_code is not None
+                and event.mouse_code == rule
+            )
 
-    def __call__(
-            self,
-            game: "JEGame",
-            event: JEEvent
-        ) -> None:
+        return _JEBool(0)
+
+    def match(self, event: JEEvent) -> bool:
+        for rule in self._on:
+            if self._match_rule(rule, event):
+                return True
+        return False
+
+    def __call__(self, game: "JEGame", event: JEEvent) -> None:
         self._do(game, event)
 
     @property
-    def on(self) -> _JEImmutable:
-        return _JEImmutable(self._on)
+    def on(self) -> list[JEEventCode | JEKey | JEMouse]:
+        return self._on
 
     @property
     def do(self) -> str:
@@ -243,8 +348,8 @@ class JEEventHandler(_JEInternClassBase):
         self._watchers: list[JEEventWatcher] = []
 
     @property
-    def watchers(self) -> _JEImmutable:
-        return _JEImmutable(self._watchers)
+    def watchers(self) -> list[JEEventWatcher]:
+        return self._watchers
 
     def add(
             self,
@@ -287,14 +392,11 @@ class JEEventHandler(_JEInternClassBase):
         return list(self._watchers)
 
     def process(self, game: "JEGame") -> None:
-        events = _JEInternPyGame.event.get()
+        events: list[JEEvent] = [JEEvent(evt) for evt in _JEInternPyGame.event.get()]
 
-        for raw_event in events:
-            event = JEEvent(raw_event)
-            event_code = JEEventCode(event.type, JEEventCode.get_name(event.type, error=_JEBool(0)))
-
+        for event in events:
             for watcher in self._watchers:
-                if watcher == event_code:
+                if watcher.match(event):
                     watcher(game, event)
 
     def __deepcopy__(
