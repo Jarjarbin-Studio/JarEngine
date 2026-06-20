@@ -27,9 +27,15 @@ from __future__ import annotations
 __all__ = [
     "JEGame",
     "JEWindow",
-    "JEEvent"
+    "JEEventManager",
+    "JEEvent",
+    "JEKeyboard",
+    "JEMouse"
 ]
 
 from sources.games.window import JEWindow
 from sources.games.game import JEGame
-import sources.games.events as JEEvent
+import sources.games.events_manager as JEEventManager
+import sources.games.event as JEEvent
+import sources.games.keyboard as JEKeyboard
+import sources.games.mouse as JEMouse

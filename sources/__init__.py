@@ -26,20 +26,24 @@ from __future__ import annotations
 
 __all__ = [
     ##Imports##
+    #Interns
     'Interns',
     #Audios
     #Games
-    'JEEvent',
-    'JEGame',
-    'JEWindow',
+    "JEGame",
+    "JEWindow",
+    "JEEventManager",
+    "JEEvent",
+    "JEKeyboard",
+    "JEMouse",
     #Graphics
     'JESprite',
     #Systems
-    'JEBool',
+    'JEVector',
     'JEColor',
+    'JEBool',
     'JEContainer',
     'JEImmutable',
-    'JEVector',
     ##Functions##
     'init',
     'quit',

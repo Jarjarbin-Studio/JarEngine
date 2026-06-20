@@ -30,7 +30,7 @@ from typing import (
 )
 
 from sources.games.window import JEWindow as _JEWindow
-from sources.games.events import JEEventHandler as _JEEventHandler
+from sources.games.events_manager import JEEventHandler as _JEEventHandler
 from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
 from sources.interns.config import (
     JEInternConfig as _JEInternConfig,
