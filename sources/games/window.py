@@ -32,8 +32,9 @@ from typing import (
 from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
 from sources.interns import (
     JTKInternError as _JTKInternError,
-    PGIntern as _PyGameIntern
+    PGIntern as _PGIntern
 )
+from sources.interns.high_classes import JEInternWindowSettings as _JEInternWindowSettings
 from sources.systems.color import JEColor as _JEColor
 from sources.systems.bool import JEBool as _JEBool
 from sources.interns.decorators import documentation as _documentation
@@ -65,6 +66,7 @@ class JEWindow(_JEInternClassBase):
             *,
             size: tuple[int, int] = (0, 0),
             flags: int = 0,
+            fps: int = 60,
             depth: int = 0,
             display: int = 0,
             vsync: int = 0,
@@ -76,14 +78,20 @@ class JEWindow(_JEInternClassBase):
             return
         JEWindow._is_created = _JEBool(1)
         super().__init__()
-        self._screen: _PyGameIntern.Surface = _PyGameIntern.display.set_mode(size, flags, depth, display, vsync)
-        self._event: list[_PyGameIntern.event.Event] = []
-        _PyGameIntern.display.set_caption(title)
+        self._settings: _JEInternWindowSettings = _JEInternWindowSettings(size, flags, fps, depth, display, vsync, title)
+        self._screen: _PGIntern.Surface = _PGIntern.display.set_mode(size, flags, depth, display, vsync)
+        self._event: list[_PGIntern.event.Event] = []
+        _PGIntern.display.set_caption(title)
 
     @property
-    def screen(self) -> _PyGameIntern.Surface:
+    def screen(self) -> _PGIntern.Surface:
         """Get screen surface (PGIntern)"""
         return self._screen
+
+    @property
+    def settings(self) -> _JEInternWindowSettings:
+        """Get settings"""
+        return self._settings
 
     def fill(
             self,

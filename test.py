@@ -4,12 +4,13 @@ import sources as JarEngine
 JarEngine.Init()
 
 class Game:
+
     game: JarEngine.JEGame
 
     @staticmethod
     def init():
         Game.game = JarEngine.JEGame()
-        Game.game.set_window(JarEngine.JEWindow(size=(800, 600), title="JarEngine - Minimal Window"))
+        Game.game.set_window(JarEngine.JEWindow(size=(800, 600), fps=100, title="JarEngine - Minimal Window"))
 
         Game.game.ressource.texture.add(JarEngine.JETexture("JarEngineLogo.png"))
 
@@ -41,31 +42,30 @@ class Events:
     @staticmethod
     def init():
         Game.game.event.add(JarEngine.Event.JEEventWatcher(
-            JarEngine.Event.JEEvtQuit,
+            JarEngine.JEEvtQuit,
             Events.exit
         ))
-        Game.game.event.add(JarEngine.Keyboard.JEKeyWatcher(
-            JarEngine.Keyboard.JEKey_Up |
-            JarEngine.Keyboard.JEKey_Down |
-            JarEngine.Keyboard.JEKey_Left |
-            JarEngine.Keyboard.JEKey_Right,
-            Events.move
+        Game.game.event.add(JarEngine.EventKeyboard.JEKeyWatcher(
+            JarEngine.JEKey_Escape | JarEngine.JEKey_Delete,
+            Events.exit
         ))
 
     @staticmethod
     def exit(je_game, evt):
         je_game.close()
 
+class Input:
+
     @staticmethod
-    def move(je_game, evt):
-        if evt.key == JarEngine.Keyboard.JEKey_Up:
-            Sprites.sprite2.move(0, -1)
-        if evt.key == JarEngine.Keyboard.JEKey_Down:
-            Sprites.sprite2.move(0, 1)
-        if evt.key == JarEngine.Keyboard.JEKey_Left:
-            Sprites.sprite2.move(-1, 0)
-        if evt.key == JarEngine.Keyboard.JEKey_Right:
-            Sprites.sprite2.move(1, 0)
+    def move():
+        if Game.game.is_key_down(JarEngine.JEKey_Up):
+            Sprites.sprite2.move(dy=-100 * Game.game.dt)
+        if Game.game.is_key_down(JarEngine.JEKey_Down):
+            Sprites.sprite2.move(dy=100 * Game.game.dt)
+        if Game.game.is_key_down(JarEngine.JEKey_Left):
+            Sprites.sprite2.move(dx=-100 * Game.game.dt)
+        if Game.game.is_key_down(JarEngine.JEKey_Right):
+            Sprites.sprite2.move(dx=100 * Game.game.dt)
 
 Game.init()
 Sprites.init()
@@ -73,6 +73,7 @@ Events.init()
 
 while Game.game.is_open:
     Game.game.update()
+    Input.move()
     Sprites.sprite1.position = (randint(0, 700), randint(0, 500))
     Game.game.wdw.fill((0, 0, 0))
     Game.game.draw()

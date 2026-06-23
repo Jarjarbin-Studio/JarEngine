@@ -30,18 +30,13 @@ from typing import (
     Self as _Self
 )
 
-from sources.games.event import (
-    JEEventCode as _JEEventCode,
-    JEEvtKeyUp as _JEEvtKeyUp,
-    JEEvtKeyDown as _JEEvtKeyDown
-)
+from sources.events.event import JEEventCode as _JEEventCode
 from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
 from sources.interns import (
-    PGIntern as _PyGameIntern,
+    PGIntern as _PGIntern,
     JTKInternError as _JTKInternError
 )
 from sources.systems.bool import JEBool as _JEBool
-
 from sources.interns.decorators import documentation as _documentation
 
 @_documentation
@@ -58,23 +53,23 @@ class JEKeyCode(_JEInternClassBase):
             return
 
         for c in range(ord("a"), ord("z") + 1):
-            code = getattr(_PyGameIntern, f"K_{chr(c)}")
+            code = getattr(_PGIntern, f"K_{chr(c)}")
             cls._name_cache[code] = chr(c).upper()
 
         for i in range(10):
-            code = getattr(_PyGameIntern, f"K_{i}")
+            code = getattr(_PGIntern, f"K_{i}")
             cls._name_cache[code] = str(i)
 
         cls._name_cache.update({
-            _PyGameIntern.K_RETURN: "ENTER",
-            _PyGameIntern.K_BACKSPACE: "BACKSPACE",
-            _PyGameIntern.K_DELETE: "DELETE",
-            _PyGameIntern.K_TAB: "TAB",
-            _PyGameIntern.K_ESCAPE: "ESCAPE",
-            _PyGameIntern.K_UP: "UP",
-            _PyGameIntern.K_DOWN: "DOWN",
-            _PyGameIntern.K_LEFT: "LEFT",
-            _PyGameIntern.K_RIGHT: "RIGHT",
+            _PGIntern.K_RETURN: "ENTER",
+            _PGIntern.K_BACKSPACE: "BACKSPACE",
+            _PGIntern.K_DELETE: "DELETE",
+            _PGIntern.K_TAB: "TAB",
+            _PGIntern.K_ESCAPE: "ESCAPE",
+            _PGIntern.K_UP: "UP",
+            _PGIntern.K_DOWN: "DOWN",
+            _PGIntern.K_LEFT: "LEFT",
+            _PGIntern.K_RIGHT: "RIGHT",
         })
 
     def __new__(
@@ -203,9 +198,9 @@ class JEKeyWatcher(_JEInternClassBase):
             )
         )
         self._on_param: _JEEventCode = (
-            _JEEvtKeyDown
+            _JEEventCode(_PGIntern.KEYDOWN)
             if on_press else
-            _JEEvtKeyUp
+            _JEEventCode(_PGIntern.KEYUP)
         )
         self._do: _Callable[["JEGame", "JEEvent"], None] = do
 
@@ -235,49 +230,3 @@ class JEKeyWatcher(_JEInternClassBase):
     def do(self) -> str:
         """Get seved function (as str)"""
         return f"{self._do.__name__}(JEGame, JEEvent)"
-
-JEKey_A: JEKeyCode = JEKeyCode(_PyGameIntern.K_a)
-JEKey_B: JEKeyCode = JEKeyCode(_PyGameIntern.K_b)
-JEKey_C: JEKeyCode = JEKeyCode(_PyGameIntern.K_c)
-JEKey_D: JEKeyCode = JEKeyCode(_PyGameIntern.K_d)
-JEKey_E: JEKeyCode = JEKeyCode(_PyGameIntern.K_e)
-JEKey_F: JEKeyCode = JEKeyCode(_PyGameIntern.K_f)
-JEKey_G: JEKeyCode = JEKeyCode(_PyGameIntern.K_g)
-JEKey_H: JEKeyCode = JEKeyCode(_PyGameIntern.K_h)
-JEKey_I: JEKeyCode = JEKeyCode(_PyGameIntern.K_i)
-JEKey_J: JEKeyCode = JEKeyCode(_PyGameIntern.K_j)
-JEKey_K: JEKeyCode = JEKeyCode(_PyGameIntern.K_k)
-JEKey_L: JEKeyCode = JEKeyCode(_PyGameIntern.K_l)
-JEKey_M: JEKeyCode = JEKeyCode(_PyGameIntern.K_m)
-JEKey_N: JEKeyCode = JEKeyCode(_PyGameIntern.K_n)
-JEKey_O: JEKeyCode = JEKeyCode(_PyGameIntern.K_o)
-JEKey_P: JEKeyCode = JEKeyCode(_PyGameIntern.K_p)
-JEKey_Q: JEKeyCode = JEKeyCode(_PyGameIntern.K_q)
-JEKey_R: JEKeyCode = JEKeyCode(_PyGameIntern.K_r)
-JEKey_S: JEKeyCode = JEKeyCode(_PyGameIntern.K_s)
-JEKey_T: JEKeyCode = JEKeyCode(_PyGameIntern.K_t)
-JEKey_U: JEKeyCode = JEKeyCode(_PyGameIntern.K_u)
-JEKey_V: JEKeyCode = JEKeyCode(_PyGameIntern.K_v)
-JEKey_W: JEKeyCode = JEKeyCode(_PyGameIntern.K_w)
-JEKey_X: JEKeyCode = JEKeyCode(_PyGameIntern.K_x)
-JEKey_Y: JEKeyCode = JEKeyCode(_PyGameIntern.K_y)
-JEKey_Z: JEKeyCode = JEKeyCode(_PyGameIntern.K_z)
-JEKey_0: JEKeyCode = JEKeyCode(_PyGameIntern.K_0)
-JEKey_1: JEKeyCode = JEKeyCode(_PyGameIntern.K_1)
-JEKey_2: JEKeyCode = JEKeyCode(_PyGameIntern.K_2)
-JEKey_3: JEKeyCode = JEKeyCode(_PyGameIntern.K_3)
-JEKey_4: JEKeyCode = JEKeyCode(_PyGameIntern.K_4)
-JEKey_5: JEKeyCode = JEKeyCode(_PyGameIntern.K_5)
-JEKey_6: JEKeyCode = JEKeyCode(_PyGameIntern.K_6)
-JEKey_7: JEKeyCode = JEKeyCode(_PyGameIntern.K_7)
-JEKey_8: JEKeyCode = JEKeyCode(_PyGameIntern.K_8)
-JEKey_9: JEKeyCode = JEKeyCode(_PyGameIntern.K_9)
-JEKey_Enter: JEKeyCode = JEKeyCode(_PyGameIntern.K_RETURN)
-JEKey_Backspace: JEKeyCode = JEKeyCode(_PyGameIntern.K_BACKSPACE)
-JEKey_Delete: JEKeyCode = JEKeyCode(_PyGameIntern.K_DELETE)
-JEKey_Tab: JEKeyCode = JEKeyCode(_PyGameIntern.K_TAB)
-JEKey_Escape: JEKeyCode = JEKeyCode(_PyGameIntern.K_ESCAPE,)
-JEKey_Up: JEKeyCode = JEKeyCode(_PyGameIntern.K_UP)
-JEKey_Down: JEKeyCode = JEKeyCode(_PyGameIntern.K_DOWN)
-JEKey_Left: JEKeyCode = JEKeyCode(_PyGameIntern.K_LEFT)
-JEKey_Right: JEKeyCode = JEKeyCode(_PyGameIntern.K_RIGHT)

@@ -30,14 +30,10 @@ from typing import (
     Self as _Self
 )
 
-from sources.games.event import (
-    JEEventCode as _JEEventCode,
-    JEEvtMouseDown as _JEEvtMouseDown,
-    JEEvtMouseUp as _JEEvtMouseUp
-)
+from sources.events.event import JEEventCode as _JEEventCode
 from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
 from sources.interns import (
-    PGIntern as _PyGameIntern,
+    PGIntern as _PGIntern,
     JTKInternError as _JTKInternError
 )
 from sources.systems.bool import JEBool as _JEBool
@@ -57,9 +53,9 @@ class JEMouseCode(_JEInternClassBase):
             return
 
         cls._name_cache.update({
-            _PyGameIntern.BUTTON_LEFT: "LEFT",
-            _PyGameIntern.BUTTON_MIDDLE: "MIDDLE",
-            _PyGameIntern.BUTTON_RIGHT: "RIGHT",
+            _PGIntern.BUTTON_LEFT: "LEFT",
+            _PGIntern.BUTTON_MIDDLE: "MIDDLE",
+            _PGIntern.BUTTON_RIGHT: "RIGHT",
         })
 
     def __new__(
@@ -188,9 +184,9 @@ class JEMouseWatcher(_JEInternClassBase):
             )
         )
         self._on_param: _JEEventCode = (
-            _JEEvtMouseDown
+            _JEEventCode(_PGIntern.MOUSEBUTTONDOWN)
             if on_press else
-            _JEEvtMouseUp
+            _JEEventCode(_PGIntern.MOUSEBUTTONUP)
         )
         self._do: _Callable[["JEGame", "JEEvent"], None] = do
 
@@ -220,7 +216,3 @@ class JEMouseWatcher(_JEInternClassBase):
     def do(self) -> str:
         """Get seved function (as str)"""
         return f"{self._do.__name__}(JEGame, JEEvent)"
-
-JEMouse_Left: JEMouseCode = JEMouseCode(_PyGameIntern.BUTTON_LEFT)
-JEMouse_Middle: JEMouseCode = JEMouseCode(_PyGameIntern.BUTTON_MIDDLE)
-JEMouse_Right: JEMouseCode = JEMouseCode(_PyGameIntern.BUTTON_RIGHT)

@@ -26,7 +26,7 @@ from __future__ import annotations
 
 from typing import final as _final
 
-from sources.interns import PGIntern as _PyGameIntern
+from sources.interns import PGIntern as _PGIntern
 from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
 from sources.interns.low_classes import (
     JEInternGraphic as _JEInternGraphic,
@@ -54,12 +54,12 @@ class JETexture(_JEInternGraphic):
             path = f"{JETexture.base_path}{path}"
 
         self._path: str = path
-        self._surface: _PyGameIntern.Surface = _PyGameIntern.image.load(path).convert_alpha()
+        self._surface: _PGIntern.Surface = _PGIntern.image.load(path).convert_alpha()
         self._size: _JEVector2D = _JEVector2D(self._surface.get_width(), self._surface.get_height())
         self._parents: _JEContainer[_JEInternClassBase] = _JEContainer(_JEInternClassBase)
 
     @property
-    def surface(self) -> _PyGameIntern.Surface:
+    def surface(self) -> _PGIntern.Surface:
         """Get texture surface (PGIntern)"""
         return self._surface
 

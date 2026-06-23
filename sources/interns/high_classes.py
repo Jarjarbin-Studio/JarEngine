@@ -77,3 +77,71 @@ class JEInternDrawable(_JEInternClassBase):
     def sprite(self) -> _JEContainer[_JEInternGraphic]:
         """Get sprite container"""
         return self._sprite
+
+@_documentation
+@_final
+class JEInternWindowSettings(_JEInternClassBase):
+    """WindowSettings (Internal API)"""
+
+    def __init__(
+            self,
+            size: tuple[int, int] = (0, 0),
+            flags: int = 0,
+            fps: int = 60,
+            depth: int = 0,
+            display: int = 0,
+            vsync: int = 0,
+            title: str = "JarEngine Game"
+        ):
+        """JEInternWindowSettings creator"""
+        super().__init__()
+
+        self._size: tuple[int, int] = size
+        self._flags: int = flags
+        self._fps: int = fps
+        self._depth: int = depth
+        self._display: int = display
+        self._vsync: int = vsync
+        self._title: str = title
+
+    @property
+    def size(self) -> tuple[int, int]:
+        """Get size"""
+        return self._size
+
+    @property
+    def flags(self) -> int:
+        """Get flags"""
+        return self._flags
+
+    @property
+    def fps(self) -> int:
+        """Get fps"""
+        return self._fps
+
+    @property
+    def depth(self) -> int:
+        """Get depth"""
+        return self._depth
+
+    @property
+    def display(self) -> int:
+        """Get display"""
+        return self._display
+
+    @property
+    def vsync(self) -> int:
+        """Get vsync"""
+        return self._vsync
+
+    @property
+    def title(self) -> str:
+        """Get title"""
+        return self._title
+
+    def __deepcopy__(
+            self,
+            memo
+        ):
+        """Deepcopy"""
+        return self

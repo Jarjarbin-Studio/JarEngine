@@ -36,9 +36,9 @@ from typing import (
     Iterator as _Iterator
 )
 
-from copy import deepcopy
+from copy import deepcopy as _deepcopy
 
-from sources.interns.base_classe import JEInternClassBase
+from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
 from sources.interns.decorators import documentation as _documentation
 
 _T: _TypeVar = _TypeVar("_T")
@@ -63,7 +63,7 @@ def _freeze(value: _Any) -> _Any:
         )
 
     try:
-        return deepcopy(value)
+        return _deepcopy(value)
     except Exception:
         return value
 
@@ -82,7 +82,7 @@ def _unfreeze(value: _Any) -> _Any:
 
 @_documentation
 @_final
-class JEImmutable(_Generic[_T], JEInternClassBase):
+class JEImmutable(_Generic[_T], _JEInternClassBase):
     """Immutable (object freezing system)"""
 
     def __init__(self, value: _T) -> None:

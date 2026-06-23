@@ -32,17 +32,17 @@ from typing import (
 from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
 from sources.interns import (
     JTKInternError as _JTKInternError,
-    PGIntern as _PyGameIntern
+    PGIntern as _PGIntern
 )
-from sources.games.event import (
+from sources.events.event import (
     JEEventCode as _JEEventCode,
     JEEventWatcher as _JEEventWatcher
 )
-from sources.games.keyboard import (
+from sources.events.keyboard import (
     JEKeyCode as _JEKeyCode,
     JEKeyWatcher as _JEKeyWatcher
 )
-from sources.games.mouse import (
+from sources.events.mouse import (
     JEMouseCode as _JEMouseCode,
     JEMouseWatcher as _JEMouseWatcher
 )
@@ -56,7 +56,7 @@ class JEEvent(_JEInternClassBase):
 
     def __init__(
             self,
-            event: _PyGameIntern.event.Event
+            event: _PGIntern.event.Event
         ) -> None:
         """JEEvent creator"""
         super().__init__()
@@ -161,7 +161,7 @@ class JEEventHandler(_JEInternClassBase):
             game: "JEGame"
         ) -> None:
         """Process events"""
-        events: list[JEEvent] = [JEEvent(evt) for evt in _PyGameIntern.event.get()]
+        events: list[JEEvent] = [JEEvent(evt) for evt in _PGIntern.event.get()]
 
         for event in events:
             for watcher in self._watchers:

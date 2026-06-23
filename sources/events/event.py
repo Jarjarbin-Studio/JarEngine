@@ -33,7 +33,7 @@ from typing import (
 from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
 from sources.interns import (
     JTKInternError as _JTKInternError,
-    PGIntern as _PyGameIntern
+    PGIntern as _PGIntern
 )
 from sources.interns.decorators import documentation as _documentation
 
@@ -52,12 +52,12 @@ class JEEventCode(_JEInternClassBase):
             return
 
         cls._name_cache.update({
-            _PyGameIntern.QUIT: "Quit",
-            _PyGameIntern.HIDDEN: "Hidden",
-            _PyGameIntern.KEYDOWN: "KeyDown",
-            _PyGameIntern.KEYUP: "KeyUp",
-            _PyGameIntern.MOUSEBUTTONDOWN: "MouseDown",
-            _PyGameIntern.MOUSEBUTTONUP: "MouseUp"
+            _PGIntern.QUIT: "Quit",
+            _PGIntern.HIDDEN: "Hidden",
+            _PGIntern.KEYDOWN: "KeyDown",
+            _PGIntern.KEYUP: "KeyUp",
+            _PGIntern.MOUSEBUTTONDOWN: "MouseDown",
+            _PGIntern.MOUSEBUTTONUP: "MouseUp"
         })
 
     def __new__(
@@ -206,10 +206,3 @@ class JEEventWatcher(_JEInternClassBase):
     def do(self) -> str:
         """Get seved function (as str)"""
         return f"{self._do.__name__}(JEGame, JEEvent)"
-
-JEEvtQuit: JEEventCode = JEEventCode(_PyGameIntern.QUIT)
-JEEvtHidden: JEEventCode = JEEventCode(_PyGameIntern.HIDDEN)
-JEEvtKeyDown: JEEventCode = JEEventCode(_PyGameIntern.KEYDOWN)
-JEEvtKeyUp: JEEventCode = JEEventCode(_PyGameIntern.KEYUP)
-JEEvtMouseDown: JEEventCode = JEEventCode(_PyGameIntern.MOUSEBUTTONDOWN)
-JEEvtMouseUp: JEEventCode = JEEventCode(_PyGameIntern.MOUSEBUTTONUP)

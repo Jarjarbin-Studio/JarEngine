@@ -33,7 +33,10 @@ from typing import (
 from sources.graphics.sprite import JESprite as _JESprite
 from sources.games.renderer import JERenderer as _JERenderer
 from sources.games.window import JEWindow as _JEWindow
-from sources.games.events_manager import JEEventHandler as _JEEventHandler
+from sources.games.input import JEInput as _JEInput
+from sources.events.manager import JEEventHandler as _JEEventHandler
+from sources.events.keyboard import JEKeyCode as _JEKeyCode
+from sources.events.mouse import JEMouseCode as _JEMouseCode
 from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
 from sources.interns.config import (
     JEInternConfig as _JEInternConfig,
@@ -41,13 +44,14 @@ from sources.interns.config import (
 )
 from sources.interns import (
     JTKInternError as _JTKInternError,
-    PGIntern as _PyGameIntern
+    PGIntern as _PGIntern
 )
 from sources.interns.high_classes import (
     JEInternDrawable as _JEInternDrawable,
     JEInternRessources as _JEInternRessources
 )
 from sources.systems.bool import JEBool as _JEBool
+from sources.systems.clock import JEClock as _JEClock
 from sources.interns.decorators import documentation as _documentation
 
 @_documentation
@@ -72,18 +76,23 @@ class JEGame(_JEInternClassBase):
         cls._instance = super().__new__(cls)
         return cls._instance
 
-    def __init__(self) -> None:
-        """Game creator"""
+    def __init__(
+            self,
+            use_clock: bool = True,
+            use_input: bool = True
+        ) -> None:
+        """JEGame creator"""
         if JEGame._is_created:
             return
 
         JEGame._is_created = _JEBool(1)
         super().__init__()
         self._config: _JEInternConfig = _get_config()
-        self._window: _JEWindow | None = None
+        self._window: _Optional[_JEWindow] = None
         self._ressource: _JEInternRessources = _JEInternRessources()
         self._drawable: _JEInternDrawable = _JEInternDrawable()
-        self._clocks: None = None
+        self._clock: _Optional[_JEClock] = _JEClock() if use_clock else None
+        self._input: _Optional[_JEInput] = _JEInput() if use_input else None
         self._is_open: _JEBool = _JEBool(1)
         self._event_manager: _JEEventHandler = _JEEventHandler()
         self._renderer: _Optional[_JERenderer] = None
@@ -99,6 +108,7 @@ class JEGame(_JEInternClassBase):
                 f"\nWindow already set."
             )
         self._window = window
+        self._clock = _JEClock(window.settings.fps)
         self._renderer = _JERenderer(self._window)
 
     @property
@@ -110,6 +120,33 @@ class JEGame(_JEInternClassBase):
             )
 
         return self._window
+
+    @property
+    def input(self) -> _JEInput:
+        """Get input object"""
+        return self._input
+
+    def is_key_down(
+            self,
+            key: _JEKeyCode
+        ) -> bool:
+        return self._input.is_key_down(key)
+
+    def is_mouse_down(
+            self,
+            button: _JEMouseCode
+        ) -> bool:
+        return self._input.is_mouse_down(button)
+
+    @property
+    def clock(self) -> _JEClock:
+        """Get clock object"""
+        return self._clock
+
+    @property
+    def dt(self) -> float:
+        """Get clock object"""
+        return float(self._clock)
 
     @property
     def event(self) -> _JEEventHandler:
@@ -138,10 +175,12 @@ class JEGame(_JEInternClassBase):
     def update(self) -> None:
         """Update game"""
         self._event_manager.process(self)
+        self._clock.update()
+        self._input.update()
 
     def display(self) -> None:
         """Display game"""
-        _PyGameIntern.display.flip()
+        _PGIntern.display.flip()
 
     def draw(self) -> None:
         """Draw game"""
