@@ -115,7 +115,7 @@ class JEMouseCode(_JEInternClassBase):
         """Compare 2 mouse"""
         if not isinstance(other, JEMouseCode):
             return NotImplemented
-        return self._mouse == other._mouse
+        return int(self) == int(other)
 
     def __hash__(self) -> int:
         """Hash a mouse"""
@@ -196,9 +196,9 @@ class JEMouseWatcher(_JEInternClassBase):
 
     def match(self, event: "JEEvent") -> bool:
         """Check for mouse matches"""
-        if event.type_code == self._on_param:
+        if event.type == self._on_param:
             for rule in self._on:
-                if event.mouse_code == rule:
+                if event.mouse == rule:
                     return True
         return False
 

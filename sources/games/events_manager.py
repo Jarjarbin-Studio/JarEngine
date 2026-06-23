@@ -68,17 +68,17 @@ class JEEvent(_JEInternClassBase):
         self._pos = getattr(event, "pos", None)
 
     @property
-    def type_code(self) -> _JEEventCode:
+    def type(self) -> _JEEventCode:
         """Get event type (as JEEventCode)"""
         return _JEEventCode(self._type)
 
     @property
-    def key_code(self) -> _JEKeyCode | None:
+    def key(self) -> _JEKeyCode | None:
         """Get key (as JEKeyCode)"""
         return _JEKeyCode(self._key) if self._key is not None else None
 
     @property
-    def mouse_code(self) -> _JEMouseCode | None:
+    def mouse(self) -> _JEMouseCode | None:
         """Get mouse (as JEMouseCode)"""
         return _JEMouseCode(self._button) if self._button is not None else None
 

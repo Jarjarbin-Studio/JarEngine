@@ -113,7 +113,7 @@ class JEEventCode(_JEInternClassBase):
         """Compare 2 events"""
         if not isinstance(other, JEEventCode):
             return NotImplemented
-        return self._event == other._event
+        return int(self) == int(other)
 
     def __hash__(self) -> int:
         """Hash an event"""
@@ -189,7 +189,7 @@ class JEEventWatcher(_JEInternClassBase):
     def match(self, event: "JEEvent") -> bool:
         """Check for event matches"""
         for rule in self._on:
-            if event.type_code == rule:
+            if event.type == rule:
                 return True
         return False
 

@@ -87,6 +87,7 @@ class JEInternClassBase:
             self,
             *,
             is_colored: bool = False,
+            brached_recursive = False,
             prefix: str = "",
             is_last: bool = True,
             is_root: bool = True,
@@ -192,6 +193,7 @@ class JEInternClassBase:
             lines.extend(
                 child.dump(
                     is_colored=is_colored,
+                    brached_recursive=brached_recursive,
                     prefix=extend_prefix(child_prefix, last_item),
                     is_last=True,
                     is_root=False,
@@ -321,4 +323,5 @@ class JEInternClassBase:
 
             return "\n".join(lines)
         finally:
-            pass#_stack.discard(obj_id)
+            if brached_recursive:
+                _stack.discard(obj_id)

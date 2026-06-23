@@ -130,7 +130,7 @@ class JEKeyCode(_JEInternClassBase):
         """Compare 2 key"""
         if not isinstance(other, JEKeyCode):
             return NotImplemented
-        return self._key == other._key
+        return int(self) == int(other)
 
     def __hash__(self) -> int:
         """Hash a key"""
@@ -211,9 +211,9 @@ class JEKeyWatcher(_JEInternClassBase):
 
     def match(self, event: "JEEvent") -> bool:
         """Check for key matches"""
-        if event.type_code == self._on_param:
+        if event.type == self._on_param:
             for rule in self._on:
-                if event.key_code == rule:
+                if event.key == rule:
                     return True
         return False
 
