@@ -27,12 +27,19 @@ from __future__ import annotations
 from uuid import uuid4 as _uuid4
 from typing import Any as _Any
 
+from sources.interns import JTKInternConsole as _JTKInternConsole
+from sources.interns.decorators import documentation as _documentation
+
+@_documentation
 class JEInternClassBase:
+    """ClassBase (Internal API)"""
 
     def __init__(self) -> None:
-        self.id: str = _uuid4().hex
+        """JEInternClassBase creator"""
+        self.jeid: str = _uuid4().hex
 
     def __str__(self) -> str:
+        """Get information about the class"""
         name = getattr(self, "name", None)
         id = getattr(self, "id", None)
 
@@ -42,6 +49,7 @@ class JEInternClassBase:
         return f"{self.__class__.__name__}({id=})"
 
     def __repr__(self) -> str:
+        """Get representation of the class"""
         final_str: str = ""
 
         if self.__dict__:
@@ -57,6 +65,7 @@ class JEInternClassBase:
         return f"<{self.__class__.__name__}{f': {final_str}' if final_str else ""}>"
 
     def to_dict(self) -> dict:
+        """Get dictionary representation of the class"""
 
         def get_value(value: _Any) -> _Any:
             if isinstance(value, JEInternClassBase):
@@ -66,7 +75,7 @@ class JEInternClassBase:
 
         return {
             "class": self.__class__.__name__,
-            "id": self.id,
+            "jeid": self.jeid,
             "public": {
                 k: get_value(v)
                 for k, v in self.__dict__.items()
@@ -77,13 +86,36 @@ class JEInternClassBase:
     def dump(
             self,
             *,
+            is_colored: bool = False,
             prefix: str = "",
             is_last: bool = True,
             is_root: bool = True,
             show_root: bool = True,
             _visited: set | None = None,
             _stack: set | None = None
-    ) -> str:
+        ) -> str:
+        """Pretty-print the class recursively (with all of its children)"""
+
+        COLOR_THEME: dict[str, tuple[int, int, int]] = {
+            "class": (180, 220, 255),
+            "attribute": (255, 200, 120),
+            "value": (200, 200, 200),
+            "engine_object": (120, 255, 180),
+            "container": (120, 180, 255),
+            "id": (255, 120, 120),
+            "name": (255, 255, 150),
+            "list": (200, 160, 255),
+            "dict": (160, 255, 220),
+            "pygame": (255, 140, 255),
+            "immutable": (180, 180, 180),
+            "callable": (255, 180, 100),
+            "error": (255, 80, 80),
+        }
+
+        BRANCH = "│   "
+        SPACE = "    "
+
+        from sources.systems.immutable import JEImmutable
 
         if _visited is None:
             _visited = set()
@@ -91,128 +123,202 @@ class JEInternClassBase:
         if _stack is None:
             _stack = set()
 
-        obj_id = id(self)
+        def _rgb(
+                rgb: tuple[int, int, int],
+                text: str
+            ) -> str:
+            return (
+                _JTKInternConsole.Text.Format.apply(
+                    text,
+                    _JTKInternConsole.ANSI.Color.rgb_fg(*rgb),
+                ) + _JTKInternConsole.ANSI.Color(_JTKInternConsole.ANSI.Color.C_RESET).s
+            )
 
+        def colorize(
+                text: str,
+                category: str
+            ) -> str:
+            if not is_colored:
+                return text
+            color = COLOR_THEME.get(category)
+            if color is None:
+                return text
+            return _rgb(color, text)
+
+        def classify(
+                name: str,
+                value
+            ) -> str:
+            if name == "JEID":
+                return "id"
+            if isinstance(value, JEInternClassBase):
+                return "engine_object"
+            if isinstance(value, JEImmutable):
+                return "immutable"
+            if callable(value):
+                return "callable"
+            if isinstance(value, dict):
+                return "dict"
+            if isinstance(value, (list, tuple, set)):
+                return "list"
+            module_name = getattr(type(value), "__module__", "")
+            if module_name.startswith("pygame"):
+                return "pygame"
+            return "value"
+
+        def extend_prefix(
+                current_prefix: str,
+                last_item: bool
+            ) -> str:
+            return current_prefix + (SPACE if last_item else BRANCH)
+
+        def safe_repr(value) -> str:
+            try:
+                return repr(value)
+            except Exception as err:
+                return f"<repr error: {err}>"
+
+        def append_child_object(
+                name: str,
+                label: str,
+                child,
+                child_prefix: str,
+                last_item: bool
+            ) -> None:
+            connector = "└─ " if last_item else "├─ "
+            cls_col = colorize(child.__class__.__name__, "engine_object")
+            lines.append(f"{child_prefix}{connector}{label} ({cls_col})")
+
+            lines.extend(
+                child.dump(
+                    is_colored=is_colored,
+                    prefix=extend_prefix(child_prefix, last_item),
+                    is_last=True,
+                    is_root=False,
+                    show_root=False,
+                    _visited=_visited,
+                    _stack=_stack,
+                ).splitlines()
+            )
+
+        def append_leaf(
+                name: str,
+                label: str,
+                value,
+                child_prefix: str,
+                last_item: bool
+            ) -> None:
+            connector = "└─ " if last_item else "├─ "
+            category = classify(name, value)
+            rendered = safe_repr(value)
+
+            module_name = getattr(type(value), "__module__", "")
+            if module_name.startswith("pygame"):
+                rendered = f"{type(value).__name__} (PGIntern)"
+                category = "pygame"
+
+            lines.append(
+                f"{child_prefix}{connector}{label} = {colorize(rendered, category)}"
+            )
+
+        def append_mapping(
+                name: str,
+                label: str,
+                mapping: dict,
+                child_prefix: str,
+                last_item: bool
+            ) -> None:
+            connector = "└─ " if last_item else "├─ "
+            lines.append(f"{child_prefix}{connector}{label} = {colorize('{}', 'dict')}")
+
+            nested_prefix = extend_prefix(child_prefix, last_item)
+            items = list(mapping.items())
+
+            for index, (sub_key, sub_value) in enumerate(items):
+                sub_last = index == len(items) - 1
+                sub_label = colorize(str(sub_key), "name")
+
+                if isinstance(sub_value, JEInternClassBase):
+                    append_child_object(name, sub_label, sub_value, nested_prefix, sub_last)
+                else:
+                    append_leaf(name, sub_label, sub_value, nested_prefix, sub_last)
+
+        def append_sequence(
+                name: str,
+                label: str,
+                sequence,
+                child_prefix: str,
+                last_item: bool
+            ) -> None:
+            connector = "└─ " if last_item else "├─ "
+            lines.append(f"{child_prefix}{connector}{label} = {colorize('[]', 'list')}")
+
+            nested_prefix = extend_prefix(child_prefix, last_item)
+            items = list(sequence)
+
+            for index, sub_value in enumerate(items):
+                sub_last = index == len(items) - 1
+                sub_label = colorize(f"[{index}]", "list")
+
+                if isinstance(sub_value, JEInternClassBase):
+                    append_child_object(name, sub_label, sub_value, nested_prefix, sub_last)
+                else:
+                    append_leaf(name, sub_label, sub_value, nested_prefix, sub_last)
+
+        obj_id = id(self)
         if obj_id in _stack:
-            return f"{prefix}└─ <recursive> {self.__class__.__name__}"
+            return (
+                f"{prefix}└─ {colorize('<recursive>', 'error')} "
+                f"{colorize(self.__class__.__name__, "class")} ({colorize(f"JEID-{self.jeid}" if hasattr(self, "jeid") else f"ID-{obj_id}", 'id')})"
+            )
 
         _stack.add(obj_id)
+        try:
+            lines: list[str] = []
 
-        lines = []
+            name = getattr(self, "name", None)
+            class_name = colorize(self.__class__.__name__, "class")
+            label = f"{colorize(name, 'name')} ({class_name})" if name else class_name
 
-        name = getattr(self, "name", None)
-        class_name = self.__class__.__name__
-        label = f"{name} ({class_name})" if name else class_name
-
-        if is_root and show_root:
-            lines.append(label)
-        else:
-            connector = "└─ " if is_last else "├─ "
-            lines.append(f"{prefix}{connector}{label}")
-
-        new_prefix = prefix + ("  " if is_last else "│ ")
-
-        public_attrs = {
-            k: v for k, v in getattr(self, "__dict__", {}).items()
-            if not k.startswith("_")
-        }
-
-        props = {}
-        for attr_name in dir(self.__class__):
-            attr = getattr(self.__class__, attr_name, None)
-
-            if isinstance(attr, property) and not attr_name.startswith("_"):
-                try:
-                    props[f"@{attr_name}"] = getattr(self, attr_name)
-                except Exception as err:
-                    props[f"@{attr_name}"] = f"<error: {err}>"
-
-        all_attrs = {**public_attrs, **props}
-        items = list(all_attrs.items())
-
-        def is_je_object(v):
-            return isinstance(v, JEInternClassBase)
-
-        def is_mapping(v):
-            return isinstance(v, dict)
-
-        def is_iterable(v):
-            return isinstance(v, (list, tuple, set))
-
-        for i, (k, v) in enumerate(items):
-            last = i == len(items) - 1
-            connector = "└─ " if last else "├─ "
-
-            if is_je_object(v):
-                lines.append(f"{new_prefix}{connector}{k} ({v.__class__.__name__})")
-
-                child_prefix = new_prefix + ("  " if last else "│ ")
-
-                lines.extend(
-                    v.dump(
-                        prefix = child_prefix,
-                        is_last = True,
-                        is_root = False,
-                        show_root = False,
-                        _visited = _visited,
-                        _stack = _stack
-                    ).split("\n")
-                )
-
-            elif is_mapping(v):
-                lines.append(f"{new_prefix}{connector}{k} = {{}}")
-
-                child_prefix = new_prefix + ("  " if last else "│ ")
-
-                for j, (sub_k, sub_v) in enumerate(v.items()):
-                    sub_last = j == len(v) - 1
-                    sub_connector = "└─ " if sub_last else "├─ "
-
-                    if is_je_object(sub_v):
-                        lines.append(f"{child_prefix}{sub_connector}{sub_k} ({sub_v.__class__.__name__})")
-
-                        lines.extend(
-                            sub_v.dump(
-                                prefix = child_prefix + ("  " if sub_last else "│ "),
-                                is_last = True,
-                                is_root = False,
-                                show_root = False,
-                                _visited = _visited,
-                                _stack = _stack
-                            ).split("\n")
-                        )
-                    else:
-                        lines.append(f"{child_prefix}{sub_connector}{sub_k} = {sub_v!r}")
-
-            elif is_iterable(v):
-                v_list = list(v)
-                lines.append(f"{new_prefix}{connector}{k} = []")
-
-                child_prefix = new_prefix + ("  " if last else "│ ")
-
-                for j, sub_v in enumerate(v_list):
-                    sub_last = j == len(v_list) - 1
-                    sub_connector = "└─ " if sub_last else "├─ "
-
-                    if is_je_object(sub_v):
-                        lines.append(f"{child_prefix}{sub_connector}[{j}] ({sub_v.__class__.__name__})")
-
-                        lines.extend(
-                            sub_v.dump(
-                                prefix = child_prefix + ("  " if sub_last else "│ "),
-                                is_last = True,
-                                is_root = False,
-                                show_root = False,
-                                _visited = _visited,
-                                _stack = _stack
-                            ).split("\n")
-                        )
-                    else:
-                        lines.append(f"{child_prefix}{sub_connector}[{j}] = {sub_v!r}")
-
+            if is_root and show_root:
+                lines.append(label)
             else:
-                lines.append(f"{new_prefix}{connector}{k} = {v!r}")
+                connector = "└─ " if is_last else "├─ "
+                lines.append(f"{prefix}{connector}{label}")
 
-        _stack.remove(obj_id)
+            new_prefix = extend_prefix(prefix, is_last)
 
-        return "\n".join(lines)
+            public_attrs = {
+                key: value
+                for key, value in getattr(self, "__dict__", {}).items()
+                if not key.startswith("_")
+            }
+
+            props: dict[str, object] = {}
+            for attr_name in dir(self.__class__):
+                attr = getattr(self.__class__, attr_name, None)
+                if isinstance(attr, property) and not attr_name.startswith("_"):
+                    try:
+                        props[f"@{attr_name}"] = getattr(self, attr_name)
+                    except Exception as err:
+                        props[f"@{attr_name}"] = f"<error: {err}>"
+
+            all_attrs = {**public_attrs, **props}
+
+            for index, (attr_name, attr_value) in enumerate(all_attrs.items()):
+                last_item = index == len(all_attrs) - 1
+                attr_name = "JEID" if attr_name == "jeid" else attr_name
+                attr_label = colorize(attr_name, "id" if attr_name == "JEID" else "attribute")
+
+                if isinstance(attr_value, JEInternClassBase):
+                    append_child_object(attr_name, attr_label, attr_value, new_prefix, last_item)
+                elif isinstance(attr_value, dict):
+                    append_mapping(attr_name, attr_label, attr_value, new_prefix, last_item)
+                elif isinstance(attr_value, (list, tuple, set)):
+                    append_sequence(attr_name, attr_label, attr_value, new_prefix, last_item)
+                else:
+                    append_leaf(attr_name, attr_label, attr_value, new_prefix, last_item)
+
+            return "\n".join(lines)
+        finally:
+            pass#_stack.discard(obj_id)

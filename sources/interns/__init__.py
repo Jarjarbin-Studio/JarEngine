@@ -25,22 +25,24 @@
 from __future__ import annotations
 
 __all__ = [
-    "JEInternPyGame",
+    "PGIntern",
     "JEInternClassBase",
-    "JEInternClasses",
+    "InternClasses",
+    "InternConfig",
+    "InternDecorators",
     "JTKInternTime",
     "JTKInternConsole",
     "JTKInternAction",
-    "JTKInternError",
-    "JEInternConfig"
+    "JTKInternError"
 ]
 
-import pygame as JEInternPyGame
+import pygame as PGIntern
 import jarbin_toolkit_time as JTKInternTime
 import jarbin_toolkit_console as JTKInternConsole
 import jarbin_toolkit_action as JTKInternAction
 import jarbin_toolkit_error as JTKInternError
 
 from sources.interns.base_classe import JEInternClassBase
-import sources.interns.classes as JEInternClasses
-import sources.interns.config as JEInternConfig
+import sources.interns.decorators as InternDecorators
+import sources.interns.low_classes as InternClasses
+import sources.interns.config as InternConfig

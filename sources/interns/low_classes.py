@@ -24,18 +24,20 @@
 
 from __future__ import annotations
 
-from typing import Callable as _Callable
-
 from sources.interns import JTKInternAction as _JTKInternAction
 from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
 from sources.systems.bool import JEBool as _JEBool
+from sources.interns.decorators import documentation as _documentation
 
+@_documentation
 class JEInternGraphic(_JEInternClassBase):
+    """Graphic (Internal API)"""
 
     def __init__(
             self,
             name: str
         ) -> None:
+        """JEInternGraphic creator"""
         super().__init__()
 
         self.name = name
@@ -43,24 +45,23 @@ class JEInternGraphic(_JEInternClassBase):
         self._object_hash = hash(self)
         self._destroyed: _JEBool = _JEBool(0)
 
-    def update(
-            self,
-            dt: float
-        ) -> None:
-        pass
-
     def destroy(self) -> None:
+        """Destroy placeholder"""
         self._destroyed = _JEBool(1)
 
     def is_alive(self) -> _JEBool:
+        """Is object alive"""
         return _JEBool(not self._destroyed)
 
+@_documentation
 class JEInternGraphicalObject(JEInternGraphic):
+    """GraphicalObject (Internal API)"""
 
     def __init__(
             self,
             name: str
         ) -> None:
+        """JEInternGraphicalObject creator"""
         super().__init__(name)
 
         self._events: dict[str, _JTKInternAction.Actions] = {}
@@ -71,34 +72,17 @@ class JEInternGraphicalObject(JEInternGraphic):
             self,
             dt: float
         ) -> None:
+        """update placeholder"""
         pass
 
     def enable(self) -> None:
+        """Enable object"""
         self._enabled = _JEBool(1)
 
     def disable(self) -> None:
+        """Disable object"""
         self._enabled = _JEBool(0)
 
     def is_alive(self) -> _JEBool:
+        """Is object alive"""
         return _JEBool((not self._destroyed) and self._enabled)
-
-    def on(
-            self,
-            event: str,
-            callback: _Callable
-        ):
-
-        if not event in self._events:
-            self._events[event] = _JTKInternAction.Actions()
-
-        self._events[event] += _JTKInternAction.Action(callback.__name__, callback)
-
-    def emit(
-            self,
-            event: str
-        ) -> None:
-
-        callback: _JTKInternAction.Actions | None = self._events.get(event, None)
-
-        if callback:
-            callback()

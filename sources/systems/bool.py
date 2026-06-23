@@ -30,9 +30,12 @@ from typing import (
     Self as _Self
 )
 from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
+from sources.interns.decorators import documentation as _documentation
 
+@_documentation
 @_final
 class JEBool(_JEInternClassBase):
+    """Boolean"""
 
     _instances: dict[bool, _Self] = {}
 
@@ -40,6 +43,7 @@ class JEBool(_JEInternClassBase):
             cls,
             value: _Any
         ) -> _Self:
+        """Instances clamping"""
         val = bool(value)
 
         if val not in cls._instances:
@@ -52,6 +56,7 @@ class JEBool(_JEInternClassBase):
             self,
             value: _Any
         ) -> None:
+        """JEBool creator"""
         if hasattr(self, "_initialized"):
             return
 
@@ -59,10 +64,17 @@ class JEBool(_JEInternClassBase):
         self._bool = bool(value)
 
     def __bool__(self) -> bool:
+        """Returns boolean value"""
         return self._bool
+
+    @property
+    def data(self) -> bool:
+        """Returns boolean value"""
+        return bool(self)
 
     def __deepcopy__(
             self,
             memo
         ):
+        """Deepcopy"""
         return self

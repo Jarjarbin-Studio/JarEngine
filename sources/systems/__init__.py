@@ -25,14 +25,14 @@
 from __future__ import annotations
 
 __all__ = [
-    'JEVector',
+    'Vector',
     'JEColor',
     'JEBool',
     'JEContainer',
     'JEImmutable'
 ]
 
-import sources.systems.vector as JEVector
+import sources.systems.vector as Vector
 from sources.systems.color import JEColor
 from sources.systems.bool import JEBool
 from sources.systems.container import JEContainer

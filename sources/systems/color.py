@@ -27,47 +27,90 @@ from __future__ import annotations
 from typing import final as _final
 
 from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
+from sources.interns.decorators import documentation as _documentation
 
+@_documentation
 @_final
 class JEColor(_JEInternClassBase):
+    """Color (r, g, b, a)"""
 
     def __init__(
             self,
             r: int = 0,
             g: int = 0,
             b: int = 0,
-            a: int = 0
+            a: int = 255
         ) -> None:
+        """JEColor creator"""
         super().__init__()
 
         self._color: list[int] = [r, g, b, a]
 
     @property
     def r(self) -> int:
+        """Get red channel"""
         return self._color[0]
+
+    @r.setter
+    def r(
+            self,
+            r: int
+        ) -> None:
+        """Set red channel"""
+        self._color[0] = r
 
     @property
     def g(self) -> int:
+        """Get green channel"""
         return self._color[1]
+
+    @g.setter
+    def g(
+            self,
+            g: int
+        ) -> None:
+        """Set green channel"""
+        self._color[1] = g
 
     @property
     def b(self) -> int:
+        """Get blue channel"""
         return self._color[2]
+
+    @b.setter
+    def b(
+            self,
+            b: int
+        ) -> None:
+        """Set blue channel"""
+        self._color[2] = b
 
     @property
     def a(self) -> int:
+        """Get alpha channel"""
         return self._color[3]
+
+    @a.setter
+    def a(
+            self,
+            a: int
+        ) -> None:
+        """Set alpha channel"""
+        self._color[3] = a
 
     @property
     def rgb(self) -> tuple[int, ...]:
+        """Get rbg tuple of color"""
         return tuple(self._color[:3])
 
     @property
     def rgba(self) -> tuple[int, ...]:
+        """Get rbga tuple of color"""
         return tuple(self._color)
 
     def __deepcopy__(
             self,
             memo
         ):
+        """Deepcopy"""
         return JEColor(*self._color)

@@ -30,31 +30,18 @@ from typing import (
 )
 
 from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
-from sources.interns.classes import JEInternGraphic as _JEInternGraphic
-from sources.interns.config import (
-    JEInternConfig as _JEInternConfig,
-    get_window_config as _get_window_config
-)
 from sources.interns import (
     JTKInternError as _JTKInternError,
-    JEInternPyGame as _JEInternPyGame
+    PGIntern as _PyGameIntern
 )
-from sources.systems.container import JEContainer as _JEContainer
 from sources.systems.color import JEColor as _JEColor
 from sources.systems.bool import JEBool as _JEBool
+from sources.interns.decorators import documentation as _documentation
 
-@_final
-class JEInternRessources(_JEInternClassBase):
-
-    def __init__(self):
-        super().__init__()
-
-        self.textures: _JEContainer = _JEContainer(_JEInternGraphic)
-        self.animations: _JEContainer = _JEContainer(_JEInternGraphic)
-        self.font: _JEContainer = _JEContainer(_JEInternGraphic)
-
+@_documentation
 @_final
 class JEWindow(_JEInternClassBase):
+    """Window manager"""
 
     _instance: _Self = None
     _is_created: _JEBool = _JEBool(0)
@@ -64,6 +51,7 @@ class JEWindow(_JEInternClassBase):
             *args,
             **kwargs
         ) -> _Self:
+        """Instances clamping"""
         if cls._instance is not None:
             raise _JTKInternError.Error.ErrorRuntime(
                 "\nInstance already exists. Only one window is allowed."
@@ -82,25 +70,31 @@ class JEWindow(_JEInternClassBase):
             vsync: int = 0,
             title: str = "JarEngine Game"
         ):
+        """JEWindow creator"""
 
         if JEWindow._is_created:
             return
         JEWindow._is_created = _JEBool(1)
         super().__init__()
-        self._screen: _JEInternPyGame.Surface = _JEInternPyGame.display.set_mode(size, flags, depth, display, vsync)
-        self.ressource: JEInternRessources = JEInternRessources()
-        self._event: list[_JEInternPyGame.event.Event] = []
-        self._config: _JEInternConfig = _get_window_config()
-        _JEInternPyGame.display.set_caption(title)
+        self._screen: _PyGameIntern.Surface = _PyGameIntern.display.set_mode(size, flags, depth, display, vsync)
+        self._event: list[_PyGameIntern.event.Event] = []
+        _PyGameIntern.display.set_caption(title)
+
+    @property
+    def screen(self) -> _PyGameIntern.Surface:
+        """Get screen surface (PGIntern)"""
+        return self._screen
 
     def fill(
             self,
             color: _JEColor | tuple[int, int, int] | tuple[int, int, int, int]
         ) -> None:
+        """Fill the screen with given color"""
         self._screen.fill(color.rgba if isinstance(color, _JEColor) else color)
 
     def __deepcopy__(
             self,
             memo
         ):
+        """Deepcopy"""
         return self

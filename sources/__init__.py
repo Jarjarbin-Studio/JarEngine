@@ -32,21 +32,22 @@ __all__ = [
     #Games
     "JEGame",
     "JEWindow",
-    "JEEventManager",
-    "JEEvent",
-    "JEKeyboard",
-    "JEMouse",
+    "EventManager",
+    "Event",
+    "Keyboard",
+    "Mouse",
     #Graphics
     'JESprite',
+    'JETexture',
     #Systems
-    'JEVector',
+    'Vector',
     'JEColor',
     'JEBool',
     'JEContainer',
     'JEImmutable',
     ##Functions##
-    'init',
-    'quit',
+    'Init',
+    'Quit',
     ##Shortcuts##
     'JETrue',
     'JEFalse'
@@ -60,11 +61,11 @@ from sources.graphics import *
 from sources.systems import *
 
 ##Functions##
-def init() -> tuple[int, int]:
-    return interns.JEInternPyGame.init()
+def Init() -> tuple[int, int]:
+    return interns.PGIntern.init()
 
-def quit() -> None:
-    interns.JEInternPyGame.quit()
+def Quit() -> None:
+    interns.PGIntern.quit()
 
 ##Shortcuts##
 JEFalse: JEBool = JEBool(0)

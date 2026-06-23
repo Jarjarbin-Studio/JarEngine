@@ -26,24 +26,34 @@ from __future__ import annotations
 
 from typing import (
     Self as _Self,
-    final as _final
+    final as _final,
+    Optional as _Optional
 )
 
+from sources.graphics.sprite import JESprite as _JESprite
+from sources.games.renderer import JERenderer as _JERenderer
 from sources.games.window import JEWindow as _JEWindow
 from sources.games.events_manager import JEEventHandler as _JEEventHandler
 from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
 from sources.interns.config import (
     JEInternConfig as _JEInternConfig,
-    get_game_config as _get_game_config
+    get_config as _get_config
 )
 from sources.interns import (
     JTKInternError as _JTKInternError,
-    JEInternPyGame as _JEInternPyGame
+    PGIntern as _PyGameIntern
+)
+from sources.interns.high_classes import (
+    JEInternDrawable as _JEInternDrawable,
+    JEInternRessources as _JEInternRessources
 )
 from sources.systems.bool import JEBool as _JEBool
+from sources.interns.decorators import documentation as _documentation
 
+@_documentation
 @_final
 class JEGame(_JEInternClassBase):
+    """Game manager"""
 
     _instance: _Self = None
     _is_created = _JEBool(0)
@@ -53,6 +63,7 @@ class JEGame(_JEInternClassBase):
             *args,
             **kwargs
         ) -> _Self:
+        """Instances clamping"""
         if cls._instance is not None:
             raise _JTKInternError.Error.ErrorRuntime(
                 "\nInstance already exists. Only one game is allowed."
@@ -62,18 +73,23 @@ class JEGame(_JEInternClassBase):
         return cls._instance
 
     def __init__(self) -> None:
+        """Game creator"""
         if JEGame._is_created:
             return
 
         JEGame._is_created = _JEBool(1)
         super().__init__()
+        self._config: _JEInternConfig = _get_config()
         self._window: _JEWindow | None = None
+        self._ressource: _JEInternRessources = _JEInternRessources()
+        self._drawable: _JEInternDrawable = _JEInternDrawable()
         self._clocks: None = None
-        self._config: _JEInternConfig = _get_game_config()
         self._is_open: _JEBool = _JEBool(1)
         self._event_manager: _JEEventHandler = _JEEventHandler()
+        self._renderer: _Optional[_JERenderer] = None
 
     def set_window(self, window: _JEWindow):
+        """Set game window"""
         if not isinstance(window, _JEWindow):
             raise _JTKInternError.Error.ErrorType(
                 f"\n{type(window).__name__!r} isn't of type  {_JEWindow.__name__!r}."
@@ -82,11 +98,12 @@ class JEGame(_JEInternClassBase):
             raise _JTKInternError.Error.ErrorRuntime(
                 f"\nWindow already set."
             )
-
         self._window = window
+        self._renderer = _JERenderer(self._window)
 
     @property
     def wdw(self) -> _JEWindow:
+        """Get window object"""
         if not self._window:
             raise _JTKInternError.State.ErrorStateNotInitialized(
                 "\nWindow not set."
@@ -96,21 +113,46 @@ class JEGame(_JEInternClassBase):
 
     @property
     def event(self) -> _JEEventHandler:
+        """Get event handler"""
         return self._event_manager
 
     @property
     def is_open(self) -> _JEBool:
+        """Check if game is open"""
         return self._is_open
 
+    @property
+    def ressource(self) -> _JEInternRessources:
+        """Get ressource manager"""
+        return self._ressource
+
+    @property
+    def drawable(self) -> _JEInternDrawable:
+        """Get drawable manager"""
+        return self._drawable
+
     def close(self) -> None:
+        """Close game"""
         self._is_open = _JEBool(0)
 
     def update(self) -> None:
+        """Update game"""
         self._event_manager.process(self)
-        _JEInternPyGame.display.flip()
+
+    def display(self) -> None:
+        """Display game"""
+        _PyGameIntern.display.flip()
+
+    def draw(self) -> None:
+        """Draw game"""
+        sprite: _JESprite
+        for sprite in self._drawable.sprite:
+            if sprite.is_alive():
+                self._renderer.draw_sprite(sprite)
 
     def __deepcopy__(
             self,
             memo
         ):
+        """Deepcopy"""
         return self

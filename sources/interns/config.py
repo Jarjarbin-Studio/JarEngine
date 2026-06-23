@@ -27,9 +27,12 @@ from __future__ import annotations
 from typing import final as _final
 
 from jarbin_toolkit_config import Config as _JTKInternConfig
+from sources.interns.decorators import documentation as _documentation
 
+@_documentation
 @_final
 class JEInternConfig(_JTKInternConfig):
+    """Config (Internal API)"""
 
     path: str = (
         "../.je-config"
@@ -38,10 +41,8 @@ class JEInternConfig(_JTKInternConfig):
     )
 
     def __init__(self, name: str):
+        """JEInternConfig creator"""
         super().__init__(JEInternConfig.path, {"INFO": {"name": name}}, file_name=f"je-{name}.ini")
 
-def get_game_config() -> JEInternConfig:
-    return JEInternConfig("game")
-
-def get_window_config() -> JEInternConfig:
-    return JEInternConfig("window")
+def get_config(name: str = "engine") -> JEInternConfig:
+    return JEInternConfig(name)

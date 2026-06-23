@@ -26,39 +26,39 @@ from __future__ import annotations
 
 from typing import (
     final as _final,
-    Callable as _Callable,
     Self as _Self
 )
 
 from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
 from sources.interns import (
     JTKInternError as _JTKInternError,
-    JEInternPyGame as _JEInternPyGame
+    PGIntern as _PyGameIntern
 )
 from sources.games.event import (
     JEEventCode as _JEEventCode,
-    JEEventCodeGroup as _JEEventCodeGroup,
     JEEventWatcher as _JEEventWatcher
 )
 from sources.games.keyboard import (
     JEKeyCode as _JEKeyCode,
-    JEKeyCodeGroup as _JEKeyCodeGroup,
     JEKeyWatcher as _JEKeyWatcher
 )
 from sources.games.mouse import (
     JEMouseCode as _JEMouseCode,
-    JEMouseCodeGroup as _JEMouseCodeGroup,
     JEMouseWatcher as _JEMouseWatcher
 )
 from sources.systems.bool import JEBool as _JEBool
+from sources.interns.decorators import documentation as _documentation
 
+@_documentation
 @_final
 class JEEvent(_JEInternClassBase):
+    """Event (pygame event ownership)"""
 
     def __init__(
             self,
-            event: _JEInternPyGame.event.Event
+            event: _PyGameIntern.event.Event
         ) -> None:
+        """JEEvent creator"""
         super().__init__()
         self._event = event
 
@@ -69,18 +69,23 @@ class JEEvent(_JEInternClassBase):
 
     @property
     def type_code(self) -> _JEEventCode:
+        """Get event type (as JEEventCode)"""
         return _JEEventCode(self._type)
 
     @property
     def key_code(self) -> _JEKeyCode | None:
+        """Get key (as JEKeyCode)"""
         return _JEKeyCode(self._key) if self._key is not None else None
 
     @property
     def mouse_code(self) -> _JEMouseCode | None:
+        """Get mouse (as JEMouseCode)"""
         return _JEMouseCode(self._button) if self._button is not None else None
 
+@_documentation
 @_final
 class JEEventHandler(_JEInternClassBase):
+    """Event handler"""
 
     _instance: _Self = None
     _is_created: _JEBool = _JEBool(0)
@@ -90,6 +95,7 @@ class JEEventHandler(_JEInternClassBase):
             *args,
             **kwargs
         ) -> _Self:
+        """Instances clamping"""
         if cls._instance is not None:
             raise _JTKInternError.Error.ErrorRuntime(
                 "\nInstance already exists. Only one event handler is allowed."
@@ -99,18 +105,21 @@ class JEEventHandler(_JEInternClassBase):
         return cls._instance
 
     def __init__(self) -> None:
-        JEEventHandler._is_created = _JEBool(1)
+        """JEEventHandler creator"""
         super().__init__()
+        JEEventHandler._is_created = _JEBool(1)
         self._watchers: list[_JEEventWatcher | _JEKeyWatcher | _JEMouseWatcher] = []
 
     @property
     def watchers(self) -> list[_JEEventWatcher | _JEKeyWatcher | _JEMouseWatcher]:
+        """Get the list of watched events, keys and mouse"""
         return self._watchers
 
     def add(
             self,
             watcher: _JEEventWatcher | _JEKeyWatcher | _JEMouseWatcher
         ) -> None:
+        """Add a watched event, key and mouse"""
         if not isinstance(watcher, (_JEEventWatcher, _JEKeyWatcher, _JEMouseWatcher)):
             raise _JTKInternError.Error.ErrorType(
                 "\nOnly JEEventWatcher, JEKeyWatcher and JEMouseWatcher can be added."
@@ -122,6 +131,7 @@ class JEEventHandler(_JEInternClassBase):
             self,
             event: _JEEventCode | _JEKeyCode | _JEMouseCode
         ) -> None:
+        """Remove a watched event, key and mouse by its name"""
         if not self.has(event):
             raise _JTKInternError.Error.ErrorRuntime(
                 f"\n{event!r} not found in watcher list."
@@ -133,12 +143,14 @@ class JEEventHandler(_JEInternClassBase):
                 return
 
     def clear(self) -> None:
+        """clear watcher list"""
         self._watchers.clear()
 
     def has(
             self,
             event: _JEEventCode | _JEKeyCode | _JEMouseCode
         ) -> _JEBool:
+        """Check if a watcher contains the current event"""
         for w in self._watchers:
             if event == w:
                 return _JEBool(1)
@@ -148,7 +160,8 @@ class JEEventHandler(_JEInternClassBase):
             self,
             game: "JEGame"
         ) -> None:
-        events: list[JEEvent] = [JEEvent(evt) for evt in _JEInternPyGame.event.get()]
+        """Process events"""
+        events: list[JEEvent] = [JEEvent(evt) for evt in _PyGameIntern.event.get()]
 
         for event in events:
             for watcher in self._watchers:
@@ -159,4 +172,5 @@ class JEEventHandler(_JEInternClassBase):
             self,
             memo
         ):
+        """Deepcopy"""
         return self

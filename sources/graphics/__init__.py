@@ -25,7 +25,9 @@
 from __future__ import annotations
 
 __all__ = [
+    "JETexture",
     "JESprite"
 ]
 
-import sources.graphics.sprite as JESprite
+from sources.graphics.sprite import JESprite
+from sources.graphics.texture import JETexture
