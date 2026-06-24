@@ -1,84 +1,63 @@
-from random import randint
 import sources as JarEngine
 
 JarEngine.Init()
 
-class Game:
+game: JarEngine.JEGame
+sprite: JarEngine.JEEntity
 
-    game: JarEngine.JEGame
+def init_game():
+    global game
+    game = JarEngine.JEGame()
+    game.set_window(JarEngine.JEWindow(size=(800, 600), fps=100, title="JarEngine - Minimal Window"))
 
-    @staticmethod
-    def init():
-        Game.game = JarEngine.JEGame()
-        Game.game.set_window(JarEngine.JEWindow(size=(800, 600), fps=100, title="JarEngine - Minimal Window"))
+    texture = JarEngine.JETexture("JarEngineLogo.png")
+    game.ressource.texture.add(texture)
 
-        Game.game.ressource.texture.add(JarEngine.JETexture("JarEngineLogo.png"))
+    JarEngine.Systems.JERenderSystem(game)
 
-class Sprites:
-
-    sprite: JarEngine.JESprite
-    sprite1: JarEngine.JESprite
-    sprite2: JarEngine.JESprite
-
-    @staticmethod
-    def init():
-        Sprites.sprite = JarEngine.JESprite(Game.game.ressource.texture.get("JarEngineLogo.png"))
-        Sprites.sprite.size = (600, 600)
-        Sprites.sprite.position = (100, 0)
-        Game.game.drawable.sprite.add(Sprites.sprite)
-
-        Sprites.sprite1 = JarEngine.JESprite(Game.game.ressource.texture.get("JarEngineLogo.png"))
-        Sprites.sprite1.size = (100, 100)
-        Sprites.sprite1.position = (0, 0)
-        Game.game.drawable.sprite.add(Sprites.sprite1)
-
-        Sprites.sprite2 = JarEngine.JESprite(Game.game.ressource.texture.get("JarEngineLogo.png"))
-        Sprites.sprite2.size = (100, 100)
-        Sprites.sprite2.position = (700, 500)
-        Game.game.drawable.sprite.add(Sprites.sprite2)
-
-class Events:
-
-    @staticmethod
-    def init():
-        Game.game.event.add(JarEngine.Event.JEEventWatcher(
-            JarEngine.JEEvtQuit,
-            Events.exit
-        ))
-        Game.game.event.add(JarEngine.EventKeyboard.JEKeyWatcher(
-            JarEngine.JEKey_Escape | JarEngine.JEKey_Delete,
-            Events.exit
-        ))
-
-    @staticmethod
-    def exit(je_game, evt):
+def init_events():
+    def ext(je_game, evt):
         je_game.close()
 
-class Input:
+    game.event.add(JarEngine.Event.JEEventWatcher(
+        JarEngine.JEEvtQuit,
+        ext
+    ))
+    game.event.add(JarEngine.EventKeyboard.JEKeyWatcher(
+        JarEngine.JEKey_Escape | JarEngine.JEKey_Delete,
+        ext
+    ))
 
-    @staticmethod
-    def move():
-        if Game.game.is_key_down(JarEngine.JEKey_Up):
-            Sprites.sprite2.move(dy=-100 * Game.game.dt)
-        if Game.game.is_key_down(JarEngine.JEKey_Down):
-            Sprites.sprite2.move(dy=100 * Game.game.dt)
-        if Game.game.is_key_down(JarEngine.JEKey_Left):
-            Sprites.sprite2.move(dx=-100 * Game.game.dt)
-        if Game.game.is_key_down(JarEngine.JEKey_Right):
-            Sprites.sprite2.move(dx=100 * Game.game.dt)
+def init_sprite():
+    global sprite
+    sprite = JarEngine.JEEntity(name="sprite")
 
-Game.init()
-Sprites.init()
-Events.init()
+    JarEngine.Components.JETextureComponent(sprite, game.ressource.texture.get(name="JarEngineLogo.png"))
+    JarEngine.Components.JEPositionComponent(sprite, (350, 250))
+    JarEngine.Components.JESizeComponent(sprite, (100, 100))
 
-while Game.game.is_open:
-    Game.game.update()
-    Input.move()
-    Sprites.sprite1.position = (randint(0, 700), randint(0, 500))
-    Game.game.wdw.fill((0, 0, 0))
-    Game.game.draw()
-    Game.game.display()
+    game.entities.add(sprite)
 
-print(Game.game.dump(is_colored=True))
+def move():
+    if game.is_key_down(JarEngine.JEKey_Up):
+        sprite.modify_position(y=-100 * game.dt)
+    if game.is_key_down(JarEngine.JEKey_Down):
+        sprite.modify_position(y=100 * game.dt)
+    if game.is_key_down(JarEngine.JEKey_Left):
+        sprite.modify_position(x=-100 * game.dt)
+    if game.is_key_down(JarEngine.JEKey_Right):
+        sprite.modify_position(x=100 * game.dt)
+
+init_game()
+init_events()
+init_sprite()
+
+while game.is_open:
+    move()
+    game.wdw.fill((0, 0, 0))
+    game.update()
+    game.display()
+
+print(game.dump(is_colored=True))
 
 JarEngine.Quit()

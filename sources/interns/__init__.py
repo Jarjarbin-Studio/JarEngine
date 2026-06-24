@@ -27,9 +27,11 @@ from __future__ import annotations
 __all__ = [
     "PGIntern",
     "JEInternClassBase",
-    "InternClasses",
-    "InternConfig",
-    "InternDecorators",
+    "LowClasses",
+    "HighClasses",
+    "FinalClasses",
+    "Config",
+    "Decorators",
     "JTKInternTime",
     "JTKInternConsole",
     "JTKInternAction",
@@ -43,6 +45,8 @@ import jarbin_toolkit_action as JTKInternAction
 import jarbin_toolkit_error as JTKInternError
 
 from sources.interns.base_classe import JEInternClassBase
-import sources.interns.decorators as InternDecorators
-import sources.interns.low_classes as InternClasses
-import sources.interns.config as InternConfig
+import sources.interns.decorators as Decorators
+import sources.interns.low_classes as LowClasses
+import sources.interns.high_classes as HighClasses
+import sources.interns.final_classes as FinalClasses
+import sources.interns.config as Config

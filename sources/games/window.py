@@ -26,7 +26,8 @@ from __future__ import annotations
 
 from typing import (
     Self as _Self,
-    final as _final
+    final as _final,
+    Any as _Any
 )
 
 from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
@@ -34,7 +35,7 @@ from sources.interns import (
     JTKInternError as _JTKInternError,
     PGIntern as _PGIntern
 )
-from sources.interns.high_classes import JEInternWindowSettings as _JEInternWindowSettings
+from sources.interns.final_classes import JEInternWindowSettings as _JEInternWindowSettings
 from sources.systems.color import JEColor as _JEColor
 from sources.systems.bool import JEBool as _JEBool
 from sources.interns.decorators import documentation as _documentation
@@ -99,6 +100,13 @@ class JEWindow(_JEInternClassBase):
         ) -> None:
         """Fill the screen with given color"""
         self._screen.fill(color.rgba if isinstance(color, _JEColor) else color)
+
+    def blit(
+            self,
+            source: _PGIntern.Surface,
+            dest: _Any
+        ):
+        self._screen.blit(source, dest)
 
     def __deepcopy__(
             self,

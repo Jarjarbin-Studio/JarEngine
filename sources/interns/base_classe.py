@@ -25,6 +25,7 @@
 from __future__ import annotations
 
 from uuid import uuid4 as _uuid4
+from types import FunctionType as _FunctionType
 from typing import Any as _Any
 
 from sources.interns import JTKInternConsole as _JTKInternConsole

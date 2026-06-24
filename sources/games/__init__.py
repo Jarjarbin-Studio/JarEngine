@@ -25,9 +25,13 @@
 from __future__ import annotations
 
 __all__ = [
-    "JEGame",
-    "JEWindow"
+    'JEGame',
+    'JEWindow',
+    'JEInput',
+    'Systems'
 ]
 
 from sources.games.window import JEWindow
 from sources.games.game import JEGame
+from sources.games.input import JEInput
+import sources.games.systems as Systems

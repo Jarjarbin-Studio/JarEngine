@@ -24,31 +24,10 @@
 
 from __future__ import annotations
 
-from typing import (
-    final as _final
-)
+__all__ = [
+    'JEEntity',
+    'Components'
+]
 
-from sources.games.window import JEWindow as _JEWindow
-from sources.graphics.sprite import JESprite as _JESprite
-from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
-from sources.interns.decorators import documentation as _documentation
-
-@_documentation
-@_final
-class JERenderer(_JEInternClassBase):
-    """Rendering functions"""
-
-    def __init__(
-            self,
-            window: _JEWindow
-        ):
-        """JERenderer creator"""
-        super().__init__()
-        self.window = window
-
-    def draw_sprite(
-            self,
-            sprite: _JESprite
-        ):
-        """Draw sprite"""
-        self.window.screen.blit(sprite.surface, sprite.rect)
+from sources.entities.entity import JEEntity
+import sources.entities.components as Components

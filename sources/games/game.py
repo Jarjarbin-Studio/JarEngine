@@ -30,8 +30,6 @@ from typing import (
     Optional as _Optional
 )
 
-from sources.graphics.sprite import JESprite as _JESprite
-from sources.games.renderer import JERenderer as _JERenderer
 from sources.games.window import JEWindow as _JEWindow
 from sources.games.input import JEInput as _JEInput
 from sources.events.manager import JEEventHandler as _JEEventHandler
@@ -46,10 +44,10 @@ from sources.interns import (
     JTKInternError as _JTKInternError,
     PGIntern as _PGIntern
 )
-from sources.interns.high_classes import (
-    JEInternDrawable as _JEInternDrawable,
-    JEInternRessources as _JEInternRessources
-)
+from sources.entities.entity import JEEntity as _JEEntity
+from sources.systems.container import JEContainer as _JEContainer
+from sources.interns.high_classes import JEInternalRenderingSystems as _JEInternalRenderingSystems
+from sources.interns.final_classes import JEInternRessources as _JEInternRessources
 from sources.systems.bool import JEBool as _JEBool
 from sources.systems.clock import JEClock as _JEClock
 from sources.interns.decorators import documentation as _documentation
@@ -90,12 +88,12 @@ class JEGame(_JEInternClassBase):
         self._config: _JEInternConfig = _get_config()
         self._window: _Optional[_JEWindow] = None
         self._ressource: _JEInternRessources = _JEInternRessources()
-        self._drawable: _JEInternDrawable = _JEInternDrawable()
+        self._entities: _JEContainer[_JEEntity] = _JEContainer(_JEEntity)
         self._clock: _Optional[_JEClock] = _JEClock() if use_clock else None
         self._input: _Optional[_JEInput] = _JEInput() if use_input else None
         self._is_open: _JEBool = _JEBool(1)
         self._event_manager: _JEEventHandler = _JEEventHandler()
-        self._renderer: _Optional[_JERenderer] = None
+        self._systems: _JEContainer[_JEInternalRenderingSystems] = _JEContainer(_JEInternalRenderingSystems, _JEBool(1))
 
     def set_window(self, window: _JEWindow):
         """Set game window"""
@@ -109,7 +107,6 @@ class JEGame(_JEInternClassBase):
             )
         self._window = window
         self._clock = _JEClock(window.settings.fps)
-        self._renderer = _JERenderer(self._window)
 
     @property
     def wdw(self) -> _JEWindow:
@@ -164,30 +161,38 @@ class JEGame(_JEInternClassBase):
         return self._ressource
 
     @property
-    def drawable(self) -> _JEInternDrawable:
-        """Get drawable manager"""
-        return self._drawable
+    def entities(self) -> _JEContainer[_JEEntity]:
+        """Get entity manager"""
+        return self._entities
 
     def close(self) -> None:
         """Close game"""
         self._is_open = _JEBool(0)
+
+    def add_system(
+            self,
+            system: _JEInternalRenderingSystems
+        ) -> None:
+        """Add system object"""
+        self._systems.add(system)
+
+    @property
+    def systems(self) -> _JEContainer[_JEInternalRenderingSystems]:
+        """Get rendering and update systems"""
+        return self._systems
 
     def update(self) -> None:
         """Update game"""
         self._event_manager.process(self)
         self._clock.update()
         self._input.update()
+        system: _JEInternalRenderingSystems
+        for system in self._systems:
+            system.update(self._window, self._entities, float(self._clock))
 
     def display(self) -> None:
         """Display game"""
         _PGIntern.display.flip()
-
-    def draw(self) -> None:
-        """Draw game"""
-        sprite: _JESprite
-        for sprite in self._drawable.sprite:
-            if sprite.is_alive():
-                self._renderer.draw_sprite(sprite)
 
     def __deepcopy__(
             self,

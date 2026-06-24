@@ -29,16 +29,20 @@ __all__ = [
     # Interns
     'Interns',
     # Audios
+    # Entities
+    'JEEntity',
+    'Components',
     # Events
-    "EventManager",
-    "Event",
-    "EventKeyboard",
-    "EventMouse",
+    'EventManager',
+    'Event',
+    'EventKeyboard',
+    'EventMouse',
     # Games
-    "JEGame",
-    "JEWindow",
+    'JEGame',
+    'JEWindow',
+    'JEInput',
+    'Systems',
     # Graphics
-    'JESprite',
     'JETexture',
     # Systems
     'Vector',
@@ -112,6 +116,7 @@ __all__ = [
 ##Imports##
 import sources.interns as Interns
 from sources.audios import *
+from sources.entities import *
 from sources.events import *
 from sources.games import *
 from sources.graphics import *

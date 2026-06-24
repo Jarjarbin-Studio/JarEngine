@@ -24,7 +24,6 @@
 
 from __future__ import annotations
 
-from sources.interns import JTKInternAction as _JTKInternAction
 from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
 from sources.systems.bool import JEBool as _JEBool
 from sources.interns.decorators import documentation as _documentation
@@ -44,14 +43,29 @@ class JEInternGraphic(_JEInternClassBase):
         self._name_hash = hash(self.name)
         self._object_hash = hash(self)
         self._destroyed: _JEBool = _JEBool(0)
+        self._enabled: _JEBool = _JEBool(1)
 
     def destroy(self) -> None:
         """Destroy placeholder"""
         self._destroyed = _JEBool(1)
 
+    @property
     def is_alive(self) -> _JEBool:
         """Is object alive"""
         return _JEBool(not self._destroyed)
+
+    def enable(self) -> None:
+        """Enable object"""
+        self._enabled = _JEBool(1)
+
+    def disable(self) -> None:
+        """Disable object"""
+        self._enabled = _JEBool(0)
+
+    @property
+    def is_enabled(self) -> _JEBool:
+        """Check if component is enabled"""
+        return self._enabled
 
 @_documentation
 class JEInternGraphicalObject(JEInternGraphic):
@@ -64,9 +78,7 @@ class JEInternGraphicalObject(JEInternGraphic):
         """JEInternGraphicalObject creator"""
         super().__init__(name)
 
-        self._events: dict[str, _JTKInternAction.Actions] = {}
         self._dirty: _JEBool = _JEBool(1)
-        self._enabled: _JEBool = _JEBool(1)
 
     def update(
             self,
@@ -75,14 +87,20 @@ class JEInternGraphicalObject(JEInternGraphic):
         """update placeholder"""
         pass
 
-    def enable(self) -> None:
-        """Enable object"""
-        self._enabled = _JEBool(1)
-
-    def disable(self) -> None:
-        """Disable object"""
-        self._enabled = _JEBool(0)
-
+    @property
     def is_alive(self) -> _JEBool:
         """Is object alive"""
         return _JEBool((not self._destroyed) and self._enabled)
+
+    def mark_dirty(self) -> None:
+        """Mark component as modified"""
+        self._dirty = _JEBool(1)
+
+    def clear_dirty(self) -> None:
+        """Reset dirty flag"""
+        self._dirty = _JEBool(0)
+
+    @property
+    def is_dirty(self) -> _JEBool:
+        """Check if component was modified"""
+        return self._dirty

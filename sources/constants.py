@@ -88,6 +88,6 @@ JEKey_Left: _JEKeyCode = _JEKeyCode(_PGIntern.K_LEFT)
 JEKey_Right: _JEKeyCode = _JEKeyCode(_PGIntern.K_RIGHT)
 
 # Mouses #
-JEMouse_Left: _JEMouseCode = _JEMouseCode(_PGIntern.BUTTON_LEFT)
-JEMouse_Middle: _JEMouseCode = _JEMouseCode(_PGIntern.BUTTON_MIDDLE)
-JEMouse_Right: _JEMouseCode = _JEMouseCode(_PGIntern.BUTTON_RIGHT)
+JEMse_Left: _JEMouseCode = _JEMouseCode(_PGIntern.BUTTON_LEFT)
+JEMse_Middle: _JEMouseCode = _JEMouseCode(_PGIntern.BUTTON_MIDDLE)
+JEMse_Right: _JEMouseCode = _JEMouseCode(_PGIntern.BUTTON_RIGHT)
