@@ -24,10 +24,8 @@
 
 from __future__ import annotations
 
-from typing import (
-    Any as _Any,
-    final as _final
-)
+from typing import final as _final
+
 from sources.interns import PGIntern as _PGIntern
 from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
 from sources.interns.decorators import documentation as _documentation
@@ -37,48 +35,42 @@ from sources.interns.decorators import documentation as _documentation
 class JEClock(_JEInternClassBase):
     """Clock"""
 
-    def __init__(
-            self,
-            fps: int = 60
-        ) -> None:
+    def __init__(self, fps = 60):
         """JEClock creator"""
 
         super().__init__()
-        self._clock: _PGIntern.time.Clock = _PGIntern.time.Clock()
-        self._target_fps: int = fps
-        self._dt: float = 0.0
+        self._clock = _PGIntern.time.Clock()
+        self._target_fps = fps
+        self._dt = 0.0
 
-    def update(self) -> None:
+    def update(self):
         """Update delta time"""
         self._dt = min(self._clock.tick(self._target_fps) / 1000.0, 1/60)
 
     @property
-    def dt(self) -> float:
+    def dt(self):
         """Get delta time"""
         return self._dt
 
     @property
-    def target_fps(self) -> int:
+    def target_fps(self):
         """Get target fps"""
         return self._target_fps
 
     @target_fps.setter
-    def target_fps(self, value: int) -> None:
+    def target_fps(self, value):
         """Set target fps"""
         self._target_fps = max(1, value)
 
     @property
-    def fps(self) -> float:
+    def fps(self):
         """Get real fps"""
         return self._clock.get_fps()
 
-    def __float__(self) -> float:
+    def __float__(self):
         """Get dt"""
         return self.dt
 
-    def __deepcopy__(
-            self,
-            memo
-        ):
+    def __deepcopy__(self, memo):
         """Deepcopy"""
         return self

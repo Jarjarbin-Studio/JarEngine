@@ -24,22 +24,13 @@
 
 from __future__ import annotations
 
-from typing import (
-    Self as _Self,
-    final as _final,
-    Optional as _Optional
-)
+from typing import final as _final
 
 from sources.games.window import JEWindow as _JEWindow
 from sources.games.input import JEInput as _JEInput
 from sources.events.manager import JEEventHandler as _JEEventHandler
-from sources.events.keyboard import JEKeyCode as _JEKeyCode
-from sources.events.mouse import JEMouseCode as _JEMouseCode
 from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
-from sources.interns.config import (
-    JEInternConfig as _JEInternConfig,
-    get_config as _get_config
-)
+from sources.interns.config import get_config as _get_config
 from sources.interns import (
     JTKInternError as _JTKInternError,
     PGIntern as _PGIntern
@@ -57,45 +48,35 @@ from sources.interns.decorators import documentation as _documentation
 class JEGame(_JEInternClassBase):
     """Game manager"""
 
-    _instance: _Self = None
+    _instance = None
     _is_created = _JEBool(0)
 
-    def __new__(
-            cls,
-            *args,
-            **kwargs
-        ) -> _Self:
+    def __new__(cls, *args, **kwargs):
         """Instances clamping"""
         if cls._instance is not None:
             raise _JTKInternError.Error.ErrorRuntime(
                 "\nInstance already exists. Only one game is allowed."
             )
-
         cls._instance = super().__new__(cls)
         return cls._instance
 
-    def __init__(
-            self,
-            use_clock: bool = True,
-            use_input: bool = True
-        ) -> None:
+    def __init__(self, use_clock = True, use_input = True):
         """JEGame creator"""
         if JEGame._is_created:
             return
-
         JEGame._is_created = _JEBool(1)
         super().__init__()
-        self._config: _JEInternConfig = _get_config()
-        self._window: _Optional[_JEWindow] = None
-        self._ressource: _JEInternRessources = _JEInternRessources()
-        self._entities: _JEContainer[_JEEntity] = _JEContainer(_JEEntity)
-        self._clock: _Optional[_JEClock] = _JEClock() if use_clock else None
-        self._input: _Optional[_JEInput] = _JEInput() if use_input else None
-        self._is_open: _JEBool = _JEBool(1)
-        self._event_manager: _JEEventHandler = _JEEventHandler()
-        self._systems: _JEContainer[_JEInternalRenderingSystems] = _JEContainer(_JEInternalRenderingSystems, _JEBool(1))
+        self._config = _get_config()
+        self._window = None
+        self._ressource = _JEInternRessources()
+        self._entities = _JEContainer(_JEEntity)
+        self._clock = _JEClock() if use_clock else None
+        self._input = _JEInput() if use_input else None
+        self._is_open = _JEBool(1)
+        self._event_manager = _JEEventHandler()
+        self._systems = _JEContainer(_JEInternalRenderingSystems, _JEBool(1))
 
-    def set_window(self, window: _JEWindow):
+    def set_window(self, window):
         """Set game window"""
         if not isinstance(window, _JEWindow):
             raise _JTKInternError.Error.ErrorType(
@@ -109,94 +90,80 @@ class JEGame(_JEInternClassBase):
         self._clock = _JEClock(window.settings.fps)
 
     @property
-    def wdw(self) -> _JEWindow:
+    def wdw(self):
         """Get window object"""
         if not self._window:
             raise _JTKInternError.State.ErrorStateNotInitialized(
                 "\nWindow not set."
             )
-
         return self._window
 
     @property
-    def input(self) -> _JEInput:
+    def input(self):
         """Get input object"""
         return self._input
 
-    def is_key_down(
-            self,
-            key: _JEKeyCode
-        ) -> bool:
+    def is_key_down(self, key):
         return self._input.is_key_down(key)
 
-    def is_mouse_down(
-            self,
-            button: _JEMouseCode
-        ) -> bool:
+    def is_mouse_down(self, button):
         return self._input.is_mouse_down(button)
 
     @property
-    def clock(self) -> _JEClock:
+    def clock(self):
         """Get clock object"""
         return self._clock
 
     @property
-    def dt(self) -> float:
+    def dt(self):
         """Get clock object"""
         return float(self._clock)
 
     @property
-    def event(self) -> _JEEventHandler:
+    def event(self):
         """Get event handler"""
         return self._event_manager
 
     @property
-    def is_open(self) -> _JEBool:
+    def is_open(self):
         """Check if game is open"""
         return self._is_open
 
     @property
-    def ressource(self) -> _JEInternRessources:
+    def ressource(self):
         """Get ressource manager"""
         return self._ressource
 
     @property
-    def entities(self) -> _JEContainer[_JEEntity]:
+    def entities(self):
         """Get entity manager"""
         return self._entities
 
-    def close(self) -> None:
+    def close(self):
         """Close game"""
         self._is_open = _JEBool(0)
 
-    def add_system(
-            self,
-            system: _JEInternalRenderingSystems
-        ) -> None:
+    def add_system(self, system):
         """Add system object"""
         self._systems.add(system)
 
     @property
-    def systems(self) -> _JEContainer[_JEInternalRenderingSystems]:
+    def systems(self):
         """Get rendering and update systems"""
         return self._systems
 
-    def update(self) -> None:
+    def update(self):
         """Update game"""
         self._event_manager.process(self)
         self._clock.update()
         self._input.update()
-        system: _JEInternalRenderingSystems
         for system in self._systems:
             system.update(self._window, self._entities, float(self._clock))
 
-    def display(self) -> None:
+    def display(self):
         """Display game"""
         _PGIntern.display.flip()
 
-    def __deepcopy__(
-            self,
-            memo
-        ):
+    def __deepcopy__(self, memo):
         """Deepcopy"""
         return self

@@ -24,10 +24,11 @@
 
 from __future__ import annotations
 
-__all__ = [
-    'JEEntity',
-    'Components'
-]
+# Public API exports
+from sources.graphics.texture import JETexture
 
-from sources.entities.entity import JEEntity
-import sources.entities.components as Components
+# Submodules
+
+__all__: list[str] = [
+    "JETexture"
+]

@@ -24,10 +24,13 @@
 
 from __future__ import annotations
 
-__all__ = [
+# Public API exports
+from sources.entities.entity import JEEntity
+
+# Submodules
+import sources.entities.components as Components
+
+__all__: list[str] = [
     'JEEntity',
     'Components'
 ]
-
-from sources.entities.entity import JEEntity
-import sources.entities.components as Components

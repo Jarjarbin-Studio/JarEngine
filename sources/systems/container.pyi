@@ -24,10 +24,20 @@
 
 from __future__ import annotations
 
-__all__ = [
-    'JEEntity',
-    'Components'
-]
+from typing import TypeVar, Optional, Iterator
 
-from sources.entities.entity import JEEntity
-import sources.entities.components as Components
+from sources.interns.base_classe import JEInternClassBase
+from sources.systems.bool import JEBool
+
+_T = TypeVar("_T", bound=JEInternClassBase)
+
+class JEContainer:
+    def __init__(self, allowed_type: type[_T], allow_subclass: JEBool) -> None: ...
+    def __setitem__(self, obj: _T) -> None: ...
+    def add(self, obj: _T) -> None: ...
+    def __getitem__(self, value: str | _T) -> _T: ...
+    def get(self, *, name: Optional[str], jeid: Optional[str], instance: Optional[_T]) -> _T: ...
+    def rm(self, *, name: Optional[str], jeid: Optional[str], instance: Optional[_T]) -> _T: ...
+    def __iter__(self) -> Iterator[_T]: ...
+    @property
+    def data(self) -> _T: ...

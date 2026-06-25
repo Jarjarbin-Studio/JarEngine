@@ -45,14 +45,10 @@ from sources.interns.decorators import documentation as _documentation
 class JEWindow(_JEInternClassBase):
     """Window manager"""
 
-    _instance: _Self = None
-    _is_created: _JEBool = _JEBool(0)
+    _instance = None
+    _is_created = _JEBool(0)
 
-    def __new__(
-            cls,
-            *args,
-            **kwargs
-        ) -> _Self:
+    def __new__(cls, *args, **kwargs):
         """Instances clamping"""
         if cls._instance is not None:
             raise _JTKInternError.Error.ErrorRuntime(
@@ -62,55 +58,34 @@ class JEWindow(_JEInternClassBase):
         cls._instance = super().__new__(cls)
         return cls._instance
 
-    def __init__(
-            self,
-            *,
-            size: tuple[int, int] = (0, 0),
-            flags: int = 0,
-            fps: int = 60,
-            depth: int = 0,
-            display: int = 0,
-            vsync: int = 0,
-            title: str = "JarEngine Game"
-        ):
+    def __init__(self, *, size = (0, 0), flags = 0, fps = 60, depth = 0, display = 0, vsync = 0, title = "JarEngine Game"):
         """JEWindow creator"""
 
         if JEWindow._is_created:
             return
         JEWindow._is_created = _JEBool(1)
         super().__init__()
-        self._settings: _JEInternWindowSettings = _JEInternWindowSettings(size, flags, fps, depth, display, vsync, title)
-        self._screen: _PGIntern.Surface = _PGIntern.display.set_mode(size, flags, depth, display, vsync)
-        self._event: list[_PGIntern.event.Event] = []
+        self._settings = _JEInternWindowSettings(size, flags, fps, depth, display, vsync, title)
+        self._screen = _PGIntern.display.set_mode(size, flags, depth, display, vsync)
         _PGIntern.display.set_caption(title)
 
     @property
-    def screen(self) -> _PGIntern.Surface:
+    def screen(self):
         """Get screen surface (PGIntern)"""
         return self._screen
 
     @property
-    def settings(self) -> _JEInternWindowSettings:
+    def settings(self):
         """Get settings"""
         return self._settings
 
-    def fill(
-            self,
-            color: _JEColor | tuple[int, int, int] | tuple[int, int, int, int]
-        ) -> None:
+    def fill(self, color):
         """Fill the screen with given color"""
         self._screen.fill(color.rgba if isinstance(color, _JEColor) else color)
 
-    def blit(
-            self,
-            source: _PGIntern.Surface,
-            dest: _Any
-        ):
+    def blit(self, source, dest):
         self._screen.blit(source, dest)
 
-    def __deepcopy__(
-            self,
-            memo
-        ):
+    def __deepcopy__(self, memo):
         """Deepcopy"""
         return self

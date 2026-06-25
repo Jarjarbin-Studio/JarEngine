@@ -24,11 +24,7 @@
 
 from __future__ import annotations
 
-from typing import (
-    final as _final,
-    Callable as _Callable,
-    Self as _Self
-)
+from typing import final as _final
 
 from sources.events.event import JEEventCode as _JEEventCode
 from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
@@ -44,11 +40,11 @@ from sources.interns.decorators import documentation as _documentation
 class JEMouseCode(_JEInternClassBase):
     """Mouse code"""
 
-    _instances: dict[int, _Self] = {}
-    _name_cache: dict[int, str] = {}
+    _instances = {}
+    _name_cache = {}
 
     @classmethod
-    def _build_cache(cls) -> None:
+    def _build_cache(cls):
         if cls._name_cache:
             return
 
@@ -58,10 +54,7 @@ class JEMouseCode(_JEInternClassBase):
             _PGIntern.BUTTON_RIGHT: "RIGHT",
         })
 
-    def __new__(
-            cls,
-            mouse: int | None = None
-        ) -> _Self:
+    def __new__(cls, mouse = None):
         """Instances clamping"""
         if mouse is None:
             return super().__new__(cls)
@@ -71,10 +64,7 @@ class JEMouseCode(_JEInternClassBase):
 
         return cls._instances[mouse]
 
-    def __init__(
-            self,
-            mouse: int | None = None
-        ) -> None:
+    def __init__(self, mouse = None):
         """JEMouseCode creator"""
         if hasattr(self, "_initialized") or mouse is None:
             return
@@ -85,19 +75,16 @@ class JEMouseCode(_JEInternClassBase):
         self._name = self._name_cache.get(self._mouse, f"MouseUnknown({self._mouse})")
         self._initialized = True
 
-    def __int__(self) -> int:
+    def __int__(self):
         """Get mouse code"""
         return self._mouse
 
     @property
-    def name(self) -> str:
+    def name(self):
         """Get mouse name"""
         return self._name
 
-    def __or__(
-            self,
-            other: JEMouseCode
-        ) -> JEMouseCodeGroup:
+    def __or__(self, other):
         """Allows same synthax as union (create a JEMouseCodeGroup)"""
 
         if not isinstance(other, JEMouseCode):
@@ -107,13 +94,13 @@ class JEMouseCode(_JEInternClassBase):
 
         return JEMouseCodeGroup([self, other])
 
-    def __eq__(self, other) -> bool:
+    def __eq__(self, other):
         """Compare 2 mouse"""
         if not isinstance(other, JEMouseCode):
             return NotImplemented
         return int(self) == int(other)
 
-    def __hash__(self) -> int:
+    def __hash__(self):
         """Hash a mouse"""
         return hash(self._mouse)
 
@@ -130,10 +117,7 @@ class JEMouseCodeGroup(_JEInternClassBase):
         super().__init__()
         self._mouses: list[JEMouseCode] = list(dict.fromkeys(mouses))
 
-    def __or__(
-            self,
-            other
-        ):
+    def __or__(self, other):
         """Allows same synthax as union (create a JEMouseCodeGroup)"""
 
         if isinstance(other, JEMouseCode):
@@ -160,12 +144,7 @@ class JEMouseCodeGroup(_JEInternClassBase):
 class JEMouseWatcher(_JEInternClassBase):
     """Mouse event watcher"""
 
-    def __init__(
-        self,
-        on: JEMouseCode | list[JEMouseCode] | JEMouseCodeGroup,
-        do: _Callable[["JEGame", "JEEvent"], None],
-        on_press: _JEBool = _JEBool(1)
-    ) -> None:
+    def __init__(self, on, do, on_press = _JEBool(1)):
         """JEMouseWatcher creator"""
 
         if not isinstance(on, (JEMouseCode, list, JEMouseCodeGroup)):
@@ -174,7 +153,7 @@ class JEMouseWatcher(_JEInternClassBase):
             )
 
         super().__init__()
-        self._on: JEMouseCodeGroup = (
+        self._on = (
             on
             if isinstance(on, JEMouseCodeGroup) else
             JEMouseCodeGroup(
@@ -183,14 +162,14 @@ class JEMouseWatcher(_JEInternClassBase):
                 [on]
             )
         )
-        self._on_param: _JEEventCode = (
+        self._on_param = (
             _JEEventCode(_PGIntern.MOUSEBUTTONDOWN)
             if on_press else
             _JEEventCode(_PGIntern.MOUSEBUTTONUP)
         )
-        self._do: _Callable[["JEGame", "JEEvent"], None] = do
+        self._do = do
 
-    def match(self, event: "JEEvent") -> bool:
+    def match(self, event):
         """Check for mouse matches"""
         if event.type == self._on_param:
             for rule in self._on:
@@ -198,21 +177,21 @@ class JEMouseWatcher(_JEInternClassBase):
                     return True
         return False
 
-    def __call__(self, game: "JEGame", event: "JEEvent") -> None:
+    def __call__(self, game, event):
         """Call saved function"""
         self._do(game, event)
 
     @property
-    def on(self) -> JEMouseCodeGroup:
+    def on(self):
         """Get watched mouses"""
         return self._on
 
     @property
-    def params(self) -> _JEEventCode:
+    def params(self):
         """Get event parameter"""
         return self._on_param
 
     @property
-    def do(self) -> str:
+    def do(self):
         """Get seved function (as str)"""
         return f"{self._do.__name__}(JEGame, JEEvent)"

@@ -24,10 +24,19 @@
 
 from __future__ import annotations
 
-__all__ = [
-    'JEEntity',
-    'Components'
-]
+# Public API exports
+from sources.systems.color import JEColor
+from sources.systems.bool import JEBool
+from sources.systems.container import JEContainer
+from sources.systems.immutable import JEImmutable
 
-from sources.entities.entity import JEEntity
-import sources.entities.components as Components
+# Submodules
+import sources.systems.vector as Vector
+
+__all__: list[str] = [
+    'Vector',
+    'JEColor',
+    'JEBool',
+    'JEContainer',
+    'JEImmutable'
+]

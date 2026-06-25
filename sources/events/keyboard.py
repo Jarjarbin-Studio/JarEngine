@@ -44,11 +44,11 @@ from sources.interns.decorators import documentation as _documentation
 class JEKeyCode(_JEInternClassBase):
     """Key code"""
 
-    _instances: dict[int, _Self] = {}
-    _name_cache: dict[int, str] = {}
+    _instances = {}
+    _name_cache = {}
 
     @classmethod
-    def _build_cache(cls) -> None:
+    def _build_cache(cls):
         if cls._name_cache:
             return
 
@@ -72,10 +72,7 @@ class JEKeyCode(_JEInternClassBase):
             _PGIntern.K_RIGHT: "RIGHT",
         })
 
-    def __new__(
-            cls,
-            key: int | None = None
-        ) -> _Self:
+    def __new__(cls, key = None):
         """Instances clamping"""
         if key is None:
             return super().__new__(cls)
@@ -85,10 +82,7 @@ class JEKeyCode(_JEInternClassBase):
 
         return cls._instances[key]
 
-    def __init__(
-            self,
-            key: int | None = None
-        ) -> None:
+    def __init__(self, key = None):
         """JEKeyCode creator"""
         if hasattr(self, "_initialized") or key is None:
             return
@@ -99,19 +93,16 @@ class JEKeyCode(_JEInternClassBase):
         self._name = self._name_cache.get(self._key, f"KeyUnknown({self._key})")
         self._initialized = True
 
-    def __int__(self) -> int:
+    def __int__(self):
         """Get key code"""
         return self._key
 
     @property
-    def name(self) -> str:
+    def name(self):
         """Get key name"""
         return self._name
 
-    def __or__(
-            self,
-            other: JEKeyCode
-        ) -> JEKeyCodeGroup:
+    def __or__(self, other):
         """Allows same synthax as union (create a JEKeyCodeGroup)"""
 
         if not isinstance(other, JEKeyCode):
@@ -121,13 +112,13 @@ class JEKeyCode(_JEInternClassBase):
 
         return JEKeyCodeGroup([self, other])
 
-    def __eq__(self, other) -> bool:
+    def __eq__(self, other):
         """Compare 2 key"""
         if not isinstance(other, JEKeyCode):
             return NotImplemented
         return int(self) == int(other)
 
-    def __hash__(self) -> int:
+    def __hash__(self):
         """Hash a key"""
         return hash(self._key)
 
@@ -136,18 +127,12 @@ class JEKeyCode(_JEInternClassBase):
 class JEKeyCodeGroup(_JEInternClassBase):
     """Key code group"""
 
-    def __init__(
-            self,
-            keys: list[JEKeyCode]
-        ):
+    def __init__(self, keys):
         """JEKeyCodeGroup creator"""
         super().__init__()
         self._keys: list[JEKeyCode] = list(dict.fromkeys(keys))
 
-    def __or__(
-            self,
-            other
-        ):
+    def __or__(self, other):
         """Allows same synthax as union (create a JEKeyCodeGroup)"""
 
         if isinstance(other, JEKeyCode):
@@ -174,12 +159,7 @@ class JEKeyCodeGroup(_JEInternClassBase):
 class JEKeyWatcher(_JEInternClassBase):
     """Key event watcher"""
 
-    def __init__(
-        self,
-        on: JEKeyCode | list[JEKeyCode] | JEKeyCodeGroup,
-        do: _Callable[["JEGame", "JEEvent"], None],
-        on_press: _JEBool = _JEBool(1)
-    ) -> None:
+    def __init__(self, on, do, on_press = _JEBool(1)):
         """JEKeyWatcher creator"""
 
         if not isinstance(on, (JEKeyCode, list, JEKeyCodeGroup)):
@@ -188,7 +168,7 @@ class JEKeyWatcher(_JEInternClassBase):
             )
 
         super().__init__()
-        self._on: JEKeyCodeGroup = (
+        self._on = (
             on
             if isinstance(on, JEKeyCodeGroup) else
             JEKeyCodeGroup(
@@ -197,14 +177,14 @@ class JEKeyWatcher(_JEInternClassBase):
                 [on]
             )
         )
-        self._on_param: _JEEventCode = (
+        self._on_param = (
             _JEEventCode(_PGIntern.KEYDOWN)
             if on_press else
             _JEEventCode(_PGIntern.KEYUP)
         )
-        self._do: _Callable[["JEGame", "JEEvent"], None] = do
+        self._do = do
 
-    def match(self, event: "JEEvent") -> bool:
+    def match(self, event):
         """Check for key matches"""
         if event.type == self._on_param:
             for rule in self._on:
@@ -212,21 +192,21 @@ class JEKeyWatcher(_JEInternClassBase):
                     return True
         return False
 
-    def __call__(self, game: "JEGame", event: "JEEvent") -> None:
+    def __call__(self, game, event):
         """Call saved function"""
         self._do(game, event)
 
     @property
-    def on(self) -> JEKeyCodeGroup:
+    def on(self):
         """Get watched keys"""
         return self._on
 
     @property
-    def params(self) -> _JEEventCode:
+    def params(self):
         """Get event parameter"""
         return self._on_param
 
     @property
-    def do(self) -> str:
+    def do(self):
         """Get seved function (as str)"""
         return f"{self._do.__name__}(JEGame, JEEvent)"

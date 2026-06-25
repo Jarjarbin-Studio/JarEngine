@@ -24,10 +24,20 @@
 
 from __future__ import annotations
 
-__all__ = [
-    'JEEntity',
-    'Components'
-]
+from typing import Self, Any
 
-from sources.entities.entity import JEEntity
-import sources.entities.components as Components
+from sources.interns import PGIntern
+from sources.interns.final_classes import JEInternWindowSettings
+from sources.systems.color import JEColor
+from sources.systems.bool import JEBool
+
+class JEWindow:
+    _instance: Self
+    _is_created: JEBool
+    def __init__(self, *, size: tuple[int, int], flags: int, fps: int, depth: int, display: int, vsync: int, title: str): ...
+    @property
+    def screen(self) -> PGIntern.Surface: ...
+    @property
+    def settings(self) -> JEInternWindowSettings: ...
+    def fill(self, color: JEColor | tuple[int, int, int] | tuple[int, int, int, int]) -> None: ...
+    def blit(self, source: PGIntern.Surface, dest: Any): ...

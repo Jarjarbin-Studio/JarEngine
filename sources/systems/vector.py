@@ -37,39 +37,29 @@ from sources.interns.decorators import documentation as _documentation
 class JEVector2D(_JEInternClassBase):
     """Vector (x, y)"""
 
-    def __init__(
-            self,
-            x: float = 0.0,
-            y: float = 0.0
-        ) -> None:
+    def __init__(self, x = 0.0, y = 0.0):
         """JEVector2D creator"""
         super().__init__()
 
-        self._vector: list[float] = [x, y]
+        self._vector = [x, y]
 
     @property
-    def x(self) -> float:
+    def x(self):
         """Get x"""
         return self._vector[0]
 
     @x.setter
-    def x(
-            self,
-            x: float
-        ) -> None:
+    def x(self, x):
         """Set x"""
         self._vector[0] = x
 
     @property
-    def y(self) -> float:
+    def y(self):
         """Get y"""
         return self._vector[1]
 
     @y.setter
-    def y(
-            self,
-            y: float
-        ) -> None:
+    def y(self, y):
         """Set x"""
         self._vector[1] = y
 
@@ -77,10 +67,7 @@ class JEVector2D(_JEInternClassBase):
         """Iterator over the vector"""
         return iter(self._vector)
 
-    def __deepcopy__(
-            self,
-            memo
-        ):
+    def __deepcopy__(self, memo):
         """Deepcopy"""
         return JEVector2D(*self._vector)
 
@@ -89,63 +76,46 @@ class JEVector2D(_JEInternClassBase):
 class JEVector3D(_JEInternClassBase):
     """Vector (x, y, z)"""
 
-    def __init__(
-            self,
-            x: float = 0.0,
-            y: float = 0.0,
-            z: float = 0.0
-        ) -> None:
+    def __init__(self, x = 0.0, y = 0.0, z = 0.0):
         """JEVector3D creator"""
         super().__init__()
 
         self._vector: list[float] = [x, y, z]
 
     @property
-    def x(self) -> float:
+    def x(self):
         """Get x"""
         return self._vector[0]
 
     @x.setter
-    def x(
-            self,
-            x: float
-        ) -> None:
+    def x(self, x):
         """Set x"""
         self._vector[0] = x
 
     @property
-    def y(self) -> float:
+    def y(self):
         """Get y"""
         return self._vector[1]
 
     @y.setter
-    def y(
-            self,
-            y: float
-        ) -> None:
+    def y(self, y):
         """Set y"""
         self._vector[1] = y
 
     @property
-    def z(self) -> float:
+    def z(self):
         """Get z"""
         return self._vector[2]
 
     @z.setter
-    def z(
-            self,
-            z: float
-        ) -> None:
+    def z(self, z):
         """Set z"""
         self._vector[2] = z
 
-    def __iter__(self) -> _Iterator[float]:
+    def __iter__(self):
         """Iterator over the vector"""
         return iter(self._vector)
 
-    def __deepcopy__(
-            self,
-            memo
-        ):
+    def __deepcopy__(self, memo):
         """Deepcopy"""
         return JEVector2D(*self._vector)

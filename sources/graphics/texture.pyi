@@ -24,10 +24,15 @@
 
 from __future__ import annotations
 
-__all__ = [
-    'JEEntity',
-    'Components'
-]
+from sources.interns import PGIntern
+from sources.systems.vector import JEVector2D
 
-from sources.entities.entity import JEEntity
-import sources.entities.components as Components
+class JETexture:
+    base_path: str
+    def __init__(self, path: str) -> None: ...
+    @property
+    def surface(self) -> PGIntern.Surface: ...
+    @property
+    def path(self) -> str: ...
+    @property
+    def size(self) -> JEVector2D: ...

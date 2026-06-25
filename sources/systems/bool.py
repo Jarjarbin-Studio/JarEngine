@@ -37,12 +37,9 @@ from sources.interns.decorators import documentation as _documentation
 class JEBool(_JEInternClassBase):
     """Boolean"""
 
-    _instances: dict[bool, _Self] = {}
+    _instances = {}
 
-    def __new__(
-            cls,
-            value: _Any
-        ) -> _Self:
+    def __new__(cls, value):
         """Instances clamping"""
         val = bool(value)
 
@@ -52,10 +49,7 @@ class JEBool(_JEInternClassBase):
 
         return cls._instances[val]
 
-    def __init__(
-            self,
-            value: _Any
-        ) -> None:
+    def __init__(self, value):
         """JEBool creator"""
         if hasattr(self, "_initialized"):
             return
@@ -63,18 +57,15 @@ class JEBool(_JEInternClassBase):
         super().__init__()
         self._bool = bool(value)
 
-    def __bool__(self) -> bool:
+    def __bool__(self):
         """Returns boolean value"""
         return self._bool
 
     @property
-    def data(self) -> bool:
+    def data(self):
         """Returns boolean value"""
         return bool(self)
 
-    def __deepcopy__(
-            self,
-            memo
-        ):
+    def __deepcopy__(self, memo):
         """Deepcopy"""
         return self

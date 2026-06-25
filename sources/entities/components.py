@@ -57,9 +57,13 @@ class JEPositionComponent(_JEInternalEntityComponent):
                 owner_self,
                 position
             ):
-            self._position = position
+            self._position = (
+                position
+                if isinstance(position, _JEVector2D) else
+                _JEVector2D(*position)
+            )
 
-        def modify_position(
+        def update_position(
                 owner_self,
                 *,
                 x: float = 0,
@@ -72,7 +76,7 @@ class JEPositionComponent(_JEInternalEntityComponent):
             return self._position
 
         owner.set_position = set_position.__get__(owner, type(owner))
-        owner.modify_position = modify_position.__get__(owner, type(owner))
+        owner.update_position = update_position.__get__(owner, type(owner))
         owner.get_position = get_position.__get__(owner, type(owner))
 
     @property
@@ -116,9 +120,13 @@ class JEVelocityComponent(_JEInternalEntityComponent):
                 owner_self,
                 velocity
             ):
-            self._velocity = velocity
+            self._velocity = (
+                velocity
+                if isinstance(velocity, _JEVector2D) else
+                _JEVector2D(*velocity)
+            )
 
-        def modify_velocity(
+        def update_velocity(
                 owner_self,
                 *,
                 x: float = 0,
@@ -131,7 +139,7 @@ class JEVelocityComponent(_JEInternalEntityComponent):
             return self._velocity
 
         owner.set_velocity = set_velocity.__get__(owner, type(owner))
-        owner.modify_velocity = modify_velocity.__get__(owner, type(owner))
+        owner.update_velocity = update_velocity.__get__(owner, type(owner))
         owner.get_velocity = get_velocity.__get__(owner, type(owner))
 
     @property
@@ -175,9 +183,13 @@ class JESizeComponent(_JEInternalEntityComponent):
                 owner_self,
                 size
             ):
-            self._size = size
+            self._size = (
+                size
+                if isinstance(size, _JEVector2D) else
+                _JEVector2D(*size)
+            )
 
-        def modify_size(
+        def update_size(
                 owner_self,
                 *,
                 x: float = 0,
@@ -190,7 +202,7 @@ class JESizeComponent(_JEInternalEntityComponent):
             return self._size
 
         owner.set_size = set_size.__get__(owner, type(owner))
-        owner.modify_size = modify_size.__get__(owner, type(owner))
+        owner.update_size = update_size.__get__(owner, type(owner))
         owner.get_size = get_size.__get__(owner, type(owner))
 
     @property

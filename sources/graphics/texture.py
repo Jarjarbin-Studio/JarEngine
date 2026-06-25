@@ -37,33 +37,30 @@ from sources.interns.decorators import documentation as _documentation
 class JETexture(_JEInternGraphic, _JEInternalOwnership):
     """Texture"""
 
-    base_path: str = f"{__file__.split('sources')[0]}assets/"
+    base_path = f"{__file__.split('sources')[0]}assets/"
 
-    def __init__(
-            self,
-            path: str
-        ) -> None:
+    def __init__(self, path) -> None:
         """JETexture creator"""
         super().__init__(path)
 
         if not "/" in path:
             path = f"{JETexture.base_path}{path}"
 
-        self._path: str = path
-        self._surface: _PGIntern.Surface = _PGIntern.image.load(path).convert_alpha()
-        self._size: _JEVector2D = _JEVector2D(self._surface.get_width(), self._surface.get_height())
+        self._path = path
+        self._surface = _PGIntern.image.load(path).convert_alpha()
+        self._size = _JEVector2D(self._surface.get_width(), self._surface.get_height())
 
     @property
-    def surface(self) -> _PGIntern.Surface:
+    def surface(self):
         """Get texture surface (PGIntern)"""
         return self._surface
 
     @property
-    def path(self) -> str:
+    def path(self):
         """Get texture path"""
         return self._path
 
     @property
-    def size(self) -> _JEVector2D:
+    def size(self):
         """Get texture size"""
         return self._size

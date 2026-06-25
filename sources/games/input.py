@@ -24,10 +24,7 @@
 
 from __future__ import annotations
 
-from typing import (
-    final as _final,
-    Self as _Self
-)
+from typing import final as _final
 
 from sources.interns import (
     JTKInternError as _JTKInternError,
@@ -44,14 +41,10 @@ from sources.systems.bool import JEBool as _JEBool
 class JEInput(_JEInternClassBase):
     """Input manager"""
 
-    _instance: _Self = None
+    _instance = None
     _is_created = _JEBool(0)
 
-    def __new__(
-            cls,
-            *args,
-            **kwargs
-        ) -> _Self:
+    def __new__(cls, *args, **kwargs):
         """Instances clamping"""
         if cls._instance is not None:
             raise _JTKInternError.Error.ErrorRuntime(
@@ -61,7 +54,7 @@ class JEInput(_JEInternClassBase):
         cls._instance = super().__new__(cls)
         return cls._instance
 
-    def __init__(self) -> None:
+    def __init__(self):
         """JEInput creator"""
         if JEInput._is_created:
             return
@@ -72,35 +65,26 @@ class JEInput(_JEInternClassBase):
         self._mouse_down = _PGIntern.mouse.get_pressed()
         self._mouse_pos = _PGIntern.mouse.get_pos()
 
-    def update(self) -> None:
+    def update(self):
         """Update keyboard and mouse input"""
         self._keys_down = _PGIntern.key.get_pressed()
         self._mouse_down = _PGIntern.mouse.get_pressed()
         self._mouse_pos = _PGIntern.mouse.get_pos()
 
-    def is_key_down(
-            self,
-            key: _JEKeyCode
-        ) -> bool:
+    def is_key_down(self, key):
         """Check if a key is down"""
         return self._keys_down[int(key)]
 
-    def is_mouse_down(
-            self,
-            button: _JEMouseCode
-        ) -> bool:
+    def is_mouse_down(self, button):
         """Check if a mouse button is down"""
         return self._mouse_down[int(button) - 1]
 
-    def mouse_pos(self) -> tuple[int, int]:
+    def mouse_pos(self):
         """Check if a mouse button is up"""
         return self._mouse_pos
 
-    def __call__(
-            self,
-            code: _JEKeyCode | _JEMouseCode
-        ) -> bool:
-        """"""
+    def __call__(self, code):
+        """Automatically call the appropriate input manager"""
         if isinstance(code, _JEKeyCode):
             return self.is_key_down(code)
         elif isinstance(code, _JEMouseCode):

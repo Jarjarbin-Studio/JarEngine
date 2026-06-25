@@ -24,7 +24,22 @@
 
 from __future__ import annotations
 
-__all__ = [
+# Public API
+import sources.interns as Interns
+import sources.audios as Audios
+import sources.entities as Entities
+import sources.events as Events
+import sources.games as Games
+import sources.graphics as Graphics
+import sources.systems as Systems
+
+def Init() -> tuple[int, int]: ...
+def Quit() -> None: ...
+
+# Constants
+from sources.constants import *
+
+__all__: list[str] = [
     ## Imports ##
     'Interns',
     'Audios',
@@ -95,20 +110,3 @@ __all__ = [
     'JEMse_Middle',
     'JEMse_Right'
 ]
-
-##Imports##
-import sources.interns as Interns
-import sources.audios as Audios
-import sources.entities as Entities
-import sources.events as Events
-import sources.games as Games
-import sources.graphics as Graphics
-import sources.systems as Systems
-from sources.constants import *
-
-##Functions##
-def Init() -> tuple[int, int]:
-    return Interns.PGIntern.init()
-
-def Quit() -> None:
-    Interns.PGIntern.quit()

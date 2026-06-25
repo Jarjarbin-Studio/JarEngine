@@ -27,9 +27,7 @@ from __future__ import annotations
 from typing import (
     final as _final,
     TypeVar as _TypeVar,
-    Generic as _Generic,
-    Optional as _Optional,
-    Iterator as _Iterator
+    Generic as _Generic
 )
 
 from sources.interns import JTKInternError as _JTKInternError
@@ -44,11 +42,7 @@ _T = _TypeVar("_T", bound=_JEInternClassBase)
 class JEContainer(_Generic[_T], _JEInternClassBase):
     """Container"""
 
-    def __init__(
-            self,
-            allowed_type: type[_T],
-            allow_subclass: _JEBool = _JEBool(0)
-        ):
+    def __init__(self, allowed_type, allow_subclass = _JEBool(0)):
         """JEContainer creator"""
         if not isinstance(allowed_type, type):
             raise _JTKInternError.Error.ErrorType(
@@ -61,21 +55,15 @@ class JEContainer(_Generic[_T], _JEInternClassBase):
             )
 
         super().__init__()
-        self._data: dict[str, _T] = {}
-        self._allowed_type: type[_T] = allowed_type
-        self._allow_subclass: _JEBool = allow_subclass
+        self._data = {}
+        self._allowed_type = allowed_type
+        self._allow_subclass = allow_subclass
 
-    def __setitem__(
-            self,
-            obj
-        ) -> None:
+    def __setitem__(self, obj):
         """Add object to container"""
         self.add(obj)
 
-    def add(
-            self,
-            obj: _T
-        ):
+    def add(self, obj):
         """Add object to container"""
         if not isinstance(obj, self._allowed_type):
             if not (self._allow_subclass and issubclass(type(obj), self._allowed_type)):
@@ -96,23 +84,17 @@ class JEContainer(_Generic[_T], _JEInternClassBase):
 
         self._data[key] = obj
 
-    def __getitem__(
-            self,
-            *,
-            name: _Optional[str] = None,
-            jeid: _Optional[str] = None,
-            instance: _Optional[_T] = None
-        ) -> _T:
+    def __getitem__(self, value):
         """Get object by name"""
-        return self.get(name=name, jeid=jeid, instance=instance)
+        if type(value) == str:
+            try:
+                return self.get(name=value)
+            except Exception:
+                return self.get(jeid=value)
+        else:
+            return self.get(instance=value)
 
-    def get(
-            self,
-            *,
-            name: _Optional[str] = None,
-            jeid: _Optional[str] = None,
-            instance: _Optional[_T] = None
-        ) -> _Optional[_T]:
+    def get(self, *, name = None, jeid = None, instance = None):
         """Get object by name"""
         if not (name or jeid or instance):
             raise _JTKInternError.Error.ErrorKey(
@@ -133,13 +115,7 @@ class JEContainer(_Generic[_T], _JEInternClassBase):
             f"\n{name or jeid or instance!r} not in container."
         )
 
-    def rm(
-            self,
-            *,
-            name: _Optional[str] = None,
-            jeid: _Optional[str] = None,
-            instance: _Optional[_T] = None
-        ) -> _Optional[_T]:
+    def rm(self, *, name = None, jeid = None, instance = None):
         """Remove object by name, jeid or instance"""
         if not (name or jeid or instance):
             raise _JTKInternError.Error.ErrorKey(
@@ -160,10 +136,10 @@ class JEContainer(_Generic[_T], _JEInternClassBase):
             f"\n{name or jeid or instance!r} not in container."
         )
 
-    def __iter__(self) -> _Iterator[_T]:
+    def __iter__(self):
         return iter(self._data.values())
 
     @property
-    def data(self) -> _T:
+    def data(self):
         """Get data"""
         return self._data

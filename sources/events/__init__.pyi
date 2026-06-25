@@ -24,10 +24,17 @@
 
 from __future__ import annotations
 
-__all__ = [
-    'JEEntity',
-    'Components'
-]
+# Public API exports
 
-from sources.entities.entity import JEEntity
-import sources.entities.components as Components
+# Submodules
+import sources.events.manager as EventManager
+import sources.events.event as Event
+import sources.events.keyboard as EventKeyboard
+import sources.events.mouse as EventMouse
+
+__all__: list[str] = [
+    "EventManager",
+    "Event",
+    "EventKeyboard",
+    "EventMouse"
+]

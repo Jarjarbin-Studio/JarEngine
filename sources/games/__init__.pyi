@@ -24,10 +24,17 @@
 
 from __future__ import annotations
 
-__all__ = [
-    'JEEntity',
-    'Components'
-]
+# Public API exports
+from sources.games.window import JEWindow
+from sources.games.game import JEGame
+from sources.games.input import JEInput
 
-from sources.entities.entity import JEEntity
-import sources.entities.components as Components
+# Submodules
+import sources.games.systems as Systems
+
+__all__: list[str] = [
+    'JEGame',
+    'JEWindow',
+    'JEInput',
+    'Systems'
+]

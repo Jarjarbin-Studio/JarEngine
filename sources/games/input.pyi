@@ -24,10 +24,18 @@
 
 from __future__ import annotations
 
-__all__ = [
-    'JEEntity',
-    'Components'
-]
+from typing import Self
 
-from sources.entities.entity import JEEntity
-import sources.entities.components as Components
+from sources.events.keyboard import JEKeyCode
+from sources.events.mouse import JEMouseCode
+from sources.systems.bool import JEBool
+
+class JEInput:
+    _instance: Self
+    _is_created: JEBool
+    def __init__(self) -> None: ...
+    def update(self) -> None: ...
+    def is_key_down(self, key: JEKeyCode) -> bool: ...
+    def is_mouse_down(self, button: JEMouseCode) -> bool: ...
+    def mouse_pos(self) -> tuple[int, int]: ...
+    def __call__(self, code: JEKeyCode | JEMouseCode) -> bool: ...

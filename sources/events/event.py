@@ -42,11 +42,11 @@ from sources.interns.decorators import documentation as _documentation
 class JEEventCode(_JEInternClassBase):
     """Event code"""
 
-    _instances: dict[int, _Self] = {}
-    _name_cache: dict[int, str] = {}
+    _instances = {}
+    _name_cache = {}
 
     @classmethod
-    def _build_cache(cls) -> None:
+    def _build_cache(cls):
         """Build available events"""
         if cls._name_cache:
             return
@@ -60,10 +60,7 @@ class JEEventCode(_JEInternClassBase):
             _PGIntern.MOUSEBUTTONUP: "MouseUp"
         })
 
-    def __new__(
-            cls,
-            event: int | None = None
-        ) -> _Self:
+    def __new__(cls, event = None):
         """Instances clamping"""
         if event is None:
             return super().__new__(cls)
@@ -73,10 +70,7 @@ class JEEventCode(_JEInternClassBase):
 
         return cls._instances[event]
 
-    def __init__(
-            self,
-            event: int | None = None
-        ) -> None:
+    def __init__(self, event = None):
         """JEEventCode creator"""
         if hasattr(self, "_initialized") or event is None:
             return
@@ -87,19 +81,16 @@ class JEEventCode(_JEInternClassBase):
         self._name = self._name_cache.get(self._event, f"EventUnknown({self._event})")
         self._initialized = True
 
-    def __int__(self) -> int:
+    def __int__(self):
         """Get event code"""
         return self._event
 
     @property
-    def name(self) -> str:
+    def name(self):
         """Get event name"""
         return self._name
 
-    def __or__(
-            self,
-            other: JEEventCode
-        ) -> JEEventCodeGroup:
+    def __or__(self, other):
         """Allows same synthax as union (create a JEEventCodeGroup)"""
 
         if not isinstance(other, JEEventCode):
@@ -109,13 +100,13 @@ class JEEventCode(_JEInternClassBase):
 
         return JEEventCodeGroup([self, other])
 
-    def __eq__(self, other) -> bool:
+    def __eq__(self, other):
         """Compare 2 events"""
         if not isinstance(other, JEEventCode):
             return NotImplemented
         return int(self) == int(other)
 
-    def __hash__(self) -> int:
+    def __hash__(self):
         """Hash an event"""
         return hash(self._event)
 
@@ -124,25 +115,19 @@ class JEEventCode(_JEInternClassBase):
 class JEEventCodeGroup(_JEInternClassBase):
     """Event code group"""
 
-    def __init__(
-            self,
-            events: list[JEEventCode]
-        ):
+    def __init__(self, events):
         """JEEventCodeGroup creator"""
         super().__init__()
-        self._events: list[JEEventCode] = list(dict.fromkeys(events))
+        self._events = list(dict.fromkeys(events))
 
-    def __or__(
-            self,
-            other
-        ):
+    def __or__(self, other):
         """Allows same synthax as union (create a JEEventCodeGroup)"""
 
         if isinstance(other, JEEventCode):
-            return JEEventCodeGroup([*self._events, other])
+            return JEEventCodeGroup([*self, other])
 
         if isinstance(other, JEEventCodeGroup):
-            return JEEventCodeGroup([*self._events, *other._events])
+            return JEEventCodeGroup([*self, *other])
 
         raise _JTKInternError.error.ErrorType(
             "\nInvalid type for union"
@@ -162,11 +147,7 @@ class JEEventCodeGroup(_JEInternClassBase):
 class JEEventWatcher(_JEInternClassBase):
     """Main event watcher"""
 
-    def __init__(
-        self,
-        on: JEEventCode | list[JEEventCode] | JEEventCodeGroup,
-        do: _Callable[["JEGame", "JEEvent"], None]
-    ) -> None:
+    def __init__(self, on, do):
         """JEEventWatcher creator"""
 
         if not isinstance(on, (JEEventCode, list, JEEventCodeGroup)):
@@ -175,7 +156,7 @@ class JEEventWatcher(_JEInternClassBase):
             )
 
         super().__init__()
-        self._on: JEEventCodeGroup = (
+        self._on = (
             on
             if isinstance(on, JEEventCodeGroup) else
             JEEventCodeGroup(
@@ -184,25 +165,25 @@ class JEEventWatcher(_JEInternClassBase):
                 [on]
             )
         )
-        self._do: _Callable[["JEGame", "JEEvent"], None] = do
+        self._do = do
 
-    def match(self, event: "JEEvent") -> bool:
+    def match(self, event):
         """Check for event matches"""
         for rule in self._on:
             if event.type == rule:
                 return True
         return False
 
-    def __call__(self, game: "JEGame", event: "JEEvent") -> None:
+    def __call__(self, game, event):
         """Call saved function"""
         self._do(game, event)
 
     @property
-    def on(self) -> JEEventCodeGroup:
+    def on(self):
         """Get watched events"""
         return self._on
 
     @property
-    def do(self) -> str:
+    def do(self):
         """Get seved function (as str)"""
         return f"{self._do.__name__}(JEGame, JEEvent)"

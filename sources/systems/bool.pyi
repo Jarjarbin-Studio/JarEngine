@@ -24,10 +24,12 @@
 
 from __future__ import annotations
 
-__all__ = [
-    'JEEntity',
-    'Components'
-]
+from typing import Any, Self
 
-from sources.entities.entity import JEEntity
-import sources.entities.components as Components
+class JEBool:
+    _instances: dict[bool, Self]
+    def __new__(cls, value: Any) -> Self: ...
+    def __init__(self, value: Any) -> None: ...
+    def __bool__(self) -> bool: ...
+    @property
+    def data(self) -> bool: ...
