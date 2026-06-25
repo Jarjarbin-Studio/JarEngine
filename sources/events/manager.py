@@ -82,6 +82,9 @@ class JEEventHandler(_JEInternClassBase):
 
     _instance = None
     _is_created = _JEBool(0)
+    __instance_policy__ = "flyweight"
+    __instance_limit__ = 1
+    __recursive__ = False
 
     def __new__(cls, *args, **kwargs):
         """Instances clamping"""

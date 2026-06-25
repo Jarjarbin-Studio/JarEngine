@@ -24,16 +24,13 @@
 
 from __future__ import annotations
 
-from typing import Self, Any
+from typing import Any
 
 from sources.interns import PGIntern
 from sources.interns.final_classes import JEInternWindowSettings
 from sources.systems.color import JEColor
-from sources.systems.bool import JEBool
 
 class JEWindow:
-    _instance: Self
-    _is_created: JEBool
     def __init__(self, *, size: tuple[int, int], flags: int, fps: int, depth: int, display: int, vsync: int, title: str): ...
     @property
     def screen(self) -> PGIntern.Surface: ...

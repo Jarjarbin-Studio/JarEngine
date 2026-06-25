@@ -32,8 +32,6 @@ from sources.events.manager import JEEvent
 from sources.systems.bool import JEBool
 
 class JEMouseCode:
-    _instances: dict[int, Self]
-    _name_cache: dict[int, str]
     def __init__(self, mouse: int | None) -> None: ...
     def __int__(self) -> int: ...
     @property

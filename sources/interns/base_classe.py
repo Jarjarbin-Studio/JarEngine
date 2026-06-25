@@ -25,7 +25,6 @@
 from __future__ import annotations
 
 from uuid import uuid4 as _uuid4
-from types import FunctionType as _FunctionType
 from typing import Any as _Any
 
 from sources.interns import JTKInternConsole as _JTKInternConsole
@@ -34,6 +33,10 @@ from sources.interns.decorators import documentation as _documentation
 @_documentation
 class JEInternClassBase:
     """ClassBase (Internal API)"""
+
+    __instance_policy__ = "normal"
+    __instance_limit__ = None
+    __recursive__ = True
 
     def __init__(self) -> None:
         """JEInternClassBase creator"""
@@ -51,19 +54,10 @@ class JEInternClassBase:
 
     def __repr__(self) -> str:
         """Get representation of the class"""
-        final_str: str = ""
-
-        if self.__dict__:
-            for key in self.__dict__:
-                final_str += (
-                    f"{key}={self.__dict__[key]!r}, "
-                    if not key.startswith("_") else
-                    ""
-                )
-
-            final_str = final_str[:-2]
-
-        return f"<{self.__class__.__name__}{f': {final_str}' if final_str else ""}>"
+        return (
+            f"<{self.__class__.__name__}"
+            f" jeid={getattr(self, 'jeid', 'unknown')}>"
+        )
 
     def to_dict(self) -> dict:
         """Get dictionary representation of the class"""
@@ -112,6 +106,8 @@ class JEInternClassBase:
             "immutable": (180, 180, 180),
             "callable": (255, 180, 100),
             "error": (255, 80, 80),
+            "policy": (255, 180, 255),
+            "limit": (180, 255, 255),
         }
 
         BRANCH = "│   "
@@ -146,6 +142,23 @@ class JEInternClassBase:
             if color is None:
                 return text
             return _rgb(color, text)
+
+        def get_instance_indicator(cls) -> str:
+            policy = getattr(cls, "__instance_policy__", "normal")
+            limit = getattr(cls, "__instance_limit__", None)
+
+            if policy == "normal":
+                return ""
+
+            if policy == "singleton":
+                return "{singleton:1}"
+
+            if policy == "flyweight":
+                if limit is None:
+                    return "{flyweight:∞}"
+                return f"{{flyweight:{limit}}}"
+
+            return ""
 
         def classify(
                 name: str,
@@ -275,13 +288,25 @@ class JEInternClassBase:
                 f"{colorize(self.__class__.__name__, "class")} ({colorize(f"JEID-{self.jeid}" if hasattr(self, "jeid") else f"ID-{obj_id}", 'id')})"
             )
 
-        _stack.add(obj_id)
+        if self.__recursive__:
+            _stack.add(obj_id)
+
         try:
             lines: list[str] = []
 
             name = getattr(self, "name", None)
-            class_name = colorize(self.__class__.__name__, "class")
-            label = f"{colorize(name, 'name')} ({class_name})" if name else class_name
+            class_name_raw = self.__class__.__name__
+            class_name = colorize(class_name_raw, "class")
+
+            indicator = get_instance_indicator(self.__class__)
+            indicator = f" {colorize(indicator, 'policy')}" if indicator else ""
+
+            if name:
+                base = f"{colorize(name, 'name')} ({class_name})"
+            else:
+                base = class_name
+
+            label = f"{base}{indicator}"
 
             if is_root and show_root:
                 lines.append(label)

@@ -46,6 +46,9 @@ class JEKeyCode(_JEInternClassBase):
 
     _instances = {}
     _name_cache = {}
+    __instance_policy__ = "singleton"
+    __instance_limit__ = None
+    __recursive__ = False
 
     @classmethod
     def _build_cache(cls):
@@ -127,6 +130,8 @@ class JEKeyCode(_JEInternClassBase):
 class JEKeyCodeGroup(_JEInternClassBase):
     """Key code group"""
 
+    __recursive__ = False
+
     def __init__(self, keys):
         """JEKeyCodeGroup creator"""
         super().__init__()
@@ -158,6 +163,8 @@ class JEKeyCodeGroup(_JEInternClassBase):
 @_final
 class JEKeyWatcher(_JEInternClassBase):
     """Key event watcher"""
+
+    __recursive__ = False
 
     def __init__(self, on, do, on_press = _JEBool(1)):
         """JEKeyWatcher creator"""

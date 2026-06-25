@@ -24,11 +24,8 @@
 
 from __future__ import annotations
 
-from typing import (
-    Any as _Any,
-    final as _final,
-    Self as _Self
-)
+from typing import final as _final
+
 from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
 from sources.interns.decorators import documentation as _documentation
 
@@ -38,6 +35,9 @@ class JEBool(_JEInternClassBase):
     """Boolean"""
 
     _instances = {}
+    __instance_policy__ = "flyweight"
+    __instance_limit__ = 2
+    __recursive__ = False
 
     def __new__(cls, value):
         """Instances clamping"""

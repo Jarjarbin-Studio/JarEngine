@@ -32,8 +32,6 @@ from sources.events.manager import JEEvent
 from sources.systems.bool import JEBool
 
 class JEKeyCode:
-    _instances: dict[int, Self]
-    _name_cache: dict[int, str]
     def __init__(self, key: int | None) -> None: ...
     def __int__(self) -> int: ...
     @property

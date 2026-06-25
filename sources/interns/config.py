@@ -33,6 +33,7 @@ from sources.interns.decorators import documentation as _documentation
 @_final
 class JEInternConfig(_JTKInternConfig):
     """Config (Internal API)"""
+    __recursive__ = False
 
     path: str = (
         "../.je-config"

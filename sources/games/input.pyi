@@ -24,15 +24,10 @@
 
 from __future__ import annotations
 
-from typing import Self
-
 from sources.events.keyboard import JEKeyCode
 from sources.events.mouse import JEMouseCode
-from sources.systems.bool import JEBool
 
 class JEInput:
-    _instance: Self
-    _is_created: JEBool
     def __init__(self) -> None: ...
     def update(self) -> None: ...
     def is_key_down(self, key: JEKeyCode) -> bool: ...

@@ -37,6 +37,8 @@ from sources.interns.decorators import documentation as _documentation
 class JEColor(_JEInternClassBase):
     """Color (r, g, b, a)"""
 
+    __recursive__ = False
+
     def __init__(self, r = 0, g = 0, b = 0, a = 255):
         """JEColor creator"""
         super().__init__()

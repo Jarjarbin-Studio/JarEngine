@@ -44,6 +44,9 @@ class JEEventCode(_JEInternClassBase):
 
     _instances = {}
     _name_cache = {}
+    __instance_policy__ = "singleton"
+    __instance_limit__ = None
+    __recursive__ = False
 
     @classmethod
     def _build_cache(cls):
@@ -115,6 +118,8 @@ class JEEventCode(_JEInternClassBase):
 class JEEventCodeGroup(_JEInternClassBase):
     """Event code group"""
 
+    __recursive__ = False
+
     def __init__(self, events):
         """JEEventCodeGroup creator"""
         super().__init__()
@@ -146,6 +151,8 @@ class JEEventCodeGroup(_JEInternClassBase):
 @_final
 class JEEventWatcher(_JEInternClassBase):
     """Main event watcher"""
+
+    __recursive__ = False
 
     def __init__(self, on, do):
         """JEEventWatcher creator"""

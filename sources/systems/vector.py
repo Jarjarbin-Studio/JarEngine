@@ -37,6 +37,8 @@ from sources.interns.decorators import documentation as _documentation
 class JEVector2D(_JEInternClassBase):
     """Vector (x, y)"""
 
+    __recursive__ = False
+
     def __init__(self, x = 0.0, y = 0.0):
         """JEVector2D creator"""
         super().__init__()
@@ -75,6 +77,8 @@ class JEVector2D(_JEInternClassBase):
 @_final
 class JEVector3D(_JEInternClassBase):
     """Vector (x, y, z)"""
+
+    __recursive__ = False
 
     def __init__(self, x = 0.0, y = 0.0, z = 0.0):
         """JEVector3D creator"""

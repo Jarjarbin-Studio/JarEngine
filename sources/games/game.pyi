@@ -24,8 +24,6 @@
 
 from __future__ import annotations
 
-from typing import Self
-
 from sources.games.window import JEWindow
 from sources.games.input import JEInput
 from sources.events.manager import JEEventHandler
@@ -39,8 +37,6 @@ from sources.systems.bool import JEBool
 from sources.systems.clock import JEClock
 
 class JEGame:
-    _instance: Self
-    _is_created: JEBool
     def __init__(self, use_clock: bool, use_input: bool) -> None: ...
     def set_window(self, window: JEWindow): ...
     @property

@@ -35,6 +35,8 @@ from sources.interns.decorators import documentation as _documentation
 class JEClock(_JEInternClassBase):
     """Clock"""
 
+    __recursive__ = False
+
     def __init__(self, fps = 60):
         """JEClock creator"""
 

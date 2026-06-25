@@ -42,6 +42,9 @@ class JEMouseCode(_JEInternClassBase):
 
     _instances = {}
     _name_cache = {}
+    __instance_policy__ = "singleton"
+    __instance_limit__ = None
+    __recursive__ = False
 
     @classmethod
     def _build_cache(cls):
@@ -109,6 +112,8 @@ class JEMouseCode(_JEInternClassBase):
 class JEMouseCodeGroup(_JEInternClassBase):
     """Mouse code group"""
 
+    __recursive__ = False
+
     def __init__(
             self,
             mouses: list[JEMouseCode]
@@ -143,6 +148,8 @@ class JEMouseCodeGroup(_JEInternClassBase):
 @_final
 class JEMouseWatcher(_JEInternClassBase):
     """Mouse event watcher"""
+
+    __recursive__ = False
 
     def __init__(self, on, do, on_press = _JEBool(1)):
         """JEMouseWatcher creator"""

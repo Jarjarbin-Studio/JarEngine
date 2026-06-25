@@ -30,8 +30,6 @@ from sources.games.game import JEGame
 from sources.events.manager import JEEvent
 
 class JEEventCode:
-    _instances: dict[int, Self]
-    _name_cache: dict[int, str]
     def __init__(self, event: int | None) -> None: ...
     def __int__(self) -> int: ...
     @property
