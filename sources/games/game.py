@@ -62,7 +62,7 @@ class JEGame(_JEInternClassBase):
         cls._instance = super().__new__(cls)
         return cls._instance
 
-    def __init__(self, use_clock = True, use_input = True):
+    def __init__(self, *, use_clock = True, use_input = True):
         """JEGame creator"""
         if JEGame._is_created:
             return
@@ -159,8 +159,10 @@ class JEGame(_JEInternClassBase):
         self._event_manager.process(self)
         self._clock.update()
         self._input.update()
-        for system in self._systems:
-            system.update(self._window, self._entities, float(self._clock))
+        for entity in self._entities:
+            for system in self._systems:
+                if system.accepts(entity.components):
+                    system.update(self._window, entity, self._entities, float(self._clock))
 
     def display(self):
         """Display game"""

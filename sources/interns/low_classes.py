@@ -43,7 +43,6 @@ class JEInternGraphic(_JEInternClassBase):
         self._name_hash = hash(self.name)
         self._object_hash = hash(self)
         self._destroyed: _JEBool = _JEBool(0)
-        self._enabled: _JEBool = _JEBool(1)
 
     def destroy(self) -> None:
         """Destroy placeholder"""
@@ -53,19 +52,6 @@ class JEInternGraphic(_JEInternClassBase):
     def is_alive(self) -> _JEBool:
         """Is object alive"""
         return _JEBool(not self._destroyed)
-
-    def enable(self) -> None:
-        """Enable object"""
-        self._enabled = _JEBool(1)
-
-    def disable(self) -> None:
-        """Disable object"""
-        self._enabled = _JEBool(0)
-
-    @property
-    def is_enabled(self) -> _JEBool:
-        """Check if component is enabled"""
-        return self._enabled
 
 @_documentation
 class JEInternGraphicalObject(JEInternGraphic):
@@ -86,11 +72,6 @@ class JEInternGraphicalObject(JEInternGraphic):
         ) -> None:
         """update placeholder"""
         pass
-
-    @property
-    def is_alive(self) -> _JEBool:
-        """Is object alive"""
-        return _JEBool((not self._destroyed) and self._enabled)
 
     def mark_dirty(self) -> None:
         """Mark component as modified"""

@@ -24,17 +24,19 @@
 
 from __future__ import annotations
 
-# Public API exports
+from sources.interns.high_classes import JEInternalEntityComponent
 from sources.entities.entity import JEEntity
+from sources.systems.container import JEContainer
+from sources.games.window import JEWindow
+from sources.games.game import JEGame
+from sources.systems.bool import JEBool
 
-# Submodules
-import sources.entities.components_physics as Physics
-import sources.entities.components_graphics as Graphics
-import sources.entities.components_transforms as Transforms
+class JEMovementSystem:
+    def __init__(self, owner: JEGame): ...
+    def accepts(self, components:  JEContainer[JEInternalEntityComponent]) -> JEBool: ...
+    def update(self, window: JEWindow, entity: JEEntity, entities: JEContainer[JEEntity], dt: float) -> None: ...
 
-__all__: list[str] = [
-    'JEEntity',
-    'Physics',
-    'Graphics',
-    'Transforms'
-]
+class JERenderSystem:
+    def __init__(self, owner: JEGame): ...
+    def accepts(self, components:  JEContainer[JEInternalEntityComponent]) -> JEBool: ...
+    def update(self, window: JEWindow, entity: JEEntity, entities: JEContainer[JEEntity], dt: float) -> None: ...

@@ -38,7 +38,7 @@ from sources.interns.decorators import documentation as _documentation
 class JEEntity(_JEInternGraphicalObject):
     """Entity"""
 
-    def __init__(self, name = "JEEntity"):
+    def __init__(self, *, name = "JEEntity"):
         """JEEntity creator"""
         super().__init__(name)
         self._components = _JEContainer(_JEInternalEntityComponent, _JEBool(1))
@@ -59,3 +59,9 @@ class JEEntity(_JEInternGraphicalObject):
             if isinstance(c, component):
                 return c
         return self._components.get(name=f"JEEmptyComponent({self.jeid})")
+
+    def copy(self):
+        new_entity = JEEntity(name = self.name)
+        for c in self._components:
+            c.copy(new_entity)
+        return new_entity

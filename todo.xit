@@ -1,0 +1,160 @@
+[x] #Entity #Components #Transform *Position*
+[x] #Entity #Components #Transform *Velocity*
+[x] #Entity #Components #Transform *Size*
+[x] #Entity #Components #Transform *Rotation*
+[ ] #Entity #Components #Transform *Scale*
+[ ] #Entity #Components #Transform *Origin*
+[x] #Entity #Components #Physic *Acceleration*
+[x] #Entity #Components #Physic *Mass*
+[ ] #Entity #Components #Physic *Drag*
+[ ] #Entity #Components #Physic *Gravity*
+[x] #Entity #Components #Graphic *Texture*
+[x] #Entity #Components #Graphic *Color*
+[x] #Entity #Components #Graphic *Visibility*
+[x] #Entity #Components #Graphic *Layer*
+[ ] #Entity #Components #Graphic *Rectangle*
+[ ] #Entity #Components #Graphic *Animation*
+[x] #Entity #Components #Graphic *Flip*
+[ ] #Entity #Components #Collision *Collider*
+[ ] #Entity #Components #Gameplay *Health*
+[ ] #Entity #Components #Gameplay *Damage*
+[ ] #Entity #Components #Gameplay *Team*
+[ ] #Entity #Components #Gameplay *Tag*
+[ ] #Entity #Components #Gameplay *State*
+[ ] #Entity #Components #Audio *Sound*
+[ ] #Entity #Components #Audio *Music*
+[ ] #Entity #Components #Camera *Target*
+[ ] #Entity #Components #UI *Text*
+[ ] #Entity #Components #UI *Button*
+[ ] #Entity #Components #Utilities *Lifetime*
+[ ] #Entity #Components #Utilities *DestroyAfter*
+[ ] #Entity #Components #Utilities *Follow*
+[ ] #Entity #Components #Utilities *DestroyAfter*
+[ ] #Entity #Components #Utilities *Parent*
+[ ] #Entity #Components #Utilities *PlayerInput*
+[ ] #Entity #Components #AI *Brain*
+[ ] #Entity #Components #AI *Path*
+[ ] #Entity #Components #Network *Network*
+[ ] #Entity #Componentqs #Network *Sync*
+[ ] #Entity #Components #Particle *ParticleEmitter*
+[ ] #Entity #Components #Particle *Particle*
+[ ] #Entity #Components #Lighting *Light*
+[ ] #Entity #Systems #MovementSystem
+[ ] #Entity #Systems #MovementSystem *JEPositionComponent* #Required
+[ ] #Entity #Systems #MovementSystem *JEVelocityComponent* #Required
+[ ] #Entity #Systems #MovementSystem *JEAccelerationComponent* #Optional
+[ ] #Entity #Systems #MovementSystem *JEMassComponent* #Optional
+[ ] #Entity #Systems #RenderSystem
+[ ] #Entity #Systems #RenderSystem *JETextureComponent* #Required
+[ ] #Entity #Systems #RenderSystem *JEPositionComponent* #Required
+[ ] #Entity #Systems #RenderSystem *JESizeComponent* #Optional
+[ ] #Entity #Systems #RenderSystem *JERotationComponent* #Optional
+[ ] #Entity #Systems #RenderSystem *JEFlipComponent* #Optional
+[ ] #Entity #Systems #RenderSystem *JEColorComponent* #Optional
+[ ] #Entity #Systems #RenderSystem *JEVisibilityComponent* #Optional
+[ ] #Entity #Systems #RenderSystem *JELayerComponent* #Optional
+[ ] #Entity #Systems #RotationSystem
+[ ] #Entity #Systems #RotationSystem *JERotationComponent* #Required
+[ ] #Entity #Systems #RotationSystem *JEPositionComponent* #Optional
+[ ] #Entity #Systems #RotationSystem *JEOriginComponent* #Optional
+[ ] #Entity #Systems #ScaleSystem
+[ ] #Entity #Systems #ScaleSystem *JESizeComponent* #Required
+[ ] #Entity #Systems #ScaleSystem *JEVelocityComponent* #Optional
+[ ] #Entity #Systems #ScaleSystem *JEAccelerationComponent* #Optional
+[ ] #Entity #Systems #OriginSystem
+[ ] #Entity #Systems #OriginSystem *JEOriginComponent* #Required
+[ ] #Entity #Systems #OriginSystem *JESizeComponent* #Optional
+[ ] #Entity #Systems #AccelerationSystem
+[ ] #Entity #Systems #AccelerationSystem *JEAccelerationComponent* #Required
+[ ] #Entity #Systems #AccelerationSystem *JEVelocityComponent* #Required
+[ ] #Entity #Systems #AccelerationSystem *JEMassComponent* #Optional
+[ ] #Entity #Systems #PhysicsSystem
+[ ] #Entity #Systems #PhysicsSystem *JEMassComponent* #Required
+[ ] #Entity #Systems #PhysicsSystem *JEVelocityComponent* #Optional
+[ ] #Entity #Systems #PhysicsSystem *JEAccelerationComponent* #Optional
+[ ] #Entity #Systems #GravitySystem
+[ ] #Entity #Systems #GravitySystem *JEVelocityComponent* #Required
+[ ] #Entity #Systems #GravitySystem *JEAccelerationComponent* #Required
+[ ] #Entity #Systems #GravitySystem *JEMassComponent* #Optional
+[ ] #Entity #Systems #DragSystem
+[ ] #Entity #Systems #DragSystem *JEVelocityComponent* #Required
+[ ] #Entity #Systems #DragSystem *JEMassComponent* #Optional
+[ ] #Entity #Systems #VisibilitySystem
+[ ] #Entity #Systems #VisibilitySystem *JEVisibilityComponent* #Required
+[ ] #Entity #Systems #ColorSystem
+[ ] #Entity #Systems #ColorSystem *JEColorComponent* #Required
+[ ] #Entity #Systems #ColorSystem *JETextureComponent* #Optional
+[ ] #Entity #Systems #LayerSystem
+[ ] #Entity #Systems #LayerSystem *JELayerComponent* #Required
+[ ] #Entity #Systems #LayerSystem *JERenderComponent* #Optional
+[ ] #Entity #Systems #FlipSystem
+[ ] #Entity #Systems #FlipSystem *JEFlipComponent* #Required
+[ ] #Entity #Systems #FlipSystem *JETextureComponent* #Optional
+[ ] #Entity #Systems #AnimationSystem
+[ ] #Entity #Systems #AnimationSystem *JEAnimationComponent* #Required
+[ ] #Entity #Systems #AnimationSystem *JETextureComponent* #Optional
+[ ] #Entity #Systems #AnimationSystem *JELayerComponent* #Optional
+[ ] #Entity #Systems #RectangleSystem
+[ ] #Entity #Systems #RectangleSystem *JERectangleComponent* #Required
+[ ] #Entity #Systems #RectangleSystem *JEPositionComponent* #Required
+[ ] #Entity #Systems #RectangleSystem *JEColorComponent* #Optional
+[ ] #Entity #Systems #RectangleSystem *JESizeComponent* #Optional
+[ ] #Entity #Systems #ColliderSystem
+[ ] #Entity #Systems #ColliderSystem *JEColliderComponent* #Required
+[ ] #Entity #Systems #ColliderSystem *JEPositionComponent* #Required
+[ ] #Entity #Systems #ColliderSystem *JESizeComponent* #Optional
+[ ] #Entity #Systems #ColliderSystem *JERotationComponent* #Optional
+[ ] #Entity #Systems #ColliderSystem
+[ ] #Entity #Systems #CollisionResolutionSystem *JEColliderComponent* #Required
+[ ] #Entity #Systems #CollisionResolutionSystem *JEVelocityComponent* #Optional
+[ ] #Entity #Systems #CollisionResolutionSystem *JEMassComponent* #Optional
+[ ] #Entity #Systems #HealthSystem
+[ ] #Entity #Systems #HealthSystem *JEHealthComponent* #Required
+[ ] #Entity #Systems #HealthSystem *JEDamageComponent* #Optional
+[ ] #Entity #Systems #DamageSystem
+[ ] #Entity #Systems #DamageSystem *JEDamageComponent* #Required
+[ ] #Entity #Systems #DamageSystem *JEHealthComponent* #Optional
+[ ] #Entity #Systems #SoundSystem
+[ ] #Entity #Systems #SoundSystem *JESoundComponent* #Required
+[ ] #Entity #Systems #SoundSystem *JEPositionComponent* #Optional
+[ ] #Entity #Systems #SoundSystem
+[ ] #Entity #Systems #MusicSystem *JEMusicComponent* #Required
+[ ] #Entity #Systems #CameraTargetSystem
+[ ] #Entity #Systems #CameraTargetSystem *JECameraTargetComponent* #Required
+[ ] #Entity #Systems #CameraTargetSystem *JEPositionComponent* #Optional
+[ ] #Entity #Systems #TextSystem
+[ ] #Entity #Systems #TextSystem *JETextComponent* #Required
+[ ] #Entity #Systems #TextSystem *JEPositionComponent* #Required
+[ ] #Entity #Systems #TextSystem *JEColorComponent* #Optional
+[ ] #Entity #Systems #ButtonSystem
+[ ] #Entity #Systems #ButtonSystem *JEButtonComponent* #Required
+[ ] #Entity #Systems #ButtonSystem *JEInputComponent* #Required
+[ ] #Entity #Systems #ButtonSystem *JEVisibilityComponent* #Optional
+[ ] #Entity #Systems #LifetimeSystem
+[ ] #Entity #Systems #LifetimeSystem *JELifetimeComponent* #Required
+[ ] #Entity #Systems #DestroyAfterSystem
+[ ] #Entity #Systems #DestroyAfterSystem *JEDestroyAfterComponent* #Required
+[ ] #Entity #Systems #FollowSystem
+[ ] #Entity #Systems #FollowSystem *JEFollowComponent* #Required
+[ ] #Entity #Systems #FollowSystem *JEPositionComponent* #Optional
+[ ] #Entity #Systems #PlayerInputSystem
+[ ] #Entity #Systems #PlayerInputSystem *JEPlayerInputComponent* #Required
+[ ] #Entity #Systems #PlayerInputSystem *JEVelocityComponent* #Optional
+[ ] #Entity #Systems #BrainSystem
+[ ] #Entity #Systems #BrainSystem *JEBrainComponent* #Required
+[ ] #Entity #Systems #PathSystem
+[ ] #Entity #Systems #PathSystem *JEPathComponent* #Required
+[ ] #Entity #Systems #PathSystem *JEPositionComponent* #Optional
+[ ] #Entity #Systems #NetworkSyncSystem
+[ ] #Entity #Systems #NetworkSyncSystem *JENetworkComponent* #Required
+[ ] #Entity #Systems #NetworkSyncSystem *JESyncComponent* #Required
+[ ] #Entity #Systems #ParticleEmitterSystem
+[ ] #Entity #Systems #ParticleEmitterSystem *JEParticleEmitterComponent* #Required
+[ ] #Entity #Systems #ParticleEmitterSystem *JEPositionComponent* #Optional
+[ ] #Entity #Systems #ParticleSystem
+[ ] #Entity #Systems #ParticleSystem *JEParticleComponent* #Required
+[ ] #Entity #Systems #LightSystem
+[ ] #Entity #Systems #LightSystem *JELightComponent* #Required
+[ ] #Entity #Systems #LightSystem *JEPositionComponent* #Required
+[ ] #Entity #Systems #LightSystem *JEColorComponent* #Optional
+[ ] #Entity #Systems #LightSystem *JERadiusComponent* #Optional

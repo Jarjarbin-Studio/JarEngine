@@ -54,6 +54,10 @@ class JEInternEmptyComponent(_JEInternalEntityComponent):
         """Get none"""
         return None
 
+    def copy(self, new_owner):
+        return JEInternEmptyComponent(new_owner)
+
+
 @_documentation
 @_final
 class JEInternRessources(_JEInternClassBase):

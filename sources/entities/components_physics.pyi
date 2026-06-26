@@ -24,17 +24,23 @@
 
 from __future__ import annotations
 
-# Public API exports
 from sources.entities.entity import JEEntity
+from sources.systems.vector import JEVector2D
 
-# Submodules
-import sources.entities.components_physics as Physics
-import sources.entities.components_graphics as Graphics
-import sources.entities.components_transforms as Transforms
+class JEAccelerationComponent:
+    def __init__(self, owner: JEEntity, position: JEVector2D | tuple[int, int]) -> None: ...
+    @property
+    def acceleration(self) -> JEVector2D: ...
+    @acceleration.setter
+    def acceleration(self, position: JEVector2D | tuple[int, int]) -> None: ...
+    def __call__(self) -> JEVector2D: ...
+    def copy(self, new_owner: JEEntity) -> JEAccelerationComponent: ...
 
-__all__: list[str] = [
-    'JEEntity',
-    'Physics',
-    'Graphics',
-    'Transforms'
-]
+class JEMassComponent:
+    def __init__(self, owner: JEEntity, size: float) -> None: ...
+    @property
+    def mass(self) -> float: ...
+    @mass.setter
+    def mass(self, rotation: float): ...
+    def __call__(self) -> float: ...
+    def copy(self, new_owner: JEEntity) -> JEMassComponent: ...

@@ -26,8 +26,12 @@ from __future__ import annotations
 
 __all__ = [
     'JEEntity',
-    'Components'
+    'Physics',
+    'Graphics',
+    'Transforms'
 ]
 
 from sources.entities.entity import JEEntity
-import sources.entities.components as Components
+import sources.entities.components_physics as Physics
+import sources.entities.components_graphics as Graphics
+import sources.entities.components_transforms as Transforms

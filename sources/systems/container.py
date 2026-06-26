@@ -91,12 +91,14 @@ class JEContainer(_Generic[_T], _JEInternClassBase):
                 return self.get(name=value)
             except Exception:
                 return self.get(jeid=value)
+        elif type(value) == int:
+            return self._data[value]
         else:
             return self.get(instance=value)
 
-    def get(self, *, name = None, jeid = None, instance = None):
+    def get(self, *, name = None, jeid = None, instance = None, _type = None):
         """Get object by name"""
-        if not (name or jeid or instance):
+        if not (name or jeid or instance or _type):
             raise _JTKInternError.Error.ErrorKey(
                 "\nName, JEID or Instance are required."
             )
@@ -111,13 +113,17 @@ class JEContainer(_Generic[_T], _JEInternClassBase):
             for key, obj in self._data.items():
                 if obj == instance:
                     return obj
+        elif _type:
+            for key, obj in self._data.items():
+                if isinstance(obj, _type):
+                    return obj
         raise _JTKInternError.Error.ErrorKey(
-            f"\n{name or jeid or instance!r} not in container."
+            f"\n{name or jeid or instance or _type!r} not in container."
         )
 
-    def rm(self, *, name = None, jeid = None, instance = None):
+    def rm(self, *, name = None, jeid = None, instance = None, _type = None):
         """Remove object by name, jeid or instance"""
-        if not (name or jeid or instance):
+        if not (name or jeid or instance or _type):
             raise _JTKInternError.Error.ErrorKey(
                 "\nName, JEID or Instance are required."
             )
@@ -132,8 +138,12 @@ class JEContainer(_Generic[_T], _JEInternClassBase):
             for key, obj in self._data.items():
                 if obj == instance:
                     return self._data.pop(key)
+        elif _type:
+            for key, obj in self._data.items():
+                if isinstance(obj, _type):
+                    return self._data.pop(key)
         raise _JTKInternError.Error.ErrorKey(
-            f"\n{name or jeid or instance!r} not in container."
+            f"\n{name or jeid or instance or _type!r} not in container."
         )
 
     def __iter__(self):

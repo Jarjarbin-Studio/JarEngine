@@ -27,63 +27,63 @@ from __future__ import annotations
 from typing import final as _final
 
 from sources.interns.high_classes import JEInternalRenderingSystems as _JEInternalRenderingSystems
-from sources.entities.components import (
-    JEPositionComponent as _JEPositionComponent,
-    JEVelocityComponent as _JEVelocityComponent,
+from sources.interns.decorators import documentation as _documentation
+from sources.interns import PGIntern as _PGIntern
+from sources.entities.components_graphics import (
+    JEFlipComponent as _JEFlipComponent,
+    JELayerComponent as _JELayerComponent,
+    JEVisibilityComponent as _JEVisibilityComponent,
     JETextureComponent as _JETextureComponent,
+    JEColorComponent as _JEColorComponent
+)
+from sources.entities.components_transforms import (
+    JEPositionComponent as _JEPositionComponent,
+    JERotationComponent as _JERotationComponent,
+    JEVelocityComponent as _JEVelocityComponent,
     JESizeComponent as _JESizeComponent
 )
-from sources.entities.entity import JEEntity as _JEEntity
-from sources.systems.container import JEContainer as _JEContainer
-from sources.interns.decorators import documentation as _documentation
-from sources.games.window import JEWindow as _JEWindow
-from sources.interns import PGIntern as _PGIntern
+from sources.entities.components_physics import (
+    JEMassComponent as _JEMassComponent,
+    JEAccelerationComponent as _JEAccelerationComponent
+)
 
 @_documentation
 @_final
 class JEMovementSystem(_JEInternalRenderingSystems):
     """MovementSystem"""
 
-    @staticmethod
-    def update(
-            window: _JEWindow,
-            entities: _JEContainer[_JEEntity],
-            dt: float
-        ) -> None:
-        """Update entities"""
-        for e in entities:
-            position = e.get(_JEPositionComponent)()
-            velocity = e.get(_JEVelocityComponent)()
+    def __init__(self, owner: "JEGame"):
+        super().__init__(owner)
+        self._required = [_JEPositionComponent, _JEVelocityComponent]
 
-            if position and velocity:
-                position.x += velocity.x * dt
-                position.y += velocity.y * dt
+    def update(self, window, entity, entities, dt):
+        """Update entities"""
+        position = entity.get(_JEPositionComponent)
+        velocity = entity.get(_JEVelocityComponent)
+
+        position().x += velocity().x * dt
+        position().y += velocity().y * dt
 
 @_documentation
 @_final
 class JERenderSystem(_JEInternalRenderingSystems):
     """MovementSystem"""
 
-    @staticmethod
-    def update(
-            window: _JEWindow,
-            entities: _JEContainer[_JEEntity],
-            dt: float
-        ) -> None:
+    def __init__(self, owner: "JEGame"):
+        super().__init__(owner)
+        self._required = [_JETextureComponent, _JEPositionComponent]
+
+    def update(self, window, entity, entities, dt):
         """Update entities"""
-        for e in entities:
-            texture = e.get(_JETextureComponent)()
-            position = e.get(_JEPositionComponent)()
-            size = e.get(_JESizeComponent)()
+        texture = entity.get(_JETextureComponent)
+        position = entity.get(_JEPositionComponent)
+        size = entity.get(_JESizeComponent)
 
-            if not texture or not position:
-                continue
+        surface = texture().surface
+        if size:
+            surface = _PGIntern.transform.scale(
+                surface,
+                (int(size().x), int(size().y))
+            )
 
-            surface = texture.surface
-            if size:
-                surface = _PGIntern.transform.scale(
-                    surface,
-                    (int(size.x), int(size.y))
-                )
-
-            window.blit(surface, (position.x, position.y))
+        window.blit(surface, (position().x, position().y))

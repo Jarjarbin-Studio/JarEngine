@@ -8,7 +8,7 @@ JarEngine.Init()
 # ----------
 # Game & Window creation
 # ----------
-game = JarEngine.Games.JEGame()
+game = JarEngine.Games.JEGame(use_clock=JarEngine.JETrue)
 game.set_window(JarEngine.Games.JEWindow(size=(800, 600), fps=100, title="JarEngine - Minimal Window"))
 
 # ----------
@@ -43,9 +43,14 @@ game.entities.add(sprite)
 # ----------
 # Sprite Component-Addon registration
 # ----------
-JarEngine.Entities.Components.JETextureComponent(sprite, game.ressource.texture.get(name="JarEngineLogo.png"))
-JarEngine.Entities.Components.JEPositionComponent(sprite, (350, 250))
-JarEngine.Entities.Components.JESizeComponent(sprite, (100, 100))
+JarEngine.Entities.Graphics.JETextureComponent(sprite, game.ressource.texture.get(name="JarEngineLogo.png"))
+JarEngine.Entities.Transforms.JEPositionComponent(sprite, (350, 250))
+JarEngine.Entities.Transforms.JESizeComponent(sprite, (100, 100))
+
+# ----------
+# Sprite duplication
+# ----------
+game.entities.add(game.entities[sprite].copy())
 
 # ----------
 # Input handler function

@@ -28,6 +28,7 @@ from sources.interns.low_classes import JEInternGraphic as _JEInternGraphic
 from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
 from sources.systems.container import JEContainer as _JEContainer
 from sources.interns.decorators import documentation as _documentation
+from sources.systems.bool import JEBool as _JEBool
 
 @_documentation
 class JEInternalOwnership(_JEInternClassBase):
@@ -71,6 +72,10 @@ class JEInternalEntityComponent(_JEInternGraphic, JEInternalOwnership):
         """JEInternalEntityComponent creator"""
         super().__init__(name)
 
+    def __call__(self):
+        """Get texture"""
+        pass
+
 @_documentation
 class JEInternalRenderingSystems(JEInternalOwnership):
     """EntitySystems (Internal API)"""
@@ -84,10 +89,16 @@ class JEInternalRenderingSystems(JEInternalOwnership):
         super().__init__()
         self.add_parent(owner)
         owner.add_system(self)
+        self._required = []
+
+    def accepts(self, components):
+        """Check if all required components are available"""
+        return _JEBool(all(components.get(_type=req) is not None for req in self._required))
 
     @staticmethod
     def update(
             window: "JEWindow",
+            entity: "JEEntity",
             entities: _JEContainer["JEEntity"],
             dt: float
         ) -> None:

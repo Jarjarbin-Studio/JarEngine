@@ -64,3 +64,6 @@ class JETexture(_JEInternGraphic, _JEInternalOwnership):
     def size(self):
         """Get texture size"""
         return self._size
+
+    def __deepcopy__(self, memo):
+        return self
