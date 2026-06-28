@@ -38,10 +38,7 @@ class JEPositionComponent(_JEInternalEntityComponent):
 
     def __init__(self, owner, position):
         """JEPositionComponent creator"""
-
-        super().__init__(f"JEPositionComponent({owner.jeid})")
-        self.add_parent(owner)
-        owner.add_component(self)
+        super().__init__(owner, JEPositionComponent)
         self._position = (
             position
             if isinstance(position, _JEVector2D) else
@@ -95,9 +92,7 @@ class JEVelocityComponent(_JEInternalEntityComponent):
 
     def __init__(self, owner, velocity):
         """JEVelocityComponent creator"""
-        super().__init__(f"JEVelocityComponent({owner.jeid})")
-        self.add_parent(owner)
-        owner.add_component(self)
+        super().__init__(owner, JEVelocityComponent)
         self._velocity = (
             velocity
             if isinstance(velocity, _JEVector2D) else
@@ -151,9 +146,7 @@ class JESizeComponent(_JEInternalEntityComponent):
 
     def __init__(self, owner, size):
         """JESizeComponent creator"""
-        super().__init__(f"JESizeComponent({owner.jeid})")
-        self.add_parent(owner)
-        owner.add_component(self)
+        super().__init__(owner, JESizeComponent)
         self._size = (
             size
             if isinstance(size, _JEVector2D) else
@@ -207,16 +200,14 @@ class JERotationComponent(_JEInternalEntityComponent):
 
     def __init__(self, owner, rotation):
         """JERotationComponent creator"""
-        super().__init__(f"JERotationComponent({owner.jeid})")
-        self.add_parent(owner)
-        owner.add_component(self)
+        super().__init__(owner, JERotationComponent)
         self._rotation = rotation
 
         def set_rotation(owner_self, rotation):
             self._rotation = rotation
 
         def update_rotation(owner_self, *, r = 0):
-            self._rotation.x += r
+            self._rotation += r
 
         def get_rotation(owner_self):
             return self._rotation

@@ -24,11 +24,7 @@
 
 from __future__ import annotations
 
-from typing import (
-    Self as _Self,
-    final as _final,
-    Any as _Any
-)
+from typing import final as _final
 
 from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
 from sources.interns import (
@@ -69,7 +65,12 @@ class JEWindow(_JEInternClassBase):
         super().__init__()
         self._settings = _JEInternWindowSettings(size, flags, fps, depth, display, vsync, title)
         self._screen = _PGIntern.display.set_mode(size, flags, depth, display, vsync)
+        self.rename(title)
+
+    def rename(self, title):
+        """Rename window"""
         _PGIntern.display.set_caption(title)
+        self._settings.title = title
 
     @property
     def screen(self):

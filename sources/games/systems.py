@@ -30,6 +30,8 @@ from sources.interns.high_classes import JEInternalRenderingSystems as _JEIntern
 from sources.interns.decorators import documentation as _documentation
 from sources.interns import PGIntern as _PGIntern
 from sources.entities.components_graphics import (
+    JEFontComponent as _JEFontComponent,
+    JETextComponent as _JETextComponent,
     JEFlipComponent as _JEFlipComponent,
     JELayerComponent as _JELayerComponent,
     JEVisibilityComponent as _JEVisibilityComponent,
@@ -53,11 +55,12 @@ class JEMovementSystem(_JEInternalRenderingSystems):
     """MovementSystem"""
 
     def __init__(self, owner: "JEGame"):
+        """JEMovementSystem creator"""
         super().__init__(owner)
         self._required = [_JEPositionComponent, _JEVelocityComponent]
 
     def update(self, window, entity, entities, dt):
-        """Update entities"""
+        """Update entity movement"""
         position = entity.get(_JEPositionComponent)
         velocity = entity.get(_JEVelocityComponent)
 
@@ -70,20 +73,106 @@ class JERenderSystem(_JEInternalRenderingSystems):
     """MovementSystem"""
 
     def __init__(self, owner: "JEGame"):
+        """JERenderSystem creator"""
         super().__init__(owner)
-        self._required = [_JETextureComponent, _JEPositionComponent]
+        self._required = [_JEPositionComponent]
 
     def update(self, window, entity, entities, dt):
-        """Update entities"""
-        texture = entity.get(_JETextureComponent)
+        """Update entity rendering"""
         position = entity.get(_JEPositionComponent)
-        size = entity.get(_JESizeComponent)
 
-        surface = texture().surface
-        if size:
-            surface = _PGIntern.transform.scale(
-                surface,
-                (int(size().x), int(size().y))
+        size = entity.get(_JESizeComponent)
+        rotation = entity.get(_JERotationComponent)
+        flip = entity.get(_JEFlipComponent)
+        color = entity.get(_JEColorComponent)
+        visibility = entity.get(_JEVisibilityComponent)
+        texture = entity.get(_JETextureComponent)
+        text = entity.get(_JETextComponent)
+        font = entity.get(_JEFontComponent)
+
+        if not position:
+            return
+
+        if visibility and not visibility():
+            return
+
+        x = position().x
+        y = position().y
+
+        w = size().x if size else 20
+        h = size().y if size else 20
+
+        if text and font:
+            surface = font().font.render(
+                text(),
+                True,
+                color.rgba if color else (255, 255, 255, 255)
+            )
+            window.blit(surface, (x, y))
+
+        if texture:
+            surface = texture().surface
+
+            if size:
+                surface = _PGIntern.transform.scale(
+                    surface,
+                    (int(w), int(h))
+                )
+
+            if rotation:
+                surface = _PGIntern.transform.rotate(
+                    surface,
+                    rotation()
+                )
+
+            if flip:
+                surface = _PGIntern.transform.flip(
+                    surface,
+                    bool(flip()[0]),
+                    bool(flip()[1])
+                )
+
+            if color:
+                tint = surface.copy()
+                tint.fill(color().rgba, special_flags=_PGIntern.BLEND_RGBA_MULT)
+                surface = tint
+
+            window.blit(surface, (x, y))
+            return
+
+        if color:
+            _PGIntern.draw.rect(
+                window.screen,
+                color().rgba,
+                (x, y, w, h)
             )
 
-        window.blit(surface, (position().x, position().y))
+@_documentation
+@_final
+class JEAccelerationSystem(_JEInternalRenderingSystems):
+    """AccelerationSystem"""
+
+    def __init__(self, owner: "JEGame"):
+        """JEAccelerationSystem creator"""
+        super().__init__(owner)
+        self._required = [
+            _JEAccelerationComponent,
+            _JEVelocityComponent
+        ]
+
+    def update(self, window, entity, entities, dt):
+        """Update entity acceleration"""
+
+        acceleration = entity.get(_JEAccelerationComponent)
+        velocity = entity.get(_JEVelocityComponent)
+        mass = entity.get(_JEMassComponent)
+
+        ax = acceleration().x
+        ay = acceleration().y
+
+        if mass and mass() > 0:
+            ax /= mass()
+            ay /= mass()
+
+        velocity().x += ax * dt
+        velocity().y += ay * dt

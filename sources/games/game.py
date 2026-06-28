@@ -26,6 +26,7 @@ from __future__ import annotations
 
 from typing import final as _final
 
+from sources.entities.components_graphics import JELayerComponent as _JELayerComponent
 from sources.games.window import JEWindow as _JEWindow
 from sources.games.input import JEInput as _JEInput
 from sources.events.manager import JEEventHandler as _JEEventHandler
@@ -156,10 +157,25 @@ class JEGame(_JEInternClassBase):
 
     def update(self):
         """Update game"""
+
+        def render_sort(entity):
+            """Sorting key for rendering."""
+
+            layer = entity.get(_JELayerComponent)
+
+            if layer:
+                try:
+                    return int(layer())
+                except Exception:
+                    return 0
+
+            return 0
+
         self._event_manager.process(self)
         self._clock.update()
         self._input.update()
-        for entity in self._entities:
+
+        for entity in sorted(self._entities, key=render_sort):
             for system in self._systems:
                 if system.accepts(entity.components):
                     system.update(self._window, entity, self._entities, float(self._clock))

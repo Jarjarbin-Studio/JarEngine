@@ -35,15 +35,15 @@ class JEInternConfig(_JTKInternConfig):
     """Config (Internal API)"""
     __recursive__ = False
 
-    path: str = (
+    path = (
         "../.je-config"
         if _JTKInternConfig.exist("../.je-config", file_name="je-base.ini") else
         f"{__file__.split('sources')[0]}.je-config/"
     )
 
-    def __init__(self, name: str):
+    def __init__(self, name):
         """JEInternConfig creator"""
         super().__init__(JEInternConfig.path, {"INFO": {"name": name}}, file_name=f"je-{name}.ini")
 
-def get_config(name: str = "engine") -> JEInternConfig:
+def get_config(name = "engine"):
     return JEInternConfig(name)

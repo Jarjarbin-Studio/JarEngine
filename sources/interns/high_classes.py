@@ -34,33 +34,27 @@ from sources.systems.bool import JEBool as _JEBool
 class JEInternalOwnership(_JEInternClassBase):
     """Ownership (Internal API)"""
 
-    def __init__(self) -> None:
+    def __init__(self):
         """JEInternalOwnership creator"""
         super().__init__()
-        self._parents: _JEContainer[_JEInternClassBase] = _JEContainer(_JEInternClassBase)
-        self._children: _JEContainer[_JEInternClassBase] = _JEContainer(_JEInternClassBase)
+        self._parents = _JEContainer(_JEInternClassBase)
+        self._children = _JEContainer(_JEInternClassBase)
 
     @property
-    def parents(self) -> _JEContainer[_JEInternClassBase]:
+    def parents(self):
         """Get parents list"""
         return self._parents
 
-    def add_parent(
-            self,
-            parent: _JEInternClassBase
-        ) -> None:
+    def add_parent(self, parent):
         """Add a parent"""
         self._parents.add(parent)
 
     @property
-    def children(self) -> _JEContainer[_JEInternClassBase]:
+    def children(self):
         """Get children list"""
         return self._children
 
-    def add_child(
-            self,
-            child: _JEInternClassBase
-        ) -> None:
+    def add_child(self, child):
         """Add a child"""
         self._children.add(child)
 
@@ -68,9 +62,11 @@ class JEInternalOwnership(_JEInternClassBase):
 class JEInternalEntityComponent(_JEInternGraphic, JEInternalOwnership):
     """EntityComponent (Internal API)"""
 
-    def __init__(self, name: str) -> None:
+    def __init__(self, owner, _type):
         """JEInternalEntityComponent creator"""
-        super().__init__(name)
+        super().__init__(f"{_type.__name__}({owner.jeid})")
+        self.add_parent(owner)
+        owner.add_component(self)
 
     def __call__(self):
         """Get texture"""
@@ -78,13 +74,10 @@ class JEInternalEntityComponent(_JEInternGraphic, JEInternalOwnership):
 
 @_documentation
 class JEInternalRenderingSystems(JEInternalOwnership):
-    """EntitySystems (Internal API)"""
+    """RenderingSystems (Internal API)"""
 
-    def __init__(
-            self,
-            owner: "JEGame"
-        ):
-        """JEPositionComponent creator"""
+    def __init__(self, owner):
+        """JEInternalRenderingSystems creator"""
 
         super().__init__()
         self.add_parent(owner)
@@ -93,14 +86,12 @@ class JEInternalRenderingSystems(JEInternalOwnership):
 
     def accepts(self, components):
         """Check if all required components are available"""
-        return _JEBool(all(components.get(_type=req) is not None for req in self._required))
+        try:
+            return _JEBool(all(components.get(_type=req) is not None for req in self._required))
+        except Exception:
+            return _JEBool(0)
 
     @staticmethod
-    def update(
-            window: "JEWindow",
-            entity: "JEEntity",
-            entities: _JEContainer["JEEntity"],
-            dt: float
-        ) -> None:
+    def update(window, entity, entities, dt):
         """Update entities"""
         pass

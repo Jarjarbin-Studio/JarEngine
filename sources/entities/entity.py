@@ -58,7 +58,7 @@ class JEEntity(_JEInternGraphicalObject):
         for c in self._components:
             if isinstance(c, component):
                 return c
-        return self._components.get(name=f"JEEmptyComponent({self.jeid})")
+        return self._components.get(_type=_JEInternEmptyComponent)
 
     def copy(self):
         new_entity = JEEntity(name = self.name)

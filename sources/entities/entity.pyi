@@ -1,34 +1,12 @@
-"""
-    JarEngine - Python Game Engine Wrapper (Pygame-based)
-
-    JarEngine is a lightweight game framework built on top of Pygame
-    that simplifies usage while providing higher-level abstractions for
-    game development and prototyping.
-
-    Version: jarengine-v0.1.0
-    Author: Jarjarbin Studio
-    Licence: GPL v3
-
-    This engine is inspired by Pygame, modern game engine design patterns,
-    and directly influenced by the architecture of NewCSFML.
-
-    It is designed for educational purposes and small-to-medium game projects.
-
-    It provides structured systems such as entity management, scene handling,
-    render abstraction, and advanced modules like particle systems.
-
-    WARNING:
-        This is NOT Pygame itself.
-        It is a custom abstraction layer built on top of Pygame.
-"""
-
 from __future__ import annotations
 
+from sources.resources.font import JEFont
 from sources.interns.high_classes import JEInternalEntityComponent
 from sources.systems.container import JEContainer
 from sources.systems.vector import JEVector2D
-from sources.graphics.texture import JETexture
+from sources.resources.texture import JETexture
 from sources.systems.bool import JEBool
+from sources.systems.color import JEColor
 
 
 class JEEntity:
@@ -42,9 +20,31 @@ class JEEntity:
 
     ### COMPONENTS ###
     ## Graphics ##
+    # Font #
+    def set_font(self, font: JEFont) -> None: ...
+    def get_font(self) -> JEFont: ...
+
+    # Text #
+    def set_text(self, text: str) -> None: ...
+    def get_text(self) -> str: ...
+
     # Texture #
     def set_texture(self, texture: JETexture) -> None: ...
     def get_texture(self) -> JETexture: ...
+
+    # Color #
+    def set_color(self, color: JEColor | tuple[int, int, int] | tuple[int, int, int, int]) -> None: ...
+    def update_color(self, *, r: int, g: int, b: int, a: int) -> None: ...
+    def get_color(self) -> JEColor | tuple[int, int, int] | tuple[int, int, int, int]: ...
+
+    # Visibility #
+    def set_visibility(self, visibility: JEBool) -> None: ...
+    def get_visibility(self) -> JEBool: ...
+
+    # Layer #
+    def set_layer(self, mass: int) -> None: ...
+    def update_layer(self, *, l: int) -> None: ...
+    def get_layer(self) -> int: ...
 
     # Flip #
     def set_flip(self, flip: tuple[JEBool, JEBool]) -> None: ...
@@ -52,7 +52,7 @@ class JEEntity:
 
     ## Physics ##
     # Acceleration #
-    def set_acceleration(self, position: JEVector2D | tuple[float, float]) -> None: ...
+    def set_acceleration(self, acceleration: JEVector2D | tuple[float, float]) -> None: ...
     def update_acceleration(self, *, x: float, y: float) -> None: ...
     def get_acceleration(self) -> JEVector2D: ...
 

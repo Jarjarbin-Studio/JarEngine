@@ -24,11 +24,10 @@
 
 from __future__ import annotations
 
-# Public API exports
-from sources.graphics.texture import JETexture
-
-# Submodules
-
-__all__: list[str] = [
-    "JETexture"
+__all__ = [
+    'JETexture',
+    'JEFont'
 ]
+
+from sources.resources.font import JEFont
+from sources.resources.texture import JETexture

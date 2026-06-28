@@ -38,11 +38,11 @@ class JEInternClassBase:
     __instance_limit__ = None
     __recursive__ = True
 
-    def __init__(self) -> None:
+    def __init__(self):
         """JEInternClassBase creator"""
         self.jeid: str = _uuid4().hex
 
-    def __str__(self) -> str:
+    def __str__(self):
         """Get information about the class"""
         name = getattr(self, "name", None)
         id = getattr(self, "id", None)
@@ -52,14 +52,14 @@ class JEInternClassBase:
 
         return f"{self.__class__.__name__}({id=})"
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         """Get representation of the class"""
         return (
             f"<{self.__class__.__name__}"
             f" jeid={getattr(self, 'jeid', 'unknown')}>"
         )
 
-    def to_dict(self) -> dict:
+    def to_dict(self):
         """Get dictionary representation of the class"""
 
         def get_value(value: _Any) -> _Any:
@@ -78,18 +78,7 @@ class JEInternClassBase:
             }
         }
 
-    def dump(
-            self,
-            *,
-            is_colored: bool = False,
-            brached_recursive = False,
-            prefix: str = "",
-            is_last: bool = True,
-            is_root: bool = True,
-            show_root: bool = True,
-            _visited: set | None = None,
-            _stack: set | None = None
-        ) -> str:
+    def debug(self, *, is_colored = False, max_depth = -1, branched_recursive = False, prefix = "", is_last = True, is_root = True, show_root = True, _visited = None, _stack = None):
         """Pretty-print the class recursively (with all of its children)"""
 
         COLOR_THEME: dict[str, tuple[int, int, int]] = {
@@ -194,7 +183,6 @@ class JEInternClassBase:
                 return f"<repr error: {err}>"
 
         def append_child_object(
-                name: str,
                 label: str,
                 child,
                 child_prefix: str,
@@ -203,11 +191,15 @@ class JEInternClassBase:
             connector = "└─ " if last_item else "├─ "
             cls_col = colorize(child.__class__.__name__, "engine_object")
             lines.append(f"{child_prefix}{connector}{label} ({cls_col})")
+            if max_depth == 0:
+                lines.append(f"{child_prefix}{SPACE if last_item else BRANCH} [...]")
+                return
 
             lines.extend(
-                child.dump(
+                child.debug(
                     is_colored=is_colored,
-                    brached_recursive=brached_recursive,
+                    max_depth=max_depth - 1,
+                    branched_recursive=branched_recursive,
                     prefix=extend_prefix(child_prefix, last_item),
                     is_last=True,
                     is_root=False,
@@ -255,7 +247,7 @@ class JEInternClassBase:
                 sub_label = colorize(str(sub_key), "name")
 
                 if isinstance(sub_value, JEInternClassBase):
-                    append_child_object(name, sub_label, sub_value, nested_prefix, sub_last)
+                    append_child_object(sub_label, sub_value, nested_prefix, sub_last)
                 else:
                     append_leaf(name, sub_label, sub_value, nested_prefix, sub_last)
 
@@ -277,7 +269,7 @@ class JEInternClassBase:
                 sub_label = colorize(f"[{index}]", "list")
 
                 if isinstance(sub_value, JEInternClassBase):
-                    append_child_object(name, sub_label, sub_value, nested_prefix, sub_last)
+                    append_child_object(sub_label, sub_value, nested_prefix, sub_last)
                 else:
                     append_leaf(name, sub_label, sub_value, nested_prefix, sub_last)
 
@@ -339,7 +331,7 @@ class JEInternClassBase:
                 attr_label = colorize(attr_name, "id" if attr_name == "JEID" else "attribute")
 
                 if isinstance(attr_value, JEInternClassBase):
-                    append_child_object(attr_name, attr_label, attr_value, new_prefix, last_item)
+                    append_child_object(attr_label, attr_value, new_prefix, last_item)
                 elif isinstance(attr_value, dict):
                     append_mapping(attr_name, attr_label, attr_value, new_prefix, last_item)
                 elif isinstance(attr_value, (list, tuple, set)):
@@ -349,5 +341,110 @@ class JEInternClassBase:
 
             return "\n".join(lines)
         finally:
-            if brached_recursive:
+            if branched_recursive:
                 _stack.discard(obj_id)
+
+    def dump(self, *, prefix="", is_last=True, is_root=True, _attr_key=None, _visited=None):
+        BRANCH = "│   "
+        SPACE = "    "
+        TEE = "├─ "
+        ELBOW = "└─ "
+
+        if _visited is None:
+            _visited = set()
+
+        def extend_prefix(current: str, last: bool) -> str:
+            return current + (SPACE if last else BRANCH)
+
+        def type_name(v) -> str:
+            return type(v).__name__
+
+        def safe_repr(v) -> str:
+            try:
+                r = repr(v)
+                return r if len(r) <= 80 else r[:77] + "…"
+            except Exception:
+                return "<repr error>"
+
+        def summarize_collection(v) -> str:
+            if isinstance(v, dict):
+                if not v:
+                    return "dict[0]"
+                contained = sorted({type(x).__name__ for x in v.values()})
+                return f"dict[{len(v)}] of {', '.join(contained)}"
+            try:
+                elements = list(v)
+            except Exception:
+                return f"{type_name(v)}(?)"
+            if not elements:
+                return f"{type_name(v)}[0]"
+            contained = sorted({type(x).__name__ for x in elements})
+            return f"{type_name(v)}[{len(elements)}] of {', '.join(contained)}"
+
+        obj_id = id(self)
+        if obj_id in _visited and self.__recursive__:
+            connector = ELBOW if is_last else TEE
+            key_part = f"{_attr_key}: " if _attr_key else ""
+            return f"{prefix}{connector}{key_part}<circular> {self.__class__.__name__}"
+        _visited.add(obj_id)
+
+        lines = []
+        class_name = self.__class__.__name__
+        name = getattr(self, "name", None)
+
+        class_part = class_name + (f" ({name!r})" if name else "")
+
+        if is_root:
+            lines.append(class_part)
+        else:
+            connector = ELBOW if is_last else TEE
+            key_part = f"{_attr_key}: " if _attr_key else ""
+            lines.append(f"{prefix}{connector}{key_part}{class_part}")
+
+        new_prefix = extend_prefix(prefix, is_last)
+
+        raw_attrs: dict = {k: v for k, v in dict(getattr(self, "__dict__", {})).items() if not k.startswith("_")}
+
+        props: dict = {}
+        for attr_name in dir(self.__class__):
+            descriptor = getattr(self.__class__, attr_name, None)
+            if isinstance(descriptor, property) and not attr_name.startswith("_"):
+                try:
+                    props[f"@{attr_name}"] = getattr(self, attr_name)
+                except Exception as exc:
+                    props[f"@{attr_name}"] = f"<error: {exc}>"
+
+        items = list({**raw_attrs, **props}.items())
+
+        for i, (k, v) in enumerate(items):
+            last = (i == len(items) - 1)
+            connector = ELBOW if last else TEE
+
+            if isinstance(v, JEInternClassBase):
+                if id(v) in _visited:
+                    lines.append(
+                        f"{new_prefix}{connector}{k}: {v.__class__.__name__} = <circular>"
+                    )
+                else:
+                    child = v.dump(
+                        prefix=new_prefix,
+                        is_last=last,
+                        is_root=False,
+                        _attr_key=k,
+                        _visited=_visited,
+                    )
+                    lines.append(child)
+
+            elif isinstance(v, (list, tuple, dict)):
+                summary = summarize_collection(v)
+                lines.append(f"{new_prefix}{connector}{k}: {type_name(v)} = {summary}")
+
+            else:
+                lines.append(f"{new_prefix}{connector}{k}: {type_name(v)} = {safe_repr(v)}")
+
+            if last:
+                lines.append(f"{new_prefix}")
+
+        lines = [line for line in lines if line.strip()]
+
+        return "\n".join(lines)

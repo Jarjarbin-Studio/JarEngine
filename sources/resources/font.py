@@ -29,31 +29,30 @@ from typing import final as _final
 from sources.interns import PGIntern as _PGIntern
 from sources.interns.high_classes import JEInternalOwnership as _JEInternalOwnership
 from sources.interns.low_classes import JEInternGraphic as _JEInternGraphic
-from sources.systems.vector import JEVector2D as _JEVector2D
 from sources.interns.decorators import documentation as _documentation
 
 @_documentation
 @_final
-class JETexture(_JEInternGraphic, _JEInternalOwnership):
+class JEFont(_JEInternGraphic, _JEInternalOwnership):
     """Texture"""
 
-    base_path = f"{__file__.split('sources')[0]}assets/"
+    base_path = f"{__file__.split('sources')[0]}assets/fonts/"
 
-    def __init__(self, path) -> None:
+    def __init__(self, name, path, size) -> None:
         """JETexture creator"""
-        super().__init__(path)
+        super().__init__(name)
 
         if not "/" in path:
-            path = f"{JETexture.base_path}{path}"
+            path = f"{JEFont.base_path}{path}"
 
         self._path = path
-        self._surface = _PGIntern.image.load(path).convert_alpha()
-        self._size = _JEVector2D(self._surface.get_width(), self._surface.get_height())
+        self._font = _PGIntern.font.Font(path, size)
+        self._size = size
 
     @property
-    def surface(self):
+    def font(self):
         """Get texture surface (PGIntern)"""
-        return self._surface
+        return self._font
 
     @property
     def path(self):

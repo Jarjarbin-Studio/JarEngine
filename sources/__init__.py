@@ -31,7 +31,7 @@ __all__ = [
     'Entities',
     'Events',
     'Games',
-    'Graphics',
+    'Resources',
     'Systems',
     ## Functions ##
     'Init',
@@ -102,7 +102,7 @@ import sources.audios as Audios
 import sources.entities as Entities
 import sources.events as Events
 import sources.games as Games
-import sources.graphics as Graphics
+import sources.resources as Resources
 import sources.systems as Systems
 from sources.constants import *
 

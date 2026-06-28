@@ -38,10 +38,7 @@ class JEAccelerationComponent(_JEInternalEntityComponent):
 
     def __init__(self, owner, acceleration):
         """JEAccelerationComponent creator"""
-
-        super().__init__(f"JEAccelerationComponent({owner.jeid})")
-        self.add_parent(owner)
-        owner.add_component(self)
+        super().__init__(owner, JEAccelerationComponent)
         self._acceleration = (
             acceleration
             if isinstance(acceleration, _JEVector2D) else
@@ -93,16 +90,14 @@ class JEMassComponent(_JEInternalEntityComponent):
 
     def __init__(self, owner, mass):
         """JEMassComponent creator"""
-        super().__init__(f"JEMassComponent({owner.jeid})")
-        self.add_parent(owner)
-        owner.add_component(self)
+        super().__init__(owner, JEMassComponent)
         self._mass = mass
 
         def set_mass(owner_self, mass):
             self._mass = mass
 
         def update_mass(owner_self, *, m = 0):
-            self._mass.x += m
+            self._mass += m
 
         def get_mass(owner_self):
             return self._mass

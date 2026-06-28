@@ -30,7 +30,80 @@ from typing import final as _final
 from sources.interns.high_classes import JEInternalEntityComponent as _JEInternalEntityComponent
 from sources.interns.decorators import documentation as _documentation
 from sources.systems.color import JEColor as _JEColor
-from sources.systems.bool import JEBool as _JEBool
+
+@_documentation
+@_final
+class JEFontComponent(_JEInternalEntityComponent):
+    """FontComponent"""
+
+    def __init__(self, owner, font):
+        """JEFontComponent creator"""
+        super().__init__(owner, JEFontComponent)
+        self._font = font
+
+        def set_font(owner_self, font):
+            self._font = font
+
+        def get_font(owner_self):
+            return self._font
+
+        owner.set_font = set_font.__get__(owner, type(owner))
+        owner.get_font = get_font.__get__(owner, type(owner))
+
+    @property
+    def font(self):
+        """Get font"""
+        return self._font
+
+    @font.setter
+    def font(self, font):
+        """Set font"""
+        self._font = font
+
+    def __call__(self):
+        """Get font"""
+        return self._font
+
+    def copy(self, new_owner):
+        """Copy font"""
+        return JEFontComponent(new_owner, _deepcopy(self._font))
+
+@_documentation
+@_final
+class JETextComponent(_JEInternalEntityComponent):
+    """TextComponent"""
+
+    def __init__(self, owner, text):
+        """JETextComponent creator"""
+        super().__init__(owner, JETextComponent)
+        self._text = text
+
+        def set_text(owner_self, text):
+            self._text = text
+
+        def get_text(owner_self):
+            return self._text
+
+        owner.set_text = set_text.__get__(owner, type(owner))
+        owner.get_text = get_text.__get__(owner, type(owner))
+
+    @property
+    def text(self):
+        """Get text"""
+        return self._text
+
+    @text.setter
+    def text(self, text):
+        """Set text"""
+        self._text = text
+
+    def __call__(self):
+        """Get text"""
+        return self._text
+
+    def copy(self, new_owner):
+        """Copy text"""
+        return JETextComponent(new_owner, _deepcopy(self._text))
 
 @_documentation
 @_final
@@ -39,9 +112,7 @@ class JETextureComponent(_JEInternalEntityComponent):
 
     def __init__(self, owner, texture):
         """JETextureComponent creator"""
-        super().__init__(f"JETextureComponent({owner.jeid})")
-        self.add_parent(owner)
-        owner.add_component(self)
+        super().__init__(owner, JETextureComponent)
         self._texture = texture
 
         def set_texture(owner_self, texture):
@@ -78,9 +149,7 @@ class JEColorComponent(_JEInternalEntityComponent):
 
     def __init__(self, owner, color):
         """JEColorComponent creator"""
-        super().__init__(f"JEColorComponent({owner.jeid})")
-        self.add_parent(owner)
-        owner.add_component(self)
+        super().__init__(owner, JEColorComponent)
         self._color = (
             color
             if isinstance(color, _JEColor) else
@@ -94,9 +163,11 @@ class JEColorComponent(_JEInternalEntityComponent):
                 _JEColor(*color)
             )
 
-        def update_color(owner_self, *, x = 0, y = 0):
-            self._color.x += x
-            self._color.y += y
+        def update_color(owner_self, *, r = 0, g = 0, b = 0, a = 0):
+            self._color.r += r
+            self._color.g += g
+            self._color.b += b
+            self._color.a += a
 
         def get_color(owner_self):
             return self._color
@@ -134,22 +205,16 @@ class JEVisibilityComponent(_JEInternalEntityComponent):
 
     def __init__(self, owner, visibility):
         """JEVisibilityComponent creator"""
-        super().__init__(f"JEVisibilityComponent({owner.jeid})")
-        self.add_parent(owner)
-        owner.add_component(self)
+        super().__init__(owner, JEVisibilityComponent)
         self._visibility = visibility
 
         def set_visibility(owner_self, visibility):
             self._visibility = visibility
 
-        def update_visibility(owner_self, *, v = _JEBool(1)):
-            self._visibility.x += v
-
         def get_visibility(owner_self):
             return self._visibility
 
         owner.set_visibility = set_visibility.__get__(owner, type(owner))
-        owner.update_visibility = update_visibility.__get__(owner, type(owner))
         owner.get_visibility = get_visibility.__get__(owner, type(owner))
 
     @property
@@ -177,16 +242,14 @@ class JELayerComponent(_JEInternalEntityComponent):
 
     def __init__(self, owner, layer):
         """JELayerComponent creator"""
-        super().__init__(f"JELayerComponent({owner.jeid})")
-        self.add_parent(owner)
-        owner.add_component(self)
+        super().__init__(owner, JELayerComponent)
         self._layer = layer
 
         def set_layer(owner_self, layer):
             self._layer = layer
 
         def update_layer(owner_self, *, l = 0):
-            self._layer.x += l
+            self._layer += l
 
         def get_layer(owner_self):
             return self._layer
@@ -220,9 +283,7 @@ class JEFlipComponent(_JEInternalEntityComponent):
 
     def __init__(self, owner, flip):
         """JEFlipComponent creator"""
-        super().__init__(f"JEFlipComponent({owner.jeid})")
-        self.add_parent(owner)
-        owner.add_component(self)
+        super().__init__(owner, JEFlipComponent)
         self._flip = flip
 
         def set_flip(owner_self, flip):

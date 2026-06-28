@@ -1,58 +1,16 @@
-[x] #Entity #Components #Transform *Position*
-[x] #Entity #Components #Transform *Velocity*
-[x] #Entity #Components #Transform *Size*
-[x] #Entity #Components #Transform *Rotation*
-[ ] #Entity #Components #Transform *Scale*
-[ ] #Entity #Components #Transform *Origin*
-[x] #Entity #Components #Physic *Acceleration*
-[x] #Entity #Components #Physic *Mass*
-[ ] #Entity #Components #Physic *Drag*
-[ ] #Entity #Components #Physic *Gravity*
-[x] #Entity #Components #Graphic *Texture*
-[x] #Entity #Components #Graphic *Color*
-[x] #Entity #Components #Graphic *Visibility*
-[x] #Entity #Components #Graphic *Layer*
-[ ] #Entity #Components #Graphic *Rectangle*
-[ ] #Entity #Components #Graphic *Animation*
-[x] #Entity #Components #Graphic *Flip*
-[ ] #Entity #Components #Collision *Collider*
-[ ] #Entity #Components #Gameplay *Health*
-[ ] #Entity #Components #Gameplay *Damage*
-[ ] #Entity #Components #Gameplay *Team*
-[ ] #Entity #Components #Gameplay *Tag*
-[ ] #Entity #Components #Gameplay *State*
-[ ] #Entity #Components #Audio *Sound*
-[ ] #Entity #Components #Audio *Music*
-[ ] #Entity #Components #Camera *Target*
-[ ] #Entity #Components #UI *Text*
-[ ] #Entity #Components #UI *Button*
-[ ] #Entity #Components #Utilities *Lifetime*
-[ ] #Entity #Components #Utilities *DestroyAfter*
-[ ] #Entity #Components #Utilities *Follow*
-[ ] #Entity #Components #Utilities *DestroyAfter*
-[ ] #Entity #Components #Utilities *Parent*
-[ ] #Entity #Components #Utilities *PlayerInput*
-[ ] #Entity #Components #AI *Brain*
-[ ] #Entity #Components #AI *Path*
-[ ] #Entity #Components #Network *Network*
-[ ] #Entity #Componentqs #Network *Sync*
-[ ] #Entity #Components #Particle *ParticleEmitter*
-[ ] #Entity #Components #Particle *Particle*
-[ ] #Entity #Components #Lighting *Light*
-[ ] #Entity #Systems #MovementSystem
-[ ] #Entity #Systems #MovementSystem *JEPositionComponent* #Required
-[ ] #Entity #Systems #MovementSystem *JEVelocityComponent* #Required
-[ ] #Entity #Systems #MovementSystem *JEAccelerationComponent* #Optional
-[ ] #Entity #Systems #MovementSystem *JEMassComponent* #Optional
-[ ] #Entity #Systems #RenderSystem
-[ ] #Entity #Systems #RenderSystem *JETextureComponent* #Required
-[ ] #Entity #Systems #RenderSystem *JEPositionComponent* #Required
-[ ] #Entity #Systems #RenderSystem *JESizeComponent* #Optional
-[ ] #Entity #Systems #RenderSystem *JERotationComponent* #Optional
-[ ] #Entity #Systems #RenderSystem *JEFlipComponent* #Optional
-[ ] #Entity #Systems #RenderSystem *JEColorComponent* #Optional
-[ ] #Entity #Systems #RenderSystem *JEVisibilityComponent* #Optional
-[ ] #Entity #Systems #RenderSystem *JELayerComponent* #Optional
+[x] #Entity #Systems #MovementSystem
+[x] #Entity #Systems #MovementSystem *JEPositionComponent* #Required
+[x] #Entity #Systems #MovementSystem *JEVelocityComponent* #Required
+[x] #Entity #Systems #MovementSystem *JEAccelerationComponent* #Optional
+[x] #Entity #Systems #RenderSystem
+[x] #Entity #Systems #RenderSystem *JETextureComponent* #Required
+[x] #Entity #Systems #RenderSystem *JEPositionComponent* #Required
+[x] #Entity #Systems #RenderSystem *JESizeComponent* #Optional
+[x] #Entity #Systems #RenderSystem *JERotationComponent* #Optional
+[x] #Entity #Systems #RenderSystem *JEFlipComponent* #Optional
+[x] #Entity #Systems #RenderSystem *JEColorComponent* #Optional
+[x] #Entity #Systems #RenderSystem *JEVisibilityComponent* #Optional
+[x] #Entity #Systems #RenderSystem *JELayerComponent* #Optional
 [ ] #Entity #Systems #RotationSystem
 [ ] #Entity #Systems #RotationSystem *JERotationComponent* #Required
 [ ] #Entity #Systems #RotationSystem *JEPositionComponent* #Optional
@@ -64,10 +22,10 @@
 [ ] #Entity #Systems #OriginSystem
 [ ] #Entity #Systems #OriginSystem *JEOriginComponent* #Required
 [ ] #Entity #Systems #OriginSystem *JESizeComponent* #Optional
-[ ] #Entity #Systems #AccelerationSystem
-[ ] #Entity #Systems #AccelerationSystem *JEAccelerationComponent* #Required
-[ ] #Entity #Systems #AccelerationSystem *JEVelocityComponent* #Required
-[ ] #Entity #Systems #AccelerationSystem *JEMassComponent* #Optional
+[x] #Entity #Systems #AccelerationSystem
+[x] #Entity #Systems #AccelerationSystem *JEAccelerationComponent* #Required
+[x] #Entity #Systems #AccelerationSystem *JEVelocityComponent* #Required
+[x] #Entity #Systems #AccelerationSystem *JEMassComponent* #Optional
 [ ] #Entity #Systems #PhysicsSystem
 [ ] #Entity #Systems #PhysicsSystem *JEMassComponent* #Required
 [ ] #Entity #Systems #PhysicsSystem *JEVelocityComponent* #Optional
@@ -79,8 +37,8 @@
 [ ] #Entity #Systems #DragSystem
 [ ] #Entity #Systems #DragSystem *JEVelocityComponent* #Required
 [ ] #Entity #Systems #DragSystem *JEMassComponent* #Optional
-[ ] #Entity #Systems #VisibilitySystem
-[ ] #Entity #Systems #VisibilitySystem *JEVisibilityComponent* #Required
+[~] #Entity #Systems #VisibilitySystem
+[~] #Entity #Systems #VisibilitySystem *JEVisibilityComponent* #Required
 [ ] #Entity #Systems #ColorSystem
 [ ] #Entity #Systems #ColorSystem *JEColorComponent* #Required
 [ ] #Entity #Systems #ColorSystem *JETextureComponent* #Optional
@@ -104,7 +62,7 @@
 [ ] #Entity #Systems #ColliderSystem *JEPositionComponent* #Required
 [ ] #Entity #Systems #ColliderSystem *JESizeComponent* #Optional
 [ ] #Entity #Systems #ColliderSystem *JERotationComponent* #Optional
-[ ] #Entity #Systems #ColliderSystem
+[ ] #Entity #Systems #CollisionResolutionSystem
 [ ] #Entity #Systems #CollisionResolutionSystem *JEColliderComponent* #Required
 [ ] #Entity #Systems #CollisionResolutionSystem *JEVelocityComponent* #Optional
 [ ] #Entity #Systems #CollisionResolutionSystem *JEMassComponent* #Optional
