@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-class JEInternClassBase:
+class JEInternBaseClass:
     __instance_policy__ = "normal"
     __instance_limit__ = None
     __recursive__ = True

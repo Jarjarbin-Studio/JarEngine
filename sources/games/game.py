@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v0.1.0
+    Version: jarengine-v1.0.0
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -30,15 +30,15 @@ from sources.entities.components_graphics import JELayerComponent as _JELayerCom
 from sources.games.window import JEWindow as _JEWindow
 from sources.games.input import JEInput as _JEInput
 from sources.events.manager import JEEventHandler as _JEEventHandler
-from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
+from sources.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from sources.interns.config import get_config as _get_config
 from sources.interns import (
-    JTKInternError as _JTKInternError,
-    PGIntern as _PGIntern
+    JTKExternError as _JTKExternError,
+    PGExtern as _PGExtern
 )
 from sources.entities.entity import JEEntity as _JEEntity
 from sources.systems.container import JEContainer as _JEContainer
-from sources.interns.high_classes import JEInternalRenderingSystems as _JEInternalRenderingSystems
+from sources.interns.high_classes import JEInternSystems as _JEInternSystems
 from sources.interns.final_classes import JEInternRessources as _JEInternRessources
 from sources.systems.bool import JEBool as _JEBool
 from sources.systems.clock import JEClock as _JEClock
@@ -46,7 +46,7 @@ from sources.interns.decorators import documentation as _documentation
 
 @_documentation
 @_final
-class JEGame(_JEInternClassBase):
+class JEGame(_JEInternBaseClass):
     """Game manager"""
 
     _instance = None
@@ -57,7 +57,7 @@ class JEGame(_JEInternClassBase):
     def __new__(cls, *args, **kwargs):
         """Instances clamping"""
         if cls._instance is not None:
-            raise _JTKInternError.Error.ErrorRuntime(
+            raise _JTKExternError.Error.ErrorRuntime(
                 "\nInstance already exists. Only one game is allowed."
             )
         cls._instance = super().__new__(cls)
@@ -77,16 +77,16 @@ class JEGame(_JEInternClassBase):
         self._input = _JEInput() if use_input else None
         self._is_open = _JEBool(1)
         self._event_manager = _JEEventHandler()
-        self._systems = _JEContainer(_JEInternalRenderingSystems, _JEBool(1))
+        self._systems = _JEContainer(_JEInternSystems, _JEBool(1))
 
     def set_window(self, window):
         """Set game window"""
         if not isinstance(window, _JEWindow):
-            raise _JTKInternError.Error.ErrorType(
+            raise _JTKExternError.Error.ErrorType(
                 f"\n{type(window).__name__!r} isn't of type  {_JEWindow.__name__!r}."
             )
         if self._window:
-            raise _JTKInternError.Error.ErrorRuntime(
+            raise _JTKExternError.Error.ErrorRuntime(
                 f"\nWindow already set."
             )
         self._window = window
@@ -96,7 +96,7 @@ class JEGame(_JEInternClassBase):
     def wdw(self):
         """Get window object"""
         if not self._window:
-            raise _JTKInternError.State.ErrorStateNotInitialized(
+            raise _JTKExternError.State.ErrorStateNotInitialized(
                 "\nWindow not set."
             )
         return self._window
@@ -182,7 +182,7 @@ class JEGame(_JEInternClassBase):
 
     def display(self):
         """Display game"""
-        _PGIntern.display.flip()
+        _PGExtern.display.flip()
 
     def __deepcopy__(self, memo):
         """Deepcopy"""

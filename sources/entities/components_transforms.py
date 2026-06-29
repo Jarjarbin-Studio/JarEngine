@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v0.1.0
+    Version: jarengine-v1.0.0
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -27,13 +27,13 @@ from __future__ import annotations
 from copy import deepcopy as _deepcopy
 from typing import final as _final
 
-from sources.interns.high_classes import JEInternalEntityComponent as _JEInternalEntityComponent
+from sources.interns.high_classes import JEInternEntityComponent as _JEInternEntityComponent
 from sources.interns.decorators import documentation as _documentation
 from sources.systems.vector import JEVector2D as _JEVector2D
 
 @_documentation
 @_final
-class JEPositionComponent(_JEInternalEntityComponent):
+class JEPositionComponent(_JEInternEntityComponent):
     """PositionComponent"""
 
     def __init__(self, owner, position):
@@ -87,7 +87,7 @@ class JEPositionComponent(_JEInternalEntityComponent):
 
 @_documentation
 @_final
-class JEVelocityComponent(_JEInternalEntityComponent):
+class JEVelocityComponent(_JEInternEntityComponent):
     """VelocityComponent"""
 
     def __init__(self, owner, velocity):
@@ -141,7 +141,7 @@ class JEVelocityComponent(_JEInternalEntityComponent):
 
 @_documentation
 @_final
-class JESizeComponent(_JEInternalEntityComponent):
+class JESizeComponent(_JEInternEntityComponent):
     """SizeComponent"""
 
     def __init__(self, owner, size):
@@ -195,7 +195,7 @@ class JESizeComponent(_JEInternalEntityComponent):
 
 @_documentation
 @_final
-class JERotationComponent(_JEInternalEntityComponent):
+class JERotationComponent(_JEInternEntityComponent):
     """RotationComponent"""
 
     def __init__(self, owner, rotation):

@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v0.1.0
+    Version: jarengine-v1.0.0
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -26,9 +26,9 @@ from __future__ import annotations
 
 from typing import final as _final
 
-from sources.interns.high_classes import JEInternalRenderingSystems as _JEInternalRenderingSystems
+from sources.interns.high_classes import JEInternSystems as _JEInternSystems
 from sources.interns.decorators import documentation as _documentation
-from sources.interns import PGIntern as _PGIntern
+from sources.interns import PGExtern as _PGExtern
 from sources.entities.components_graphics import (
     JEFontComponent as _JEFontComponent,
     JETextComponent as _JETextComponent,
@@ -51,7 +51,7 @@ from sources.entities.components_physics import (
 
 @_documentation
 @_final
-class JEMovementSystem(_JEInternalRenderingSystems):
+class JEMovementSystem(_JEInternSystems):
     """MovementSystem"""
 
     def __init__(self, owner: "JEGame"):
@@ -69,7 +69,7 @@ class JEMovementSystem(_JEInternalRenderingSystems):
 
 @_documentation
 @_final
-class JERenderSystem(_JEInternalRenderingSystems):
+class JERenderSystem(_JEInternSystems):
     """MovementSystem"""
 
     def __init__(self, owner: "JEGame"):
@@ -114,19 +114,19 @@ class JERenderSystem(_JEInternalRenderingSystems):
             surface = texture().surface
 
             if size:
-                surface = _PGIntern.transform.scale(
+                surface = _PGExtern.transform.scale(
                     surface,
                     (int(w), int(h))
                 )
 
             if rotation:
-                surface = _PGIntern.transform.rotate(
+                surface = _PGExtern.transform.rotate(
                     surface,
                     rotation()
                 )
 
             if flip:
-                surface = _PGIntern.transform.flip(
+                surface = _PGExtern.transform.flip(
                     surface,
                     bool(flip()[0]),
                     bool(flip()[1])
@@ -134,14 +134,14 @@ class JERenderSystem(_JEInternalRenderingSystems):
 
             if color:
                 tint = surface.copy()
-                tint.fill(color().rgba, special_flags=_PGIntern.BLEND_RGBA_MULT)
+                tint.fill(color().rgba, special_flags=_PGExtern.BLEND_RGBA_MULT)
                 surface = tint
 
             window.blit(surface, (x, y))
             return
 
         if color:
-            _PGIntern.draw.rect(
+            _PGExtern.draw.rect(
                 window.screen,
                 color().rgba,
                 (x, y, w, h)
@@ -149,7 +149,7 @@ class JERenderSystem(_JEInternalRenderingSystems):
 
 @_documentation
 @_final
-class JEAccelerationSystem(_JEInternalRenderingSystems):
+class JEAccelerationSystem(_JEInternSystems):
     """AccelerationSystem"""
 
     def __init__(self, owner: "JEGame"):

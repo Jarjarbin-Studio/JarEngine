@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v0.1.0
+    Version: jarengine-v1.0.0
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -27,13 +27,13 @@ from __future__ import annotations
 from copy import deepcopy as _deepcopy
 from typing import final as _final
 
-from sources.interns.high_classes import JEInternalEntityComponent as _JEInternalEntityComponent
+from sources.interns.high_classes import JEInternEntityComponent as _JEInternEntityComponent
 from sources.interns.decorators import documentation as _documentation
 from sources.systems.vector import JEVector2D as _JEVector2D
 
 @_documentation
 @_final
-class JEAccelerationComponent(_JEInternalEntityComponent):
+class JEAccelerationComponent(_JEInternEntityComponent):
     """AccelerationComponent"""
 
     def __init__(self, owner, acceleration):
@@ -85,7 +85,7 @@ class JEAccelerationComponent(_JEInternalEntityComponent):
 
 @_documentation
 @_final
-class JEMassComponent(_JEInternalEntityComponent):
+class JEMassComponent(_JEInternEntityComponent):
     """MassComponent"""
 
     def __init__(self, owner, mass):

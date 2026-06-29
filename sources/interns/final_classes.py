@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v0.1.0
+    Version: jarengine-v1.0.0
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -30,9 +30,9 @@ from typing import (
     Any as _Any
 )
 
-from sources.interns.high_classes import JEInternalEntityComponent as _JEInternalEntityComponent
+from sources.interns.high_classes import JEInternEntityComponent as _JEInternEntityComponent
 from sources.interns.low_classes import JEInternGraphic as _JEInternGraphic
-from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
+from sources.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from sources.systems.container import JEContainer as _JEContainer
 from sources.interns.decorators import documentation as _documentation
 from sources.resources.texture import JETexture as _JETexture
@@ -40,7 +40,7 @@ from sources.resources.font import JEFont as _JEFont
 
 @_documentation
 @_final
-class JEInternEmptyComponent(_JEInternalEntityComponent):
+class JEInternEmptyComponent(_JEInternEntityComponent):
     """EmptyComponent"""
 
     def __init__(self, owner):
@@ -59,7 +59,7 @@ class JEInternEmptyComponent(_JEInternalEntityComponent):
 
 @_documentation
 @_final
-class JEInternRessources(_JEInternClassBase):
+class JEInternRessources(_JEInternBaseClass):
     """Ressources (Internal API)"""
 
     def __init__(self):
@@ -87,7 +87,7 @@ class JEInternRessources(_JEInternClassBase):
 
 @_documentation
 @_final
-class JEInternWindowSettings(_JEInternClassBase):
+class JEInternWindowSettings(_JEInternBaseClass):
     """WindowSettings (Internal API)"""
 
     def __init__(

@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v0.1.0
+    Version: jarengine-v1.0.0
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -26,10 +26,10 @@ from __future__ import annotations
 
 from typing import final as _final
 
-from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
+from sources.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from sources.interns import (
-    JTKInternError as _JTKInternError,
-    PGIntern as _PGIntern
+    JTKExternError as _JTKExternError,
+    PGExtern as _PGExtern
 )
 from sources.events.event import (
     JEEventCode as _JEEventCode,
@@ -48,7 +48,7 @@ from sources.interns.decorators import documentation as _documentation
 
 @_documentation
 @_final
-class JEEvent(_JEInternClassBase):
+class JEEvent(_JEInternBaseClass):
     """Event (pygame event ownership)"""
 
     def __init__(self, event):
@@ -77,7 +77,7 @@ class JEEvent(_JEInternClassBase):
 
 @_documentation
 @_final
-class JEEventHandler(_JEInternClassBase):
+class JEEventHandler(_JEInternBaseClass):
     """Event handler"""
 
     _instance = None
@@ -89,7 +89,7 @@ class JEEventHandler(_JEInternClassBase):
     def __new__(cls, *args, **kwargs):
         """Instances clamping"""
         if cls._instance is not None:
-            raise _JTKInternError.Error.ErrorRuntime(
+            raise _JTKExternError.Error.ErrorRuntime(
                 "\nInstance already exists. Only one event handler is allowed."
             )
 
@@ -110,7 +110,7 @@ class JEEventHandler(_JEInternClassBase):
     def add(self, watcher):
         """Add a watched event, key and mouse"""
         if not isinstance(watcher, (_JEEventWatcher, _JEKeyWatcher, _JEMouseWatcher)):
-            raise _JTKInternError.Error.ErrorType(
+            raise _JTKExternError.Error.ErrorType(
                 "\nOnly JEEventWatcher, JEKeyWatcher and JEMouseWatcher can be added."
             )
 
@@ -119,7 +119,7 @@ class JEEventHandler(_JEInternClassBase):
     def remove(self, event):
         """Remove a watched event, key and mouse by its name"""
         if not self.has(event):
-            raise _JTKInternError.Error.ErrorRuntime(
+            raise _JTKExternError.Error.ErrorRuntime(
                 f"\n{event!r} not found in watcher list."
             )
 
@@ -141,7 +141,7 @@ class JEEventHandler(_JEInternClassBase):
 
     def process(self, game):
         """Process events"""
-        events = [JEEvent(evt) for evt in _PGIntern.event.get()]
+        events = [JEEvent(evt) for evt in _PGExtern.event.get()]
 
         for event in events:
             for watcher in self._watchers:

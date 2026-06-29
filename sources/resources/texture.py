@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v0.1.0
+    Version: jarengine-v1.0.0
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -26,15 +26,15 @@ from __future__ import annotations
 
 from typing import final as _final
 
-from sources.interns import PGIntern as _PGIntern
-from sources.interns.high_classes import JEInternalOwnership as _JEInternalOwnership
+from sources.interns import PGExtern as _PGExtern
+from sources.interns.high_classes import JEInternOwnership as _JEInternOwnership
 from sources.interns.low_classes import JEInternGraphic as _JEInternGraphic
 from sources.systems.vector import JEVector2D as _JEVector2D
 from sources.interns.decorators import documentation as _documentation
 
 @_documentation
 @_final
-class JETexture(_JEInternGraphic, _JEInternalOwnership):
+class JETexture(_JEInternGraphic, _JEInternOwnership):
     """Texture"""
 
     base_path = f"{__file__.split('sources')[0]}assets/textures/"
@@ -47,12 +47,12 @@ class JETexture(_JEInternGraphic, _JEInternalOwnership):
             path = f"{JETexture.base_path}{path}"
 
         self._path = path
-        self._surface = _PGIntern.image.load(path).convert_alpha()
+        self._surface = _PGExtern.image.load(path).convert_alpha()
         self._size = _JEVector2D(self._surface.get_width(), self._surface.get_height())
 
     @property
     def surface(self):
-        """Get texture surface (PGIntern)"""
+        """Get texture surface (PGExtern)"""
         return self._surface
 
     @property

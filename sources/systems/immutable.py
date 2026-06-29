@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v0.1.0
+    Version: jarengine-v1.0.0
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -38,7 +38,7 @@ from typing import (
 
 from copy import deepcopy as _deepcopy
 
-from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
+from sources.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from sources.interns.decorators import documentation as _documentation
 
 _T: _TypeVar = _TypeVar("_T")
@@ -82,7 +82,7 @@ def _unfreeze(value: _Any) -> _Any:
 
 @_documentation
 @_final
-class JEImmutable(_Generic[_T], _JEInternClassBase):
+class JEImmutable(_Generic[_T], _JEInternBaseClass):
     """Immutable (object freezing system)"""
 
     def __init__(self, value: _T) -> None:

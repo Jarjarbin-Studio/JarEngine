@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v0.1.0
+    Version: jarengine-v1.0.0
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -29,12 +29,12 @@ from typing import (
     Iterator as _Iterator
 )
 
-from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
+from sources.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from sources.interns.decorators import documentation as _documentation
 
 @_documentation
 @_final
-class JEColor(_JEInternClassBase):
+class JEColor(_JEInternBaseClass):
     """Color (r, g, b, a)"""
 
     __recursive__ = False

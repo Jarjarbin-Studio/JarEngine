@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v0.1.0
+    Version: jarengine-v1.0.0
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -24,12 +24,12 @@
 
 from __future__ import annotations
 
-from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
+from sources.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from sources.systems.bool import JEBool as _JEBool
 from sources.interns.decorators import documentation as _documentation
 
 @_documentation
-class JEInternGraphic(_JEInternClassBase):
+class JEInternGraphic(_JEInternBaseClass):
     """Graphic (Internal API)"""
 
     def __init__(

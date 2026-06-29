@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v0.1.0
+    Version: jarengine-v1.0.0
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -108,7 +108,7 @@ from sources.constants import *
 
 ##Functions##
 def Init() -> tuple[int, int]:
-    return Interns.PGIntern.init()
+    return Interns.PGExtern.init()
 
 def Quit() -> None:
-    Interns.PGIntern.quit()
+    Interns.PGExtern.quit()

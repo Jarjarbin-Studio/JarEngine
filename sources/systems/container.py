@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v0.1.0
+    Version: jarengine-v1.0.0
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -30,28 +30,28 @@ from typing import (
     Generic as _Generic
 )
 
-from sources.interns import JTKInternError as _JTKInternError
-from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
+from sources.interns import JTKExternError as _JTKExternError
+from sources.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from sources.interns.decorators import documentation as _documentation
 from sources.systems.bool import JEBool as _JEBool
 
-_T = _TypeVar("_T", bound=_JEInternClassBase)
+_T = _TypeVar("_T", bound=_JEInternBaseClass)
 
 @_documentation
 @_final
-class JEContainer(_Generic[_T], _JEInternClassBase):
+class JEContainer(_Generic[_T], _JEInternBaseClass):
     """Container"""
 
     def __init__(self, allowed_type, allow_subclass = _JEBool(0)):
         """JEContainer creator"""
         if not isinstance(allowed_type, type):
-            raise _JTKInternError.Error.ErrorType(
+            raise _JTKExternError.Error.ErrorType(
                 f"\n{allowed_type.__name__!r} is not a class type."
             )
 
-        if not issubclass(allowed_type, _JEInternClassBase):
-            raise _JTKInternError.Error.ErrorType(
-                f"\n{allowed_type.__name__!r} isn't of type {_JEInternClassBase.__name__!r}."
+        if not issubclass(allowed_type, _JEInternBaseClass):
+            raise _JTKExternError.Error.ErrorType(
+                f"\n{allowed_type.__name__!r} isn't of type {_JEInternBaseClass.__name__!r}."
             )
 
         super().__init__()
@@ -67,7 +67,7 @@ class JEContainer(_Generic[_T], _JEInternClassBase):
         """Add object to container"""
         if not isinstance(obj, self._allowed_type):
             if not (self._allow_subclass and issubclass(type(obj), self._allowed_type)):
-                raise _JTKInternError.Error.ErrorType(
+                raise _JTKExternError.Error.ErrorType(
                     f"\n{type(obj).__name__!r} isn't of type {self._allowed_type.__name__!r}."
                 )
 
@@ -99,7 +99,7 @@ class JEContainer(_Generic[_T], _JEInternClassBase):
     def get(self, *, name = None, jeid = None, instance = None, _type = None):
         """Get object by name"""
         if not (name or jeid or instance or _type):
-            raise _JTKInternError.Error.ErrorKey(
+            raise _JTKExternError.Error.ErrorKey(
                 "\nName, JEID or Instance are required."
             )
 
@@ -117,14 +117,14 @@ class JEContainer(_Generic[_T], _JEInternClassBase):
             for key, obj in self._data.items():
                 if isinstance(obj, _type):
                     return obj
-        raise _JTKInternError.Error.ErrorKey(
+        raise _JTKExternError.Error.ErrorKey(
             f"\n{name or jeid or instance or _type!r} not in container."
         )
 
     def rm(self, *, name = None, jeid = None, instance = None, _type = None):
         """Remove object by name, jeid or instance"""
         if not (name or jeid or instance or _type):
-            raise _JTKInternError.Error.ErrorKey(
+            raise _JTKExternError.Error.ErrorKey(
                 "\nName, JEID or Instance are required."
             )
 
@@ -142,7 +142,7 @@ class JEContainer(_Generic[_T], _JEInternClassBase):
             for key, obj in self._data.items():
                 if isinstance(obj, _type):
                     return self._data.pop(key)
-        raise _JTKInternError.Error.ErrorKey(
+        raise _JTKExternError.Error.ErrorKey(
             f"\n{name or jeid or instance or _type!r} not in container."
         )
 

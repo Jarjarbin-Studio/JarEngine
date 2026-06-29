@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v0.1.0
+    Version: jarengine-v1.0.0
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -26,10 +26,10 @@ from __future__ import annotations
 
 from typing import final as _final
 
-from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
+from sources.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from sources.interns import (
-    JTKInternError as _JTKInternError,
-    PGIntern as _PGIntern
+    JTKExternError as _JTKExternError,
+    PGExtern as _PGExtern
 )
 from sources.interns.final_classes import JEInternWindowSettings as _JEInternWindowSettings
 from sources.systems.color import JEColor as _JEColor
@@ -38,7 +38,7 @@ from sources.interns.decorators import documentation as _documentation
 
 @_documentation
 @_final
-class JEWindow(_JEInternClassBase):
+class JEWindow(_JEInternBaseClass):
     """Window manager"""
 
     _instance = None
@@ -49,7 +49,7 @@ class JEWindow(_JEInternClassBase):
     def __new__(cls, *args, **kwargs):
         """Instances clamping"""
         if cls._instance is not None:
-            raise _JTKInternError.Error.ErrorRuntime(
+            raise _JTKExternError.Error.ErrorRuntime(
                 "\nInstance already exists. Only one window is allowed."
             )
 
@@ -64,17 +64,17 @@ class JEWindow(_JEInternClassBase):
         JEWindow._is_created = _JEBool(1)
         super().__init__()
         self._settings = _JEInternWindowSettings(size, flags, fps, depth, display, vsync, title)
-        self._screen = _PGIntern.display.set_mode(size, flags, depth, display, vsync)
+        self._screen = _PGExtern.display.set_mode(size, flags, depth, display, vsync)
         self.rename(title)
 
     def rename(self, title):
         """Rename window"""
-        _PGIntern.display.set_caption(title)
+        _PGExtern.display.set_caption(title)
         self._settings.title = title
 
     @property
     def screen(self):
-        """Get screen surface (PGIntern)"""
+        """Get screen surface (PGExtern)"""
         return self._screen
 
     @property

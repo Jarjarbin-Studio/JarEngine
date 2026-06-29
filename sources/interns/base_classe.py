@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v0.1.0
+    Version: jarengine-v1.0.0
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -27,11 +27,11 @@ from __future__ import annotations
 from uuid import uuid4 as _uuid4
 from typing import Any as _Any
 
-from sources.interns import JTKInternConsole as _JTKInternConsole
+from sources.interns import JTKExternConsole as _JTKExternConsole
 from sources.interns.decorators import documentation as _documentation
 
 @_documentation
-class JEInternClassBase:
+class JEInternBaseClass:
     """ClassBase (Internal API)"""
 
     __instance_policy__ = "normal"
@@ -39,7 +39,7 @@ class JEInternClassBase:
     __recursive__ = True
 
     def __init__(self):
-        """JEInternClassBase creator"""
+        """JEInternBaseClass creator"""
         self.jeid: str = _uuid4().hex
 
     def __str__(self):
@@ -63,7 +63,7 @@ class JEInternClassBase:
         """Get dictionary representation of the class"""
 
         def get_value(value: _Any) -> _Any:
-            if isinstance(value, JEInternClassBase):
+            if isinstance(value, JEInternBaseClass):
                 return value.to_dict()
             else:
                 return value
@@ -115,10 +115,10 @@ class JEInternClassBase:
                 text: str
             ) -> str:
             return (
-                _JTKInternConsole.Text.Format.apply(
+                _JTKExternConsole.Text.Format.apply(
                     text,
-                    _JTKInternConsole.ANSI.Color.rgb_fg(*rgb),
-                ) + _JTKInternConsole.ANSI.Color(_JTKInternConsole.ANSI.Color.C_RESET).s
+                    _JTKExternConsole.ANSI.Color.rgb_fg(*rgb),
+                ) + _JTKExternConsole.ANSI.Color(_JTKExternConsole.ANSI.Color.C_RESET).s
             )
 
         def colorize(
@@ -155,7 +155,7 @@ class JEInternClassBase:
             ) -> str:
             if name == "JEID":
                 return "id"
-            if isinstance(value, JEInternClassBase):
+            if isinstance(value, JEInternBaseClass):
                 return "engine_object"
             if isinstance(value, JEImmutable):
                 return "immutable"
@@ -222,7 +222,7 @@ class JEInternClassBase:
 
             module_name = getattr(type(value), "__module__", "")
             if module_name.startswith("pygame"):
-                rendered = f"{type(value).__name__} (PGIntern)"
+                rendered = f"{type(value).__name__} (PGExtern)"
                 category = "pygame"
 
             lines.append(
@@ -246,7 +246,7 @@ class JEInternClassBase:
                 sub_last = index == len(items) - 1
                 sub_label = colorize(str(sub_key), "name")
 
-                if isinstance(sub_value, JEInternClassBase):
+                if isinstance(sub_value, JEInternBaseClass):
                     append_child_object(sub_label, sub_value, nested_prefix, sub_last)
                 else:
                     append_leaf(name, sub_label, sub_value, nested_prefix, sub_last)
@@ -268,7 +268,7 @@ class JEInternClassBase:
                 sub_last = index == len(items) - 1
                 sub_label = colorize(f"[{index}]", "list")
 
-                if isinstance(sub_value, JEInternClassBase):
+                if isinstance(sub_value, JEInternBaseClass):
                     append_child_object(sub_label, sub_value, nested_prefix, sub_last)
                 else:
                     append_leaf(name, sub_label, sub_value, nested_prefix, sub_last)
@@ -330,7 +330,7 @@ class JEInternClassBase:
                 attr_name = "JEID" if attr_name == "jeid" else attr_name
                 attr_label = colorize(attr_name, "id" if attr_name == "JEID" else "attribute")
 
-                if isinstance(attr_value, JEInternClassBase):
+                if isinstance(attr_value, JEInternBaseClass):
                     append_child_object(attr_label, attr_value, new_prefix, last_item)
                 elif isinstance(attr_value, dict):
                     append_mapping(attr_name, attr_label, attr_value, new_prefix, last_item)
@@ -420,7 +420,7 @@ class JEInternClassBase:
             last = (i == len(items) - 1)
             connector = ELBOW if last else TEE
 
-            if isinstance(v, JEInternClassBase):
+            if isinstance(v, JEInternBaseClass):
                 if id(v) in _visited:
                     lines.append(
                         f"{new_prefix}{connector}{k}: {v.__class__.__name__} = <circular>"

@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v0.1.0
+    Version: jarengine-v1.0.0
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -30,16 +30,16 @@ from typing import (
     Self as _Self
 )
 
-from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
+from sources.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from sources.interns import (
-    JTKInternError as _JTKInternError,
-    PGIntern as _PGIntern
+    JTKExternError as _JTKExternError,
+    PGExtern as _PGExtern
 )
 from sources.interns.decorators import documentation as _documentation
 
 @_documentation
 @_final
-class JEEventCode(_JEInternClassBase):
+class JEEventCode(_JEInternBaseClass):
     """Event code"""
 
     _instances = {}
@@ -55,12 +55,12 @@ class JEEventCode(_JEInternClassBase):
             return
 
         cls._name_cache.update({
-            _PGIntern.QUIT: "Quit",
-            _PGIntern.HIDDEN: "Hidden",
-            _PGIntern.KEYDOWN: "KeyDown",
-            _PGIntern.KEYUP: "KeyUp",
-            _PGIntern.MOUSEBUTTONDOWN: "MouseDown",
-            _PGIntern.MOUSEBUTTONUP: "MouseUp"
+            _PGExtern.QUIT: "Quit",
+            _PGExtern.HIDDEN: "Hidden",
+            _PGExtern.KEYDOWN: "KeyDown",
+            _PGExtern.KEYUP: "KeyUp",
+            _PGExtern.MOUSEBUTTONDOWN: "MouseDown",
+            _PGExtern.MOUSEBUTTONUP: "MouseUp"
         })
 
     def __new__(cls, event = None):
@@ -97,7 +97,7 @@ class JEEventCode(_JEInternClassBase):
         """Allows same synthax as union (create a JEEventCodeGroup)"""
 
         if not isinstance(other, JEEventCode):
-            raise _JTKInternError.Error.ErrorType(
+            raise _JTKExternError.Error.ErrorType(
                 "\nOther must be JEEventCode"
             )
 
@@ -115,7 +115,7 @@ class JEEventCode(_JEInternClassBase):
 
 @_documentation
 @_final
-class JEEventCodeGroup(_JEInternClassBase):
+class JEEventCodeGroup(_JEInternBaseClass):
     """Event code group"""
 
     __recursive__ = False
@@ -134,7 +134,7 @@ class JEEventCodeGroup(_JEInternClassBase):
         if isinstance(other, JEEventCodeGroup):
             return JEEventCodeGroup([*self, *other])
 
-        raise _JTKInternError.error.ErrorType(
+        raise _JTKExternError.error.ErrorType(
             "\nInvalid type for union"
         )
 
@@ -149,7 +149,7 @@ class JEEventCodeGroup(_JEInternClassBase):
 
 @_documentation
 @_final
-class JEEventWatcher(_JEInternClassBase):
+class JEEventWatcher(_JEInternBaseClass):
     """Main event watcher"""
 
     __recursive__ = False
@@ -158,7 +158,7 @@ class JEEventWatcher(_JEInternClassBase):
         """JEEventWatcher creator"""
 
         if not isinstance(on, (JEEventCode, list, JEEventCodeGroup)):
-            raise _JTKInternError.Error.ErrorType(
+            raise _JTKExternError.Error.ErrorType(
                 "\nOn must be JEEventCode, list or JEEventCodeGroup"
             )
 

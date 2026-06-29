@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v0.1.0
+    Version: jarengine-v1.0.0
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -25,14 +25,15 @@
 from __future__ import annotations
 
 __all__ = [
-    'Vector',
+    'JEVector2D',
+    'JEVector3D',
     'JEColor',
     'JEBool',
     'JEContainer',
     'JEImmutable'
 ]
 
-import sources.systems.vector as Vector
+from sources.systems.vector import JEVector2D, JEVector3D
 from sources.systems.color import JEColor
 from sources.systems.bool import JEBool
 from sources.systems.container import JEContainer

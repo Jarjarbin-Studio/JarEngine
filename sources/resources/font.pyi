@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from sources.interns import PGIntern
+from sources.interns import PGExtern
 
 class JEFont:
     base_path: str
     def __init__(self, name: str, path: str, size: int) -> None: ...
     @property
-    def font(self) -> PGIntern.font.Font: ...
+    def font(self) -> PGExtern.font.Font: ...
     @property
     def path(self) -> str: ...
     @property

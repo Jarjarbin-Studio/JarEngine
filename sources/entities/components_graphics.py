@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v0.1.0
+    Version: jarengine-v1.0.0
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -27,13 +27,13 @@ from __future__ import annotations
 from copy import deepcopy as _deepcopy
 from typing import final as _final
 
-from sources.interns.high_classes import JEInternalEntityComponent as _JEInternalEntityComponent
+from sources.interns.high_classes import JEInternEntityComponent as _JEInternEntityComponent
 from sources.interns.decorators import documentation as _documentation
 from sources.systems.color import JEColor as _JEColor
 
 @_documentation
 @_final
-class JEFontComponent(_JEInternalEntityComponent):
+class JEFontComponent(_JEInternEntityComponent):
     """FontComponent"""
 
     def __init__(self, owner, font):
@@ -70,7 +70,7 @@ class JEFontComponent(_JEInternalEntityComponent):
 
 @_documentation
 @_final
-class JETextComponent(_JEInternalEntityComponent):
+class JETextComponent(_JEInternEntityComponent):
     """TextComponent"""
 
     def __init__(self, owner, text):
@@ -107,7 +107,7 @@ class JETextComponent(_JEInternalEntityComponent):
 
 @_documentation
 @_final
-class JETextureComponent(_JEInternalEntityComponent):
+class JETextureComponent(_JEInternEntityComponent):
     """TextureComponent"""
 
     def __init__(self, owner, texture):
@@ -144,7 +144,7 @@ class JETextureComponent(_JEInternalEntityComponent):
 
 @_documentation
 @_final
-class JEColorComponent(_JEInternalEntityComponent):
+class JEColorComponent(_JEInternEntityComponent):
     """ColorComponent"""
 
     def __init__(self, owner, color):
@@ -200,7 +200,7 @@ class JEColorComponent(_JEInternalEntityComponent):
 
 @_documentation
 @_final
-class JEVisibilityComponent(_JEInternalEntityComponent):
+class JEVisibilityComponent(_JEInternEntityComponent):
     """VisibilityComponent"""
 
     def __init__(self, owner, visibility):
@@ -237,7 +237,7 @@ class JEVisibilityComponent(_JEInternalEntityComponent):
 
 @_documentation
 @_final
-class JELayerComponent(_JEInternalEntityComponent):
+class JELayerComponent(_JEInternEntityComponent):
     """LayerComponent"""
 
     def __init__(self, owner, layer):
@@ -278,7 +278,7 @@ class JELayerComponent(_JEInternalEntityComponent):
 
 @_documentation
 @_final
-class JEFlipComponent(_JEInternalEntityComponent):
+class JEFlipComponent(_JEInternEntityComponent):
     """FlipComponent"""
 
     def __init__(self, owner, flip):

@@ -4,7 +4,7 @@ from typing import (
     Self
 )
 
-from sources.interns import PGIntern
+from sources.interns import PGExtern
 from sources.events.event import JEEventCode, JEEventWatcher
 from sources.events.keyboard import JEKeyCode, JEKeyWatcher
 from sources.events.mouse import JEMouseCode, JEMouseWatcher
@@ -12,7 +12,7 @@ from sources.systems.bool import JEBool
 from sources.games.game import JEGame
 
 class JEEvent:
-    def __init__(self, event: PGIntern.event.Event) -> None: ...
+    def __init__(self, event: PGExtern.event.Event) -> None: ...
     @property
     def type(self) -> JEEventCode: ...
     @property

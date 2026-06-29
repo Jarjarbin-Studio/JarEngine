@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v0.1.0
+    Version: jarengine-v1.0.0
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -27,10 +27,10 @@ from __future__ import annotations
 from typing import final as _final
 
 from sources.interns import (
-    JTKInternError as _JTKInternError,
-    PGIntern as _PGIntern
+    JTKExternError as _JTKExternError,
+    PGExtern as _PGExtern
 )
-from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
+from sources.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from sources.interns.decorators import documentation as _documentation
 from sources.events.keyboard import JEKeyCode as _JEKeyCode
 from sources.events.mouse import JEMouseCode as _JEMouseCode
@@ -38,7 +38,7 @@ from sources.systems.bool import JEBool as _JEBool
 
 @_documentation
 @_final
-class JEInput(_JEInternClassBase):
+class JEInput(_JEInternBaseClass):
     """Input manager"""
 
     _instance = None
@@ -50,7 +50,7 @@ class JEInput(_JEInternClassBase):
     def __new__(cls, *args, **kwargs):
         """Instances clamping"""
         if cls._instance is not None:
-            raise _JTKInternError.Error.ErrorRuntime(
+            raise _JTKExternError.Error.ErrorRuntime(
                 "\nInstance already exists. Only one input manager is allowed."
             )
 
@@ -64,15 +64,15 @@ class JEInput(_JEInternClassBase):
 
         JEInput._is_created = _JEBool(1)
         super().__init__()
-        self._keys_down = _PGIntern.key.get_pressed()
-        self._mouse_down = _PGIntern.mouse.get_pressed()
-        self._mouse_pos = _PGIntern.mouse.get_pos()
+        self._keys_down = _PGExtern.key.get_pressed()
+        self._mouse_down = _PGExtern.mouse.get_pressed()
+        self._mouse_pos = _PGExtern.mouse.get_pos()
 
     def update(self):
         """Update keyboard and mouse input"""
-        self._keys_down = _PGIntern.key.get_pressed()
-        self._mouse_down = _PGIntern.mouse.get_pressed()
-        self._mouse_pos = _PGIntern.mouse.get_pos()
+        self._keys_down = _PGExtern.key.get_pressed()
+        self._mouse_down = _PGExtern.mouse.get_pressed()
+        self._mouse_pos = _PGExtern.mouse.get_pos()
 
     def is_key_down(self, key):
         """Check if a key is down"""
@@ -93,4 +93,4 @@ class JEInput(_JEInternClassBase):
         elif isinstance(code, _JEMouseCode):
             return self.is_mouse_down(code)
         else:
-            raise _JTKInternError.Error.ErrorRuntime()
+            raise _JTKExternError.Error.ErrorRuntime()

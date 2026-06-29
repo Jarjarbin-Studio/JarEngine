@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v0.1.0
+    Version: jarengine-v1.0.0
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -25,20 +25,20 @@
 from __future__ import annotations
 
 from sources.interns.low_classes import JEInternGraphic as _JEInternGraphic
-from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
+from sources.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from sources.systems.container import JEContainer as _JEContainer
 from sources.interns.decorators import documentation as _documentation
 from sources.systems.bool import JEBool as _JEBool
 
 @_documentation
-class JEInternalOwnership(_JEInternClassBase):
+class JEInternOwnership(_JEInternBaseClass):
     """Ownership (Internal API)"""
 
     def __init__(self):
-        """JEInternalOwnership creator"""
+        """JEInternOwnership creator"""
         super().__init__()
-        self._parents = _JEContainer(_JEInternClassBase)
-        self._children = _JEContainer(_JEInternClassBase)
+        self._parents = _JEContainer(_JEInternBaseClass)
+        self._children = _JEContainer(_JEInternBaseClass)
 
     @property
     def parents(self):
@@ -59,11 +59,11 @@ class JEInternalOwnership(_JEInternClassBase):
         self._children.add(child)
 
 @_documentation
-class JEInternalEntityComponent(_JEInternGraphic, JEInternalOwnership):
+class JEInternEntityComponent(_JEInternGraphic, JEInternOwnership):
     """EntityComponent (Internal API)"""
 
     def __init__(self, owner, _type):
-        """JEInternalEntityComponent creator"""
+        """JEInternEntityComponent creator"""
         super().__init__(f"{_type.__name__}({owner.jeid})")
         self.add_parent(owner)
         owner.add_component(self)
@@ -73,11 +73,11 @@ class JEInternalEntityComponent(_JEInternGraphic, JEInternalOwnership):
         pass
 
 @_documentation
-class JEInternalRenderingSystems(JEInternalOwnership):
-    """RenderingSystems (Internal API)"""
+class JEInternSystems(JEInternOwnership):
+    """Systems (Internal API)"""
 
     def __init__(self, owner):
-        """JEInternalRenderingSystems creator"""
+        """JEInternSystems creator"""
 
         super().__init__()
         self.add_parent(owner)

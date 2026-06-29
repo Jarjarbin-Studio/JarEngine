@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v0.1.0
+    Version: jarengine-v1.0.0
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -27,17 +27,17 @@ from __future__ import annotations
 from typing import final as _final
 
 from sources.events.event import JEEventCode as _JEEventCode
-from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
+from sources.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from sources.interns import (
-    PGIntern as _PGIntern,
-    JTKInternError as _JTKInternError
+    PGExtern as _PGExtern,
+    JTKExternError as _JTKExternError
 )
 from sources.systems.bool import JEBool as _JEBool
 from sources.interns.decorators import documentation as _documentation
 
 @_documentation
 @_final
-class JEMouseCode(_JEInternClassBase):
+class JEMouseCode(_JEInternBaseClass):
     """Mouse code"""
 
     _instances = {}
@@ -52,9 +52,9 @@ class JEMouseCode(_JEInternClassBase):
             return
 
         cls._name_cache.update({
-            _PGIntern.BUTTON_LEFT: "LEFT",
-            _PGIntern.BUTTON_MIDDLE: "MIDDLE",
-            _PGIntern.BUTTON_RIGHT: "RIGHT",
+            _PGExtern.BUTTON_LEFT: "LEFT",
+            _PGExtern.BUTTON_MIDDLE: "MIDDLE",
+            _PGExtern.BUTTON_RIGHT: "RIGHT",
         })
 
     def __new__(cls, mouse = None):
@@ -91,7 +91,7 @@ class JEMouseCode(_JEInternClassBase):
         """Allows same synthax as union (create a JEMouseCodeGroup)"""
 
         if not isinstance(other, JEMouseCode):
-            raise _JTKInternError.Error.ErrorType(
+            raise _JTKExternError.Error.ErrorType(
                 "\nOther must be JEMouseCode"
             )
 
@@ -109,7 +109,7 @@ class JEMouseCode(_JEInternClassBase):
 
 @_documentation
 @_final
-class JEMouseCodeGroup(_JEInternClassBase):
+class JEMouseCodeGroup(_JEInternBaseClass):
     """Mouse code group"""
 
     __recursive__ = False
@@ -131,7 +131,7 @@ class JEMouseCodeGroup(_JEInternClassBase):
         if isinstance(other, JEMouseCodeGroup):
             return JEMouseCodeGroup([*self._mouses, *other._mouses])
 
-        raise _JTKInternError.error.ErrorType(
+        raise _JTKExternError.error.ErrorType(
             "\nInvalid type for union"
         )
 
@@ -146,7 +146,7 @@ class JEMouseCodeGroup(_JEInternClassBase):
 
 @_documentation
 @_final
-class JEMouseWatcher(_JEInternClassBase):
+class JEMouseWatcher(_JEInternBaseClass):
     """Mouse event watcher"""
 
     __recursive__ = False
@@ -155,7 +155,7 @@ class JEMouseWatcher(_JEInternClassBase):
         """JEMouseWatcher creator"""
 
         if not isinstance(on, (JEMouseCode, list, JEMouseCodeGroup)):
-            raise _JTKInternError.Error.ErrorType(
+            raise _JTKExternError.Error.ErrorType(
                 "\nOn must be JEEventCode, list or JEKeyCodeGroup"
             )
 
@@ -170,9 +170,9 @@ class JEMouseWatcher(_JEInternClassBase):
             )
         )
         self._on_param = (
-            _JEEventCode(_PGIntern.MOUSEBUTTONDOWN)
+            _JEEventCode(_PGExtern.MOUSEBUTTONDOWN)
             if on_press else
-            _JEEventCode(_PGIntern.MOUSEBUTTONUP)
+            _JEEventCode(_PGExtern.MOUSEBUTTONUP)
         )
         self._do = do
 

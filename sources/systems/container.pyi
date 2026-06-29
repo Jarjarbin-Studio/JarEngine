@@ -2,10 +2,10 @@ from __future__ import annotations
 
 from typing import TypeVar, Optional, Iterator
 
-from sources.interns.base_classe import JEInternClassBase
+from sources.interns.base_classe import JEInternBaseClass
 from sources.systems.bool import JEBool
 
-_T = TypeVar("_T", bound=JEInternClassBase)
+_T = TypeVar("_T", bound=JEInternBaseClass)
 
 class JEContainer:
     def __init__(self, allowed_type: type[_T], allow_subclass: JEBool) -> None: ...

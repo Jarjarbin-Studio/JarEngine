@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v0.1.0
+    Version: jarengine-v1.0.0
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -31,17 +31,17 @@ from typing import (
 )
 
 from sources.events.event import JEEventCode as _JEEventCode
-from sources.interns.base_classe import JEInternClassBase as _JEInternClassBase
+from sources.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from sources.interns import (
-    PGIntern as _PGIntern,
-    JTKInternError as _JTKInternError
+    PGExtern as _PGExtern,
+    JTKExternError as _JTKExternError
 )
 from sources.systems.bool import JEBool as _JEBool
 from sources.interns.decorators import documentation as _documentation
 
 @_documentation
 @_final
-class JEKeyCode(_JEInternClassBase):
+class JEKeyCode(_JEInternBaseClass):
     """Key code"""
 
     _instances = {}
@@ -56,23 +56,23 @@ class JEKeyCode(_JEInternClassBase):
             return
 
         for c in range(ord("a"), ord("z") + 1):
-            code = getattr(_PGIntern, f"K_{chr(c)}")
+            code = getattr(_PGExtern, f"K_{chr(c)}")
             cls._name_cache[code] = chr(c).upper()
 
         for i in range(10):
-            code = getattr(_PGIntern, f"K_{i}")
+            code = getattr(_PGExtern, f"K_{i}")
             cls._name_cache[code] = str(i)
 
         cls._name_cache.update({
-            _PGIntern.K_RETURN: "ENTER",
-            _PGIntern.K_BACKSPACE: "BACKSPACE",
-            _PGIntern.K_DELETE: "DELETE",
-            _PGIntern.K_TAB: "TAB",
-            _PGIntern.K_ESCAPE: "ESCAPE",
-            _PGIntern.K_UP: "UP",
-            _PGIntern.K_DOWN: "DOWN",
-            _PGIntern.K_LEFT: "LEFT",
-            _PGIntern.K_RIGHT: "RIGHT",
+            _PGExtern.K_RETURN: "ENTER",
+            _PGExtern.K_BACKSPACE: "BACKSPACE",
+            _PGExtern.K_DELETE: "DELETE",
+            _PGExtern.K_TAB: "TAB",
+            _PGExtern.K_ESCAPE: "ESCAPE",
+            _PGExtern.K_UP: "UP",
+            _PGExtern.K_DOWN: "DOWN",
+            _PGExtern.K_LEFT: "LEFT",
+            _PGExtern.K_RIGHT: "RIGHT",
         })
 
     def __new__(cls, key = None):
@@ -109,7 +109,7 @@ class JEKeyCode(_JEInternClassBase):
         """Allows same synthax as union (create a JEKeyCodeGroup)"""
 
         if not isinstance(other, JEKeyCode):
-            raise _JTKInternError.Error.ErrorType(
+            raise _JTKExternError.Error.ErrorType(
                 "\nOther must be JEKeyCode"
             )
 
@@ -127,7 +127,7 @@ class JEKeyCode(_JEInternClassBase):
 
 @_documentation
 @_final
-class JEKeyCodeGroup(_JEInternClassBase):
+class JEKeyCodeGroup(_JEInternBaseClass):
     """Key code group"""
 
     __recursive__ = False
@@ -146,7 +146,7 @@ class JEKeyCodeGroup(_JEInternClassBase):
         if isinstance(other, JEKeyCodeGroup):
             return JEKeyCodeGroup([*self._keys, *other._keys])
 
-        raise _JTKInternError.error.ErrorType(
+        raise _JTKExternError.error.ErrorType(
             "\nInvalid type for union"
         )
 
@@ -161,7 +161,7 @@ class JEKeyCodeGroup(_JEInternClassBase):
 
 @_documentation
 @_final
-class JEKeyWatcher(_JEInternClassBase):
+class JEKeyWatcher(_JEInternBaseClass):
     """Key event watcher"""
 
     __recursive__ = False
@@ -170,7 +170,7 @@ class JEKeyWatcher(_JEInternClassBase):
         """JEKeyWatcher creator"""
 
         if not isinstance(on, (JEKeyCode, list, JEKeyCodeGroup)):
-            raise _JTKInternError.Error.ErrorType(
+            raise _JTKExternError.Error.ErrorType(
                 "\nOn must be JEEventCode, list or JEKeyCodeGroup"
             )
 
@@ -185,9 +185,9 @@ class JEKeyWatcher(_JEInternClassBase):
             )
         )
         self._on_param = (
-            _JEEventCode(_PGIntern.KEYDOWN)
+            _JEEventCode(_PGExtern.KEYDOWN)
             if on_press else
-            _JEEventCode(_PGIntern.KEYUP)
+            _JEEventCode(_PGExtern.KEYUP)
         )
         self._do = do
 
