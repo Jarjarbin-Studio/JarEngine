@@ -8,7 +8,7 @@ entries:
         output: web, pdf
         folderitems:
           - title: Home
-            url: /overview_home.html
+            url: /Home.html
             output: web, pdf
             type: homepage
 
