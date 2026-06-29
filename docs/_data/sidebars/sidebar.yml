@@ -1,52 +1,150 @@
 entries:
   - title: sidebar
     product: JarEngine
-    version: 0.0.1
+    version: 0.1.0
     folders:
-
-      - title:
-        output: pdf
-        type: frontmatter
-        folderitems:
-          - title:
-            url: /titlepage.html
-            output: pdf
-            type: frontmatter
-          - title:
-            url: /tocpage.html
-            output: pdf
-            type: frontmatter
 
       - title: Overview
         output: web, pdf
         folderitems:
-
           - title: Home
             url: /overview_home.html
             output: web, pdf
             type: homepage
 
-      - title: Library NewCSFML
+      - title: Constants
         output: web, pdf
         folderitems:
-
-          - title: NewCSFML
-            url: /lib_newcsfml_doc.html
+          - title: Constants
+            url: /Constants.html
             output: web, pdf
 
-            subfolders:
-              - title: Audios • SubModules
-                output: web, pdf
-                subfolderitems:
-
-                  - title: Audios • Music
-                    url: /lib_newcsfml_doc_modules_audios_music.html
-                    output: web, pdf
-
-      - title: Library NewError
+      - title: Internals
         output: web, pdf
         folderitems:
+          - title: Interns
+            url: /Interns.html
+            output: web, pdf
 
-          - title: NewError
-            url: /lib_newerror_doc.html
+          - title: Interns • Decorators
+            url: /InternsDecorators.html
+            output: web, pdf
+
+          - title: Interns • Base Classes
+            url: /JEInternClassBase.html
+            output: web, pdf
+
+          - title: Interns • Config
+            url: /JEInternConfig.html
+            output: web, pdf
+
+      - title: Entities
+        output: web, pdf
+        folderitems:
+          - title: Entities
+            url: /JEInternEntityComponent.html
+            output: web, pdf
+
+          - title: Components Graphics
+            url: /JEInternGraphicalObject.html
+            output: web, pdf
+
+          - title: Components Physics
+            url: /JEInternEmptyComponent.html
+            output: web, pdf
+
+          - title: Components Transforms
+            url: /JEInternEmptyComponent.html
+            output: web, pdf
+
+      - title: Events
+        output: web, pdf
+        folderitems:
+          - title: Events
+            url: /JEInternSystems.html
+            output: web, pdf
+
+          - title: Event System
+            url: /JEInternSystems.html
+            output: web, pdf
+
+          - title: Keyboard
+            url: /JEInternSystems.html
+            output: web, pdf
+
+          - title: Mouse
+            url: /JEInternSystems.html
+            output: web, pdf
+
+          - title: Event Manager
+            url: /JEInternSystems.html
+            output: web, pdf
+
+      - title: Games
+        output: web, pdf
+        folderitems:
+          - title: Game Core
+            url: /JEInternSystems.html
+            output: web, pdf
+
+          - title: Input System
+            url: /JEInternSystems.html
+            output: web, pdf
+
+          - title: Systems
+            url: /JEInternSystems.html
+            output: web, pdf
+
+          - title: Window
+            url: /JEInternWindowSettings.html
+            output: web, pdf
+
+      - title: Resources
+        output: web, pdf
+        folderitems:
+          - title: Resources
+            url: /Resources.html
+            output: web, pdf
+
+          - title: Texture
+            url: /JETexture.html
+            output: web, pdf
+
+          - title: Font
+            url: /JEFont.html
+            output: web, pdf
+
+      - title: Systems
+        output: web, pdf
+        folderitems:
+          - title: Systems Overview
+            url: /Systems.html
+            output: web, pdf
+
+          - title: Bool
+            url: /JEBool.html
+            output: web, pdf
+
+          - title: Clock
+            url: /JEClock.html
+            output: web, pdf
+
+          - title: Color
+            url: /JEColor.html
+            output: web, pdf
+
+          - title: Container
+            url: /JEContainer.html
+            output: web, pdf
+
+          - title: Immutable
+            url: /JEImmutable.html
+            output: web, pdf
+
+          - title: Vector 2D
+            url: /JEVector2D.html
+            output: web, pdf
+
+          - title: Vector 3D
+            url: /JEVector3D.html
             output: web, pdf
