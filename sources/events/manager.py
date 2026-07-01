@@ -55,25 +55,31 @@ class JEEvent(_JEInternBaseClass):
         """JEEvent creator"""
         super().__init__()
         self._event = event
-        self._type = event.type
-        self._key = getattr(event, "key", None)
-        self._button = getattr(event, "button", None)
-        self._pos = getattr(event, "pos", None)
+        self._type = None
+        self._key = None
+        self._button = None
+        self._pos = None
 
     @property
     def type(self):
         """Get event type (as JEEventCode)"""
-        return _JEEventCode(self._type)
+        if not self._type:
+            self._type = _JEEventCode(self._event.type)
+        return self._type
 
     @property
     def key(self):
         """Get key (as JEKeyCode)"""
-        return _JEKeyCode(self._key) if self._key is not None else None
+        if not self._key:
+            self._key = _JEEventCode(self._event.type) if hasattr(self._event, "key") else None
+        return self._key
 
     @property
     def mouse(self):
         """Get mouse (as JEMouseCode)"""
-        return _JEMouseCode(self._button) if self._button is not None else None
+        if not self._button:
+            self._button = _JEEventCode(self._event.type) if hasattr(self._event, "button") else None
+        return self._button
 
 @_documentation
 @_final
@@ -139,7 +145,7 @@ class JEEventHandler(_JEInternBaseClass):
                 return _JEBool(1)
         return _JEBool(0)
 
-    def process(self, game):
+    def process(self, game, is_single_match: _JEBool = _JEBool(1)):
         """Process events"""
         events = [JEEvent(evt) for evt in _PGExtern.event.get()]
 
@@ -147,6 +153,8 @@ class JEEventHandler(_JEInternBaseClass):
             for watcher in self._watchers:
                 if watcher.match(event):
                     watcher(game, event)
+                    if is_single_match:
+                        break
 
     def __deepcopy__(self, memo):
         """Deepcopy"""

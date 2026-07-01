@@ -64,7 +64,7 @@ history = []
 # Snake head
 # --------------------
 snake_head = JarEngine.Entities.JEEntity(name="snake_head")
-game.entities.add(snake_head)
+game.add_entity(snake_head)
 
 JarEngine.Entities.Transforms.JEPositionComponent(snake_head, (400, 300))
 JarEngine.Entities.Transforms.JEVelocityComponent(snake_head, (0, 0))
@@ -79,7 +79,7 @@ snake_body = []
 
 def create_segment(pos):
     seg = JarEngine.Entities.JEEntity(name="snake_body")
-    game.entities.add(seg)
+    game.add_entity(seg)
 
     JarEngine.Entities.Transforms.JEPositionComponent(seg, pos)
     JarEngine.Entities.Transforms.JESizeComponent(seg, (CELL_SIZE, CELL_SIZE))
@@ -95,7 +95,7 @@ for _ in range(3):
 # Apple
 # --------------------
 apple = JarEngine.Entities.JEEntity(name="apple")
-game.entities.add(apple)
+game.add_entity(apple)
 
 JarEngine.Entities.Transforms.JEPositionComponent(apple, (200, 200))
 JarEngine.Entities.Transforms.JESizeComponent(apple, (CELL_SIZE, CELL_SIZE))
@@ -113,7 +113,7 @@ spawn_apple()
 # TEXT (Score + FPS)
 # --------------------
 score_text = JarEngine.Entities.JEEntity(name="score_text")
-game.entities.add(score_text)
+game.add_entity(score_text)
 
 JarEngine.Entities.Transforms.JEPositionComponent(score_text, (10, 10))
 JarEngine.Entities.Graphics.JELayerComponent(score_text, 100)
@@ -123,7 +123,7 @@ JarEngine.Entities.Graphics.JEFontComponent(score_text, font)
 
 
 fps_text = JarEngine.Entities.JEEntity(name="fps_text")
-game.entities.add(fps_text)
+game.add_entity(fps_text)
 
 JarEngine.Entities.Transforms.JEPositionComponent(fps_text, (10, 40))
 JarEngine.Entities.Graphics.JELayerComponent(fps_text, 100)

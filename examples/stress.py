@@ -61,7 +61,7 @@ entities = []
 # FPS TEXT
 # --------------------
 fps_text = JarEngine.Entities.JEEntity(name="fps_text")
-game.entities.add(fps_text)
+game.add_entity(fps_text)
 
 JarEngine.Entities.Transforms.JEPositionComponent(fps_text, (10, 10))
 JarEngine.Entities.Graphics.JELayerComponent(fps_text, 100)
@@ -82,7 +82,7 @@ def random_velocity():
 # --------------------
 for i in range(ENTITY_COUNT):
     e = JarEngine.Entities.JEEntity(name=f"particle_{i}")
-    game.entities.add(e)
+    game.add_entity(e)
 
     x = random.randint(0, WIDTH)
     y = random.randint(0, HEIGHT)

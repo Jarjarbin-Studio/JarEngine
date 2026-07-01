@@ -78,6 +78,8 @@ class JEGame(_JEInternBaseClass):
         self._is_open = _JEBool(1)
         self._event_manager = _JEEventHandler()
         self._systems = _JEContainer(_JEInternSystems, _JEBool(1))
+        self._is_dirty = _JEBool(1)
+        self._cached_entity = []
 
     def set_window(self, window):
         """Set game window"""
@@ -137,6 +139,11 @@ class JEGame(_JEInternBaseClass):
         """Get ressource manager"""
         return self._ressource
 
+    def add_entity(self, entity):
+        """Add entity object"""
+        self._entities.add(entity)
+        self._is_dirty = _JEBool(1)
+
     @property
     def entities(self):
         """Get entity manager"""
@@ -175,7 +182,10 @@ class JEGame(_JEInternBaseClass):
         self._clock.update()
         self._input.update()
 
-        for entity in sorted(self._entities, key=render_sort):
+        if self._is_dirty:
+            self._cached_entity = sorted(self._entities, key=render_sort)
+
+        for entity in self._cached_entity :
             for system in self._systems:
                 if system.accepts(entity.components):
                     system.update(self._window, entity, self._entities, float(self._clock))

@@ -47,7 +47,7 @@ score_right = 0
 # CENTER SCORE TEXT
 # --------------------
 score_text = JarEngine.Entities.JEEntity(name="score_text")
-game.entities.add(score_text)
+game.add_entity(score_text)
 
 JarEngine.Entities.Transforms.JEPositionComponent(score_text, (WIDTH // 2, 20))
 JarEngine.Entities.Graphics.JELayerComponent(score_text, 100)
@@ -59,7 +59,7 @@ JarEngine.Entities.Graphics.JEFontComponent(score_text, font)
 # FPS TEXT
 # --------------------
 fps_text = JarEngine.Entities.JEEntity(name="fps_text")
-game.entities.add(fps_text)
+game.add_entity(fps_text)
 
 JarEngine.Entities.Transforms.JEPositionComponent(fps_text, (10, 10))
 JarEngine.Entities.Graphics.JELayerComponent(fps_text, 100)
@@ -81,7 +81,7 @@ ball_speed_multiplier = 1.0
 # PADDLES
 # --------------------
 left_paddle = JarEngine.Entities.JEEntity(name="left_paddle")
-game.entities.add(left_paddle)
+game.add_entity(left_paddle)
 
 JarEngine.Entities.Transforms.JEPositionComponent(left_paddle, (30, 250))
 JarEngine.Entities.Transforms.JEVelocityComponent(left_paddle, (0, 0))
@@ -90,7 +90,7 @@ JarEngine.Entities.Graphics.JEColorComponent(left_paddle, (255, 255, 255, 255))
 JarEngine.Entities.Graphics.JELayerComponent(left_paddle, 10)
 
 right_paddle = JarEngine.Entities.JEEntity(name="right_paddle")
-game.entities.add(right_paddle)
+game.add_entity(right_paddle)
 
 JarEngine.Entities.Transforms.JEPositionComponent(right_paddle, (755, 250))
 JarEngine.Entities.Transforms.JEVelocityComponent(right_paddle, (0, 0))
@@ -102,7 +102,7 @@ JarEngine.Entities.Graphics.JELayerComponent(right_paddle, 10)
 # BALL
 # --------------------
 ball = JarEngine.Entities.JEEntity(name="ball")
-game.entities.add(ball)
+game.add_entity(ball)
 
 JarEngine.Entities.Transforms.JEPositionComponent(ball, (400, 300))
 JarEngine.Entities.Transforms.JEVelocityComponent(ball, (BALL_BASE_SPEED, BALL_BASE_SPEED))
