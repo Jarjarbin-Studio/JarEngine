@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from jarengine.systems.bool import JEBool
 
-
 class JEInternGraphic:
     """Graphic (Internal API)"""
 

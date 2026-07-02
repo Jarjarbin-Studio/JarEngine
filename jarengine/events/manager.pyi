@@ -1,9 +1,5 @@
 from __future__ import annotations
 
-from typing import (
-    Self
-)
-
 from jarengine.interns import PGExtern
 from jarengine.events.event import JEEventCode, JEEventWatcher
 from jarengine.events.keyboard import JEKeyCode, JEKeyWatcher

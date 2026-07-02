@@ -24,11 +24,7 @@
 
 from __future__ import annotations
 
-from typing import (
-    final as _final,
-    Callable as _Callable,
-    Self as _Self
-)
+from typing import final as _final
 
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from jarengine.interns import (

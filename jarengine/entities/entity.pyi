@@ -8,7 +8,6 @@ from jarengine.resources.texture import JETexture
 from jarengine.systems.bool import JEBool
 from jarengine.systems.color import JEColor
 
-
 class JEEntity:
     def __init__(self, *, name: str) -> None: ...
     @property

@@ -35,14 +35,8 @@ from jarengine.events.event import (
     JEEventCode as _JEEventCode,
     JEEventWatcher as _JEEventWatcher
 )
-from jarengine.events.keyboard import (
-    JEKeyCode as _JEKeyCode,
-    JEKeyWatcher as _JEKeyWatcher
-)
-from jarengine.events.mouse import (
-    JEMouseCode as _JEMouseCode,
-    JEMouseWatcher as _JEMouseWatcher
-)
+from jarengine.events.keyboard import JEKeyWatcher as _JEKeyWatcher
+from jarengine.events.mouse import JEMouseWatcher as _JEMouseWatcher
 from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.interns.decorators import documentation as _documentation
 

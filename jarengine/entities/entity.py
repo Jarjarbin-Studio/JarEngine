@@ -26,7 +26,7 @@ from __future__ import annotations
 
 from typing import final as _final
 
-from interns.final_classes import JEInternEmptyComponent as _JEInternEmptyComponent
+from jarengine.interns.final_classes import JEInternEmptyComponent as _JEInternEmptyComponent
 from jarengine.interns.high_classes import JEInternEntityComponent as _JEInternEntityComponent
 from jarengine.interns.low_classes import JEInternGraphicalObject as _JEInternGraphicalObject
 from jarengine.systems.container import JEContainer as _JEContainer
