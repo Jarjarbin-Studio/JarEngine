@@ -1,4 +1,4 @@
-import sources as JarEngine
+import jarengine as JarEngine
 
 # --------------------
 # Init engine
@@ -8,11 +8,15 @@ JarEngine.Init()
 # --------------------
 # Game setup
 # --------------------
+WIDTH = 800
+HEIGHT = 600
+FPS = 60
+
 game = JarEngine.Games.JEGame(use_clock=True, use_input=True)
 game.set_window(
     JarEngine.Games.JEWindow(
-        size=(800, 600),
-        fps=60,
+        size=(WIDTH, HEIGHT),
+        fps=FPS,
         title="JarEngine - Pong",
         flags=0,
         depth=0,
@@ -20,9 +24,6 @@ game.set_window(
         vsync=0
     )
 )
-
-WIDTH = 800
-HEIGHT = 600
 
 # --------------------
 # Resources

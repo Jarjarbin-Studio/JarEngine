@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "jarengine"
-version = "1.4"
+version = "1.4.1"
 description = "Wrapper over PyGame providing simple ECS and easy-to-use API."
 authors = [
     { name = "Nathan Jarjarbin", email = "nathan.amaraggi@epitech.eu" }
@@ -39,12 +39,7 @@ local_scheme = "dirty-tag"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = [
-    "sources*",
-    "examples",
-    "resources",
-    "script"
-]
+include = ["jarengine*"]
 exclude = [
     "*.xit",
     "assets*",
