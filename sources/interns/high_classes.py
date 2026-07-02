@@ -70,7 +70,7 @@ class JEInternEntityComponent(_JEInternGraphic, JEInternOwnership):
 
     def __call__(self):
         """Get texture"""
-        pass
+        raise NotImplementedError
 
 @_documentation
 class JEInternSystems(JEInternOwnership):
@@ -94,4 +94,4 @@ class JEInternSystems(JEInternOwnership):
     @staticmethod
     def update(window, entity, entities, dt):
         """Update entities"""
-        pass
+        raise NotImplementedError

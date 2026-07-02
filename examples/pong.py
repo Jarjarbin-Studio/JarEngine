@@ -51,7 +51,6 @@ game.add_entity(score_text)
 
 JarEngine.Entities.Transforms.JEPositionComponent(score_text, (WIDTH // 2, 20))
 JarEngine.Entities.Graphics.JELayerComponent(score_text, 100)
-
 JarEngine.Entities.Graphics.JETextComponent(score_text, "0 : 0")
 JarEngine.Entities.Graphics.JEFontComponent(score_text, font)
 
@@ -63,7 +62,6 @@ game.add_entity(fps_text)
 
 JarEngine.Entities.Transforms.JEPositionComponent(fps_text, (10, 10))
 JarEngine.Entities.Graphics.JELayerComponent(fps_text, 100)
-
 JarEngine.Entities.Graphics.JETextComponent(fps_text, "FPS: 0")
 JarEngine.Entities.Graphics.JEFontComponent(fps_text, font)
 
@@ -82,7 +80,6 @@ ball_speed_multiplier = 1.0
 # --------------------
 left_paddle = JarEngine.Entities.JEEntity(name="left_paddle")
 game.add_entity(left_paddle)
-
 JarEngine.Entities.Transforms.JEPositionComponent(left_paddle, (30, 250))
 JarEngine.Entities.Transforms.JEVelocityComponent(left_paddle, (0, 0))
 JarEngine.Entities.Transforms.JESizeComponent(left_paddle, (15, 100))
@@ -91,7 +88,6 @@ JarEngine.Entities.Graphics.JELayerComponent(left_paddle, 10)
 
 right_paddle = JarEngine.Entities.JEEntity(name="right_paddle")
 game.add_entity(right_paddle)
-
 JarEngine.Entities.Transforms.JEPositionComponent(right_paddle, (755, 250))
 JarEngine.Entities.Transforms.JEVelocityComponent(right_paddle, (0, 0))
 JarEngine.Entities.Transforms.JESizeComponent(right_paddle, (15, 100))
@@ -103,7 +99,6 @@ JarEngine.Entities.Graphics.JELayerComponent(right_paddle, 10)
 # --------------------
 ball = JarEngine.Entities.JEEntity(name="ball")
 game.add_entity(ball)
-
 JarEngine.Entities.Transforms.JEPositionComponent(ball, (400, 300))
 JarEngine.Entities.Transforms.JEVelocityComponent(ball, (BALL_BASE_SPEED, BALL_BASE_SPEED))
 JarEngine.Entities.Transforms.JESizeComponent(ball, (15, 15))
@@ -115,9 +110,7 @@ JarEngine.Entities.Graphics.JELayerComponent(ball, 20)
 # --------------------
 def reset_ball(direction=1):
     global ball_speed_multiplier
-
     ball_speed_multiplier = 1.0
-
     ball.set_position((400, 300))
     ball.set_velocity((BALL_BASE_SPEED * direction, BALL_BASE_SPEED * 0.6))
 
@@ -127,7 +120,7 @@ def reset_ball(direction=1):
 def handle_input():
     left_vy = 0
     right_vy = 0
-
+    
     if game.is_key_down(JarEngine.JEKey_Z):
         left_vy -= PADDLE_SPEED
     if game.is_key_down(JarEngine.JEKey_S):
@@ -146,7 +139,6 @@ def handle_input():
 # --------------------
 def clamp_paddle(paddle):
     pos = paddle.get_position()
-
     if pos.y < 0:
         paddle.set_position((pos.x, 0))
     elif pos.y > HEIGHT - 100:
@@ -155,26 +147,25 @@ def clamp_paddle(paddle):
 def check_ball_collision():
     global score_left, score_right
 
-    b = ball.get_position()
-    bv = ball.get_velocity()
+    b_pos = ball.get_position()
+    b_vel = ball.get_velocity()
 
-    lp = left_paddle.get_position()
-    rp = right_paddle.get_position()
+    lp_pos = left_paddle.get_position()
+    rp_pos = right_paddle.get_position()
 
-    if b.y <= 0 or b.y >= HEIGHT:
-        ball.set_velocity((bv.x, -bv.y))
+    if b_pos.y <= 0 or b_pos.y >= HEIGHT:
+        ball.set_velocity((b_vel.x, -b_vel.y))
 
-    if lp.x < b.x < lp.x + 15 and lp.y < b.y < lp.y + 100:
-        ball.set_velocity((abs(bv.x), bv.y))
+    if lp_pos.x < b_pos.x < lp_pos.x + 15 and lp_pos.y < b_pos.y < lp_pos.y + 100:
+        ball.set_velocity((abs(b_vel.x), b_vel.y))
 
-    if rp.x < b.x < rp.x + 15 and rp.y < b.y < rp.y + 100:
-        ball.set_velocity((-abs(bv.x), bv.y))
+    if rp_pos.x < b_pos.x < rp_pos.x + 15 and rp_pos.y < b_pos.y < rp_pos.y + 100:
+        ball.set_velocity((-abs(b_vel.x), b_vel.y))
 
-    if b.x < 0:
+    if b_pos.x < 0:
         score_right += 1
         reset_ball(direction=1)
-
-    if b.x > WIDTH:
+    if b_pos.x > WIDTH:
         score_left += 1
         reset_ball(direction=-1)
 

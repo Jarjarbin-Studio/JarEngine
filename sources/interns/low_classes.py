@@ -71,7 +71,7 @@ class JEInternGraphicalObject(JEInternGraphic):
             dt: float
         ) -> None:
         """update placeholder"""
-        pass
+        raise NotImplementedError
 
     def mark_dirty(self) -> None:
         """Mark component as modified"""
