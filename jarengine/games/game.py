@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.0.0
+    Version: jarengine-v1.5
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -39,7 +39,7 @@ from jarengine.interns import (
 from jarengine.entities.entity import JEEntity as _JEEntity
 from jarengine.systems.container import JEContainer as _JEContainer
 from jarengine.interns.high_classes import JEInternSystems as _JEInternSystems
-from jarengine.interns.final_classes import JEInternRessources as _JEInternRessources
+from jarengine.interns.final_classes import JEInternResources as _JEInternResources
 from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.systems.clock import JEClock as _JEClock
 from jarengine.interns.decorators import documentation as _documentation
@@ -71,7 +71,7 @@ class JEGame(_JEInternBaseClass):
         super().__init__()
         self._config = _get_config()
         self._window = None
-        self._ressource = _JEInternRessources()
+        self._ressource = _JEInternResources()
         self._entities = _JEContainer(_JEEntity)
         self._clock = _JEClock() if use_clock else None
         self._input = _JEInput() if use_input else None

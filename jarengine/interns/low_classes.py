@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.0.0
+    Version: jarengine-v1.5
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -32,10 +32,7 @@ from jarengine.interns.decorators import documentation as _documentation
 class JEInternGraphic(_JEInternBaseClass):
     """Graphic (Internal API)"""
 
-    def __init__(
-            self,
-            name: str
-        ) -> None:
+    def __init__(self, name) -> None:
         """JEInternGraphic creator"""
         super().__init__()
 
@@ -57,19 +54,13 @@ class JEInternGraphic(_JEInternBaseClass):
 class JEInternGraphicalObject(JEInternGraphic):
     """GraphicalObject (Internal API)"""
 
-    def __init__(
-            self,
-            name: str
-        ) -> None:
+    def __init__(self, name) -> None:
         """JEInternGraphicalObject creator"""
         super().__init__(name)
 
         self._dirty: _JEBool = _JEBool(1)
 
-    def update(
-            self,
-            dt: float
-        ) -> None:
+    def update(self, dt) -> None:
         """update placeholder"""
         raise NotImplementedError
 
@@ -85,3 +76,21 @@ class JEInternGraphicalObject(JEInternGraphic):
     def is_dirty(self) -> _JEBool:
         """Check if component was modified"""
         return self._dirty
+
+@_documentation
+class JEInternResource(JEInternGraphic):
+    """Resource (Internal API)"""
+
+    def __init__(self, name, path) -> None:
+        """JEInternResource creator"""
+        super().__init__(name)
+
+        self._path = path
+
+    @property
+    def path(self) -> _JEBool:
+        """Get resource path"""
+        return self._path
+
+    def __deepcopy__(self, memo):
+        return self

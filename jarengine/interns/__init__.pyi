@@ -7,7 +7,6 @@ from jarengine.interns.base_classe import JEInternBaseClass
 import pygame as PGExtern
 import jarbin_toolkit_time as JTKExternTime
 import jarbin_toolkit_console as JTKExternConsole
-import jarbin_toolkit_action as JTKExternAction
 import jarbin_toolkit_error as JTKExternError
 import jarengine.interns.decorators as Decorators
 import jarengine.interns.low_classes as LowClasses
@@ -26,6 +25,5 @@ __all__: list[str] = [
     "Decorators",
     "JTKExternTime",
     "JTKExternConsole",
-    "JTKExternAction",
     "JTKExternError"
 ]

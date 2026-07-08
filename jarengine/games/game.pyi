@@ -8,7 +8,7 @@ from jarengine.events.mouse import JEMouseCode
 from jarengine.entities.entity import JEEntity
 from jarengine.systems.container import JEContainer
 from jarengine.interns.high_classes import JEInternSystems
-from jarengine.interns.final_classes import JEInternRessources
+from jarengine.interns.final_classes import JEInternResources
 from jarengine.systems.bool import JEBool
 from jarengine.systems.clock import JEClock
 
@@ -30,7 +30,7 @@ class JEGame:
     @property
     def is_open(self) -> JEBool: ...
     @property
-    def ressource(self) -> JEInternRessources: ...
+    def ressource(self) -> JEInternResources: ...
     def add_entity(self, entity: JEEntity) -> None: ...
     @property
     def entities(self) -> JEContainer[JEEntity]: ...

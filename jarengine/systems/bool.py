@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.0.0
+    Version: jarengine-v1.5
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -60,6 +60,10 @@ class JEBool(_JEInternBaseClass):
     def __bool__(self):
         """Returns boolean value"""
         return self._bool
+
+    def __int__(self):
+        """Returns integer value"""
+        return int(self._bool)
 
     @property
     def data(self):

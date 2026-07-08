@@ -1,0 +1,6 @@
+from __future__ import annotations
+
+class JEMusic:
+    def __init__(self, name: str, path: str) -> None: ...
+    @property
+    def path(self) -> str: ...

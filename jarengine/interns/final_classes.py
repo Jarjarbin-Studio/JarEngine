@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.0.0
+    Version: jarengine-v1.5
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -33,6 +33,8 @@ from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClas
 from jarengine.systems.container import JEContainer as _JEContainer
 from jarengine.interns.decorators import documentation as _documentation
 from jarengine.resources.texture import JETexture as _JETexture
+from jarengine.resources.music import JEMusic as _JEMusic
+from jarengine.resources.sound import JESound as _JESound
 from jarengine.resources.font import JEFont as _JEFont
 
 @_documentation
@@ -56,16 +58,18 @@ class JEInternEmptyComponent(_JEInternEntityComponent):
 
 @_documentation
 @_final
-class JEInternRessources(_JEInternBaseClass):
-    """Ressources (Internal API)"""
+class JEInternResources(_JEInternBaseClass):
+    """Resources (Internal API)"""
 
     def __init__(self):
-        """JEInternRessources creator"""
+        """JEInternResources creator"""
         super().__init__()
 
         self._textures = _JEContainer(_JETexture)
         self._animations = _JEContainer(_JEInternGraphic)
         self._font = _JEContainer(_JEFont)
+        self._music = _JEContainer(_JEMusic)
+        self._sound = _JEContainer(_JESound)
 
     @property
     def texture(self):
@@ -81,6 +85,16 @@ class JEInternRessources(_JEInternBaseClass):
     def font(self):
         """Get font container"""
         return self._font
+
+    @property
+    def music(self):
+        """Get music container"""
+        return self._music
+
+    @property
+    def sound(self):
+        """Get sound container"""
+        return self._sound
 
 @_documentation
 @_final

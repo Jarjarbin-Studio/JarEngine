@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.0.0
+    Version: jarengine-v1.5
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -24,10 +24,14 @@
 
 from __future__ import annotations
 
-__all__ = [
-    'JETexture',
-    'JEFont'
-]
-
 from jarengine.resources.font import JEFont
 from jarengine.resources.texture import JETexture
+from jarengine.resources.music import JEMusic
+from jarengine.resources.sound import JESound
+
+__all__ = [
+    'JETexture',
+    'JEFont',
+    'JEMusic',
+    'JESound'
+]

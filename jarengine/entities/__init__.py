@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.0.0
+    Version: jarengine-v1.5
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -24,14 +24,16 @@
 
 from __future__ import annotations
 
+from jarengine.entities.entity import JEEntity
+import jarengine.entities.components_audio as Audios
+import jarengine.entities.components_physics as Physics
+import jarengine.entities.components_graphics as Graphics
+import jarengine.entities.components_transforms as Transforms
+
 __all__ = [
     'JEEntity',
+    'Audios',
     'Physics',
     'Graphics',
     'Transforms'
 ]
-
-from jarengine.entities.entity import JEEntity
-import jarengine.entities.components_physics as Physics
-import jarengine.entities.components_graphics as Graphics
-import jarengine.entities.components_transforms as Transforms

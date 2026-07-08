@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.0.0
+    Version: jarengine-v1.5
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -51,7 +51,7 @@ class JEEventCode(_JEInternBaseClass):
             return
 
         cls._name_cache.update({
-            _PGExtern.QUIT: "Quit",
+            _PGExtern.QUIT: "quit",
             _PGExtern.HIDDEN: "Hidden",
             _PGExtern.KEYDOWN: "KeyDown",
             _PGExtern.KEYUP: "KeyUp",

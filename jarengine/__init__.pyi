@@ -2,31 +2,39 @@ from __future__ import annotations
 
 # Public API
 import jarengine.interns as Interns
-import jarengine.audios as Audios
 import jarengine.entities as Entities
 import jarengine.events as Events
 import jarengine.games as Games
 import jarengine.resources as Resources
 import jarengine.systems as Systems
 
-def Init() -> tuple[int, int]: ...
-def Quit() -> None: ...
+def init(project_path: str) -> tuple[int, int]: ...
+def quit() -> None: ...
 
 # Constants
 from jarengine.constants import *
 
+__author__: str
+__email__: str
+__version__: str
+__license__: str
+
 __all__: list[str] = [
+    ## Special ##
+    __author__,
+    __email__,
+    __version__,
+    __license__,
     ## Imports ##
     'Interns',
-    'Audios',
     'Entities',
     'Events',
     'Games',
     'Resources',
     'Systems',
     ## Functions ##
-    'Init',
-    'Quit',
+    'init',
+    'quit',
     ## Constants ##
     'JEFalse',
     'JETrue',

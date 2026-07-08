@@ -3,7 +3,6 @@ from __future__ import annotations
 from jarengine.interns import PGExtern
 
 class JEFont:
-    base_path: str
     def __init__(self, name: str, path: str, size: int) -> None: ...
     @property
     def font(self) -> PGExtern.font.Font: ...

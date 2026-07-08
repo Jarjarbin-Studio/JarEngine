@@ -24,45 +24,30 @@
 
 from __future__ import annotations
 
+from os.path import exists as _exists
 from typing import final as _final
 
 from jarengine.interns.config import (
     get_config as _get_config,
     JEInternConfig as _JEInternConfig
 )
-from jarengine.interns import (
-    PGExtern as _PGExtern,
-    JTKExternError as _JTKExternError
-)
+from jarengine.interns import JTKExternError as _JTKExternError
 from jarengine.interns.high_classes import JEInternOwnership as _JEInternOwnership
 from jarengine.interns.low_classes import JEInternResource as _JEInternResource
 from jarengine.interns.decorators import documentation as _documentation
 
 @_documentation
 @_final
-class JEFont(_JEInternResource, _JEInternOwnership):
-    """Texture"""
+class JEMusic(_JEInternResource, _JEInternOwnership):
+    """Music"""
 
-    def __init__(self, name, path, size) -> None:
-        """JETexture creator"""
+    def __init__(self, name, path) -> None:
+        """JEMusic creator"""
         super().__init__(name, path)
 
         if not "/" in path:
-            path = f"{_get_config("assets").get('ASSETS', 'path')}/{_get_config("assets").get('ASSETS', 'font_dir')}/{path}"
+            path = f"{_get_config("assets").get('ASSETS', 'path')}/{_get_config("assets").get('ASSETS', 'music_dir')}/{path}"
 
         self._path = path
-        try:
-            self._font = _PGExtern.font.Font(path, size)
-        except FileNotFoundError:
-            raise _JTKExternError.Special.ErrorSpecialConfig(f"\nInvalid font path. Check assets config at {_JEInternConfig.config_path}")
-        self._size = size
-
-    @property
-    def font(self):
-        """Get texture surface (PGExtern)"""
-        return self._font
-
-    @property
-    def size(self):
-        """Get texture size"""
-        return self._size
+        if not _exists(path):
+            raise _JTKExternError.Special.ErrorSpecialConfig(f"\nInvalid music path. Check assets config at {_JEInternConfig.config_path}")

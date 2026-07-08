@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.0.0
+    Version: jarengine-v1.5
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -24,14 +24,14 @@
 
 from __future__ import annotations
 
+import jarengine.events.manager as EventManager
+import jarengine.events.event as Event
+import jarengine.events.keyboard as EventKeyboard
+import jarengine.events.mouse as EventMouse
+
 __all__ = [
     "EventManager",
     "Event",
     "EventKeyboard",
     "EventMouse"
 ]
-
-import jarengine.events.manager as EventManager
-import jarengine.events.event as Event
-import jarengine.events.keyboard as EventKeyboard
-import jarengine.events.mouse as EventMouse

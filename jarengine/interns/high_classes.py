@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.0.0
+    Version: jarengine-v1.5
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -69,8 +69,15 @@ class JEInternEntityComponent(_JEInternGraphic, JEInternOwnership):
         owner.add_component(self)
 
     def __call__(self):
-        """Get texture"""
+        """Get Component"""
         raise NotImplementedError
+
+    def copy(self):
+        """Copy Component"""
+        raise NotImplementedError
+
+    def __deepcopy__(self, memo):
+        return self.copy()
 
 @_documentation
 class JEInternSystems(JEInternOwnership):

@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.0.0
+    Version: jarengine-v1.5
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -24,18 +24,76 @@
 
 from __future__ import annotations
 
+from datetime import datetime as _datetime
+
+__author__ = 'Nathan Jarjarbin'
+__email__ = 'nathan.amaraggi@epitech.eu'
+__version__ = "1.5"
+__license__ = "GPL"
+
+##Imports##
+import jarengine.interns as Interns
+import jarengine.entities as Entities
+import jarengine.events as Events
+import jarengine.games as Games
+import jarengine.resources as Resources
+import jarengine.systems as Systems
+from jarengine.constants import *
+
+##Special##
+__start_time: _datetime | None = None
+
+def init(project_path) -> tuple[int, int]:
+    global __start_time
+
+    __start_time = _datetime.now()
+
+    Interns.Config.JEInternConfig.project_path = f"{project_path.removesuffix("/")}"
+    Interns.Config.JEInternConfig.config_path = f"{Interns.Config.JEInternConfig.project_path}/.je-config"
+    config = Interns.Config.JEInternConfig("config", {
+        "PROJECT": {
+            "path": project_path,
+            "first_run": _datetime.now(),
+            "last_run": "",
+            "last_run_duration": "",
+        }
+    })
+    config.set("PROJECT", "last_run", _datetime.now())
+    Interns.Config.JEInternConfig("assets", {
+        "ASSETS": {
+            "path": f"{Interns.Config.JEInternConfig.project_path}/assets",
+            "font_dir": "fonts",
+            "texture_dir": "textures",
+            "animation_dir": "animations",
+            "sound_dir": "sounds",
+            "music_dir": "musics",
+        }
+    })
+    return Interns.PGExtern.init()
+
+def quit() -> None:
+    if __start_time is not None:
+        config = Interns.Config.JEInternConfig("config")
+        duration = _datetime.now() - __start_time
+        config.set("PROJECT", "last_run_duration", str(duration))
+    Interns.PGExtern.quit()
+
 __all__ = [
+    ## Special ##
+    __author__,
+    __email__,
+    __version__,
+    __license__,
     ## Imports ##
     'Interns',
-    'Audios',
     'Entities',
     'Events',
     'Games',
     'Resources',
     'Systems',
     ## Functions ##
-    'Init',
-    'Quit',
+    'init',
+    'quit',
     ## Constants ##
     'JEFalse',
     'JETrue',
@@ -95,20 +153,3 @@ __all__ = [
     'JEMse_Middle',
     'JEMse_Right'
 ]
-
-##Imports##
-import jarengine.interns as Interns
-import jarengine.audios as Audios
-import jarengine.entities as Entities
-import jarengine.events as Events
-import jarengine.games as Games
-import jarengine.resources as Resources
-import jarengine.systems as Systems
-from jarengine.constants import *
-
-##Functions##
-def Init() -> tuple[int, int]:
-    return Interns.PGExtern.init()
-
-def Quit() -> None:
-    Interns.PGExtern.quit()
