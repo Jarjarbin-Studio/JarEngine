@@ -79,7 +79,6 @@ class JEGame(_JEInternBaseClass):
         self._event_manager = _JEEventHandler()
         self._systems = _JEContainer(_JEInternSystems, _JEBool(1))
         self._is_dirty = _JEBool(1)
-        self._cached_entity = []
 
     def set_window(self, window):
         """Set game window"""
@@ -142,6 +141,9 @@ class JEGame(_JEInternBaseClass):
     def add_entity(self, entity):
         """Add entity object"""
         self._entities.add(entity)
+        for system in self._systems:
+            if system.accepts(entity.components):
+                system.cache.append(entity)
         self._is_dirty = _JEBool(1)
 
     @property
@@ -157,38 +159,34 @@ class JEGame(_JEInternBaseClass):
         """Add system object"""
         self._systems.add(system)
 
+        for entity in self._entities:
+            if system.accepts(entity.components):
+                system.cache.append(entity)
+
     @property
     def systems(self):
         """Get rendering and update systems"""
         return self._systems
 
     def update(self):
-        """Update game"""
-
-        def render_sort(entity):
-            """Sorting key for rendering."""
-
-            layer = entity.get(_JELayerComponent)
-
-            if layer:
-                try:
-                    return int(layer())
-                except Exception:
-                    return 0
-
-            return 0
+        """Update game."""
 
         self._event_manager.process(self)
-        self._clock.update()
-        self._input.update()
 
-        if self._is_dirty:
-            self._cached_entity = sorted(self._entities, key=render_sort)
+        if self._clock:
+            self._clock.update()
 
-        for entity in self._cached_entity :
-            for system in self._systems:
-                if system.accepts(entity.components):
-                    system.update(self._window, entity, self._entities, float(self._clock))
+        if self._input:
+            self._input.update()
+
+        dt = float(self._clock)
+        window = self._window
+
+        for system in self._systems:
+            update = system.update
+
+            for entity in system.cache:
+                update(window, entity, self._entities, dt)
 
     def display(self):
         """Display game"""

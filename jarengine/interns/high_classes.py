@@ -89,6 +89,7 @@ class JEInternSystems(JEInternOwnership):
         super().__init__()
         self.add_parent(owner)
         owner.add_system(self)
+        self.cache = []
         self._required = []
 
     def accepts(self, components):

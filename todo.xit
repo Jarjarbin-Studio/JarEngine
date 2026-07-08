@@ -7,3 +7,8 @@
 [ ] #Optimization For resources components, instead of storing pointers to
 [ ] #Fix Refactor the documentation for better readability and simplicity
 [ ] #Optimization Find a better and faster system for the JEContainer
+[ ] #Implement Resource-dependent components will lookup for the resource itself inside the game instead of manually giving it.
+[ ] #Add Sprite sheet animation support (frame-based texture animations)
+[ ] #Add Individual image sequence animation support (multiple texture frames)
+[ ] #Add Procedural animation support (transform-based animations)
+[ ] #Add Video animation support (cutscenes and complex animated resources)
