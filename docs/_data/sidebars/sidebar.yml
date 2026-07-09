@@ -1,7 +1,7 @@
 entries:
   - title: sidebar
     product: JarEngine
-    version: 0.1.0
+    version: 1.6.0
     folders:
 
       - title: Overview
@@ -12,139 +12,25 @@ entries:
             output: web, pdf
             type: homepage
 
-      - title: Constants
+          - title: JarEngine
+            url: /module_jarengine.html
+            output: web, pdf
+
+      - title: Modules
         output: web, pdf
         folderitems:
-          - title: Constants
-            url: /Constants.html
+          - title: Games
+            url: /module_games.html
             output: web, pdf
 
-      - title: Internals
-        output: web, pdf
-        folderitems:
-          - title: Interns
-            url: /Interns.html
-            output: web, pdf
-
-          - title: Interns • Decorators
-            url: /InternsDecorators.html
-            output: web, pdf
-
-          - title: Interns • Base Classes
-            url: /JEInternClassBase.html
-            output: web, pdf
-
-          - title: Interns • Config
-            url: /JEInternConfig.html
-            output: web, pdf
-
-      - title: Entities
-        output: web, pdf
-        folderitems:
-          - title: Entities
-            url: /JEInternEntityComponent.html
-            output: web, pdf
-
-          - title: Components Graphics
-            url: /JEInternGraphicalObject.html
-            output: web, pdf
-
-          - title: Components Physics
-            url: /JEInternEmptyComponent.html
-            output: web, pdf
-
-          - title: Components Transforms
-            url: /JEInternEmptyComponent.html
-            output: web, pdf
-
-      - title: Events
-        output: web, pdf
-        folderitems:
-          - title: Events
-            url: /JEInternSystems.html
-            output: web, pdf
-
-          - title: Event System
-            url: /JEInternSystems.html
-            output: web, pdf
-
-          - title: Keyboard
-            url: /JEInternSystems.html
-            output: web, pdf
-
-          - title: Mouse
-            url: /JEInternSystems.html
-            output: web, pdf
-
-          - title: Event Manager
-            url: /JEInternSystems.html
-            output: web, pdf
-
-      - title: Games
-        output: web, pdf
-        folderitems:
-          - title: Game Core
-            url: /JEInternSystems.html
-            output: web, pdf
-
-          - title: Input System
-            url: /JEInternSystems.html
+          - title: Resources
+            url: /module_resources.html
             output: web, pdf
 
           - title: Systems
-            url: /JEInternSystems.html
+            url: /module_systems.html
             output: web, pdf
 
-          - title: Window
-            url: /JEInternWindowSettings.html
-            output: web, pdf
-
-      - title: Resources
-        output: web, pdf
-        folderitems:
-          - title: Resources
-            url: /Resources.html
-            output: web, pdf
-
-          - title: Texture
-            url: /JETexture.html
-            output: web, pdf
-
-          - title: Font
-            url: /JEFont.html
-            output: web, pdf
-
-      - title: Systems
-        output: web, pdf
-        folderitems:
-          - title: Systems Overview
-            url: /Systems.html
-            output: web, pdf
-
-          - title: Bool
-            url: /JEBool.html
-            output: web, pdf
-
-          - title: Clock
-            url: /JEClock.html
-            output: web, pdf
-
-          - title: Color
-            url: /JEColor.html
-            output: web, pdf
-
-          - title: Container
-            url: /JEContainer.html
-            output: web, pdf
-
-          - title: Immutable
-            url: /JEImmutable.html
-            output: web, pdf
-
-          - title: Vector 2D
-            url: /JEVector2D.html
-            output: web, pdf
-
-          - title: Vector 3D
-            url: /JEVector3D.html
+          - title: Interns
+            url: /module_interns.html
             output: web, pdf

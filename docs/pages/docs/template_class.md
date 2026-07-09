@@ -7,13 +7,13 @@ permalink: /template_class.html
 
 # 📦 <Class Name>
 
-> Technical reference for the `<Class Name>` of JarEngine.
+> Technical reference for the `<Class Name>` class of JarEngine.
 
 ---
 
 ## 🔹 Overview
 
-**`<Class Name>` is a JarEngine class responsible for <main responsibility> inside the `<Module/System>` module.**
+**`<Class Name>` is a JarEngine class responsible for <main responsibility>.**
 
 It provides:
 
@@ -25,7 +25,7 @@ It provides:
 
 ## 🔹 Purpose
 
-The purpose of `<Class Name>` is to:
+The purpose of this class is to:
 
 * ...
 * ...
@@ -35,142 +35,72 @@ It is **not** ..., but a **...**.
 
 ---
 
-## 🔹 Architecture Position
+## 🔹 Location in JarEngine
 
 ```text
 JarEngine
 │
 ├── <Module>
-│     ├── ...
-│     ├── <Class Name>
-│     └── ...
+│     └── <Class Name>
+│
 └── ...
 ```
 
-Explain where the class fits in the engine.
+Describe where this class is used.
 
 ---
 
-## 🔹 Class Relationships
+## 🔹 Data
 
-### Uses
+Internal data stored by this class.
 
-* ...
-* [`...`]()📎
+| Field | Type  | Description | Public? |
+|-------|-------|-------------|:-------:|
+| `...` | `...` | ...         |  True   |
+| `...` | `...` | ...         |  False  |
+
+---
+## 🔹 Functions / API
+
+List all public functions available.
+
+| Function                                    | Arguments                  | Returns | Description                     |
+|---------------------------------------------|----------------------------|---------|---------------------------------|
+| [•>`function_name(...)`<•](#function_name1) | `arg1: type`, `arg2: type` | `type`  | Explain what the function does. |
+| [•>`function_name(...)`<•](#function_name2) | `arg1: type`               | `None`  | Explain what the function does. |
 
 ---
 
-## 🔹 Data Model
+### Argument Details
 
-| Field | Type  | Description |
-|-------|-------|-------------|
-| `...` | `...` | ...         |
-| `...` | `...` | ...         |
+Additional details for complex functions.
 
-Describe internal state and stored data.
+#### function_name1
 
----
+| Argument | Type   | Description                  |
+|----------|--------|------------------------------|
+| `arg1`   | `type` | Description of the argument. |
+| `arg2`   | `type` | Description of the argument. |
 
-## 🔹 Public API
+**Returns:**
 
-### Constructor
-
-| Signature       | Description |
-|-----------------|-------------|
-| `__init__(...)` | ...         |
+| Type   | Description                    |
+|--------|--------------------------------|
+| `type` | Description of returned value. |
 
 ---
 
-### Accessors
+#### function_name2
 
-| Method    | Returns | Description |
-|-----------|---------|-------------|
-| `get_*()` | `...`   | ...         |
+| Argument | Type   | Description                  |
+|----------|--------|------------------------------|
+| `arg1`   | `type` | Description of the argument. |
 
----
+**Returns:**
 
-### Mutators
-
-| Method    | Description |
-|-----------|-------------|
-| `set_*()` | ...         |
-
----
-
-### Core Methods
-
-| Method      | Description |
-|-------------|-------------|
-| `update()`  | ...         |
-| `draw()`    | ...         |
-| `execute()` | ...         |
-
----
-
-### Utility Methods
-
-| Method    | Description                 |
-|-----------|-----------------------------|
-| `dump()`  | Debug full object structure |
-| `debug()` | Detailed value inspection   |
-
----
-
-## 🔹 Lifecycle
-
-```text
-Creation
-   │
-   ▼
-Initialization
-   │
-   ▼
-Runtime Usage
-   │
-   ▼
-Update Cycles
-   │
-   ▼
-Destruction
-```
-
-Describe each stage in detail.
-
----
-
-## 🔹 Internal Behavior
-
-Explain how the class works internally.
-
-Include:
-
-* update logic
-* state transitions
-* interactions with systems
-* caching behavior
-* optimization details
-
----
-
-## 🔹 Execution Flow
-
-```text
-Method Call
-   │
-   ▼
-Pre-checks
-   │
-   ▼
-State Update
-   │
-   ▼
-Side Effects (if any)
-   │
-   ▼
-Return
-```
-
-Explain typical execution sequence.
+| Type   | Description                    |
+|--------|--------------------------------|
+| `type` | Description of returned value. |
 
 ---
 
@@ -184,47 +114,76 @@ Explain typical execution sequence.
 
 ---
 
-### Realistic Example
+### Typical Workflow
 
 ```python
-# Full integration example
+# Realistic usage example
 ```
+
+---
+
+## 🔹 Lifecycle
+
+```text
+Creation
+   │
+   ▼
+Initialization
+   │
+   ▼
+Usage
+   │
+   ▼
+Runtime Updates
+   │
+   ▼
+Destruction
+```
+
+Explain the important lifecycle steps.
+
+---
+
+## 🔹 Internal Behavior
+
+Explain how the class works internally.
+
+Include:
+
+* state management
+* interactions with other classes
+* important processing steps
 
 ---
 
 ## 🔹 Design Decisions
 
-Explain architectural choices:
+Explain the main choices behind this class:
 
 * why this class exists
-* why this abstraction level
-* why this data layout
-* why this API shape
+* why this API was designed this way
+* important architecture decisions
 
 Examples:
 
-* explicit ownership model
-* ECS-compatible design
-* minimal runtime overhead
+* ECS compatibility
 * separation of data and logic
+* lightweight abstraction
 
 ---
 
 ## 🔹 Performance Notes
 
-Describe performance characteristics:
+Describe important performance information:
 
-* time complexity
+* execution cost
 * memory usage
-* cache behavior
-* allocation strategy
-* hot-path considerations
+* allocations
+* optimization details
 
 ---
 
 ## 🔹 Thread Safety
-
-State clearly:
 
 ```text
 Thread-safe: Yes / No
@@ -245,17 +204,6 @@ Current constraints:
 
 ---
 
-## 🔹 Edge Cases
-
-Describe known edge cases:
-
-* invalid inputs
-* boundary conditions
-* undefined behavior (if any)
-* fallback behavior
-
----
-
 ## 🔹 Current State
 
 ⚠️ Implementation status.
@@ -264,11 +212,9 @@ Describe known edge cases:
 
 * ...
 * ...
-* ...
 
 ### Planned
 
-* ...
 * ...
 * ...
 
@@ -276,31 +222,23 @@ Describe known edge cases:
 
 ## 🔹 Debugging
 
-Explain how to debug this class:
+Useful debugging methods:
 
-* using `dump()`
-* using `debug()`
-* logging points
-* common failure signals
-
----
-
-## 🔹 Example Output (if relevant)<remove this condition when true>
-
-```text
-Expected runtime output or behavior
-```
+* `dump()`
+* `debug()`
+* logs
+* common errors
 
 ---
 
 ## 🔹 Related Classes
 
-* [`...`]()📎
-* [`...`]()📎
+* [`...`]()
+* [`...`]()
 * [`...`]()📎
 
 ---
 
 ## 🔹 Notes
 
-Additional technical remarks, implementation details, or recommendations.
+Additional technical information, recommendations, or implementation details.
