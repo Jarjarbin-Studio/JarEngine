@@ -159,6 +159,7 @@ __all__ = [
     'JEKey_8',
     'JEKey_9',
     'JEKey_Enter',
+    'JEKey_Space',
     'JEKey_Backspace',
     'JEKey_Delete',
     'JEKey_Tab',

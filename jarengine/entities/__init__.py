@@ -25,11 +25,11 @@
 from __future__ import annotations
 
 from jarengine.entities.entity import JEEntity
-import jarengine.entities.components_audio as Audios
+import jarengine.entities.components_audios as Audios
 import jarengine.entities.components_physics as Physics
 import jarengine.entities.components_graphics as Graphics
 import jarengine.entities.components_transforms as Transforms
-import jarengine.entities.components_other as Others
+import jarengine.entities.components_others as Others
 
 __all__ = [
     'JEEntity',

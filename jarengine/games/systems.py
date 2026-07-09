@@ -50,10 +50,10 @@ from jarengine.entities.components_physics import (
     JEMassComponent as _JEMassComponent,
     JEAccelerationComponent as _JEAccelerationComponent,
 )
-from jarengine.entities.components_other import (
+from jarengine.entities.components_others import (
     JEGroupComponent as _JEGroupComponent,
 )
-from jarengine.entities.components_audio import (
+from jarengine.entities.components_audios import (
     JEMusicComponent as _JEMusicComponent,
     JESoundComponent as _JESoundComponent,
 )

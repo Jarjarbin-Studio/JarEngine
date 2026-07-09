@@ -60,6 +60,7 @@ JEKey_7: JEKeyCode
 JEKey_8: JEKeyCode
 JEKey_9: JEKeyCode
 JEKey_Enter: JEKeyCode
+JEKey_Space: JEKeyCode
 JEKey_Backspace: JEKeyCode
 JEKey_Delete: JEKeyCode
 JEKey_Tab: JEKeyCode
