@@ -24,10 +24,7 @@
 
 from __future__ import annotations
 
-from typing import (
-    final as _final,
-    Iterator as _Iterator
-)
+from typing import final as _final
 
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from jarengine.interns.decorators import documentation as _documentation

@@ -25,15 +25,10 @@
 from __future__ import annotations
 
 from typing import (
-    Any as _Any,
-    Callable as _Callable,
-    Final as _Final,
     final as _final,
     Generic as _Generic,
     TypeVar as _TypeVar,
-    Type as _Type,
     cast as _cast,
-    Iterator as _Iterator
 )
 
 from copy import deepcopy as _deepcopy

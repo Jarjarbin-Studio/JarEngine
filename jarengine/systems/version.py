@@ -33,4 +33,5 @@ class JEVersion(_PGExtern.version.SoftwareVersion, _JEInternBaseClass):
     """Version (Internal API)"""
 
     def __init__(self, *args, **kwargs) -> None:
+        """JEVersion creator"""
         super().__init__()
