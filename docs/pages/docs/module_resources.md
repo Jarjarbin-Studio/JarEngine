@@ -83,6 +83,8 @@ font = Resources.JEFont(
 ### Typical Workflow
 
 ```python
+from jarengine import Resources, init, Games
+
 init("/home/user/my_game/")
 
 game = Games.JEGame()

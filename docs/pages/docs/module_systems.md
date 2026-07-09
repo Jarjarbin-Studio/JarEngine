@@ -77,7 +77,7 @@ Each class has its own documentation page.
 ### Basic Example
 
 ```python
-from jarengine import JEVector2D, JEColor, JEBool
+from jarengine.Systems import JEVector2D, JEColor, JEBool
 
 
 # Create a position vector
@@ -107,12 +107,7 @@ if enabled:
 ### Typical Workflow
 
 ```python
-from jarengine import (
-    JEVector2D,
-    JEColor,
-    JEContainer,
-    JEImmutable
-)
+from jarengine.Systems import JEVector2D, JEColor, JEContainer, JEImmutable
 
 # Create object data
 position = JEVector2D(300, 200)

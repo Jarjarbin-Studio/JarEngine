@@ -19,6 +19,14 @@ entries:
       - title: Modules
         output: web, pdf
         folderitems:
+          - title: Entities
+            url: /module_entities.html
+            output: web, pdf
+
+          - title: Events
+            url: /module_events.html
+            output: web, pdf
+
           - title: Games
             url: /module_games.html
             output: web, pdf

@@ -66,7 +66,7 @@ Each class has its own documentation page.
 ### Basic Example
 
 ```python
-from jarengine.games import JEGame, JEWindow
+from jarengine.Games import JEGame, JEWindow
 
 # Create the game
 game = JEGame(use_clock=True, use_input=True)
@@ -84,14 +84,13 @@ game.set_window(window)
 ### Typical Workflow
 
 ```python
-from jarengine.games import JEGame, JEWindow, Systems
-from jarengine.systems import JEColor
+from jarengine import Games
 
 # Create the game
-game = JEGame(use_clock=True, use_input=True)
+game = Games.JEGame(use_clock=True, use_input=True)
 
 # Create the main window
-window = JEWindow(
+window = Games.JEWindow(
     size=(1280, 720),
     title="JarEngine Demo",
     fps=60,
@@ -100,8 +99,8 @@ window = JEWindow(
 game.set_window(window)
 
 # Register engine systems
-Systems.JEMovementSystem(game)
-Systems.JERenderSystem(game)
+Games.Systems.JEMovementSystem(game)
+Games.Systems.JERenderSystem(game)
 
 # Build system caches
 game.refresh()

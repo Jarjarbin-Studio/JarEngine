@@ -91,7 +91,7 @@ entity = Entities.JEEntity(name="Player")
 ### Typical Workflow
 
 ```python
-from jarengine import *
+from jarengine import init, Games, Entities
 
 init("/home/user/my_game/")
 
