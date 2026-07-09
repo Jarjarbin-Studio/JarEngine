@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.5
+    Version: jarengine-v1.6
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -116,11 +116,11 @@ class JEMouseCodeGroup(_JEInternBaseClass):
 
     def __init__(
             self,
-            mouses: list[JEMouseCode]
+            mouses
         ):
         """JEMouseCodeGroup creator"""
         super().__init__()
-        self._mouses: list[JEMouseCode] = list(dict.fromkeys(mouses))
+        self._mouses = list(dict.fromkeys(mouses))
 
     def __or__(self, other):
         """Allows same synthax as union (create a JEMouseCodeGroup)"""

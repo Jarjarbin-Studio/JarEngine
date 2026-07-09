@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.5
+    Version: jarengine-v1.6
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -25,10 +25,11 @@
 from __future__ import annotations
 
 from datetime import datetime as _datetime
+from sys import version_info as _python_version
 
 __author__ = 'Nathan Jarjarbin'
 __email__ = 'nathan.amaraggi@epitech.eu'
-__version__ = "1.5"
+__version__ = "1.6"
 __license__ = "GPL"
 
 ##Imports##
@@ -69,6 +70,7 @@ def init(project_path) -> tuple[int, int]:
             "music_dir": "musics",
         }
     })
+    Interns.JTKExternConsole.init(banner=False)
     return Interns.PGExtern.init()
 
 def quit() -> None:
@@ -78,12 +80,20 @@ def quit() -> None:
         config.set("PROJECT", "last_run_duration", str(duration))
     Interns.PGExtern.quit()
 
+def _banner():
+    ansi = Interns.JTKExternConsole.ANSI
+    Interns.JTKExternConsole.Console.print(
+        ansi.Line.clear_previous_line(2).s +
+        f"JarEngine {Systems.JEVersion(*([int(v) for v in __version__.split('.') if v] + [0, 0, 0])[0:3])} (PyGame {Interns.PGExtern.version.vernum}, SDL {Interns.PGExtern.version.SDL}, Python {Systems.JEVersion(*_python_version[0:3])})"
+    )
+
+
 __all__ = [
     ## Special ##
-    __author__,
-    __email__,
-    __version__,
-    __license__,
+    "__author__",
+    "__email__",
+    "__version__",
+    "__license__",
     ## Imports ##
     'Interns',
     'Entities',
@@ -95,14 +105,22 @@ __all__ = [
     'init',
     'quit',
     ## Constants ##
+    # Versions #
+    'JEVersion_JarEngine',
+    'JEVersion_PyGame',
+    'JEVersion_SDL',
+    'JEVersion_Python',
+    # Booleans #
     'JEFalse',
     'JETrue',
+    # Events #
     'JEEvtQuit',
     'JEEvtHidden',
     'JEEvtKeyDown',
     'JEEvtKeyUp',
     'JEEvtMouseDown',
     'JEEvtMouseUp',
+    # Keys #
     'JEKey_A',
     'JEKey_B',
     'JEKey_C',
@@ -149,7 +167,10 @@ __all__ = [
     'JEKey_Down',
     'JEKey_Left',
     'JEKey_Right',
+    # Mouses #
     'JEMse_Left',
     'JEMse_Middle',
     'JEMse_Right'
 ]
+
+_banner()

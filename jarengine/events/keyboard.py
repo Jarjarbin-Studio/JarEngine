@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.5
+    Version: jarengine-v1.6
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -131,7 +131,7 @@ class JEKeyCodeGroup(_JEInternBaseClass):
     def __init__(self, keys):
         """JEKeyCodeGroup creator"""
         super().__init__()
-        self._keys: list[JEKeyCode] = list(dict.fromkeys(keys))
+        self._keys = list(dict.fromkeys(keys))
 
     def __or__(self, other):
         """Allows same synthax as union (create a JEKeyCodeGroup)"""

@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.5
+    Version: jarengine-v1.6
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -42,10 +42,10 @@ class JEFontComponent(_JEInternEntityComponent):
         self._font = font
 
         def set_font(owner_self, font):
-            self._font = font
+            self.font = font
 
         def get_font(owner_self):
-            return self._font
+            return self.font
 
         owner.set_font = set_font.__get__(owner, type(owner))
         owner.get_font = get_font.__get__(owner, type(owner))
@@ -79,10 +79,10 @@ class JETextComponent(_JEInternEntityComponent):
         self._text = text
 
         def set_text(owner_self, text):
-            self._text = text
+            self.text = text
 
         def get_text(owner_self):
-            return self._text
+            return self.text
 
         owner.set_text = set_text.__get__(owner, type(owner))
         owner.get_text = get_text.__get__(owner, type(owner))
@@ -116,10 +116,10 @@ class JETextureComponent(_JEInternEntityComponent):
         self._texture = texture
 
         def set_texture(owner_self, texture):
-            self._texture = texture
+            self.texture = texture
 
         def get_texture(owner_self):
-            return self._texture
+            return self.texture
 
         owner.set_texture = set_texture.__get__(owner, type(owner))
         owner.get_texture = get_texture.__get__(owner, type(owner))
@@ -157,11 +157,7 @@ class JEColorComponent(_JEInternEntityComponent):
         )
 
         def set_color(owner_self, color):
-            self._color = (
-                color
-                if isinstance(color, _JEColor) else
-                _JEColor(*color)
-            )
+            self.color = color
 
         def update_color(owner_self, *, r = 0, g = 0, b = 0, a = 0):
             self._color.r += r
@@ -170,7 +166,7 @@ class JEColorComponent(_JEInternEntityComponent):
             self._color.a += a
 
         def get_color(owner_self):
-            return self._color
+            return self.color
 
         owner.set_color = set_color.__get__(owner, type(owner))
         owner.update_color = update_color.__get__(owner, type(owner))
@@ -200,6 +196,81 @@ class JEColorComponent(_JEInternEntityComponent):
 
 @_documentation
 @_final
+class JEOutlineComponent(_JEInternEntityComponent):
+    """OutlineComponent"""
+
+    def __init__(self, owner, color, size):
+        """JEOutlineComponent creator"""
+        super().__init__(owner, JEOutlineComponent)
+        self._color = (
+            color
+            if isinstance(color, _JEColor) else
+            _JEColor(*color)
+        )
+        self._size = size
+
+        def set_outline_color(owner_self, color):
+            self.color = color
+
+        def update_outline_color(owner_self, *, r = 0, g = 0, b = 0, a = 0):
+            self._color.r += r
+            self._color.g += g
+            self._color.b += b
+            self._color.a += a
+
+        def get_outline_color(owner_self):
+            return self.color
+
+        def set_outline_size(owner_self, size):
+            self.size = size
+
+        def update_outline_size(owner_self, *, s = 0):
+            self._size += s
+
+        def get_outline_size(owner_self):
+            return self.size
+
+        owner.set_outline_color = set_outline_color.__get__(owner, type(owner))
+        owner.update_outline_color = update_outline_color.__get__(owner, type(owner))
+        owner.get_outline_color = get_outline_color.__get__(owner, type(owner))
+        owner.set_outline_size = set_outline_size.__get__(owner, type(owner))
+        owner.update_outline_size = update_outline_size.__get__(owner, type(owner))
+        owner.get_outline_size = get_outline_size.__get__(owner, type(owner))
+
+    @property
+    def color(self):
+        """Get color"""
+        return self._color
+
+    @color.setter
+    def color(self, color):
+        """Set color"""
+        self._color = (
+            color
+            if isinstance(color, _JEColor) else
+            _JEColor(*color)
+        )
+
+    @property
+    def size(self):
+        """Get size"""
+        return self._size
+
+    @size.setter
+    def size(self, size):
+        """Set size"""
+        self._size = size
+
+    def __call__(self):
+        """Get outline"""
+        return self._color, self._size
+
+    def copy(self, new_owner):
+        """Copy outline"""
+        return JEOutlineComponent(new_owner, _deepcopy(self._color), _deepcopy(self._size))
+
+@_documentation
+@_final
 class JEVisibilityComponent(_JEInternEntityComponent):
     """VisibilityComponent"""
 
@@ -209,10 +280,10 @@ class JEVisibilityComponent(_JEInternEntityComponent):
         self._visibility = visibility
 
         def set_visibility(owner_self, visibility):
-            self._visibility = visibility
+            self.visibility = visibility
 
         def get_visibility(owner_self):
-            return self._visibility
+            return self.visibility
 
         owner.set_visibility = set_visibility.__get__(owner, type(owner))
         owner.get_visibility = get_visibility.__get__(owner, type(owner))
@@ -246,13 +317,13 @@ class JELayerComponent(_JEInternEntityComponent):
         self._layer = layer
 
         def set_layer(owner_self, layer):
-            self._layer = layer
+            self.layer = layer
 
         def update_layer(owner_self, *, l = 0):
             self._layer += l
 
         def get_layer(owner_self):
-            return self._layer
+            return self.layer
 
         owner.set_layer = set_layer.__get__(owner, type(owner))
         owner.update_layer = update_layer.__get__(owner, type(owner))
@@ -284,13 +355,13 @@ class JEFlipComponent(_JEInternEntityComponent):
     def __init__(self, owner, flip):
         """JEFlipComponent creator"""
         super().__init__(owner, JEFlipComponent)
-        self._flip = flip
+        self.flip = flip
 
         def set_flip(owner_self, flip):
             self._flip = flip
 
         def get_flip(owner_self):
-            return self._flip
+            return self.flip
 
         owner.set_flip = set_flip.__get__(owner, type(owner))
         owner.get_flip = get_flip.__get__(owner, type(owner))

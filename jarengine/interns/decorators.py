@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.5
+    Version: jarengine-v1.6
     Author: Jarjarbin Studio
     Licence: GPL v3
 

@@ -1,18 +1,18 @@
 from __future__ import annotations
 
 # Public API
-import jarengine.interns as Interns
-import jarengine.entities as Entities
-import jarengine.events as Events
-import jarengine.games as Games
-import jarengine.resources as Resources
-import jarengine.systems as Systems
+from . import interns as Interns
+from . import entities as Entities
+from . import events as Events
+from . import games as Games
+from . import resources as Resources
+from . import systems as Systems
 
 def init(project_path: str) -> tuple[int, int]: ...
 def quit() -> None: ...
 
 # Constants
-from jarengine.constants import *
+from .constants import *
 
 __author__: str
 __email__: str
@@ -21,10 +21,10 @@ __license__: str
 
 __all__: list[str] = [
     ## Special ##
-    __author__,
-    __email__,
-    __version__,
-    __license__,
+    "__author__",
+    "__email__",
+    "__version__",
+    "__license__",
     ## Imports ##
     'Interns',
     'Entities',
@@ -36,14 +36,22 @@ __all__: list[str] = [
     'init',
     'quit',
     ## Constants ##
+    # Versions #
+    'JEVersion_JarEngine',
+    'JEVersion_PyGame',
+    'JEVersion_SDL',
+    'JEVersion_Python',
+    # Booleans #
     'JEFalse',
     'JETrue',
+    # Events #
     'JEEvtQuit',
     'JEEvtHidden',
     'JEEvtKeyDown',
     'JEEvtKeyUp',
     'JEEvtMouseDown',
     'JEEvtMouseUp',
+    # Keys #
     'JEKey_A',
     'JEKey_B',
     'JEKey_C',
@@ -90,6 +98,7 @@ __all__: list[str] = [
     'JEKey_Down',
     'JEKey_Left',
     'JEKey_Right',
+    # Mouses #
     'JEMse_Left',
     'JEMse_Middle',
     'JEMse_Right'

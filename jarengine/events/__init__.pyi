@@ -3,10 +3,10 @@ from __future__ import annotations
 # Public API exports
 
 # Submodules
-import jarengine.events.manager as EventManager
-import jarengine.events.event as Event
-import jarengine.events.keyboard as EventKeyboard
-import jarengine.events.mouse as EventMouse
+from . import manager as EventManager
+from . import event as Event
+from . import keyboard as EventKeyboard
+from . import mouse as EventMouse
 
 __all__: list[str] = [
     "EventManager",

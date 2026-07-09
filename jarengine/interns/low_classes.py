@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.5
+    Version: jarengine-v1.6
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -39,7 +39,7 @@ class JEInternGraphic(_JEInternBaseClass):
         self.name = name
         self._name_hash = hash(self.name)
         self._object_hash = hash(self)
-        self._destroyed: _JEBool = _JEBool(0)
+        self._destroyed = _JEBool(0)
 
     def destroy(self) -> None:
         """Destroy placeholder"""
@@ -58,7 +58,7 @@ class JEInternGraphicalObject(JEInternGraphic):
         """JEInternGraphicalObject creator"""
         super().__init__(name)
 
-        self._dirty: _JEBool = _JEBool(1)
+        self._dirty = _JEBool(1)
 
     def update(self, dt) -> None:
         """update placeholder"""

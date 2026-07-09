@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.5
+    Version: jarengine-v1.6
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -35,6 +35,8 @@ from jarengine.interns.decorators import documentation as _documentation
 from jarengine.events.keyboard import JEKeyCode as _JEKeyCode
 from jarengine.events.mouse import JEMouseCode as _JEMouseCode
 from jarengine.systems.bool import JEBool as _JEBool
+from jarengine.systems.vector import JEVector2D as _JEVector2D
+
 
 @_documentation
 @_final
@@ -66,13 +68,13 @@ class JEInput(_JEInternBaseClass):
         super().__init__()
         self._keys_down = _PGExtern.key.get_pressed()
         self._mouse_down = _PGExtern.mouse.get_pressed()
-        self._mouse_pos = _PGExtern.mouse.get_pos()
+        self._mouse_pos =  _JEVector2D(*_PGExtern.mouse.get_pos())
 
     def update(self):
         """Update keyboard and mouse input"""
         self._keys_down = _PGExtern.key.get_pressed()
         self._mouse_down = _PGExtern.mouse.get_pressed()
-        self._mouse_pos = _PGExtern.mouse.get_pos()
+        self._mouse_pos = _JEVector2D(*_PGExtern.mouse.get_pos())
 
     def is_key_down(self, key):
         """Check if a key is down"""

@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.5
+    Version: jarengine-v1.6
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -94,9 +94,12 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
         elif type(value) == int:
             return self._data[value]
         else:
-            return self.get(instance=value)
+            try:
+                return self.get(instance=value)
+            except _JTKExternError.BaseError:
+                return self.get(_type=value)
 
-    def get(self, *, name = None, jeid = None, instance = None, _type = None):
+    def get(self, *, name = None, jeid = None, instance = None, _type = None, default = NotImplemented):
         """Get object by name"""
         if not (name or jeid or instance or _type):
             raise _JTKExternError.Error.ErrorKey(
@@ -117,9 +120,11 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
             for key, obj in self._data.items():
                 if isinstance(obj, _type):
                     return obj
-        raise _JTKExternError.Error.ErrorKey(
-            f"\n{name or jeid or instance or _type!r} not in container."
-        )
+        if default == NotImplemented:
+            raise _JTKExternError.Error.ErrorKey(
+                f"\n{name or jeid or instance or _type!r} not in container."
+            )
+        return default
 
     def rm(self, *, name = None, jeid = None, instance = None, _type = None):
         """Remove object by name, jeid or instance"""
@@ -146,6 +151,10 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
             f"\n{name or jeid or instance or _type!r} not in container."
         )
 
+    def clear(self):
+        """Clear all data"""
+        self._data.clear()
+
     def __iter__(self):
         return iter(self._data.values())
 
@@ -153,3 +162,11 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
     def data(self):
         """Get data"""
         return self._data
+
+    def __deepcopy__(self, memo):
+        new_container = JEContainer(self._allowed_type, allow_subclass = self._allow_subclass)
+
+        for e in self:
+            new_container.add(e)
+
+        return new_container

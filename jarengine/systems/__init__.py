@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.5
+    Version: jarengine-v1.6
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -29,6 +29,7 @@ from jarengine.systems.color import JEColor
 from jarengine.systems.bool import JEBool
 from jarengine.systems.container import JEContainer
 from jarengine.systems.immutable import JEImmutable
+from jarengine.systems.version import JEVersion
 
 __all__ = [
     'JEVector2D',
@@ -36,5 +37,6 @@ __all__ = [
     'JEColor',
     'JEBool',
     'JEContainer',
-    'JEImmutable'
+    'JEImmutable',
+    'JEVersion'
 ]

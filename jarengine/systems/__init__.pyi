@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 # Public API exports
-from jarengine.systems.vector import JEVector2D, JEVector3D
-from jarengine.systems.color import JEColor
-from jarengine.systems.bool import JEBool
-from jarengine.systems.container import JEContainer
-from jarengine.systems.immutable import JEImmutable
+from .vector import JEVector2D, JEVector3D
+from .color import JEColor
+from .bool import JEBool
+from .container import JEContainer
+from .immutable import JEImmutable
+from .version import JEVersion
 
 __all__: list[str] = [
     'JEVector2D',
@@ -13,5 +14,6 @@ __all__: list[str] = [
     'JEColor',
     'JEBool',
     'JEContainer',
-    'JEImmutable'
+    'JEImmutable',
+    'JEVersion'
 ]

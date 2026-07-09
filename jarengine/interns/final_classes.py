@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.5
+    Version: jarengine-v1.6
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -101,16 +101,7 @@ class JEInternResources(_JEInternBaseClass):
 class JEInternWindowSettings(_JEInternBaseClass):
     """WindowSettings (Internal API)"""
 
-    def __init__(
-            self,
-            size = (0, 0),
-            flags = 0,
-            fps = 60,
-            depth = 0,
-            display = 0,
-            vsync = 0,
-            title = "JarEngine Game"
-        ):
+    def __init__(self, size, flags, fps, depth, display, vsync, title):
         """JEInternWindowSettings creator"""
         super().__init__()
 

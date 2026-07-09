@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.5
+    Version: jarengine-v1.6
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -41,9 +41,9 @@ from copy import deepcopy as _deepcopy
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from jarengine.interns.decorators import documentation as _documentation
 
-_T: _TypeVar = _TypeVar("_T")
+_T = _TypeVar("_T")
 
-def _freeze(value: _Any) -> _Any:
+def _freeze(value):
     """Return the value into a frozen state"""
     if isinstance(value, (int, float, str, bool, bytes, type(None))):
         return value
@@ -67,7 +67,7 @@ def _freeze(value: _Any) -> _Any:
     except Exception:
         return value
 
-def _unfreeze(value: _Any) -> _Any:
+def _unfreeze(value):
     """Unfreeze the value"""
     if isinstance(value, tuple):
         return tuple(_unfreeze(v) for v in value)
@@ -85,80 +85,80 @@ def _unfreeze(value: _Any) -> _Any:
 class JEImmutable(_Generic[_T], _JEInternBaseClass):
     """Immutable (object freezing system)"""
 
-    def __init__(self, value: _T) -> None:
+    def __init__(self, value) -> None:
         """JEImmutable creator"""
         super().__init__()
-        self._original_type: _Final[_Type[_T]] = type(value)
-        self._frozen: _Any = _freeze(value)
+        self._original_type = type(value)
+        self._frozen = _freeze(value)
 
     @property
-    def data(self) -> _T:
+    def data(self):
         """Returns a reconstructed copy of the frozen data. WARNING: not identity-stable."""
         return _cast(_T, _unfreeze(self._frozen))
 
     @property
-    def frozen(self) -> _Any:
+    def frozen(self):
         """Internal immutable representation (fast, no reconstruction)."""
         return self._frozen
 
     @property
-    def type(self) -> _Type[_T]:
+    def type(self):
         """Get original type"""
         return self._original_type
 
-    def __str__(self) -> str:
+    def __str__(self):
         """Get the information of the object"""
         return f"{self._frozen} (Immutable)"
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         """Get the representation of the object"""
         return f"JEImmutable({self._original_type.__name__})"
 
-    def __iter__(self) -> _Iterator[_Any]:
+    def __iter__(self):
         """Iterator over the data"""
         return iter(self.data)
 
-    def __len__(self) -> int:
+    def __len__(self):
         """Get data length"""
         return len(self.data)
 
-    def __getitem__(self, item: _Any) -> _Any:
+    def __getitem__(self, item):
         """Get an item in the data"""
         return self.data[item]
 
-    def __contains__(self, item: _Any) -> bool:
+    def __contains__(self, item):
         """Check if data contains item"""
         return item in self.data
 
-    def __bool__(self) -> bool:
+    def __bool__(self):
         """Return boolean of data"""
         return bool(self.data)
 
-    def __reversed__(self) -> _Iterator[_Any]:
+    def __reversed__(self):
         """Get reversed version of data"""
         return reversed(self.data)
 
-    def map(self, func: _Callable[[_Any], _Any]) -> list[_Any]:
+    def map(self, func):
         """Map the data"""
         return list(map(func, self.data))
 
-    def filter(self, func: _Callable[[_Any], bool]) -> list[_Any]:
+    def filter(self, func):
         """Filter the data"""
         return list(filter(func, self.data))
 
-    def any(self) -> bool:
+    def any(self):
         """Check if data is any"""
         return any(self.data)
 
-    def all(self) -> bool:
+    def all(self):
         """Check if data is all"""
         return all(self.data)
 
-    def count(self, value: _Any) -> int:
+    def count(self, value):
         """Count the number of value occurrence in the data"""
         return self.data.count(value)
 
-    def index(self, value: _Any) -> int:
+    def index(self, value):
         """Get the index of the value occurrence in the data"""
         return self.data.index(value)
 
@@ -183,29 +183,29 @@ class JEImmutable(_Generic[_T], _JEInternBaseClass):
             raise TypeError("Not a mapping")
         return data.items()
 
-    def get(self, key: _Any, default: _Any = None) -> _Any:
+    def get(self, key, default):
         """Get the item with the given key"""
         data = self.data
         if not hasattr(data, "get"):
             raise TypeError("Not a mapping")
         return data.get(key, default)
 
-    def to_list(self) -> list[_Any]:
+    def to_list(self):
         """Transform data to a list"""
         return list(self.data)
 
-    def to_dict(self) -> dict[_Any, _Any]:
+    def to_dict(self):
         """Transform data to a dict"""
         data = self.data
         if not isinstance(data, dict):
             raise TypeError("Not a dict")
         return dict(data)
 
-    def clone(self) -> JEImmutable[_T]:
+    def clone(self):
         """Clone data"""
         return JEImmutable(self.data)
 
-    def __eq__(self, other: object) -> bool:
+    def __eq__(self, other):
         """Compare data"""
         if isinstance(other, JEImmutable):
             return self.data == other.data

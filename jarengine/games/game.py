@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.5
+    Version: jarengine-v1.6
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -26,7 +26,6 @@ from __future__ import annotations
 
 from typing import final as _final
 
-from jarengine.entities.components_graphics import JELayerComponent as _JELayerComponent
 from jarengine.games.window import JEWindow as _JEWindow
 from jarengine.games.input import JEInput as _JEInput
 from jarengine.events.manager import JEEventHandler as _JEEventHandler
@@ -63,7 +62,7 @@ class JEGame(_JEInternBaseClass):
         cls._instance = super().__new__(cls)
         return cls._instance
 
-    def __init__(self, *, use_clock = True, use_input = True):
+    def __init__(self, *, use_clock = _JEBool(0), use_input = _JEBool(0)):
         """JEGame creator"""
         if JEGame._is_created:
             return
@@ -78,7 +77,6 @@ class JEGame(_JEInternBaseClass):
         self._is_open = _JEBool(1)
         self._event_manager = _JEEventHandler()
         self._systems = _JEContainer(_JEInternSystems, _JEBool(1))
-        self._is_dirty = _JEBool(1)
 
     def set_window(self, window):
         """Set game window"""
@@ -138,13 +136,14 @@ class JEGame(_JEInternBaseClass):
         """Get ressource manager"""
         return self._ressource
 
+    def refresh(self):
+        for system in self._systems:
+            system.refresh()
+
     def add_entity(self, entity):
         """Add entity object"""
         self._entities.add(entity)
-        for system in self._systems:
-            if system.accepts(entity.components):
-                system.cache.append(entity)
-        self._is_dirty = _JEBool(1)
+        entity.add_parent(self)
 
     @property
     def entities(self):
@@ -159,14 +158,23 @@ class JEGame(_JEInternBaseClass):
         """Add system object"""
         self._systems.add(system)
 
-        for entity in self._entities:
-            if system.accepts(entity.components):
-                system.cache.append(entity)
-
     @property
     def systems(self):
         """Get rendering and update systems"""
         return self._systems
+
+    def _iter_entities(self):
+
+        def iterate(entity):
+
+            yield entity
+
+            if hasattr(entity, "get_group"):
+                for child in entity.get_group():
+                    yield from iterate(child)
+
+        for entity in self._entities:
+            yield from iterate(entity)
 
     def update(self):
         """Update game."""
@@ -183,10 +191,13 @@ class JEGame(_JEInternBaseClass):
         window = self._window
 
         for system in self._systems:
-            update = system.update
-
             for entity in system.cache:
-                update(window, entity, self._entities, dt)
+                system.update(
+                    window,
+                    entity,
+                    system.cache,
+                    dt
+                )
 
     def display(self):
         """Display game"""

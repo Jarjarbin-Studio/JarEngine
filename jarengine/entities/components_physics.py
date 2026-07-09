@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.5
+    Version: jarengine-v1.6
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -46,18 +46,14 @@ class JEAccelerationComponent(_JEInternEntityComponent):
         )
 
         def set_acceleration(owner_self, acceleration):
-            self._acceleration = (
-                acceleration
-                if isinstance(acceleration, _JEVector2D) else
-                _JEVector2D(*acceleration)
-            )
+            self.acceleration =  acceleration
 
         def update_acceleration(owner_self, *, x = 0, y = 0):
             self._acceleration.x += x
             self._acceleration.y += y
 
         def get_acceleration(owner_self):
-            return self._acceleration
+            return self.acceleration
 
         owner.set_acceleration = set_acceleration.__get__(owner, type(owner))
         owner.update_acceleration = update_acceleration.__get__(owner, type(owner))
@@ -94,13 +90,13 @@ class JEMassComponent(_JEInternEntityComponent):
         self._mass = mass
 
         def set_mass(owner_self, mass):
-            self._mass = mass
+            self.mass = mass
 
         def update_mass(owner_self, *, m = 0):
             self._mass += m
 
         def get_mass(owner_self):
-            return self._mass
+            return self.mass
 
         owner.set_mass = set_mass.__get__(owner, type(owner))
         owner.update_mass = update_mass.__get__(owner, type(owner))

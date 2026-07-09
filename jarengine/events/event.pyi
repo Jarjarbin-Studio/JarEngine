@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from typing import Callable, Self
+from typing import Callable, Optional
 
 from jarengine.games.game import JEGame
 from jarengine.events.manager import JEEvent
 
 class JEEventCode:
-    def __init__(self, event: int | None) -> None: ...
+    def __init__(self, event: Optional[int]) -> None: ...
     def __int__(self) -> int: ...
     @property
     def name(self) -> str: ...

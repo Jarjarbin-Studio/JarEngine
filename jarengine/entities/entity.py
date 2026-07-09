@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.5
+    Version: jarengine-v1.6
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -26,6 +26,7 @@ from __future__ import annotations
 
 from typing import final as _final
 
+from jarengine.interns.high_classes import JEInternOwnership as _JEInternOwnership
 from jarengine.interns.final_classes import JEInternEmptyComponent as _JEInternEmptyComponent
 from jarengine.interns.high_classes import JEInternEntityComponent as _JEInternEntityComponent
 from jarengine.interns.low_classes import JEInternGraphicalObject as _JEInternGraphicalObject
@@ -35,7 +36,7 @@ from jarengine.interns.decorators import documentation as _documentation
 
 @_documentation
 @_final
-class JEEntity(_JEInternGraphicalObject):
+class JEEntity(_JEInternGraphicalObject, _JEInternOwnership):
     """Entity"""
 
     def __init__(self, *, name = "JEEntity"):
@@ -43,6 +44,10 @@ class JEEntity(_JEInternGraphicalObject):
         super().__init__(name)
         self._components = _JEContainer(_JEInternEntityComponent, _JEBool(1))
         self._components.add(_JEInternEmptyComponent(self))
+
+    @property
+    def parent(self):
+        return self._parents.get(_type=JEEntity, default=None)
 
     @property
     def components(self):

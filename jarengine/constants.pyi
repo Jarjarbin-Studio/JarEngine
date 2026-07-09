@@ -2,6 +2,13 @@ from jarengine.systems.bool import JEBool
 from jarengine.events.event import JEEventCode
 from jarengine.events.keyboard import JEKeyCode
 from jarengine.events.mouse import JEMouseCode
+from jarengine.systems.version import JEVersion
+
+# Versions #
+JEVersion_JarEngine: JEVersion
+JEVersion_PyGame: JEVersion
+JEVersion_SDL: JEVersion
+JEVersion_Python: JEVersion
 
 # Booleans #
 JEFalse: JEBool

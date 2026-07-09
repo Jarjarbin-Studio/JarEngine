@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.5
+    Version: jarengine-v1.6
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -27,6 +27,18 @@ from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.events.event import JEEventCode as _JEEventCode
 from jarengine.events.keyboard import JEKeyCode as _JEKeyCode
 from jarengine.events.mouse import JEMouseCode as _JEMouseCode
+from jarengine.systems.version import JEVersion
+from jarengine import __version__ as _jarengine_version
+from sys import version_info as _python_version
+
+# Versions #
+_pygame_version = _PGExtern.version.vernum
+_sdl_version = _PGExtern.version.SDL
+
+JEVersion_JarEngine = JEVersion(*([int(v) for v in _jarengine_version.split('.') if v] + [0, 0, 0])[0:3])
+JEVersion_PyGame = JEVersion(_pygame_version.major, _pygame_version.minor, _pygame_version.patch)
+JEVersion_SDL = JEVersion(_sdl_version.major, _sdl_version.minor, _sdl_version.patch)
+JEVersion_Python = JEVersion(*_python_version[0:3])
 
 # Booleans #
 JEFalse = _JEBool(0)

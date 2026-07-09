@@ -24,14 +24,13 @@
 
 from __future__ import annotations
 
-from jarengine.games.window import JEWindow
-from jarengine.games.game import JEGame
-from jarengine.games.input import JEInput
-import jarengine.games.systems as Systems
+from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
+from jarengine.interns.decorators import documentation as _documentation
+from jarengine.interns import PGExtern as _PGExtern
 
-__all__ = [
-    'JEGame',
-    'JEWindow',
-    'JEInput',
-    'Systems'
-]
+@_documentation
+class JEVersion(_PGExtern.version.SoftwareVersion, _JEInternBaseClass):
+    """Version (Internal API)"""
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__()

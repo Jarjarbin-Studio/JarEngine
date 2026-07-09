@@ -1,16 +1,20 @@
 from __future__ import annotations
 
 # Public API exports
-from jarengine.entities.entity import JEEntity
+from .entity import JEEntity
 
 # Submodules
-import jarengine.entities.components_physics as Physics
-import jarengine.entities.components_graphics as Graphics
-import jarengine.entities.components_transforms as Transforms
+from . import components_physics as Physics
+from . import components_graphics as Graphics
+from . import components_transforms as Transforms
+from . import components_audio as Audios
+from . import components_other as Others
 
 __all__: list[str] = [
     'JEEntity',
     'Physics',
     'Graphics',
-    'Transforms'
+    'Transforms',
+    'Audios',
+    'Others'
 ]

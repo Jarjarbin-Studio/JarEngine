@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Optional
+from typing import Optional, Any
 
 from jarbin_toolkit_config import Config as _JTKInternConfig
 from jarengine.interns.decorators import documentation as _documentation
@@ -8,6 +8,6 @@ from jarengine.interns.decorators import documentation as _documentation
 class JEInternConfig(_JTKInternConfig):
     project_path: Optional[str]
     config_path: Optional[str]
-    def __init__(self, name: str, data: Optional[dict]) -> None: ...
+    def __init__(self, name: str, data: Optional[dict[str, Any]] = None) -> None: ...
 
-def get_config(name: str) -> JEInternConfig: ...
+def get_config(name: str = "config", data: Optional[dict[str, Any]] = None) -> JEInternConfig: ...

@@ -1,12 +1,16 @@
 from __future__ import annotations
 
 # Public API exports
-from jarengine.resources.texture import JETexture
-from jarengine.resources.font import JEFont
+from .texture import JETexture
+from .font import JEFont
+from .music import JEMusic
+from .sound import JESound
 
 # Submodules
 
 __all__: list[str] = [
     'JETexture',
-    'JEFont'
+    'JEFont',
+    'JEMusic',
+    'JESound'
 ]

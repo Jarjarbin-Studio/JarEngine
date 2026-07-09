@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.5
+    Version: jarengine-v1.6
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -139,7 +139,7 @@ class JEEventHandler(_JEInternBaseClass):
                 return _JEBool(1)
         return _JEBool(0)
 
-    def process(self, game, is_single_match: _JEBool = _JEBool(1)):
+    def process(self, game, is_single_match = _JEBool(1)):
         """Process events"""
         events = [JEEvent(evt) for evt in _PGExtern.event.get()]
 

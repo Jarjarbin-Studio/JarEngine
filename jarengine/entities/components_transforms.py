@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.5
+    Version: jarengine-v1.6
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -46,18 +46,14 @@ class JEPositionComponent(_JEInternEntityComponent):
         )
 
         def set_position(owner_self, position):
-            self._position = (
-                position
-                if isinstance(position, _JEVector2D) else
-                _JEVector2D(*position)
-            )
+            self.position = position
 
         def update_position(owner_self, *, x = 0, y = 0):
             self._position.x += x
             self._position.y += y
 
         def get_position(owner_self):
-            return self._position
+            return self.position
 
         owner.set_position = set_position.__get__(owner, type(owner))
         owner.update_position = update_position.__get__(owner, type(owner))
@@ -100,18 +96,14 @@ class JEVelocityComponent(_JEInternEntityComponent):
         )
 
         def set_velocity(owner_self, velocity):
-            self._velocity = (
-                velocity
-                if isinstance(velocity, _JEVector2D) else
-                _JEVector2D(*velocity)
-            )
+            self.velocity = velocity
 
         def update_velocity(owner_self, *, x = 0, y = 0):
             self._velocity.x += x
             self._velocity.y += y
 
         def get_velocity(owner_self):
-            return self._velocity
+            return self.velocity
 
         owner.set_velocity = set_velocity.__get__(owner, type(owner))
         owner.update_velocity = update_velocity.__get__(owner, type(owner))
@@ -154,18 +146,14 @@ class JESizeComponent(_JEInternEntityComponent):
         )
 
         def set_size(owner_self, size):
-            self._size = (
-                size
-                if isinstance(size, _JEVector2D) else
-                _JEVector2D(*size)
-            )
+            self.size = size
 
         def update_size(owner_self, *, x = 0, y = 0):
             self._size.x += x
             self._size.y += y
 
         def get_size(owner_self):
-            return self._size
+            return self.size
 
         owner.set_size = set_size.__get__(owner, type(owner))
         owner.update_size = update_size.__get__(owner, type(owner))
@@ -204,13 +192,13 @@ class JERotationComponent(_JEInternEntityComponent):
         self._rotation = rotation
 
         def set_rotation(owner_self, rotation):
-            self._rotation = rotation
+            self.rotation = rotation
 
         def update_rotation(owner_self, *, r = 0):
             self._rotation += r
 
         def get_rotation(owner_self):
-            return self._rotation
+            return self.rotation
 
         owner.set_rotation = set_rotation.__get__(owner, type(owner))
         owner.update_rotation = update_rotation.__get__(owner, type(owner))

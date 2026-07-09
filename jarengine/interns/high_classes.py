@@ -5,7 +5,7 @@
     that simplifies usage while providing higher-level abstractions for
     game development and prototyping.
 
-    Version: jarengine-v1.5
+    Version: jarengine-v1.6
     Author: Jarjarbin Studio
     Licence: GPL v3
 
@@ -87,10 +87,32 @@ class JEInternSystems(JEInternOwnership):
         """JEInternSystems creator"""
 
         super().__init__()
-        self.add_parent(owner)
-        owner.add_system(self)
         self.cache = []
         self._required = []
+        self.add_parent(owner)
+        owner.add_system(self)
+
+    def refresh(self):
+        """Refresh system entity cache."""
+
+        from jarengine.games.game import JEGame as _JEGame
+
+        self.cache.clear()
+
+        game = self.parents.get(_type=_JEGame)
+
+        if not game:
+            return
+
+        for entity in game._iter_entities():
+            if self.accepts(entity.components):
+                self.cache.append(entity)
+
+        self.sort_cache()
+
+    def sort_cache(self):
+        """Sort system cache."""
+        pass
 
     def accepts(self, components):
         """Check if all required components are available"""
