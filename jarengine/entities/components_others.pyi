@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+from jarengine.interns.high_classes import JEInternEntityComponent
 from jarengine.entities.entity import JEEntity
 from jarengine.systems.container import JEContainer
 
-class JEGroupComponent:
+class JEGroupComponent(JEInternEntityComponent):
     def __init__(self, owner: JEEntity) -> None: ...
     @property
     def group(self) -> JEContainer: ...

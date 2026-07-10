@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+from jarengine.interns.high_classes import JEInternEntityComponent
 from jarengine.entities.entity import JEEntity
 from jarengine.systems.vector import JEVector2D
 
-class JEAccelerationComponent:
+class JEAccelerationComponent(JEInternEntityComponent):
     def __init__(self, owner: JEEntity, acceleration: JEVector2D | tuple[float, float]) -> None: ...
     @property
     def acceleration(self) -> JEVector2D: ...
@@ -12,7 +13,7 @@ class JEAccelerationComponent:
     def __call__(self) -> JEVector2D: ...
     def copy(self, new_owner: JEEntity) -> JEAccelerationComponent: ...
 
-class JEMassComponent:
+class JEMassComponent(JEInternEntityComponent):
     def __init__(self, owner: JEEntity, mass: float) -> None: ...
     @property
     def mass(self) -> float: ...

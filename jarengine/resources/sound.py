@@ -24,7 +24,6 @@
 
 from __future__ import annotations
 
-from os.path import exists as _exists
 from typing import final as _final
 
 from jarengine.interns.config import (

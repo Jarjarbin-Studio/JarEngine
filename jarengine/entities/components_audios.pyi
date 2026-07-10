@@ -1,11 +1,12 @@
 from __future__ import annotations
 
+from jarengine.interns.high_classes import JEInternEntityComponent
 from jarengine.resources.music import JEMusic
 from jarengine.resources.sound import JESound
 from jarengine.entities.entity import JEEntity
 from jarengine.interns import PGExtern
 
-class JEMusicComponent:
+class JEMusicComponent(JEInternEntityComponent):
     def __init__(self, owner: JEEntity, music: JEMusic) -> None: ...
     @property
     def music(self) -> JEMusic: ...
@@ -22,7 +23,7 @@ class JEMusicComponent:
     def __call__(self) -> JEMusic: ...
     def copy(self, new_owner: JEEntity) -> JEMusicComponent: ...
 
-class JESoundComponent:
+class JESoundComponent(JEInternEntityComponent):
     def __init__(self, owner: JEEntity, music: JESound) -> None: ...
     @property
     def sound(self) -> JESound: ...

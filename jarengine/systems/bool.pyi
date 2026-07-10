@@ -1,8 +1,10 @@
 from __future__ import annotations
 
-from typing import Any, Self
+from typing import Any
 
-class JEBool:
+from jarengine.interns.base_classe import JEInternBaseClass
+
+class JEBool(JEInternBaseClass):
     def __init__(self, value: Any) -> None: ...
     def __bool__(self) -> bool: ...
     def __int__(self) -> int: ...

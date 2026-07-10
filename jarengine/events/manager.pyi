@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from jarengine.interns.base_classe import JEInternBaseClass
 from jarengine.interns import PGExtern
 from jarengine.events.event import JEEventCode, JEEventWatcher
 from jarengine.events.keyboard import JEKeyCode, JEKeyWatcher
@@ -7,7 +8,7 @@ from jarengine.events.mouse import JEMouseCode, JEMouseWatcher
 from jarengine.systems.bool import JEBool
 from jarengine.games.game import JEGame
 
-class JEEvent:
+class JEEvent(JEInternBaseClass):
     def __init__(self, event: PGExtern.event.Event) -> None: ...
     @property
     def type(self) -> JEEventCode: ...
@@ -16,7 +17,7 @@ class JEEvent:
     @property
     def mouse(self) -> JEMouseCode | None: ...
 
-class JEEventHandler:
+class JEEventHandler(JEInternBaseClass):
     def __init__(self) -> None: ...
     @property
     def watchers(self) -> list[JEEventWatcher | JEKeyWatcher | JEMouseWatcher]: ...

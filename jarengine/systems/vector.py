@@ -26,12 +26,12 @@ from __future__ import annotations
 
 from typing import final as _final
 
-from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
+from jarengine.interns.high_classes import JEInternTransform as _JEInternTransform
 from jarengine.interns.decorators import documentation as _documentation
 
 @_documentation
 @_final
-class JEVector2D(_JEInternBaseClass):
+class JEVector2D(_JEInternTransform):
     """Vector (x, y)"""
 
     __recursive__ = False
@@ -72,7 +72,7 @@ class JEVector2D(_JEInternBaseClass):
 
 @_documentation
 @_final
-class JEVector3D(_JEInternBaseClass):
+class JEVector3D(_JEInternTransform):
     """Vector (x, y, z)"""
 
     __recursive__ = False
@@ -119,4 +119,4 @@ class JEVector3D(_JEInternBaseClass):
 
     def __deepcopy__(self, memo):
         """Deepcopy"""
-        return JEVector2D(*self._vector)
+        return JEVector3D(*self._vector)

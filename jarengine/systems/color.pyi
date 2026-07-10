@@ -2,7 +2,9 @@ from __future__ import annotations
 
 from typing import Iterator
 
-class JEColor:
+from jarengine.interns.base_classe import JEInternBaseClass
+
+class JEColor(JEInternBaseClass):
     def __init__(self, r: int = 0, g: int = 0, b: int = 0, a: int = 255) -> None: ...
     @property
     def r(self) -> int: ...

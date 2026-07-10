@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from types import NoneType
 
+from jarengine.interns.high_classes import JEInternEntityComponent
+from jarengine.interns.base_classe import JEInternBaseClass
 from jarengine.resources.texture import JETexture
 from jarengine.resources.font import JEFont
 from jarengine.resources.music import JEMusic
@@ -10,13 +12,13 @@ from jarengine.interns.low_classes import JEInternGraphic
 from jarengine.systems.container import JEContainer
 from jarengine.entities.entity import JEEntity
 
-class JEInternEmptyComponent:
+class JEInternEmptyComponent(JEInternEntityComponent):
     def __init__(self, owner: JEEntity): ...
     def __call__(self) -> NoneType: ...
     def __bool__(self) -> bool: ...
     def copy(self, new_owner: JEEntity) -> JEInternEmptyComponent: ...
 
-class JEInternResources:
+class JEInternResources(JEInternBaseClass):
     def __init__(self): ...
     @property
     def texture(self) -> JEContainer[JETexture]: ...
@@ -29,7 +31,7 @@ class JEInternResources:
     @property
     def sound(self) -> JEContainer[JESound]: ...
 
-class JEInternWindowSettings:
+class JEInternWindowSettings(JEInternBaseClass):
     def __init__(self, size: tuple[int, int], flags: int,fps: int, depth: int, display: int, vsync: int, title: str): ...
     @property
     def size(self) -> tuple[int, int]: ...

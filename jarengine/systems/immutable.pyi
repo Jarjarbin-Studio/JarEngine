@@ -1,10 +1,12 @@
 from __future__ import annotations
 
-from typing import Any, Callable, TypeVar, Type, Iterator
+from typing import Any, Callable, TypeVar, Type, Iterator, Generic
+
+from jarengine.interns.base_classe import JEInternBaseClass
 
 T: TypeVar = TypeVar("T")
 
-class JEImmutable:
+class JEImmutable(Generic[T], JEInternBaseClass):
     def __init__(self, value: T) -> None: ...
     @property
     def data(self) -> T: ...

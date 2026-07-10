@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+from jarengine.interns.high_classes import JEInternOwnership
+from jarengine.interns.low_classes import JEInternResource
 from jarengine.interns import PGExtern
 from jarengine.systems.vector import JEVector2D
 
-class JETexture:
+class JETexture(JEInternResource, JEInternOwnership):
     def __init__(self, name: str, path: str) -> None: ...
     @property
     def surface(self) -> PGExtern.Surface: ...

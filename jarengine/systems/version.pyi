@@ -1,6 +1,9 @@
 from __future__ import annotations
 
-class JEVersion:
+from jarengine.interns.base_classe import JEInternBaseClass
+from jarengine.interns import PGExtern
+
+class JEVersion(PGExtern.version.SoftwareVersion, JEInternBaseClass):
     def __init__(self, major: int, minor: int, patch: int) -> None: ...
     def __str__(self) -> str: ...
     @property

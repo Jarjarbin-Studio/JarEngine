@@ -88,7 +88,7 @@ class JEInternResource(JEInternGraphic):
         self._path = path
 
     @property
-    def path(self) -> _JEBool:
+    def path(self):
         """Get resource path"""
         return self._path
 

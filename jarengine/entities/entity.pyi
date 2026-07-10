@@ -1,14 +1,15 @@
 from __future__ import annotations
 
+from jarengine.interns.low_classes import JEInternGraphicalObject
 from jarengine.resources.font import JEFont
-from jarengine.interns.high_classes import JEInternEntityComponent
+from jarengine.interns.high_classes import JEInternEntityComponent, JEInternOwnership
 from jarengine.systems.container import JEContainer
 from jarengine.systems.vector import JEVector2D
 from jarengine.resources.texture import JETexture
 from jarengine.systems.bool import JEBool
 from jarengine.systems.color import JEColor
 
-class JEEntity:
+class JEEntity(JEInternGraphicalObject, JEInternOwnership):
     def __init__(self, *, name: str = "JEEntity") -> None: ...
     @property
     def components(self) -> JEContainer[JEInternEntityComponent]: ...

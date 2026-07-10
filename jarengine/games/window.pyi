@@ -2,11 +2,12 @@ from __future__ import annotations
 
 from typing import Any
 
+from jarengine.interns.base_classe import JEInternBaseClass
 from jarengine.interns import PGExtern
 from jarengine.interns.final_classes import JEInternWindowSettings
 from jarengine.systems.color import JEColor
 
-class JEWindow:
+class JEWindow(JEInternBaseClass):
     def __init__(self, *, size: tuple[int, int] = (0, 0), flags: int = 0, fps: int = 60, depth: int = 0, display: int = 0, vsync: int = 0, title: str = "JarEngine Game"): ...
     def rename(self, title: str) -> None: ...
     @property

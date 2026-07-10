@@ -25,7 +25,6 @@
 from __future__ import annotations
 
 from datetime import datetime as _datetime
-from sys import version_info as _python_version
 
 __author__ = 'Nathan Jarjarbin'
 __email__ = 'nathan.amaraggi@epitech.eu'
@@ -84,7 +83,7 @@ def _banner():
     ansi = Interns.JTKExternConsole.ANSI
     Interns.JTKExternConsole.Console.print(
         ansi.Line.clear_previous_line(2).s +
-        f"JarEngine {Systems.JEVersion(*([int(v) for v in __version__.split('.') if v] + [0, 0, 0])[0:3])} (PyGame {Interns.PGExtern.version.vernum}, SDL {Interns.PGExtern.version.SDL}, Python {Systems.JEVersion(*_python_version[0:3])})"
+        f"JarEngine {JEVersion_JarEngine} (PyGame {JEVersion_PyGame}, SDL {JEVersion_SDL}, Python {JEVersion_Python})"
     )
 
 

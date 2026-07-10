@@ -2,7 +2,9 @@ from __future__ import annotations
 
 from typing import Iterator
 
-class JEVector2D:
+from jarengine.interns.high_classes import JEInternTransform
+
+class JEVector2D(JEInternTransform):
     def __init__(self, x: float = 0.0, y: float = 0.0) -> None: ...
     @property
     def x(self) -> float: ...
@@ -14,7 +16,7 @@ class JEVector2D:
     def y(self, y: float) -> None: ...
     def __iter__(self): ...
 
-class JEVector3D:
+class JEVector3D(JEInternTransform):
     def __init__(self, x: float = 0.0, y: float = 0.0, z: float = 0.0) -> None: ...
     @property
     def x(self) -> float: ...

@@ -1,11 +1,11 @@
 from __future__ import annotations
 
+from jarengine.interns.base_classe import JEInternBaseClass
 from jarengine.events.keyboard import JEKeyCode
 from jarengine.events.mouse import JEMouseCode
 from jarengine.systems.vector import JEVector2D
 
-
-class JEInput:
+class JEInput(JEInternBaseClass):
     def __init__(self) -> None: ...
     def update(self) -> None: ...
     def is_key_down(self, key: JEKeyCode) -> bool: ...

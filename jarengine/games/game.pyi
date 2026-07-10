@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from jarengine.interns.base_classe import JEInternBaseClass
 from jarengine.games.window import JEWindow
 from jarengine.games.input import JEInput
 from jarengine.events.manager import JEEventHandler
@@ -12,7 +13,7 @@ from jarengine.interns.final_classes import JEInternResources
 from jarengine.systems.bool import JEBool
 from jarengine.systems.clock import JEClock
 
-class JEGame:
+class JEGame(JEInternBaseClass):
     def __init__(self, *, use_clock: JEBool = JEBool(0), use_input: JEBool = JEBool(0)) -> None: ...
     def set_window(self, window: JEWindow): ...
     @property

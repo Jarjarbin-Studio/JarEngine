@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-class JEClock:
+from jarengine.interns.base_classe import JEInternBaseClass
+
+class JEClock(JEInternBaseClass):
     def __init__(self, fps: int = 60) -> None: ...
     def update(self) -> None: ...
     @property
