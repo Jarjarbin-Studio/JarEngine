@@ -32,7 +32,6 @@ from jarengine.interns.decorators import documentation as _documentation
 @_documentation
 @_final
 class JEBool(_JEInternBaseClass):
-    """Boolean"""
 
     _instances = {}
     __instance_policy__ = "flyweight"
@@ -40,7 +39,6 @@ class JEBool(_JEInternBaseClass):
     __recursive__ = False
 
     def __new__(cls, value):
-        """Instances clamping"""
         val = bool(value)
 
         if val not in cls._instances:
@@ -50,7 +48,6 @@ class JEBool(_JEInternBaseClass):
         return cls._instances[val]
 
     def __init__(self, value):
-        """JEBool creator"""
         if hasattr(self, "_initialized"):
             return
 
@@ -58,18 +55,14 @@ class JEBool(_JEInternBaseClass):
         self._bool = bool(value)
 
     def __bool__(self):
-        """Returns boolean value"""
         return self._bool
 
     def __int__(self):
-        """Returns integer value"""
         return int(self._bool)
 
     @property
     def data(self):
-        """Returns boolean value"""
         return bool(self)
 
     def __deepcopy__(self, memo):
-        """Deepcopy"""
         return self

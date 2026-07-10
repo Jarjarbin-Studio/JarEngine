@@ -40,10 +40,8 @@ _T = _TypeVar("_T", bound=_JEInternBaseClass)
 @_documentation
 @_final
 class JEContainer(_Generic[_T], _JEInternBaseClass):
-    """Container"""
 
     def __init__(self, allowed_type, allow_subclass = _JEBool(0)):
-        """JEContainer creator"""
         if not isinstance(allowed_type, type):
             raise _JTKExternError.Error.ErrorType(
                 f"\n{allowed_type.__name__!r} is not a class type."
@@ -60,11 +58,9 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
         self._allow_subclass = allow_subclass
 
     def __setitem__(self, obj):
-        """Add object to container"""
         self.add(obj)
 
     def add(self, obj):
-        """Add object to container"""
         if not isinstance(obj, self._allowed_type):
             if not (self._allow_subclass and issubclass(type(obj), self._allowed_type)):
                 raise _JTKExternError.Error.ErrorType(
@@ -85,7 +81,6 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
         self._data[key] = obj
 
     def __getitem__(self, value):
-        """Get object by name"""
         if type(value) == str:
             try:
                 return self.get(name=value)
@@ -100,7 +95,6 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
                 return self.get(_type=value)
 
     def get(self, *, name = None, jeid = None, instance = None, _type = None, default = NotImplemented):
-        """Get object by name"""
         if not (name or jeid or instance or _type):
             raise _JTKExternError.Error.ErrorKey(
                 "\nName, JEID or Instance are required."
@@ -127,7 +121,6 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
         return default
 
     def rm(self, *, name = None, jeid = None, instance = None, _type = None):
-        """Remove object by name, jeid or instance"""
         if not (name or jeid or instance or _type):
             raise _JTKExternError.Error.ErrorKey(
                 "\nName, JEID or Instance are required."
@@ -152,7 +145,6 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
         )
 
     def clear(self):
-        """Clear all data"""
         self._data.clear()
 
     def __iter__(self):
@@ -160,7 +152,6 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
 
     @property
     def data(self):
-        """Get data"""
         return self._data
 
     def __deepcopy__(self, memo):

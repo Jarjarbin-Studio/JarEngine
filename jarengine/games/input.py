@@ -41,16 +41,15 @@ from jarengine.systems.vector import JEVector2D as _JEVector2D
 @_documentation
 @_final
 class JEInput(_JEInternBaseClass):
-    """Input manager"""
 
     _instance = None
     _is_created = _JEBool(0)
+
     __instance_policy__ = "flyweight"
     __instance_limit__ = 1
     __recursive__ = False
 
     def __new__(cls, *args, **kwargs):
-        """Instances clamping"""
         if cls._instance is not None:
             raise _JTKExternError.Error.ErrorRuntime(
                 "\nInstance already exists. Only one input manager is allowed."
@@ -60,7 +59,6 @@ class JEInput(_JEInternBaseClass):
         return cls._instance
 
     def __init__(self):
-        """JEInput creator"""
         if JEInput._is_created:
             return
 
@@ -71,25 +69,20 @@ class JEInput(_JEInternBaseClass):
         self._mouse_pos =  _JEVector2D(*_PGExtern.mouse.get_pos())
 
     def update(self):
-        """Update keyboard and mouse input"""
         self._keys_down = _PGExtern.key.get_pressed()
         self._mouse_down = _PGExtern.mouse.get_pressed()
         self._mouse_pos = _JEVector2D(*_PGExtern.mouse.get_pos())
 
     def is_key_down(self, key):
-        """Check if a key is down"""
         return self._keys_down[int(key)]
 
     def is_mouse_down(self, button):
-        """Check if a mouse button is down"""
         return self._mouse_down[int(button) - 1]
 
     def mouse_pos(self):
-        """Check if a mouse button is up"""
         return self._mouse_pos
 
     def __call__(self, code):
-        """Automatically call the appropriate input manager"""
         if isinstance(code, _JEKeyCode):
             return self.is_key_down(code)
         elif isinstance(code, _JEMouseCode):

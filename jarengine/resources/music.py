@@ -39,10 +39,8 @@ from jarengine.interns.decorators import documentation as _documentation
 @_documentation
 @_final
 class JEMusic(_JEInternResource, _JEInternOwnership):
-    """Music"""
 
-    def __init__(self, name, path) -> None:
-        """JEMusic creator"""
+    def __init__(self, name, path):
         super().__init__(name, path)
 
         if not "/" in path:

@@ -36,17 +36,16 @@ from jarengine.interns.decorators import documentation as _documentation
 @_documentation
 @_final
 class JEEventCode(_JEInternBaseClass):
-    """Event code"""
 
     _instances = {}
     _name_cache = {}
+
     __instance_policy__ = "singleton"
     __instance_limit__ = None
     __recursive__ = False
 
     @classmethod
     def _build_cache(cls):
-        """Build available events"""
         if cls._name_cache:
             return
 
@@ -60,7 +59,6 @@ class JEEventCode(_JEInternBaseClass):
         })
 
     def __new__(cls, event = None):
-        """Instances clamping"""
         if event is None:
             return super().__new__(cls)
 
@@ -70,7 +68,6 @@ class JEEventCode(_JEInternBaseClass):
         return cls._instances[event]
 
     def __init__(self, event = None):
-        """JEEventCode creator"""
         if hasattr(self, "_initialized") or event is None:
             return
 
@@ -81,17 +78,13 @@ class JEEventCode(_JEInternBaseClass):
         self._initialized = True
 
     def __int__(self):
-        """Get event code"""
         return self._event
 
     @property
     def name(self):
-        """Get event name"""
         return self._name
 
     def __or__(self, other):
-        """Allows same synthax as union (create a JEEventCodeGroup)"""
-
         if not isinstance(other, JEEventCode):
             raise _JTKExternError.Error.ErrorType(
                 "\nOther must be JEEventCode"
@@ -100,30 +93,24 @@ class JEEventCode(_JEInternBaseClass):
         return JEEventCodeGroup([self, other])
 
     def __eq__(self, other):
-        """Compare 2 events"""
         if not isinstance(other, JEEventCode):
             return NotImplemented
         return int(self) == int(other)
 
     def __hash__(self):
-        """Hash an event"""
         return hash(self._event)
 
 @_documentation
 @_final
 class JEEventCodeGroup(_JEInternBaseClass):
-    """Event code group"""
 
     __recursive__ = False
 
     def __init__(self, events):
-        """JEEventCodeGroup creator"""
         super().__init__()
         self._events = list(dict.fromkeys(events))
 
     def __or__(self, other):
-        """Allows same synthax as union (create a JEEventCodeGroup)"""
-
         if isinstance(other, JEEventCode):
             return JEEventCodeGroup([*self, other])
 
@@ -135,24 +122,19 @@ class JEEventCodeGroup(_JEInternBaseClass):
         )
 
     def __iter__(self):
-        """Get the iterator of events"""
         return iter(self._events)
 
     @property
     def events(self):
-        """Get the key event"""
         return self._events
 
 @_documentation
 @_final
 class JEEventWatcher(_JEInternBaseClass):
-    """Main event watcher"""
 
     __recursive__ = False
 
     def __init__(self, on, do):
-        """JEEventWatcher creator"""
-
         if not isinstance(on, (JEEventCode, list, JEEventCodeGroup)):
             raise _JTKExternError.Error.ErrorType(
                 "\nOn must be JEEventCode, list or JEEventCodeGroup"
@@ -171,22 +153,18 @@ class JEEventWatcher(_JEInternBaseClass):
         self._do = do
 
     def match(self, event):
-        """Check for event matches"""
         for rule in self._on:
             if event.type == rule:
                 return True
         return False
 
     def __call__(self, game, event):
-        """Call saved function"""
         self._do(game, event)
 
     @property
     def on(self):
-        """Get watched events"""
         return self._on
 
     @property
     def do(self):
-        """Get seved function (as str)"""
         return f"{self._do.__name__}(JEGame, JEEvent)"

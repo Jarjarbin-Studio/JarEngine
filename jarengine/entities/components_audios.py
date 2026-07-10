@@ -34,10 +34,8 @@ from jarengine.interns.decorators import documentation as _documentation
 @_documentation
 @_final
 class JEMusicComponent(_JEInternEntityComponent):
-    """MusicComponent"""
 
     def __init__(self, owner, music):
-        """JEMusicComponent creator"""
         super().__init__(owner, JEMusicComponent)
         self._music = music
         self._loop = 0
@@ -75,59 +73,47 @@ class JEMusicComponent(_JEInternEntityComponent):
 
     @property
     def music(self):
-        """Get music"""
         return self._music
 
     @music.setter
     def music(self, music):
-        """Set music"""
         self._music = music
 
     @property
     def volume(self):
-        """Get music volume"""
         return self._volume
 
     @volume.setter
     def volume(self, volume):
-        """Set music volume"""
         self._volume = max(0, min(100, volume))
         _PGExtern.mixer.music.set_volume(volume / 100)
 
     def play(self, loop=-1):
-        """Play music"""
         self._loop = loop
 
         _PGExtern.mixer.music.load(self._music.path)
         _PGExtern.mixer.music.play(loop)
 
     def pause(self):
-        """Pause music"""
         _PGExtern.mixer.music.pause()
 
     def resume(self):
-        """Resume music"""
         _PGExtern.mixer.music.unpause()
 
     def stop(self):
-        """Stop music"""
         _PGExtern.mixer.music.stop()
 
     def __call__(self):
-        """Get music"""
         return self._music
 
     def copy(self, new_owner):
-        """Copy music"""
         return JEMusicComponent(new_owner, _deepcopy(self._music))
 
 @_documentation
 @_final
 class JESoundComponent(_JEInternEntityComponent):
-    """SoundComponent"""
 
     def __init__(self, owner, sound):
-        """JESoundComponent creator"""
         super().__init__(owner, JESoundComponent)
         self._sound = sound
         self._channel = None
@@ -138,8 +124,8 @@ class JESoundComponent(_JEInternEntityComponent):
         def set_sound(owner_self, sound):
             self.sound = sound
 
-        def play_sound(owner_self, loops=0):
-            return self.play(loops)
+        def play_sound(owner_self, loop=0):
+            return self.play(loop)
 
         def stop_sound(owner_self):
             self.stop()
@@ -170,48 +156,38 @@ class JESoundComponent(_JEInternEntityComponent):
 
     @property
     def volume(self):
-        """Get volume percentage"""
         return self._volume
 
     @volume.setter
     def volume(self, volume):
-        """Set volume percentage"""
         self._volume = max(0, min(100, volume))
         self._sound.sound.set_volume(self._volume / 100)
 
-    def play(self, loops=0):
-        """Play sound"""
-        self._channel = self._sound.sound.play(loops)
+    def play(self, loop=0):
+        self._channel = self._sound.sound.play(loop)
         return self._channel
 
     def stop(self):
-        """Stop sound"""
         if self._channel:
             self._channel.stop()
 
     def pause(self):
-        """Pause sound"""
         if self._channel:
             self._channel.pause()
 
     def resume(self):
-        """Resume sound"""
         if self._channel:
             self._channel.unpause()
 
     def fadeout(self, milliseconds):
-        """Fade out sound"""
         if self._channel:
             self._channel.fadeout(milliseconds)
 
     def get_channel(self):
-        """Get current pygame channel"""
         return self._channel
 
     def __call__(self):
-        """Get sound"""
         return self._sound
 
     def copy(self, new_owner):
-        """Copy sound"""
         return JESoundComponent(new_owner, _deepcopy(self._sound))

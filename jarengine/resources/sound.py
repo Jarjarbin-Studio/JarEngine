@@ -41,10 +41,8 @@ from jarengine.interns.decorators import documentation as _documentation
 @_documentation
 @_final
 class JESound(_JEInternResource, _JEInternOwnership):
-    """Sound"""
 
-    def __init__(self, name, path) -> None:
-        """JESound creator"""
+    def __init__(self, name, path):
         super().__init__(name, path)
 
         if not "/" in path:
@@ -58,5 +56,4 @@ class JESound(_JEInternResource, _JEInternOwnership):
 
     @property
     def sound(self):
-        """Get sound object (PGExtern)"""
         return self._sound

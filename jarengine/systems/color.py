@@ -35,70 +35,56 @@ from jarengine.interns.decorators import documentation as _documentation
 @_documentation
 @_final
 class JEColor(_JEInternBaseClass):
-    """Color (r, g, b, a)"""
 
     __recursive__ = False
 
     def __init__(self, r = 0, g = 0, b = 0, a = 255):
-        """JEColor creator"""
         super().__init__()
 
         self._color = [r, g, b, a]
 
     @property
     def r(self):
-        """Get red channel"""
         return self._color[0]
 
     @r.setter
     def r(self, r):
-        """Set red channel"""
         self._color[0] = r
 
     @property
     def g(self):
-        """Get green channel"""
         return self._color[1]
 
     @g.setter
     def g(self, g):
-        """Set green channel"""
         self._color[1] = g
 
     @property
     def b(self):
-        """Get blue channel"""
         return self._color[2]
 
     @b.setter
     def b(self, b):
-        """Set blue channel"""
         self._color[2] = b
 
     @property
     def a(self):
-        """Get alpha channel"""
         return self._color[3]
 
     @a.setter
     def a(self, a):
-        """Set alpha channel"""
         self._color[3] = a
 
     @property
     def rgb(self):
-        """Get rbg tuple of color"""
         return tuple(self._color[:3])
 
     @property
     def rgba(self):
-        """Get rbga tuple of color"""
         return tuple(self._color)
 
-    def __iter__(self) -> _Iterator[int]:
-        """Iterator over the color"""
+    def __iter__(self):
         return iter(self._color)
 
     def __deepcopy__(self, memo):
-        """Deepcopy"""
         return JEColor(*self._color)

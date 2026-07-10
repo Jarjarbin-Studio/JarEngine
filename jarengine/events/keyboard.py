@@ -38,10 +38,10 @@ from jarengine.interns.decorators import documentation as _documentation
 @_documentation
 @_final
 class JEKeyCode(_JEInternBaseClass):
-    """Key code"""
 
     _instances = {}
     _name_cache = {}
+
     __instance_policy__ = "singleton"
     __instance_limit__ = None
     __recursive__ = False
@@ -72,7 +72,6 @@ class JEKeyCode(_JEInternBaseClass):
         })
 
     def __new__(cls, key = None):
-        """Instances clamping"""
         if key is None:
             return super().__new__(cls)
 
@@ -82,7 +81,6 @@ class JEKeyCode(_JEInternBaseClass):
         return cls._instances[key]
 
     def __init__(self, key = None):
-        """JEKeyCode creator"""
         if hasattr(self, "_initialized") or key is None:
             return
 
@@ -93,17 +91,13 @@ class JEKeyCode(_JEInternBaseClass):
         self._initialized = True
 
     def __int__(self):
-        """Get key code"""
         return self._key
 
     @property
     def name(self):
-        """Get key name"""
         return self._name
 
     def __or__(self, other):
-        """Allows same synthax as union (create a JEKeyCodeGroup)"""
-
         if not isinstance(other, JEKeyCode):
             raise _JTKExternError.Error.ErrorType(
                 "\nOther must be JEKeyCode"
@@ -112,30 +106,24 @@ class JEKeyCode(_JEInternBaseClass):
         return JEKeyCodeGroup([self, other])
 
     def __eq__(self, other):
-        """Compare 2 key"""
         if not isinstance(other, JEKeyCode):
             return NotImplemented
         return int(self) == int(other)
 
     def __hash__(self):
-        """Hash a key"""
         return hash(self._key)
 
 @_documentation
 @_final
 class JEKeyCodeGroup(_JEInternBaseClass):
-    """Key code group"""
 
     __recursive__ = False
 
     def __init__(self, keys):
-        """JEKeyCodeGroup creator"""
         super().__init__()
         self._keys = list(dict.fromkeys(keys))
 
     def __or__(self, other):
-        """Allows same synthax as union (create a JEKeyCodeGroup)"""
-
         if isinstance(other, JEKeyCode):
             return JEKeyCodeGroup([*self._keys, other])
 
@@ -147,24 +135,19 @@ class JEKeyCodeGroup(_JEInternBaseClass):
         )
 
     def __iter__(self):
-        """Get the iterator of keys"""
         return iter(self._keys)
 
     @property
     def keys(self):
-        """Get the key list"""
         return self._keys
 
 @_documentation
 @_final
 class JEKeyWatcher(_JEInternBaseClass):
-    """Key event watcher"""
 
     __recursive__ = False
 
     def __init__(self, on, do, on_press = _JEBool(1)):
-        """JEKeyWatcher creator"""
-
         if not isinstance(on, (JEKeyCode, list, JEKeyCodeGroup)):
             raise _JTKExternError.Error.ErrorType(
                 "\nOn must be JEEventCode, list or JEKeyCodeGroup"
@@ -188,7 +171,6 @@ class JEKeyWatcher(_JEInternBaseClass):
         self._do = do
 
     def match(self, event):
-        """Check for key matches"""
         if event.type == self._on_param:
             for rule in self._on:
                 if event.key == rule:
@@ -196,20 +178,16 @@ class JEKeyWatcher(_JEInternBaseClass):
         return False
 
     def __call__(self, game, event):
-        """Call saved function"""
         self._do(game, event)
 
     @property
     def on(self):
-        """Get watched keys"""
         return self._on
 
     @property
     def params(self):
-        """Get event parameter"""
         return self._on_param
 
     @property
     def do(self):
-        """Get seved function (as str)"""
         return f"{self._do.__name__}(JEGame, JEEvent)"

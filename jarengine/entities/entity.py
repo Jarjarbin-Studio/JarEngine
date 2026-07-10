@@ -37,10 +37,8 @@ from jarengine.interns.decorators import documentation as _documentation
 @_documentation
 @_final
 class JEEntity(_JEInternGraphicalObject, _JEInternOwnership):
-    """Entity"""
 
     def __init__(self, *, name = "JEEntity"):
-        """JEEntity creator"""
         super().__init__(name)
         self._components = _JEContainer(_JEInternEntityComponent, _JEBool(1))
         self._components.add(_JEInternEmptyComponent(self))
@@ -51,15 +49,12 @@ class JEEntity(_JEInternGraphicalObject, _JEInternOwnership):
 
     @property
     def components(self):
-        """Get components"""
         return self._components
 
     def add_component(self, component):
-        """Add component object"""
         self._components.add(component)
 
     def get(self, component):
-
         for c in self._components:
             if isinstance(c, component):
                 return c

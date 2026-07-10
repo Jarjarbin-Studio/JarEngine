@@ -34,10 +34,8 @@ from jarengine.systems.color import JEColor as _JEColor
 @_documentation
 @_final
 class JEFontComponent(_JEInternEntityComponent):
-    """FontComponent"""
 
     def __init__(self, owner, font):
-        """JEFontComponent creator"""
         super().__init__(owner, JEFontComponent)
         self._font = font
 
@@ -52,29 +50,23 @@ class JEFontComponent(_JEInternEntityComponent):
 
     @property
     def font(self):
-        """Get font"""
         return self._font
 
     @font.setter
     def font(self, font):
-        """Set font"""
         self._font = font
 
     def __call__(self):
-        """Get font"""
         return self._font
 
     def copy(self, new_owner):
-        """Copy font"""
         return JEFontComponent(new_owner, _deepcopy(self._font))
 
 @_documentation
 @_final
 class JETextComponent(_JEInternEntityComponent):
-    """TextComponent"""
 
     def __init__(self, owner, text):
-        """JETextComponent creator"""
         super().__init__(owner, JETextComponent)
         self._text = text
 
@@ -89,29 +81,23 @@ class JETextComponent(_JEInternEntityComponent):
 
     @property
     def text(self):
-        """Get text"""
         return self._text
 
     @text.setter
     def text(self, text):
-        """Set text"""
         self._text = text
 
     def __call__(self):
-        """Get text"""
         return self._text
 
     def copy(self, new_owner):
-        """Copy text"""
         return JETextComponent(new_owner, _deepcopy(self._text))
 
 @_documentation
 @_final
 class JETextureComponent(_JEInternEntityComponent):
-    """TextureComponent"""
 
     def __init__(self, owner, texture):
-        """JETextureComponent creator"""
         super().__init__(owner, JETextureComponent)
         self._texture = texture
 
@@ -126,29 +112,23 @@ class JETextureComponent(_JEInternEntityComponent):
 
     @property
     def texture(self):
-        """Get texture"""
         return self._texture
 
     @texture.setter
     def texture(self, texture):
-        """Set texture"""
         self._texture = texture
 
     def __call__(self):
-        """Get texture"""
         return self._texture
 
     def copy(self, new_owner):
-        """Copy texture"""
         return JETextureComponent(new_owner, _deepcopy(self._texture))
 
 @_documentation
 @_final
 class JEColorComponent(_JEInternEntityComponent):
-    """ColorComponent"""
 
     def __init__(self, owner, color):
-        """JEColorComponent creator"""
         super().__init__(owner, JEColorComponent)
         self._color = (
             color
@@ -174,12 +154,10 @@ class JEColorComponent(_JEInternEntityComponent):
 
     @property
     def color(self):
-        """Get color"""
         return self._color
 
     @color.setter
     def color(self, color):
-        """Set color"""
         self._color = (
             color
             if isinstance(color, _JEColor) else
@@ -187,20 +165,16 @@ class JEColorComponent(_JEInternEntityComponent):
         )
 
     def __call__(self):
-        """Get color"""
         return self._color
 
     def copy(self, new_owner):
-        """Copy color"""
         return JEColorComponent(new_owner, _deepcopy(self._color))
 
 @_documentation
 @_final
 class JEOutlineComponent(_JEInternEntityComponent):
-    """OutlineComponent"""
 
     def __init__(self, owner, color, size):
-        """JEOutlineComponent creator"""
         super().__init__(owner, JEOutlineComponent)
         self._color = (
             color
@@ -239,12 +213,10 @@ class JEOutlineComponent(_JEInternEntityComponent):
 
     @property
     def color(self):
-        """Get color"""
         return self._color
 
     @color.setter
     def color(self, color):
-        """Set color"""
         self._color = (
             color
             if isinstance(color, _JEColor) else
@@ -253,29 +225,23 @@ class JEOutlineComponent(_JEInternEntityComponent):
 
     @property
     def size(self):
-        """Get size"""
         return self._size
 
     @size.setter
     def size(self, size):
-        """Set size"""
         self._size = size
 
     def __call__(self):
-        """Get outline"""
         return self._color, self._size
 
     def copy(self, new_owner):
-        """Copy outline"""
         return JEOutlineComponent(new_owner, _deepcopy(self._color), _deepcopy(self._size))
 
 @_documentation
 @_final
 class JEVisibilityComponent(_JEInternEntityComponent):
-    """VisibilityComponent"""
 
     def __init__(self, owner, visibility):
-        """JEVisibilityComponent creator"""
         super().__init__(owner, JEVisibilityComponent)
         self._visibility = visibility
 
@@ -290,29 +256,23 @@ class JEVisibilityComponent(_JEInternEntityComponent):
 
     @property
     def visibility(self):
-        """Get visibility"""
         return self._visibility
 
     @visibility.setter
     def visibility(self, visibility):
-        """Set visibility"""
         self._visibility = visibility
 
     def __call__(self):
-        """Get visibility"""
         return self._visibility
 
     def copy(self, new_owner):
-        """Copy visibility"""
         return JEVisibilityComponent(new_owner, _deepcopy(self._visibility))
 
 @_documentation
 @_final
 class JELayerComponent(_JEInternEntityComponent):
-    """LayerComponent"""
 
     def __init__(self, owner, layer):
-        """JELayerComponent creator"""
         super().__init__(owner, JELayerComponent)
         self._layer = layer
 
@@ -331,29 +291,23 @@ class JELayerComponent(_JEInternEntityComponent):
 
     @property
     def layer(self):
-        """Get layer"""
         return self._layer
 
     @layer.setter
     def layer(self, layer):
-        """Set layer"""
         self._layer = layer
 
     def __call__(self):
-        """Get layer"""
         return self._layer
 
     def copy(self, new_owner):
-        """Copy layer"""
         return JELayerComponent(new_owner, _deepcopy(self._layer))
 
 @_documentation
 @_final
 class JEFlipComponent(_JEInternEntityComponent):
-    """FlipComponent"""
 
     def __init__(self, owner, flip):
-        """JEFlipComponent creator"""
         super().__init__(owner, JEFlipComponent)
         self.flip = flip
 
@@ -368,18 +322,14 @@ class JEFlipComponent(_JEInternEntityComponent):
 
     @property
     def flip(self):
-        """Get flip"""
         return self._flip
 
     @flip.setter
     def flip(self, flip):
-        """Set flip"""
         self._flip = flip
 
     def __call__(self):
-        """Get flip"""
         return self._flip
 
     def copy(self, new_owner):
-        """Copy flip"""
         return JELayerComponent(new_owner, _deepcopy(self._flip))

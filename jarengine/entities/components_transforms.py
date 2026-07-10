@@ -34,10 +34,8 @@ from jarengine.systems.vector import JEVector2D as _JEVector2D
 @_documentation
 @_final
 class JEPositionComponent(_JEInternEntityComponent):
-    """PositionComponent"""
 
     def __init__(self, owner, position):
-        """JEPositionComponent creator"""
         super().__init__(owner, JEPositionComponent)
         self._position = (
             position
@@ -61,12 +59,10 @@ class JEPositionComponent(_JEInternEntityComponent):
 
     @property
     def position(self):
-        """Get position"""
         return self._position
 
     @position.setter
     def position(self, position):
-        """Set position"""
         self._position = (
             position
             if isinstance(position, _JEVector2D) else
@@ -74,20 +70,16 @@ class JEPositionComponent(_JEInternEntityComponent):
         )
 
     def __call__(self):
-        """Get position"""
         return self._position
 
     def copy(self, new_owner):
-        """Copy position"""
         return JEPositionComponent(new_owner, _deepcopy(self._position))
 
 @_documentation
 @_final
 class JEVelocityComponent(_JEInternEntityComponent):
-    """VelocityComponent"""
 
     def __init__(self, owner, velocity):
-        """JEVelocityComponent creator"""
         super().__init__(owner, JEVelocityComponent)
         self._velocity = (
             velocity
@@ -111,12 +103,10 @@ class JEVelocityComponent(_JEInternEntityComponent):
 
     @property
     def velocity(self):
-        """Get velocity"""
         return self._velocity
 
     @velocity.setter
     def velocity(self, velocity):
-        """Set velocity"""
         self._velocity = (
             velocity
             if isinstance(velocity, _JEVector2D) else
@@ -124,20 +114,16 @@ class JEVelocityComponent(_JEInternEntityComponent):
         )
 
     def __call__(self):
-        """Get velocity"""
         return self._velocity
 
     def copy(self, new_owner):
-        """Copy velocity"""
         return JEVelocityComponent(new_owner, _deepcopy(self._velocity))
 
 @_documentation
 @_final
 class JESizeComponent(_JEInternEntityComponent):
-    """SizeComponent"""
 
     def __init__(self, owner, size):
-        """JESizeComponent creator"""
         super().__init__(owner, JESizeComponent)
         self._size = (
             size
@@ -161,12 +147,10 @@ class JESizeComponent(_JEInternEntityComponent):
 
     @property
     def size(self):
-        """Get size"""
         return self._size
 
     @size.setter
     def size(self, size):
-        """Set size"""
         self._size = (
             size
             if isinstance(size, _JEVector2D) else
@@ -174,20 +158,16 @@ class JESizeComponent(_JEInternEntityComponent):
         )
 
     def __call__(self):
-        """Get size"""
         return self._size
 
     def copy(self, new_owner):
-        """Copy size"""
         return JESizeComponent(new_owner, _deepcopy(self._size))
 
 @_documentation
 @_final
 class JERotationComponent(_JEInternEntityComponent):
-    """RotationComponent"""
 
     def __init__(self, owner, rotation):
-        """JERotationComponent creator"""
         super().__init__(owner, JERotationComponent)
         self._rotation = rotation
 
@@ -206,18 +186,14 @@ class JERotationComponent(_JEInternEntityComponent):
 
     @property
     def rotation(self):
-        """Get rotation"""
         return self._rotation
 
     @rotation.setter
     def rotation(self, rotation):
-        """Set rotation"""
         self._rotation = rotation
 
     def __call__(self):
-        """Get rotation"""
         return self._rotation
 
     def copy(self, new_owner):
-        """Copy rotation"""
         return JERotationComponent(new_owner, _deepcopy(self._rotation))

@@ -32,18 +32,15 @@ from jarengine.interns.decorators import documentation as _documentation
 
 @_documentation
 class JEInternBaseClass:
-    """ClassBase (Internal API)"""
 
     __instance_policy__ = "normal"
     __instance_limit__ = None
     __recursive__ = True
 
     def __init__(self):
-        """JEInternBaseClass creator"""
         self.jeid: str = _uuid4().hex
 
     def __str__(self):
-        """Get information about the class"""
         name = getattr(self, "name", None)
         id = getattr(self, "id", None)
 
@@ -53,14 +50,12 @@ class JEInternBaseClass:
         return f"{self.__class__.__name__}({id=})"
 
     def __repr__(self):
-        """Get representation of the class"""
         return (
             f"<{self.__class__.__name__}"
             f" jeid={getattr(self, 'jeid', 'unknown')}>"
         )
 
     def to_dict(self):
-        """Get dictionary representation of the class"""
 
         def get_value(value: _Any) -> _Any:
             if isinstance(value, JEInternBaseClass):
@@ -79,7 +74,6 @@ class JEInternBaseClass:
         }
 
     def debug(self, *, is_colored = False, max_depth = -1, branched_recursive = False, prefix = "", is_last = True, is_root = True, show_root = True, _visited = None, _stack = None):
-        """Pretty-print the class recursively (with all of its children)"""
 
         COLOR_THEME: dict[str, tuple[int, int, int]] = {
             "class": (180, 220, 255),
@@ -187,7 +181,7 @@ class JEInternBaseClass:
                 child,
                 child_prefix: str,
                 last_item: bool
-            ) -> None:
+            ):
             connector = "└─ " if last_item else "├─ "
             cls_col = colorize(child.__class__.__name__, "engine_object")
             lines.append(f"{child_prefix}{connector}{label} ({cls_col})")
@@ -215,7 +209,7 @@ class JEInternBaseClass:
                 value,
                 child_prefix: str,
                 last_item: bool
-            ) -> None:
+            ):
             connector = "└─ " if last_item else "├─ "
             category = classify(name, value)
             rendered = safe_repr(value)
@@ -235,7 +229,7 @@ class JEInternBaseClass:
                 mapping: dict,
                 child_prefix: str,
                 last_item: bool
-            ) -> None:
+            ):
             connector = "└─ " if last_item else "├─ "
             lines.append(f"{child_prefix}{connector}{label} = {colorize('{}', 'dict')}")
 
@@ -257,7 +251,7 @@ class JEInternBaseClass:
                 sequence,
                 child_prefix: str,
                 last_item: bool
-            ) -> None:
+            ):
             connector = "└─ " if last_item else "├─ "
             lines.append(f"{child_prefix}{connector}{label} = {colorize('[]', 'list')}")
 

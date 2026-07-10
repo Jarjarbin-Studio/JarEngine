@@ -30,10 +30,8 @@ from jarengine.interns.decorators import documentation as _documentation
 
 @_documentation
 class JEInternGraphic(_JEInternBaseClass):
-    """Graphic (Internal API)"""
 
-    def __init__(self, name) -> None:
-        """JEInternGraphic creator"""
+    def __init__(self, name):
         super().__init__()
 
         self.name = name
@@ -41,55 +39,44 @@ class JEInternGraphic(_JEInternBaseClass):
         self._object_hash = hash(self)
         self._destroyed = _JEBool(0)
 
-    def destroy(self) -> None:
-        """Destroy placeholder"""
+    def destroy(self):
         self._destroyed = _JEBool(1)
 
     @property
     def is_alive(self) -> _JEBool:
-        """Is object alive"""
         return _JEBool(not self._destroyed)
 
 @_documentation
 class JEInternGraphicalObject(JEInternGraphic):
-    """GraphicalObject (Internal API)"""
 
-    def __init__(self, name) -> None:
-        """JEInternGraphicalObject creator"""
+    def __init__(self, name):
         super().__init__(name)
 
         self._dirty = _JEBool(1)
 
-    def update(self, dt) -> None:
-        """update placeholder"""
+    def update(self, dt):
         raise NotImplementedError
 
-    def mark_dirty(self) -> None:
-        """Mark component as modified"""
+    def mark_dirty(self):
         self._dirty = _JEBool(1)
 
-    def clear_dirty(self) -> None:
-        """Reset dirty flag"""
+    def clear_dirty(self):
         self._dirty = _JEBool(0)
 
     @property
     def is_dirty(self) -> _JEBool:
-        """Check if component was modified"""
         return self._dirty
 
 @_documentation
 class JEInternResource(JEInternGraphic):
-    """Resource (Internal API)"""
 
-    def __init__(self, name, path) -> None:
-        """JEInternResource creator"""
+    def __init__(self, name, path):
         super().__init__(name)
 
         self._path = path
 
     @property
     def path(self):
-        """Get resource path"""
         return self._path
 
     def __deepcopy__(self, memo):

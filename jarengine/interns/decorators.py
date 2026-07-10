@@ -115,7 +115,6 @@ def documentation(cls):
                 if v["doc"]:
                     line(f"        {v['doc']}")
 
-    # Attach docmap
     cls.__docmap__ = build_docmap(cls)
     cls.doc = classmethod(lambda c: print_docmap(c.__docmap__))
 

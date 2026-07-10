@@ -33,46 +33,36 @@ from jarengine.interns.decorators import documentation as _documentation
 @_documentation
 @_final
 class JEClock(_JEInternBaseClass):
-    """Clock"""
 
     __recursive__ = False
 
     def __init__(self, fps = 60):
-        """JEClock creator"""
-
         super().__init__()
         self._clock = _PGExtern.time.Clock()
         self._target_fps = fps
         self._dt = 0.0
 
     def update(self):
-        """Update delta time"""
         self._dt = min(self._clock.tick(self._target_fps) / 1000.0, 1/60)
 
     @property
     def dt(self):
-        """Get delta time"""
         return self._dt
 
     @property
     def target_fps(self):
-        """Get target fps"""
         return self._target_fps
 
     @target_fps.setter
     def target_fps(self, value):
-        """Set target fps"""
         self._target_fps = max(1, value)
 
     @property
     def fps(self):
-        """Get real fps"""
         return self._clock.get_fps()
 
     def __float__(self):
-        """Get dt"""
         return self.dt
 
     def __deepcopy__(self, memo):
-        """Deepcopy"""
         return self

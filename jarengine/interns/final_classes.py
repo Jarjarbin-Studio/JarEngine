@@ -40,14 +40,11 @@ from jarengine.resources.font import JEFont as _JEFont
 @_documentation
 @_final
 class JEInternEmptyComponent(_JEInternEntityComponent):
-    """EmptyComponent"""
 
     def __init__(self, owner):
-        """JEEmptyComponent creator"""
         super().__init__(owner, JEInternEmptyComponent)
 
     def __call__(self) -> _NoneType:
-        """Get none"""
         return None
 
     def __bool__(self) -> bool:
@@ -59,10 +56,8 @@ class JEInternEmptyComponent(_JEInternEntityComponent):
 @_documentation
 @_final
 class JEInternResources(_JEInternBaseClass):
-    """Resources (Internal API)"""
 
     def __init__(self):
-        """JEInternResources creator"""
         super().__init__()
 
         self._textures = _JEContainer(_JETexture)
@@ -73,36 +68,29 @@ class JEInternResources(_JEInternBaseClass):
 
     @property
     def texture(self):
-        """Get texture container"""
         return self._textures
 
     @property
     def animations(self):
-        """Get animation container"""
         return self._animations
 
     @property
     def font(self):
-        """Get font container"""
         return self._font
 
     @property
     def music(self):
-        """Get music container"""
         return self._music
 
     @property
     def sound(self):
-        """Get sound container"""
         return self._sound
 
 @_documentation
 @_final
 class JEInternWindowSettings(_JEInternBaseClass):
-    """WindowSettings (Internal API)"""
 
     def __init__(self, size, flags, fps, depth, display, vsync, title):
-        """JEInternWindowSettings creator"""
         super().__init__()
 
         self._size = size
@@ -115,7 +103,6 @@ class JEInternWindowSettings(_JEInternBaseClass):
 
     @property
     def size(self):
-        """Get size"""
         return self._size
 
     @size.setter
@@ -124,12 +111,10 @@ class JEInternWindowSettings(_JEInternBaseClass):
 
     @property
     def flags(self):
-        """Get flags"""
         return self._flags
 
     @property
     def fps(self):
-        """Get fps"""
         return self._fps
 
     @fps.setter
@@ -138,22 +123,18 @@ class JEInternWindowSettings(_JEInternBaseClass):
 
     @property
     def depth(self):
-        """Get depth"""
         return self._depth
 
     @property
     def display(self):
-        """Get display"""
         return self._display
 
     @property
     def vsync(self):
-        """Get vsync"""
         return self._vsync
 
     @property
     def title(self):
-        """Get title"""
         return self._title
 
     @title.setter
@@ -161,5 +142,4 @@ class JEInternWindowSettings(_JEInternBaseClass):
         self._title = title
 
     def __deepcopy__(self, memo):
-        """Deepcopy"""
         return self

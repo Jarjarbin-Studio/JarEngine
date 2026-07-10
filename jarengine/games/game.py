@@ -46,15 +46,14 @@ from jarengine.interns.decorators import documentation as _documentation
 @_documentation
 @_final
 class JEGame(_JEInternBaseClass):
-    """Game manager"""
 
     _instance = None
     _is_created = _JEBool(0)
+
     __instance_policy__ = "flyweight"
     __instance_limit__ = 1
 
     def __new__(cls, *args, **kwargs):
-        """Instances clamping"""
         if cls._instance is not None:
             raise _JTKExternError.Error.ErrorRuntime(
                 "\nInstance already exists. Only one game is allowed."
@@ -63,7 +62,6 @@ class JEGame(_JEInternBaseClass):
         return cls._instance
 
     def __init__(self, *, use_clock = _JEBool(0), use_input = _JEBool(0)):
-        """JEGame creator"""
         if JEGame._is_created:
             return
         JEGame._is_created = _JEBool(1)
@@ -79,7 +77,6 @@ class JEGame(_JEInternBaseClass):
         self._systems = _JEContainer(_JEInternSystems, _JEBool(1))
 
     def set_window(self, window):
-        """Set game window"""
         if not isinstance(window, _JEWindow):
             raise _JTKExternError.Error.ErrorType(
                 f"\n{type(window).__name__!r} isn't of type  {_JEWindow.__name__!r}."
@@ -93,7 +90,6 @@ class JEGame(_JEInternBaseClass):
 
     @property
     def wdw(self):
-        """Get window object"""
         if not self._window:
             raise _JTKExternError.State.ErrorStateNotInitialized(
                 "\nWindow not set."
@@ -102,7 +98,6 @@ class JEGame(_JEInternBaseClass):
 
     @property
     def input(self):
-        """Get input object"""
         return self._input
 
     def is_key_down(self, key):
@@ -113,27 +108,22 @@ class JEGame(_JEInternBaseClass):
 
     @property
     def clock(self):
-        """Get clock object"""
         return self._clock
 
     @property
     def dt(self):
-        """Get clock object"""
         return float(self._clock)
 
     @property
     def event(self):
-        """Get event handler"""
         return self._event_manager
 
     @property
     def is_open(self):
-        """Check if game is open"""
         return self._is_open
 
     @property
     def ressource(self):
-        """Get ressource manager"""
         return self._ressource
 
     def refresh(self):
@@ -141,26 +131,21 @@ class JEGame(_JEInternBaseClass):
             system.refresh()
 
     def add_entity(self, entity):
-        """Add entity object"""
         self._entities.add(entity)
         entity.add_parent(self)
 
     @property
     def entities(self):
-        """Get entity manager"""
         return self._entities
 
     def close(self):
-        """Close game"""
         self._is_open = _JEBool(0)
 
     def add_system(self, system):
-        """Add system object"""
         self._systems.add(system)
 
     @property
     def systems(self):
-        """Get rendering and update systems"""
         return self._systems
 
     def _iter_entities(self):
@@ -177,8 +162,6 @@ class JEGame(_JEInternBaseClass):
             yield from iterate(entity)
 
     def update(self):
-        """Update game."""
-
         self._event_manager.process(self)
 
         if self._clock:
@@ -200,9 +183,7 @@ class JEGame(_JEInternBaseClass):
                 )
 
     def display(self):
-        """Display game"""
         _PGExtern.display.flip()
 
     def __deepcopy__(self, memo):
-        """Deepcopy"""
         return self

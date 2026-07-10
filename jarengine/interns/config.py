@@ -37,14 +37,12 @@ from jarengine.interns.decorators import documentation as _documentation
 @_documentation
 @_final
 class JEInternConfig(_JTKInternConfig, _JEInternBaseClass):
-    """Config (Internal API)"""
     __recursive__ = False
 
     project_path = None
     config_path = None
 
     def __init__(self, name, data = None):
-        """JEInternConfig creator"""
         if not JEInternConfig.project_path or  not JEInternConfig.config_path:
             raise _JTKExternError.State.ErrorStateNotInitialized("\nJarEngine.init(path) must be called first")
         if not exists(JEInternConfig.config_path):

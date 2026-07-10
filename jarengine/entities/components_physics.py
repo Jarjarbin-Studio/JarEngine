@@ -37,7 +37,6 @@ class JEAccelerationComponent(_JEInternEntityComponent):
     """AccelerationComponent"""
 
     def __init__(self, owner, acceleration):
-        """JEAccelerationComponent creator"""
         super().__init__(owner, JEAccelerationComponent)
         self._acceleration = (
             acceleration
@@ -61,7 +60,6 @@ class JEAccelerationComponent(_JEInternEntityComponent):
 
     @property
     def acceleration(self):
-        """Get acceleration"""
         return self._acceleration
 
     @acceleration.setter
@@ -73,7 +71,6 @@ class JEAccelerationComponent(_JEInternEntityComponent):
         )
 
     def __call__(self):
-        """Get acceleration"""
         return self._acceleration
 
     def copy(self, new_owner):
@@ -82,10 +79,8 @@ class JEAccelerationComponent(_JEInternEntityComponent):
 @_documentation
 @_final
 class JEMassComponent(_JEInternEntityComponent):
-    """MassComponent"""
 
     def __init__(self, owner, mass):
-        """JEMassComponent creator"""
         super().__init__(owner, JEMassComponent)
         self._mass = mass
 
@@ -104,18 +99,14 @@ class JEMassComponent(_JEInternEntityComponent):
 
     @property
     def mass(self):
-        """Get mass"""
         return self._mass
 
     @mass.setter
     def mass(self, mass):
-        """Set mass"""
         self._mass = mass
 
     def __call__(self):
-        """Get mass"""
         return self._mass
 
     def copy(self, new_owner):
-        """Copy mass"""
         return JEMassComponent(new_owner, _deepcopy(self._mass))

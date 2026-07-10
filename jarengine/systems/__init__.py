@@ -24,6 +24,7 @@
 
 from __future__ import annotations
 
+from jarengine.systems.transform import JETransform
 from jarengine.systems.vector import JEVector2D, JEVector3D
 from jarengine.systems.color import JEColor
 from jarengine.systems.bool import JEBool
@@ -32,6 +33,7 @@ from jarengine.systems.immutable import JEImmutable
 from jarengine.systems.version import JEVersion
 
 __all__ = [
+    'JETransform',
     'JEVector2D',
     'JEVector3D',
     'JEColor',

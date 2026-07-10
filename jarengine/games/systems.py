@@ -61,15 +61,12 @@ from jarengine.entities.components_audios import (
 @_documentation
 @_final
 class JEMovementSystem(_JEInternSystems):
-    """MovementSystem"""
 
     def __init__(self, owner):
-        """JEMovementSystem creator"""
         super().__init__(owner)
         self._required = [_JEPositionComponent, _JEVelocityComponent]
 
     def update(self, window, entity, entities, dt):
-        """Update entity movement"""
         position = entity.get(_JEPositionComponent)
         velocity = entity.get(_JEVelocityComponent)
 
@@ -79,10 +76,8 @@ class JEMovementSystem(_JEInternSystems):
 @_documentation
 @_final
 class JEAccelerationSystem(_JEInternSystems):
-    """AccelerationSystem"""
 
     def __init__(self, owner):
-        """JEAccelerationSystem creator"""
         super().__init__(owner)
         self._required = [
             _JEAccelerationComponent,
@@ -90,8 +85,6 @@ class JEAccelerationSystem(_JEInternSystems):
         ]
 
     def update(self, window, entity, entities, dt):
-        """Update entity acceleration"""
-
         acceleration = entity.get(_JEAccelerationComponent)
         velocity = entity.get(_JEVelocityComponent)
 
@@ -110,16 +103,12 @@ class JEAccelerationSystem(_JEInternSystems):
 @_documentation
 @_final
 class JERenderSystem(_JEInternSystems):
-    """MovementSystem"""
 
     def __init__(self, owner):
-        """JERenderSystem creator"""
         super().__init__(owner)
         self._required = [_JEPositionComponent]
 
     def sort_cache(self):
-        """Sort render cache by layer."""
-
         self.cache.sort(
             key=lambda entity:
             entity.get(_JELayerComponent)()
@@ -128,8 +117,6 @@ class JERenderSystem(_JEInternSystems):
         )
 
     def _get_world_position(self, entity):
-        """Get entity world position from hierarchy."""
-
         position = entity.get(_JEPositionComponent)
 
         if not position:
@@ -148,7 +135,7 @@ class JERenderSystem(_JEInternSystems):
 
         return x, y
 
-    def _render_text(self, window, x, y, text, font, color):
+    def _render_text(self, window, x, y, text, font, color, rotation, flip):
         lines = text().split("\n")
 
         color_value = (
@@ -165,6 +152,20 @@ class JERenderSystem(_JEInternSystems):
                 True,
                 color_value
             )
+
+            if rotation:
+                surface = _PGExtern.transform.rotate(
+                    surface,
+                    rotation()
+                )
+
+            if flip:
+                surface = _PGExtern.transform.flip(
+                    surface,
+                    bool(flip()[0]),
+                    bool(flip()[1])
+                )
+
             window.blit(surface, (x, y))
             y += line_height
 
@@ -219,7 +220,6 @@ class JERenderSystem(_JEInternSystems):
             )
 
     def update(self, window, entity, entities, dt):
-        """Update entity rendering"""
         position = entity.get(_JEPositionComponent)
 
         size = entity.get(_JESizeComponent)
@@ -238,7 +238,7 @@ class JERenderSystem(_JEInternSystems):
         x, y = self._get_world_position(entity)
 
         if text and font:
-            self._render_text(window, x, y, text, font, color)
+            self._render_text(window, x, y, text, font, color, rotation, flip)
         elif texture:
             self._render_texture(window, x, y, texture, size, rotation, flip, color)
         elif size and (color or outline):

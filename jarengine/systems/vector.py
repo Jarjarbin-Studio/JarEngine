@@ -26,97 +26,79 @@ from __future__ import annotations
 
 from typing import final as _final
 
-from jarengine.interns.high_classes import JEInternTransform as _JEInternTransform
+from jarengine.systems.transform import JETransform as _JETransform
 from jarengine.interns.decorators import documentation as _documentation
 
 @_documentation
 @_final
-class JEVector2D(_JEInternTransform):
-    """Vector (x, y)"""
+class JEVector2D(_JETransform):
 
     __recursive__ = False
 
     def __init__(self, x = 0.0, y = 0.0):
-        """JEVector2D creator"""
         super().__init__()
 
         self._vector = [x, y]
 
     @property
     def x(self):
-        """Get x"""
         return self._vector[0]
 
     @x.setter
     def x(self, x):
-        """Set x"""
         self._vector[0] = x
 
     @property
     def y(self):
-        """Get y"""
         return self._vector[1]
 
     @y.setter
     def y(self, y):
-        """Set x"""
         self._vector[1] = y
 
     def __iter__(self):
-        """Iterator over the vector"""
         return iter(self._vector)
 
     def __deepcopy__(self, memo):
-        """Deepcopy"""
         return JEVector2D(*self._vector)
 
 @_documentation
 @_final
-class JEVector3D(_JEInternTransform):
-    """Vector (x, y, z)"""
+class JEVector3D(_JETransform):
 
     __recursive__ = False
 
     def __init__(self, x = 0.0, y = 0.0, z = 0.0):
-        """JEVector3D creator"""
         super().__init__()
 
         self._vector: list[float] = [x, y, z]
 
     @property
     def x(self):
-        """Get x"""
         return self._vector[0]
 
     @x.setter
     def x(self, x):
-        """Set x"""
         self._vector[0] = x
 
     @property
     def y(self):
-        """Get y"""
         return self._vector[1]
 
     @y.setter
     def y(self, y):
-        """Set y"""
         self._vector[1] = y
 
     @property
     def z(self):
-        """Get z"""
         return self._vector[2]
 
     @z.setter
     def z(self, z):
-        """Set z"""
         self._vector[2] = z
 
     def __iter__(self):
-        """Iterator over the vector"""
         return iter(self._vector)
 
     def __deepcopy__(self, memo):
-        """Deepcopy"""
         return JEVector3D(*self._vector)

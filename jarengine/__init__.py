@@ -72,7 +72,7 @@ def init(project_path) -> tuple[int, int]:
     Interns.JTKExternConsole.init(banner=False)
     return Interns.PGExtern.init()
 
-def quit() -> None:
+def quit():
     if __start_time is not None:
         config = Interns.Config.JEInternConfig("config")
         duration = _datetime.now() - __start_time

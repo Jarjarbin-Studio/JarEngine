@@ -38,10 +38,10 @@ from jarengine.interns.decorators import documentation as _documentation
 @_documentation
 @_final
 class JEMouseCode(_JEInternBaseClass):
-    """Mouse code"""
 
     _instances = {}
     _name_cache = {}
+
     __instance_policy__ = "singleton"
     __instance_limit__ = None
     __recursive__ = False
@@ -58,7 +58,6 @@ class JEMouseCode(_JEInternBaseClass):
         })
 
     def __new__(cls, mouse = None):
-        """Instances clamping"""
         if mouse is None:
             return super().__new__(cls)
 
@@ -68,7 +67,6 @@ class JEMouseCode(_JEInternBaseClass):
         return cls._instances[mouse]
 
     def __init__(self, mouse = None):
-        """JEMouseCode creator"""
         if hasattr(self, "_initialized") or mouse is None:
             return
 
@@ -79,17 +77,13 @@ class JEMouseCode(_JEInternBaseClass):
         self._initialized = True
 
     def __int__(self):
-        """Get mouse code"""
         return self._mouse
 
     @property
     def name(self):
-        """Get mouse name"""
         return self._name
 
     def __or__(self, other):
-        """Allows same synthax as union (create a JEMouseCodeGroup)"""
-
         if not isinstance(other, JEMouseCode):
             raise _JTKExternError.Error.ErrorType(
                 "\nOther must be JEMouseCode"
@@ -98,19 +92,16 @@ class JEMouseCode(_JEInternBaseClass):
         return JEMouseCodeGroup([self, other])
 
     def __eq__(self, other):
-        """Compare 2 mouse"""
         if not isinstance(other, JEMouseCode):
             return NotImplemented
         return int(self) == int(other)
 
     def __hash__(self):
-        """Hash a mouse"""
         return hash(self._mouse)
 
 @_documentation
 @_final
 class JEMouseCodeGroup(_JEInternBaseClass):
-    """Mouse code group"""
 
     __recursive__ = False
 
@@ -118,13 +109,10 @@ class JEMouseCodeGroup(_JEInternBaseClass):
             self,
             mouses
         ):
-        """JEMouseCodeGroup creator"""
         super().__init__()
         self._mouses = list(dict.fromkeys(mouses))
 
     def __or__(self, other):
-        """Allows same synthax as union (create a JEMouseCodeGroup)"""
-
         if isinstance(other, JEMouseCode):
             return JEMouseCodeGroup([*self._mouses, other])
 
@@ -136,24 +124,19 @@ class JEMouseCodeGroup(_JEInternBaseClass):
         )
 
     def __iter__(self):
-        """Get the iterator of mouses"""
         return iter(self._mouses)
 
     @property
     def mouses(self):
-        """Get the key mouse"""
         return self._mouses
 
 @_documentation
 @_final
 class JEMouseWatcher(_JEInternBaseClass):
-    """Mouse event watcher"""
 
     __recursive__ = False
 
     def __init__(self, on, do, on_press = _JEBool(1)):
-        """JEMouseWatcher creator"""
-
         if not isinstance(on, (JEMouseCode, list, JEMouseCodeGroup)):
             raise _JTKExternError.Error.ErrorType(
                 "\nOn must be JEEventCode, list or JEKeyCodeGroup"
@@ -177,7 +160,6 @@ class JEMouseWatcher(_JEInternBaseClass):
         self._do = do
 
     def match(self, event):
-        """Check for mouse matches"""
         if event.type == self._on_param:
             for rule in self._on:
                 if event.mouse == rule:
@@ -185,20 +167,16 @@ class JEMouseWatcher(_JEInternBaseClass):
         return False
 
     def __call__(self, game, event):
-        """Call saved function"""
         self._do(game, event)
 
     @property
     def on(self):
-        """Get watched mouses"""
         return self._on
 
     @property
     def params(self):
-        """Get event parameter"""
         return self._on_param
 
     @property
     def do(self):
-        """Get seved function (as str)"""
         return f"{self._do.__name__}(JEGame, JEEvent)"

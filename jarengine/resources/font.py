@@ -41,10 +41,8 @@ from jarengine.interns.decorators import documentation as _documentation
 @_documentation
 @_final
 class JEFont(_JEInternResource, _JEInternOwnership):
-    """Texture"""
 
-    def __init__(self, name, path, size) -> None:
-        """JETexture creator"""
+    def __init__(self, name, path, size):
         super().__init__(name, path)
 
         if not "/" in path:
@@ -59,10 +57,8 @@ class JEFont(_JEInternResource, _JEInternOwnership):
 
     @property
     def font(self):
-        """Get texture surface (PGExtern)"""
         return self._font
 
     @property
     def size(self):
-        """Get texture size"""
         return self._size
