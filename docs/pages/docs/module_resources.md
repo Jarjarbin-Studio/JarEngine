@@ -1,6 +1,6 @@
 ---
 layout: page
-title: JarEngine - Resources
+title: JarEngine - JarEngine - Resources
 sidebar: sidebar
 permalink: /module_resource.html
 ---
@@ -140,18 +140,18 @@ Uses:
 
 * `pygame`
 * `jarbin-toolkit-error`
-* [`JEInternBaseClass`]()📎
-* [`JEVector2D`]()📎
-* [`JEInternResource`]()📎
-* [`JEInternOwnership`]()📎
-* [`JEInternConfig`]()📎
+* [`•>JEInternBaseClass<•`]()📎
+* [`•>JEVector2D<•`]()📎
+* [`•>JEInternResource<•`]()📎
+* [`•>JEInternOwnership<•`]()📎
+* [`•>JEInternConfig<•`]()📎
 
 ---
 
 ## 🔹 Related Modules
 
-* [`...`]()
-* [`...`]()
-* [`...`]()
+* [`•>...<•`]()📎
+* [`•>...<•`]()📎
+* [`•>...<•`]()📎
 
 ---

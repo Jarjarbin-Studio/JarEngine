@@ -1,8 +1,8 @@
 ---
 layout: page
-title: Template - Guide
+title: JarEngine - Guide - <Guide Title>
 sidebar: sidebar
-permalink: /template_guide.html
+permalink: /guide.html
 ---
 
 # 📦 <Guide Title>
@@ -71,7 +71,7 @@ Common mistakes:
 
 ## 🔹 Related Guides
 
-* [`...`]()
-* [`...`]()
+* [`•>...<•`]()📎
+* [`•>...<•`]()📎
 
 ---

@@ -1,6 +1,6 @@
 ---
 layout: page
-title: JarEngine - Systems
+title: JarEngine - Module - Systems
 sidebar: sidebar
 permalink: /module_systems.html
 ---
@@ -159,14 +159,14 @@ Uses:
 
 * `pygame`
 * `jarbin-toolkit-error`
-* [`JEInternBaseClass`]()📎
+* [`•>JEInternBaseClass<•`]()📎
 
 ---
 
 ## 🔹 Related Modules
 
-* [`...`]()
-* [`...`]()
-* [`...`]()
+* [`•>...<•`]()📎
+* [`•>...<•`]()📎
+* [`•>...<•`]()📎
 
 ---

@@ -1,6 +1,6 @@
 ---
 layout: page
-title: JarEngine - Interns
+title: JarEngine - Module - Interns
 sidebar: sidebar
 permalink: /module_interns.html
 ---
@@ -138,18 +138,18 @@ Uses:
 * `jarbin-toolkit-error`
 * `jarbin_toolkit_config`
 * `datetime`
-* [`JETexture`]()📎
-* [`JEMusic`]()📎
-* [`JESound`]()📎
-* [`JEFont`]()📎
-* [`JEBool`]()📎
+* [`•>JETexture<•`]()📎
+* [`•>JEMusic<•`]()📎
+* [`•>JESound<•`]()📎
+* [`•>JEFont<•`]()📎
+* [`•>JEBool<•`]()📎
 
 ---
 
 ## 🔹 Related Modules
 
-* [`...`]()
-* [`...`]()
-* [`...`]()
+* [`•>...<•`]()📎
+* [`•>...<•`]()📎
+* [`•>...<•`]()📎
 
 ---

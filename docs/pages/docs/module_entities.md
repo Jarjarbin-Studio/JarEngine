@@ -1,8 +1,8 @@
 ---
 layout: page
-title: JarEngine - Events
+title: JarEngine - Module - Entities
 sidebar: sidebar
-permalink: /module_events.html
+permalink: /module_entities.html
 ---
 
 # 📦 Entities
@@ -155,20 +155,20 @@ Things to know when using this module:
 Uses:
 
 * `pygame`
-* [`JEInternEntityComponent`]()📎
-* [`JEVector2D`]()📎
-* [`JEInternOwnership`]()📎
-* [`JEInternEmptyComponent`]()📎
-* [`JEInternGraphicalObject`]()📎
-* [`JEContainer`]()📎
-* [`JEBool`]()📎
+* [`•>JEInternEntityComponent<•`]()📎
+* [`•>JEVector2D<•`]()📎
+* [`•>JEInternOwnership<•`]()📎
+* [`•>JEInternEmptyComponent<•`]()📎
+* [`•>JEInternGraphicalObject<•`]()📎
+* [`•>JEContainer<•`]()📎
+* [`•>JEBool<•`]()📎
 
 ---
 
 ## 🔹 Related Modules
 
-* [`...`]()
-* [`...`]()
-* [`...`]()
+* [`•>...<•`]()📎
+* [`•>...<•`]()📎
+* [`•>...<•`]()📎
 
 ---

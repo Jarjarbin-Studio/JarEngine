@@ -1,8 +1,8 @@
 ---
 layout: page
-title: Template - Class
+title: JarEngine - Module - <Module Name>
 sidebar: sidebar
-permalink: /template_class.html
+permalink: /module_<module name>.html
 ---
 
 # 📦 <Module Name>
@@ -89,14 +89,14 @@ Common mistakes:
 Uses:
 
 * `...`
-* [`...`]()📎
+* [`•>...<•`]()📎
 
 ---
 
 ## 🔹 Related Modules
 
-* [`...`]()
-* [`...`]()
-* [`...`]()
+* [`•>...<•`]()📎
+* [`•>...<•`]()📎
+* [`•>...<•`]()📎
 
 ---

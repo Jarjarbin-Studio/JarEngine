@@ -1,8 +1,8 @@
 ---
 layout: page
-title: JarEngine
+title: JarEngine - Main
 sidebar: sidebar
-permalink: /module_jarengine.html
+permalink: /module_main.html
 ---
 
 # 📦 JarEngine

@@ -1,6 +1,6 @@
 ---
 layout: page
-title: JarEngine - Games
+title: JarEngine - Module - Games
 sidebar: sidebar
 permalink: /module_games.html
 ---
@@ -137,43 +137,43 @@ Uses:
 
 * `pygame`
 * `jarbin-toolkit-error`
-* [`JEEventHandler`]()📎
-* [`JEInternBaseClass`]()📎
-* [`JEInternConfig`]()📎
-* [`JEEntity`]()📎
-* [`JEContainer`]()📎
-* [`JEInternSystems`]()📎
-* [`JEInternResources`]()📎
-* [`JEBool`]()📎
-* [`JEColor`]()📎
-* [`JEInternWindowSettings`]()📎
-* [`JEKeyCode`]()📎
-* [`JEMouseCode`]()📎
-* [`JEVector2D`]()📎
-* [`JEFontComponent`]()📎
-* [`JETextComponent`]()📎
-* [`JEFlipComponent`]()📎
-* [`JELayerComponent`]()📎
-* [`JEVisibilityComponent`]()📎
-* [`JETextureComponent`]()📎
-* [`JEColorComponent`]()📎
-* [`JEOutlineComponent`]()📎
-* [`JEPositionComponent`]()📎
-* [`JERotationComponent`]()📎
-* [`JEVelocityComponent`]()📎
-* [`JESizeComponent`]()📎
-* [`JEMassComponent`]()📎
-* [`JEAccelerationComponent`]()📎
-* [`JEGroupComponent`]()📎
-* [`JEMusicComponent`]()📎
-* [`JESoundComponent`]()📎
+* [`•>JEEventHandler<•`]()📎
+* [`•>JEInternBaseClass<•`]()📎
+* [`•>JEInternConfig<•`]()📎
+* [`•>JEEntity<•`]()📎
+* [`•>JEContainer<•`]()📎
+* [`•>JEInternSystems<•`]()📎
+* [`•>JEInternResources<•`]()📎
+* [`•>JEBool<•`]()📎
+* [`•>JEColor<•`]()📎
+* [`•>JEInternWindowSettings<•`]()📎
+* [`•>JEKeyCode<•`]()📎
+* [`•>JEMouseCode<•`]()📎
+* [`•>JEVector2D<•`]()📎
+* [`•>JEFontComponent<•`]()📎
+* [`•>JETextComponent<•`]()📎
+* [`•>JEFlipComponent<•`]()📎
+* [`•>JELayerComponent<•`]()📎
+* [`•>JEVisibilityComponent<•`]()📎
+* [`•>JETextureComponent<•`]()📎
+* [`•>JEColorComponent<•`]()📎
+* [`•>JEOutlineComponent<•`]()📎
+* [`•>JEPositionComponent<•`]()📎
+* [`•>JERotationComponent<•`]()📎
+* [`•>JEVelocityComponent<•`]()📎
+* [`•>JESizeComponent<•`]()📎
+* [`•>JEMassComponent<•`]()📎
+* [`•>JEAccelerationComponent<•`]()📎
+* [`•>JEGroupComponent<•`]()📎
+* [`•>JEMusicComponent<•`]()📎
+* [`•>JESoundComponent<•`]()📎
 
 ---
 
 ## 🔹 Related Modules
 
-* [`...`]()
-* [`...`]()
-* [`...`]()
+* [`•>...<•`]()📎
+* [`•>...<•`]()📎
+* [`•>...<•`]()📎
 
 ---

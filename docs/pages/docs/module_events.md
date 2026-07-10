@@ -1,6 +1,6 @@
 ---
 layout: page
-title: JarEngine - Events
+title: JarEngine - Module - Events
 sidebar: sidebar
 permalink: /module_events.html
 ---
@@ -150,15 +150,15 @@ Uses:
 
 * `pygame`
 * `jarbin-toolkit-error`
-* [`JEInternBaseClass`]()📎
-* [`JEBool`]()📎
+* [`•>JEInternBaseClass<•`]()📎
+* [`•>JEBool<•`]()📎
 
 ---
 
 ## 🔹 Related Modules
 
-* [`...`]()
-* [`...`]()
-* [`...`]()
+* [`•>...<•`]()📎
+* [`•>...<•`]()📎
+* [`•>...<•`]()📎
 
 ---

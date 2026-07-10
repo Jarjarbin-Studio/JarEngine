@@ -1,13 +1,15 @@
 ---
 layout: page
-title: Template - Class
+title: JarEngine - Class - <Class Name>
 sidebar: sidebar
-permalink: /template_class.html
+permalink: /class_<class name>.html
 ---
 
 # 📦 <Class Name>
 
 > Technical reference for the `<Class Name>` class of JarEngine.
+
+> Inherit from [`•>...<•`]()📎
 
 ---
 
@@ -60,6 +62,7 @@ Internal data stored by this class.
 | `...` | `...` | ...         |  False  |
 
 ---
+
 ## 🔹 Functions / API
 
 List all public functions available.
@@ -122,28 +125,6 @@ Additional details for complex functions.
 
 ---
 
-## 🔹 Lifecycle
-
-```text
-Creation
-   │
-   ▼
-Initialization
-   │
-   ▼
-Usage
-   │
-   ▼
-Runtime Updates
-   │
-   ▼
-Destruction
-```
-
-Explain the important lifecycle steps.
-
----
-
 ## 🔹 Internal Behavior
 
 Explain how the class works internally.
@@ -156,22 +137,6 @@ Include:
 
 ---
 
-## 🔹 Design Decisions
-
-Explain the main choices behind this class:
-
-* why this class exists
-* why this API was designed this way
-* important architecture decisions
-
-Examples:
-
-* ECS compatibility
-* separation of data and logic
-* lightweight abstraction
-
----
-
 ## 🔹 Performance Notes
 
 Describe important performance information:
@@ -180,17 +145,6 @@ Describe important performance information:
 * memory usage
 * allocations
 * optimization details
-
----
-
-## 🔹 Thread Safety
-
-```text
-Thread-safe: Yes / No
-
-Notes:
-- ...
-```
 
 ---
 
@@ -233,12 +187,8 @@ Useful debugging methods:
 
 ## 🔹 Related Classes
 
-* [`...`]()
-* [`...`]()
-* [`...`]()📎
+* [`•>...<•`]()📎
+* [`•>...<•`]()📎
+* [`•>...<•`]()📎
 
 ---
-
-## 🔹 Notes
-
-Additional technical information, recommendations, or implementation details.

@@ -13,7 +13,7 @@ entries:
             type: homepage
 
           - title: JarEngine
-            url: /module_jarengine.html
+            url: /module_main.html
             output: web, pdf
 
       - title: Modules
