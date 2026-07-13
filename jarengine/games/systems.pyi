@@ -1,23 +1,70 @@
 from __future__ import annotations
 
-from jarengine.interns.high_classes import JEInternEntityComponent, JEInternSystems
+from jarengine.interns.high_classes import JEInternSystems
 from jarengine.entities.entity import JEEntity
 from jarengine.systems.container import JEContainer
 from jarengine.games.window import JEWindow
 from jarengine.games.game import JEGame
-from jarengine.systems.bool import JEBool
 
 class JEMovementSystem(JEInternSystems):
-    def __init__(self, owner: JEGame): ...
-    def accepts(self, components:  JEContainer[JEInternEntityComponent]) -> JEBool: ...
-    def update(self, window: JEWindow, entity: JEEntity, entities: JEContainer[JEEntity], dt: float): ...
+    def __init__(self, owner: JEGame):
+        """
+            JEMovementSystem
 
-class JERenderSystem(JEInternSystems):
-    def __init__(self, owner: JEGame): ...
-    def accepts(self, components:  JEContainer[JEInternEntityComponent]) -> JEBool: ...
-    def update(self, window: JEWindow, entity: JEEntity, entities: JEContainer[JEEntity], dt: float): ...
+            Parameters:
+                owner (JEGame): Game
+        """
+        ...
+    def update(self, window: JEWindow, entity: JEEntity, entities: JEContainer[JEEntity], dt: float):
+        """
+            Update the movement of an entity
+
+            Parameters:
+                window (JEWindow): Window
+                entity (JEEntity): Entity
+                entities (JEContainer[JEEntity]): Other entities
+                dt (float): Time
+        """
+        ...
 
 class JEAccelerationSystem(JEInternSystems):
-    def __init__(self, owner: JEGame): ...
-    def accepts(self, components:  JEContainer[JEInternEntityComponent]) -> JEBool: ...
-    def update(self, window: JEWindow, entity: JEEntity, entities: JEContainer[JEEntity], dt: float): ...
+    def __init__(self, owner: JEGame):
+        """
+            JEAccelerationSystem
+
+            Parameters:
+                owner (JEGame): Game
+        """
+        ...
+    def update(self, window: JEWindow, entity: JEEntity, entities: JEContainer[JEEntity], dt: float):
+        """
+            Update the acceleration of an entity
+
+            Parameters:
+                window (JEWindow): Window
+                entity (JEEntity): Entity
+                entities (JEContainer[JEEntity]): Other entities
+                dt (float): Time
+        """
+        ...
+
+class JERenderSystem(JEInternSystems):
+    def __init__(self, owner: JEGame):
+        """
+            JERenderSystem
+
+            Parameters:
+                owner (JEGame): Game
+        """
+        ...
+    def update(self, window: JEWindow, entity: JEEntity, entities: JEContainer[JEEntity], dt: float):
+        """
+            Update the rendering of an entity
+
+            Parameters:
+                window (JEWindow): Window
+                entity (JEEntity): Entity
+                entities (JEContainer[JEEntity]): Other entities
+                dt (float): Time
+        """
+        ...

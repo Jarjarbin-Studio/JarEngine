@@ -14,31 +14,159 @@ from jarengine.systems.bool import JEBool
 from jarengine.systems.clock import JEClock
 
 class JEGame(JEInternBaseClass):
-    def __init__(self, *, use_clock: JEBool = JEBool(0), use_input: JEBool = JEBool(0)): ...
-    def set_window(self, window: JEWindow): ...
+    def __init__(self, *, use_clock: JEBool = JEBool(0), use_input: JEBool = JEBool(0)):
+        """
+            JEGame
+
+            Parameters:
+                use_clock (JEBool) = JEBool(0): Activate clock handler
+                use_input (JEBool) = JEBool(0): Activate input handler
+        """
+        ...
+    def set_window(self, window: JEWindow):
+        """
+            Set game window
+
+            Parameters:
+                window (JEWindow): Window
+        """
+        ...
     @property
-    def wdw(self) -> JEWindow: ...
+    def wdw(self) -> JEWindow:
+        """
+            Get window
+            
+            Returns:
+                JEWindow: Window
+        """
+        ...
     @property
-    def input(self) -> JEInput: ...
-    def is_key_down(self, key: JEKeyCode) -> bool: ...
-    def is_mouse_down(self, button: JEMouseCode) -> bool: ...
+    def input(self) -> JEInput:
+        """
+            Get input handler (needs use_input = JETrue)
+
+            Returns:
+                JEInput: Input handler
+        """
+        ...
+    def is_key_down(self, key: JEKeyCode) -> bool:
+        """
+            Check if a key is down (needs use_input = JETrue)
+            
+            Parameters:
+                key (JEKeyCode): Key
+            
+            Returns:
+                bool; True if key is down, False otherwise
+        """
+        ...
+    def is_mouse_down(self, button: JEMouseCode) -> bool:
+        """
+            Check if a mouse button is down (needs use_input = JETrue)
+
+            Parameters:
+                button (JEMouseCode): Mouse
+
+            Returns:
+                bool; True if mouse button is down, False otherwise
+        """
+        ...
     @property
-    def clock(self) -> JEClock: ...
+    def clock(self) -> JEClock:
+        """
+            Get game clock (needs use_clock = JETrue)
+
+            Returns:
+                JEClock: Game clock
+        """
+        ...
     @property
-    def dt(self) -> float: ...
+    def dt(self) -> float:
+        """
+            Get game clock (needs use_clock = JETrue)
+
+            Returns:
+                JEClock: Game clock
+        """
+        ...
     @property
-    def event(self) -> JEEventHandler: ...
+    def event(self) -> JEEventHandler:
+        """
+            Get event handler
+
+            Returns:
+                JEEventHandler: Event handler
+        """
+        ...
     @property
-    def is_open(self) -> JEBool: ...
+    def is_open(self) -> JEBool:
+        """
+            Check if game is open
+
+            Returns:
+                JEBool: True if game is open, False otherwise
+        """
+        ...
+    def close(self):
+        """
+            Close game
+        """
+        ...
     @property
-    def ressource(self) -> JEInternResources: ...
-    def refresh(self): ...
-    def add_entity(self, entity: JEEntity): ...
+    def ressource(self) -> JEInternResources:
+        """
+            Get game resources storage
+
+            Returns:
+                JEInternResources: Game resources
+        """
+        ...
+    def refresh(self):
+        """
+            Refresh game info, systems' cache, and other sub systems (HIGH COST ON CPU)
+        """
+        ...
+    def add_entity(self, entity: JEEntity):
+        """
+            Add an entity to the game (do not use if you want manual handling of the entity)
+
+            Parameters:
+                entity (JEEntity): Entity to add
+        """
+        ...
     @property
-    def entities(self) -> JEContainer[JEEntity]: ...
-    def close(self): ...
-    def add_system(self, system: JEInternSystems): ...
+    def entities(self) -> JEContainer[JEEntity]:
+        """
+            Get entity container
+
+            Returns:
+                JEContainer[JEEntity]: Entity container
+        """
+        ...
+    def add_system(self, system: JEInternSystems):
+        """
+            Add a system to the game
+
+            Parameters:
+                system (JEInternSystems): Entity to add
+        """
+        ...
     @property
-    def systems(self) -> JEContainer[JEInternSystems]: ...
-    def update(self): ...
-    def display(self): ...
+    def systems(self) -> JEContainer[JEInternSystems]:
+        """
+            Get system container
+
+            Returns:
+                JEContainer[JEInternSystems]: System container
+        """
+        ...
+    def update(self):
+        """
+            Update entities through added systems
+        """
+        ...
+    def display(self):
+        """
+            Display window
+        """
+        ...

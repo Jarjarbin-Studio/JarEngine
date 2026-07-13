@@ -122,6 +122,9 @@ class JEGame(_JEInternBaseClass):
     def is_open(self):
         return self._is_open
 
+    def close(self):
+        self._is_open = _JEBool(0)
+
     @property
     def ressource(self):
         return self._ressource
@@ -137,9 +140,6 @@ class JEGame(_JEInternBaseClass):
     @property
     def entities(self):
         return self._entities
-
-    def close(self):
-        self._is_open = _JEBool(0)
 
     def add_system(self, system):
         self._systems.add(system)
@@ -170,8 +170,8 @@ class JEGame(_JEInternBaseClass):
         if self._input:
             self._input.update()
 
-        dt = float(self._clock)
         window = self._window
+        dt = self.dt if self._clock else 1 /window.settings.fps
 
         for system in self._systems:
             for entity in system.cache:

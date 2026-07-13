@@ -36,6 +36,7 @@ from jarengine.resources.texture import JETexture as _JETexture
 from jarengine.resources.music import JEMusic as _JEMusic
 from jarengine.resources.sound import JESound as _JESound
 from jarengine.resources.font import JEFont as _JEFont
+from jarengine.interns import PGExtern as _PGExtern
 
 @_documentation
 @_final
@@ -100,6 +101,7 @@ class JEInternWindowSettings(_JEInternBaseClass):
         self._display = display
         self._vsync = vsync
         self._title = title
+        _PGExtern.display.set_caption(title)
 
     @property
     def size(self):
@@ -140,6 +142,7 @@ class JEInternWindowSettings(_JEInternBaseClass):
     @title.setter
     def title(self, title):
         self._title = title
+        _PGExtern.display.set_caption(title)
 
     def __deepcopy__(self, memo):
         return self

@@ -35,6 +35,7 @@ from jarengine.interns.final_classes import JEInternWindowSettings as _JEInternW
 from jarengine.systems.color import JEColor as _JEColor
 from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.interns.decorators import documentation as _documentation
+from jarengine.systems.vector import JEVector2D as _JEVector2D
 
 @_documentation
 @_final
@@ -60,13 +61,9 @@ class JEWindow(_JEInternBaseClass):
             return
         JEWindow._is_created = _JEBool(1)
         super().__init__()
-        self._settings = _JEInternWindowSettings(size, flags, fps, depth, display, vsync, title)
         self._screen = _PGExtern.display.set_mode(size, flags, depth, display, vsync)
-        self.rename(title)
-
-    def rename(self, title):
-        _PGExtern.display.set_caption(title)
-        self._settings.title = title
+        size = _JEVector2D(*size) if isinstance(size, tuple) else size
+        self._settings = _JEInternWindowSettings(size, flags, fps, depth, display, vsync, title)
 
     @property
     def screen(self):
