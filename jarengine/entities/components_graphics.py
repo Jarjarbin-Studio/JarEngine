@@ -66,6 +66,8 @@ class JEFontComponent(_JEInternEntityComponent):
 @_final
 class JETextComponent(_JEInternEntityComponent):
 
+    __recursive__ = False
+
     def __init__(self, owner, text):
         super().__init__(owner, JETextComponent)
         self._text = text
@@ -128,6 +130,8 @@ class JETextureComponent(_JEInternEntityComponent):
 @_final
 class JEColorComponent(_JEInternEntityComponent):
 
+    __recursive__ = False
+
     def __init__(self, owner, color):
         super().__init__(owner, JEColorComponent)
         self._color = (
@@ -173,6 +177,8 @@ class JEColorComponent(_JEInternEntityComponent):
 @_documentation
 @_final
 class JEOutlineComponent(_JEInternEntityComponent):
+
+    __recursive__ = False
 
     def __init__(self, owner, color, size):
         super().__init__(owner, JEOutlineComponent)
@@ -241,6 +247,8 @@ class JEOutlineComponent(_JEInternEntityComponent):
 @_final
 class JEVisibilityComponent(_JEInternEntityComponent):
 
+    __recursive__ = False
+
     def __init__(self, owner, visibility):
         super().__init__(owner, JEVisibilityComponent)
         self._visibility = visibility
@@ -271,6 +279,8 @@ class JEVisibilityComponent(_JEInternEntityComponent):
 @_documentation
 @_final
 class JELayerComponent(_JEInternEntityComponent):
+
+    __recursive__ = False
 
     def __init__(self, owner, layer):
         super().__init__(owner, JELayerComponent)
@@ -306,6 +316,8 @@ class JELayerComponent(_JEInternEntityComponent):
 @_documentation
 @_final
 class JEFlipComponent(_JEInternEntityComponent):
+
+    __recursive__ = False
 
     def __init__(self, owner, flip):
         super().__init__(owner, JEFlipComponent)

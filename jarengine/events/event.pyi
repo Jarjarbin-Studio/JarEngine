@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import Callable, Optional
+from typing import Callable, Optional, Iterator
 
 from jarengine.interns.base_classe import JEInternBaseClass
 from jarengine.games.game import JEGame
 from jarengine.events.manager import JEEvent
+from jarengine.systems.bool import JEBool
 
 class JEEventCode(JEInternBaseClass):
     def __init__(self, event: Optional[int]):
@@ -15,12 +16,53 @@ class JEEventCode(JEInternBaseClass):
                 event (Optional[int]): Event code
         """
         ...
-    def __int__(self) -> int: ...
+    def __int__(self) -> int:
+        """
+            Get event code
+
+            Returns:
+                int: Event code
+        """
+        ...
     @property
-    def name(self) -> str: ...
-    def __or__(self, other: JEEventCode) -> JEEventCodeGroup: ...
-    def __eq__(self, other: JEEventCode) -> bool: ...
-    def __hash__(self) -> int: ...
+    def name(self) -> str:
+        """
+        Get event name
+
+            Returns:
+                str: Event name
+        """
+        ...
+    def __or__(self, other: JEEventCode) -> JEEventCodeGroup:
+        """
+        Create event group out of "Event1 | Event2"
+
+            Parameters:
+                other (JEEventCode): Events to store together
+
+            Returns:
+                JEEventCodeGroup: Event group
+        """
+        ...
+    def __eq__(self, other: JEEventCode) -> JEBool:
+        """
+        Compare 2 events
+
+            Parameters:
+                other (JEEventCode): Event to compare with
+
+            Returns:
+                JEBool: True if they are equal, False otherwise
+        """
+        ...
+    def __hash__(self) -> int:
+        """
+        Hash event (for future use)
+
+            Returns:
+                int: Event code hash
+        """
+        ...
 
 class JEEventCodeGroup(JEInternBaseClass):
     def __init__(self, events: list[JEEventCode]):
@@ -31,10 +73,34 @@ class JEEventCodeGroup(JEInternBaseClass):
                 events (list[JEEventCode]): Events to store together
         """
         ...
-    def __or__(self, other: JEEventCode | JEEventCodeGroup) -> JEEventCodeGroup: ...
-    def __iter__(self): ...
+    def __or__(self, other: JEEventCode | JEEventCodeGroup) -> JEEventCodeGroup:
+        """
+        Create event group out of "Event1 | Event2 | Event3"
+
+            Parameters:
+                other (JEEventCode | JEEventCodeGroup): Events to store together
+
+            Returns:
+                JEEventCodeGroup: Event group
+        """
+        ...
+    def __iter__(self) -> Iterator[JEEventCode]:
+        """
+        Iterate over events
+
+            Returns:
+                Iterator[JEEventCode]: Iterator
+        """
+        ...
     @property
-    def events(self): ...
+    def events(self) -> list[JEEventCode]:
+        """
+        Get events
+
+            Returns:
+                list[JEEventCode]: List of events
+        """
+        ...
 
 class JEEventWatcher(JEInternBaseClass):
     def __init__(self, on: JEEventCode | list[JEEventCode] | JEEventCodeGroup, do: Callable[[JEGame, JEEvent], None]):
@@ -46,9 +112,41 @@ class JEEventWatcher(JEInternBaseClass):
                 do (Callable[[JEGame, JEEvent], None]): Action to do once triggered
         """
         ...
-    def match(self, event: JEEvent) -> bool: ...
-    def __call__(self, game: JEGame, event: JEEvent): ...
+    def match(self, event: JEEvent) -> bool:
+        """
+            Look for a match of the events with the event
+
+            Parameters:
+                event (JEEvent): Event to look for
+
+            Returns:
+                bool: True if event matches, False otherwise
+        """
+        ...
+    def __call__(self, game: JEGame, event: JEEvent):
+        """
+            Call the "do" function of the watcher
+            
+            Parameters:
+                game (JEGame): Game
+                event (JEEvent): Current Event
+        """
+        ...
     @property
-    def on(self) -> JEEventCodeGroup: ...
+    def on(self) -> JEEventCodeGroup:
+        """
+            Get the "on" event group of the watcher
+
+            Returns:
+                JEEventCodeGroup: Event group
+        """
+        ...
     @property
-    def do(self) -> str: ...
+    def do(self) -> str:
+        """
+            Get the string representation of the "do" function of the watcher
+
+            Returns:
+                str: String representation
+        """
+        ...

@@ -35,6 +35,8 @@ from jarengine.systems.vector import JEVector2D as _JEVector2D
 @_final
 class JEPositionComponent(_JEInternEntityComponent):
 
+    __recursive__ = False
+
     def __init__(self, owner, position):
         super().__init__(owner, JEPositionComponent)
         self._position = (
@@ -78,6 +80,8 @@ class JEPositionComponent(_JEInternEntityComponent):
 @_documentation
 @_final
 class JEVelocityComponent(_JEInternEntityComponent):
+
+    __recursive__ = False
 
     def __init__(self, owner, velocity):
         super().__init__(owner, JEVelocityComponent)
@@ -123,6 +127,8 @@ class JEVelocityComponent(_JEInternEntityComponent):
 @_final
 class JESizeComponent(_JEInternEntityComponent):
 
+    __recursive__ = False
+
     def __init__(self, owner, size):
         super().__init__(owner, JESizeComponent)
         self._size = (
@@ -166,6 +172,8 @@ class JESizeComponent(_JEInternEntityComponent):
 @_documentation
 @_final
 class JERotationComponent(_JEInternEntityComponent):
+
+    __recursive__ = False
 
     def __init__(self, owner, rotation):
         super().__init__(owner, JERotationComponent)

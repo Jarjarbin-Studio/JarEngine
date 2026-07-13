@@ -31,6 +31,7 @@ from jarengine.interns import (
     JTKExternError as _JTKExternError,
     PGExtern as _PGExtern
 )
+from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.interns.decorators import documentation as _documentation
 
 @_documentation
@@ -95,7 +96,7 @@ class JEEventCode(_JEInternBaseClass):
     def __eq__(self, other):
         if not isinstance(other, JEEventCode):
             return NotImplemented
-        return int(self) == int(other)
+        return _JEBool(int(self) == int(other))
 
     def __hash__(self):
         return hash(self._event)

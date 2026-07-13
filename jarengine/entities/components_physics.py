@@ -36,6 +36,8 @@ from jarengine.systems.vector import JEVector2D as _JEVector2D
 class JEAccelerationComponent(_JEInternEntityComponent):
     """AccelerationComponent"""
 
+    __recursive__ = False
+
     def __init__(self, owner, acceleration):
         super().__init__(owner, JEAccelerationComponent)
         self._acceleration = (
@@ -79,6 +81,8 @@ class JEAccelerationComponent(_JEInternEntityComponent):
 @_documentation
 @_final
 class JEMassComponent(_JEInternEntityComponent):
+
+    __recursive__ = False
 
     def __init__(self, owner, mass):
         super().__init__(owner, JEMassComponent)

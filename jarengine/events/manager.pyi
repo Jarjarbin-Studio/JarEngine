@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Optional
+
 from jarengine.interns.base_classe import JEInternBaseClass
 from jarengine.interns import PGExtern
 from jarengine.events.event import JEEventCode, JEEventWatcher
@@ -18,11 +20,32 @@ class JEEvent(JEInternBaseClass):
         """
         ...
     @property
-    def type(self) -> JEEventCode: ...
+    def type(self) -> JEEventCode:
+        """
+            Get event code of the current event
+
+            Returns:
+                JEEventCode: Event code
+        """
+        ...
     @property
-    def key(self) -> JEKeyCode | None: ...
+    def key(self) -> Optional[JEKeyCode]:
+        """
+            Get key code of the current event (None if event unrelated to key)
+
+            Returns:
+                Optional[JEKeyCode]: Key code
+        """
+        ...
     @property
-    def mouse(self) -> JEMouseCode | None: ...
+    def mouse(self) -> Optional[JEMouseCode]:
+        """
+            Get mouse code of the current event (None if event unrelated to mouse)
+
+            Returns:
+                Optional[JEMouseCode]: Mouse code
+        """
+        ...
 
 class JEEventHandler(JEInternBaseClass):
     def __init__(self):

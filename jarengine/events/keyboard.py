@@ -108,7 +108,7 @@ class JEKeyCode(_JEInternBaseClass):
     def __eq__(self, other):
         if not isinstance(other, JEKeyCode):
             return NotImplemented
-        return int(self) == int(other)
+        return _JEBool(int(self) == int(other))
 
     def __hash__(self):
         return hash(self._key)
