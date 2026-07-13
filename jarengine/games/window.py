@@ -61,9 +61,8 @@ class JEWindow(_JEInternBaseClass):
             return
         JEWindow._is_created = _JEBool(1)
         super().__init__()
-        self._screen = _PGExtern.display.set_mode(size, flags, depth, display, vsync)
-        size = _JEVector2D(*size) if isinstance(size, tuple) else size
-        self._settings = _JEInternWindowSettings(size, flags, fps, depth, display, vsync, title)
+        self._screen = _PGExtern.display.set_mode((size.x, size.y) if isinstance(size, _JEVector2D) else size, flags, depth, display, vsync)
+        self._settings = _JEInternWindowSettings(_JEVector2D(*size) if isinstance(size, tuple) else size, flags, fps, depth, display, vsync, title)
 
     @property
     def screen(self):
