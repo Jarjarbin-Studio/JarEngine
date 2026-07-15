@@ -170,7 +170,7 @@ class JERenderSystem(_JEInternSystems):
             y += line_height
 
     def _render_texture(self, window, x, y, texture, size, rotation, flip, color):
-            surface = texture().surface
+            surface = texture().texture
 
             if size:
                 surface = _PGExtern.transform.scale(

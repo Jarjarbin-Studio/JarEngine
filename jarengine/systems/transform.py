@@ -26,6 +26,8 @@ from __future__ import annotations
 
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from jarengine.interns.decorators import documentation as _documentation
+from jarengine.interns import JTKExternError as _JTKExternError
+from jarengine.systems.bool import JEBool as _JEBool
 
 @_documentation
 class JETransform(_JEInternBaseClass):
@@ -150,7 +152,7 @@ class JETransform(_JEInternBaseClass):
         x1, y1, z1 = self._get()
         x2, y2, z2 = other._get()
 
-        return (
+        return _JEBool(
             x1 == x2 and
             y1 == y2 and
             z1 == z2

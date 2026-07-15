@@ -15,7 +15,7 @@ class JEWindow(JEInternBaseClass):
             JEWindow
 
             Parameters:
-                size (JEVector2D | tuple[int, int]) = (0, 0): Size
+                size (JEVector2D | tuple[int, int]) = JEVector2D(0, 0): Size
                 flags (int) = 0: Flags (Not handled by JarEngine)
                 fps (int) = 60: FPS
                 depth (int) = 0: Depth (Not handled by JarEngine)

@@ -73,7 +73,7 @@ class JEInternResources(_JEInternBaseClass):
 
     @property
     def animations(self):
-        return self._animations
+        raise NotImplementedError
 
     @property
     def font(self):

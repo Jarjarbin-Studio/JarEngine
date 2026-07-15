@@ -4,6 +4,12 @@ from jarengine.interns.low_classes import JEInternResource
 from jarengine.interns.high_classes import JEInternOwnership
 
 class JEMusic(JEInternResource, JEInternOwnership):
-    def __init__(self, name: str, path: str): ...
-    @property
-    def path(self) -> str: ...
+    def __init__(self, name: str, path: str):
+        """
+            JEMusic
+
+            Parameters:
+                name (str): Music name
+                path (str): Music path
+        """
+        ...

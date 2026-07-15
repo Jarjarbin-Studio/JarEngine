@@ -19,8 +19,8 @@ class JEGame(JEInternBaseClass):
             JEGame
 
             Parameters:
-                use_clock (JEBool) = JEBool(0): Activate clock handler
-                use_input (JEBool) = JEBool(0): Activate input handler
+                use_clock (JEBool) = JEFalse: Activate clock handler
+                use_input (JEBool) = JEFalse: Activate input handler
         """
         ...
     def set_window(self, window: JEWindow):

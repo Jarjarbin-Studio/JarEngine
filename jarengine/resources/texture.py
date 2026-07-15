@@ -51,14 +51,14 @@ class JETexture(_JEInternResource, _JEInternOwnership):
 
         self._path = path
         try:
-            self._surface = _PGExtern.image.load(path).convert_alpha()
+            self._texture = _PGExtern.image.load(path).convert_alpha()
         except FileNotFoundError:
             raise _JTKExternError.Special.ErrorSpecialConfig(f"\nInvalid texture path. Check assets config at {_JEInternConfig.config_path}")
-        self._size = _JEVector2D(self._surface.get_width(), self._surface.get_height())
+        self._size = _JEVector2D(self._texture.get_width(), self._texture.get_height())
 
     @property
-    def surface(self):
-        return self._surface
+    def texture(self):
+        return self._texture
 
     @property
     def size(self):

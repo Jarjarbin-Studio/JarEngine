@@ -1,5 +1,13 @@
 from __future__ import annotations
 
-from typing import Any
-
-def documentation(cls: type) -> Any: ...
+def documentation(cls: type) -> type:
+    """
+        Create automatic, runtime documentation (use as property)
+        
+        Parameters:
+            cls (type): Class to document about
+        
+        Returns:
+            type: class
+    """
+    ...

@@ -73,7 +73,7 @@ class JEInternBaseClass:
             }
         }
 
-    def debug(self, *, is_colored = False, max_depth = -1, branched_recursive = False, prefix = "", is_last = True, is_root = True, show_root = True, _visited = None, _stack = None):
+    def debug(self, *, is_colored = False, max_depth = -1, branched_recursive = False, show_root = True, _is_last = True, _is_root = True, _prefix = "", _visited = None, _stack = None):
 
         COLOR_THEME: dict[str, tuple[int, int, int]] = {
             "class": (180, 220, 255),
@@ -194,10 +194,10 @@ class JEInternBaseClass:
                     is_colored=is_colored,
                     max_depth=max_depth - 1,
                     branched_recursive=branched_recursive,
-                    prefix=extend_prefix(child_prefix, last_item),
-                    is_last=True,
-                    is_root=False,
                     show_root=False,
+                    _is_last=True,
+                    _is_root=False,
+                    _prefix=extend_prefix(child_prefix, last_item),
                     _visited=_visited,
                     _stack=_stack,
                 ).splitlines()
@@ -270,7 +270,7 @@ class JEInternBaseClass:
         obj_id = id(self)
         if obj_id in _stack:
             return (
-                f"{prefix}└─ {colorize('<recursive>', 'error')} "
+                f"{_prefix}└─ {colorize('<recursive>', 'error')} "
                 f"{colorize(self.__class__.__name__, "class")} ({colorize(f"JEID-{self.jeid}" if hasattr(self, "jeid") else f"ID-{obj_id}", 'id')})"
             )
 
@@ -294,13 +294,13 @@ class JEInternBaseClass:
 
             label = f"{base}{indicator}"
 
-            if is_root and show_root:
+            if _is_root and show_root:
                 lines.append(label)
             else:
-                connector = "└─ " if is_last else "├─ "
-                lines.append(f"{prefix}{connector}{label}")
+                connector = "└─ " if _is_last else "├─ "
+                lines.append(f"{_prefix}{connector}{label}")
 
-            new_prefix = extend_prefix(prefix, is_last)
+            new_prefix = extend_prefix(_prefix, _is_last)
 
             public_attrs = {
                 key: value
@@ -338,7 +338,7 @@ class JEInternBaseClass:
             if branched_recursive:
                 _stack.discard(obj_id)
 
-    def dump(self, *, prefix="", is_last=True, is_root=True, _attr_key=None, _visited=None):
+    def dump(self, *, _is_last=True, _is_root=True, _prefix="", _attr_key=None, _visited=None):
         BRANCH = "│   "
         SPACE = "    "
         TEE = "├─ "
@@ -377,9 +377,9 @@ class JEInternBaseClass:
 
         obj_id = id(self)
         if obj_id in _visited and self.__recursive__:
-            connector = ELBOW if is_last else TEE
+            connector = ELBOW if _is_last else TEE
             key_part = f"{_attr_key}: " if _attr_key else ""
-            return f"{prefix}{connector}{key_part}<circular> {self.__class__.__name__}"
+            return f"{_prefix}{connector}{key_part}<circular> {self.__class__.__name__}"
         _visited.add(obj_id)
 
         lines = []
@@ -388,14 +388,14 @@ class JEInternBaseClass:
 
         class_part = class_name + (f" ({name!r})" if name else "")
 
-        if is_root:
+        if _is_root:
             lines.append(class_part)
         else:
-            connector = ELBOW if is_last else TEE
+            connector = ELBOW if _is_last else TEE
             key_part = f"{_attr_key}: " if _attr_key else ""
-            lines.append(f"{prefix}{connector}{key_part}{class_part}")
+            lines.append(f"{_prefix}{connector}{key_part}{class_part}")
 
-        new_prefix = extend_prefix(prefix, is_last)
+        new_prefix = extend_prefix(_prefix, _is_last)
 
         raw_attrs: dict = {k: v for k, v in dict(getattr(self, "__dict__", {})).items() if not k.startswith("_")}
 
@@ -421,9 +421,9 @@ class JEInternBaseClass:
                     )
                 else:
                     child = v.dump(
-                        prefix=new_prefix,
-                        is_last=last,
-                        is_root=False,
+                        _is_last=last,
+                        _is_root=False,
+                        _prefix=new_prefix,
                         _attr_key=k,
                         _visited=_visited,
                     )

@@ -6,10 +6,30 @@ from jarengine.interns import PGExtern
 from jarengine.systems.vector import JEVector2D
 
 class JETexture(JEInternResource, JEInternOwnership):
-    def __init__(self, name: str, path: str): ...
+    def __init__(self, name: str, path: str):
+        """
+            JETexture
+            
+            Parameters:
+                name (str): Texture name
+                path (str): Texture path
+        """
+        ...
     @property
-    def surface(self) -> PGExtern.Surface: ...
+    def texture(self) -> PGExtern.Surface:
+        """
+            Get PyGame texture
+
+            Returns:
+                PGExtern.Surface: Texture
+        """
+        ...
     @property
-    def path(self) -> str: ...
-    @property
-    def size(self) -> JEVector2D: ...
+    def size(self) -> JEVector2D:
+        """
+            Get texture size
+
+            Returns:
+                JEVector2D: Size
+        """
+        ...

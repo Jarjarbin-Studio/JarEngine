@@ -51,12 +51,12 @@ class JEInternConfig(_JTKInternConfig, _JEInternBaseClass):
         if not data:
             data = {}
 
-        super().__init__(JEInternConfig.config_path, {
+        super().__init__(JEInternConfig.config_path, data | {
             "INFO": {
                 "name": name,
                 "creation": _datetime.now()
             }
-        } | data, file_name=f"je-{name}.ini")
+        }, file_name=f"je-{name}.ini")
 
 def get_config(name = "config", data = None):
     return JEInternConfig(name, data)

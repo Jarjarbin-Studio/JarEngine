@@ -15,44 +15,187 @@ from jarengine.systems.vector import JEVector2D
 
 
 class JEInternEmptyComponent(JEInternEntityComponent):
-    def __init__(self, owner: JEEntity): ...
-    def __call__(self) -> NoneType: ...
-    def __bool__(self) -> bool: ...
-    def copy(self, new_owner: JEEntity) -> JEInternEmptyComponent: ...
+    def __init__(self, owner: JEEntity):
+        """
+            JEInternEmptyComponent
+
+            Parameters:
+                owner (JEEntity): Entity
+        """
+        ...
+    def __call__(self) -> NoneType:
+        """
+            None return for the entity checking (not included in any other component)
+        """
+        ...
+    def __bool__(self) -> bool:
+        """
+            False return for the entity checking (not included in any other component)
+        """
+        ...
+    def copy(self, new_owner: JEEntity) -> JEInternEmptyComponent:
+        """
+            Copy the empty component to a new entity
+
+            Returns:
+                JEInternEmptyComponent: New entity
+        """
+        ...
 
 class JEInternResources(JEInternBaseClass):
-    def __init__(self): ...
+    def __init__(self):
+        """
+            JEInternResources
+        """
+        ...
     @property
-    def texture(self) -> JEContainer[JETexture]: ...
+    def texture(self) -> JEContainer[JETexture]:
+        """
+            Get textures storage
+
+            Returns:
+                JEContainer[JETexture]: Texture resources
+        """
+        ...
     @property
-    def animations(self) -> JEContainer[JEInternGraphic]: ...
+    def animations(self) -> JEContainer[JEInternGraphic]:
+        """
+            Get animations storage
+
+            Returns:
+                JEContainer[JEInternGraphic]: Animation resources (not implemented)
+        """
+        ...
     @property
-    def font(self) -> JEContainer[JEFont]: ...
+    def font(self) -> JEContainer[JEFont]:
+        """
+            Get fonts storage
+
+            Returns:
+                JEContainer[JEFont]: Font resources
+        """
+        ...
     @property
-    def music(self) -> JEContainer[JEMusic]: ...
+    def music(self) -> JEContainer[JEMusic]:
+        """
+            Get musics storage
+
+            Returns:
+                JEContainer[JEMusic]: Music resources
+        """
+        ...
     @property
-    def sound(self) -> JEContainer[JESound]: ...
+    def sound(self) -> JEContainer[JESound]:
+        """
+            Get sounds storage
+
+            Returns:
+                JEContainer[JESound]: Sound resources
+        """
+        ...
 
 class JEInternWindowSettings(JEInternBaseClass):
-    def __init__(self, size: JEVector2D, flags: int,fps: int, depth: int, display: int, vsync: int, title: str): ...
+    def __init__(self, size: JEVector2D, flags: int,fps: int, depth: int, display: int, vsync: int, title: str):
+        """
+            JEInternWindowSettings
+
+            Parameters:
+                size (JEVector2D): Size
+                flags (int): Flags (Not handled by JarEngine)
+                fps (int): FPS
+                depth (int): Depth (Not handled by JarEngine)
+                display (int): Display (Not handled by JarEngine)
+                vsync (int): Vsync (Not handled by JarEngine)
+                title (str): Title
+        """
+        ...
     @property
-    def size(self) -> JEVector2D: ...
+    def size(self) -> JEVector2D:
+        """
+            Get the size setting
+
+            Returns:
+                JEVector2D: Size
+        """
+        ...
     @size.setter
-    def size(self, size: JEVector2D): ...
+    def size(self, size: JEVector2D):
+        """
+            Set the size setting
+
+            Parameters:
+                size (JEVector2D): New size
+        """
+        ...
     @property
-    def flags(self) -> int: ...
+    def flags(self) -> int:
+        """
+            Get the flag setting
+
+            Returns:
+                int: Flag
+        """
+        ...
     @property
-    def fps(self) -> int: ...
+    def fps(self) -> int:
+        """
+            Get the FPS setting
+
+            Returns:
+                int: FPS
+        """
+        ...
     @fps.setter
-    def fps(self, fps: int): ...
+    def fps(self, fps: int):
+        """
+            Set the FPS setting
+
+            Parameters:
+                fps (int): New FPS
+        """
+        ...
     @property
-    def depth(self) -> int: ...
+    def depth(self) -> int:
+        """
+            Get the depth setting
+
+            Returns:
+                int: Depth
+        """
+        ...
     @property
-    def display(self) -> int: ...
+    def display(self) -> int:
+        """
+            Get the display setting
+
+            Returns:
+                int: Display
+        """
+        ...
     @property
-    def vsync(self) -> int: ...
+    def vsync(self) -> int:
+        """
+            Get the vsync setting
+
+            Returns:
+                int: Vsync
+        """
+        ...
     @property
-    def title(self) -> str: ...
+    def title(self) -> str:
+        """
+            Get the title setting
+
+            Returns:
+                str: Title
+        """
+        ...
     @title.setter
-    def title(self, title: str): ...
-    def __deepcopy__(self, memo): ...
+    def title(self, title: str):
+        """
+            Set the title setting
+
+            Parameters:
+                title (str): New title
+        """
+        ...

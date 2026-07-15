@@ -57,9 +57,6 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
         self._allowed_type = allowed_type
         self._allow_subclass = allow_subclass
 
-    def __setitem__(self, obj):
-        self.add(obj)
-
     def add(self, obj):
         if not isinstance(obj, self._allowed_type):
             if not (self._allow_subclass and issubclass(type(obj), self._allowed_type)):
@@ -86,8 +83,6 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
                 return self.get(name=value)
             except Exception:
                 return self.get(jeid=value)
-        elif type(value) == int:
-            return self._data[value]
         else:
             try:
                 return self.get(instance=value)

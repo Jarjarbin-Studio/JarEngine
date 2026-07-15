@@ -60,8 +60,11 @@ class JEBool(_JEInternBaseClass):
     def __int__(self):
         return int(self._bool)
 
+    def __call__(self):
+        return JEBool(not self)
+
     @property
-    def data(self):
+    def b(self):
         return bool(self)
 
     def __deepcopy__(self, memo):

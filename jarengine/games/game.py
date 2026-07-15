@@ -132,6 +132,8 @@ class JEGame(_JEInternBaseClass):
     def refresh(self):
         for system in self._systems:
             system.refresh()
+        if self._clock:
+            self._clock.target_fps = self._window.settings.fps
 
     def add_entity(self, entity):
         self._entities.add(entity)

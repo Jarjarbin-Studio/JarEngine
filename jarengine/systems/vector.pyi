@@ -2,40 +2,133 @@ from __future__ import annotations
 
 from typing import Iterator
 
-from jarengine.interns.high_classes import JEInternTransform
+from jarengine.systems.transform import JETransform
 
-class JEVector2D(JEInternTransform):
+class JEVector2D(JETransform):
     def __init__(self, x: float = 0.0, y: float = 0.0):
         """
             JEVector2D
 
             Parameters:
-                x (float) = 0.0: x coordinate
-                y (float) = 0.0: y coordinate
+                x (float) = 0.0: X coordinate
+                y (float) = 0.0: Y coordinate
         """
         ...
     @property
-    def x(self) -> float:...
-    @x.setter
-    def x(self, x: float): ...
-    @property
-    def y(self) -> float: ...
-    @y.setter
-    def y(self, y: float): ...
-    def __iter__(self) -> Iterator[float]: ...
+    def x(self) -> float:
+        """
+            Get x
 
-class JEVector3D(JEInternTransform):
-    def __init__(self, x: float = 0.0, y: float = 0.0, z: float = 0.0): ...
-    @property
-    def x(self) -> float: ...
+            Returns:
+                float: X
+        """
+        ...
     @x.setter
-    def x(self, x: float): ...
+    def x(self, x: float):
+        """
+            Set x
+
+            Parameters:
+                x (float): New x
+        """
+        ...
     @property
-    def y(self) -> float: ...
+    def y(self) -> float:
+        """
+            Get y
+
+            Returns:
+                float: Y
+        """
+        ...
     @y.setter
-    def y(self, y: float): ...
+    def y(self, y: float):
+        """
+            Set y
+
+            Parameters:
+                y (float): New y
+        """
+        ...
+    def __iter__(self) -> Iterator[float]:
+        """
+            Iterate over the vector (x, y)
+
+            Returns:
+                Iterator[float]: Iterator x and y
+        """
+        ...
+
+class JEVector3D(JETransform):
+    def __init__(self, x: float = 0.0, y: float = 0.0, z: float = 0.0):
+        """
+            JEVector3D
+
+            Parameters:
+                x (float) = 0.0: X coordinate
+                y (float) = 0.0: Y coordinate
+                2 (float) = 0.0: Z coordinate
+        """
+        ...
     @property
-    def z(self) -> float: ...
+    def x(self) -> float:
+        """
+            Get x
+
+            Returns:
+                float: X
+        """
+        ...
+    @x.setter
+    def x(self, x: float):
+        """
+            Set x
+
+            Parameters:
+                x (float): New x
+        """
+        ...
+    @property
+    def y(self) -> float:
+        """
+            Get y
+
+            Returns:
+                float: Y
+        """
+        ...
+    @y.setter
+    def y(self, y: float):
+        """
+            Set y
+
+            Parameters:
+                y (float): New y
+        """
+        ...
+    @property
+    def z(self) -> float:
+        """
+            Get Z
+
+            Returns:
+                float: Z
+        """
+        ...
     @z.setter
-    def z(self, z: float): ...
-    def __iter__(self) -> Iterator[float]: ...
+    def z(self, z: float):
+        """
+            Set z
+
+            Parameters:
+                z (float): New z
+        """
+        ...
+    def __iter__(self) -> Iterator[float]:
+        """
+            Iterate over the vector (x, y, z)
+
+            Returns:
+                Iterator[float]: Iterator x, y and z
+        """
+        ...
