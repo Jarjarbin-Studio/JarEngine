@@ -163,7 +163,7 @@ class JEGame(JEInternBaseClass):
             Refresh game info, systems' cache, and other sub systems with 1 entity (low cost on CPU)
         """
         ...
-    def add_entity(self, entity: JEEntity, *, refresh = JETrue):
+    def add_entity(self, entity: JEEntity, *, refresh: JEBool = JETrue):
         """
             Add an entity to the game (do not use if you want manual handling of the entity)
 
