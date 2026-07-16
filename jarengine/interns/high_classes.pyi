@@ -114,7 +114,15 @@ class JEInternSystems(JEInternOwnership):
         ...
     def refresh(self):
         """
-            Refresh the entity cache (high cost on the CPU)
+            Refresh the entity cache (HIGH COST ON CPU)
+        """
+        ...
+    def refresh_entity(self, entity: JEEntity):
+        """
+            Refresh the entity cache with 1 entity (low cost on CPU)
+
+            Parameters:
+                entity (JEEntity): Entity
         """
         ...
     def sort_cache(self):

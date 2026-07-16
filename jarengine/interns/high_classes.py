@@ -103,6 +103,16 @@ class JEInternSystems(JEInternOwnership):
 
         self.sort_cache()
 
+    def refresh_entity(self, entity):
+        if self.accepts(entity.components):
+            if entity not in self.cache:
+                self.cache.append(entity)
+                self.sort_cache()
+            return
+
+        if entity in self.cache:
+            self.cache.remove(entity)
+
     def sort_cache(self):
         pass
 

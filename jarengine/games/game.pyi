@@ -31,6 +31,7 @@
 
 from __future__ import annotations
 
+from jarengine.constants import JETrue
 from jarengine.interns.base_classe import JEInternBaseClass
 from jarengine.games.window import JEWindow
 from jarengine.games.input import JEInput
@@ -144,7 +145,7 @@ class JEGame(JEInternBaseClass):
         """
         ...
     @property
-    def ressource(self) -> JEInternResources:
+    def resources(self) -> JEInternResources:
         """
             Get game resources storage
 
@@ -157,12 +158,18 @@ class JEGame(JEInternBaseClass):
             Refresh game info, systems' cache, and other sub systems (HIGH COST ON CPU)
         """
         ...
-    def add_entity(self, entity: JEEntity):
+    def refresh_entity(self, entity: JEEntity):
+        """
+            Refresh game info, systems' cache, and other sub systems with 1 entity (low cost on CPU)
+        """
+        ...
+    def add_entity(self, entity: JEEntity, *, refresh = JETrue):
         """
             Add an entity to the game (do not use if you want manual handling of the entity)
 
             Parameters:
                 entity (JEEntity): Entity to add
+                refresh (JEBool): Refresh entity cache (low cost on CPU)
         """
         ...
     @property

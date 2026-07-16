@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "jarengine"
-version = "1.7.2"
+version = "1.7.3"
 description = "Wrapper over PyGame providing simple ECS and easy-to-use API."
 authors = [
     { name = "Nathan Jarjarbin", email = "nathan.amaraggi@epitech.eu" }

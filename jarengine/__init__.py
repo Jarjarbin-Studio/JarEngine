@@ -36,7 +36,7 @@ from datetime import datetime as _datetime
 ##Metadata##
 __author__ = 'Nathan Jarjarbin'
 __email__ = 'nathan.amaraggi@epitech.eu'
-__version__ = "1.7.2"
+__version__ = "1.7.3"
 __license__ = "GPL"
 
 ##Imports##

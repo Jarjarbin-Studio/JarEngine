@@ -75,7 +75,7 @@ class JEGame(_JEInternBaseClass):
         super().__init__()
         self._config = _get_config()
         self._window = None
-        self._ressource = _JEInternResources()
+        self._resources = _JEInternResources()
         self._entities = _JEContainer(_JEEntity)
         self._clock = _JEClock() if use_clock else None
         self._input = _JEInput() if use_input else None
@@ -133,8 +133,8 @@ class JEGame(_JEInternBaseClass):
         self._is_open = _JEBool(0)
 
     @property
-    def ressource(self):
-        return self._ressource
+    def resources(self):
+        return self._resources
 
     def refresh(self):
         for system in self._systems:
@@ -142,9 +142,15 @@ class JEGame(_JEInternBaseClass):
         if self._clock:
             self._clock.target_fps = self._window.settings.fps
 
-    def add_entity(self, entity):
+    def refresh_entity(self, entity):
+        for system in self._systems:
+            system.refresh_entity(entity)
+
+    def add_entity(self, entity, *, refresh = _JEBool(0)):
         self._entities.add(entity)
         entity.add_parent(self)
+        if refresh:
+            self.refresh_entity(entity)
 
     @property
     def entities(self):
