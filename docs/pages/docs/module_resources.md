@@ -13,142 +13,59 @@ permalink: /module_resource.html
 
 ## 🔹 Overview
 
-**`Resources` is a JarEngine module responsible for <main responsibility>.**
+`Resources` provides the classes and utilities related to game resource storage and management.
 
-It provides:
-
-* Font
-* Music
-* Sound
-* Texture
-
----
-
-## 🔹 Structure
-
-```text
-jarengine/
-└── resources/
-    ├── __init__.py
-    ├── font.py
-    ├── music.py
-    ├── sound.py
-    └── texture.py
-```
-
-| File          | Description            |
-|---------------|------------------------|
-| `__init__.py` | Public module exports. |
-| `font.py`     | Store font resource    |
-| `music.py`    | Store music resource   |
-| `sound.py`    | Store sound resource   |
-| `texture.py`  | Store texture resource |
+It includes:
+* Texture resources
+* Font resources
+* Music resources
+* Sound resources
 
 ---
 
-## 🔹 Main Classes
+## 🔹 Contents
 
-| Class       | Description              |
-|-------------|--------------------------|
-| `JEFont`    | Font resource storage    |
-| `JEMusic`   | Music resource storage   |
-| `JESound`   | Sound resource storage   |
-| `JETexture` | Texture resource storage |
-
-Each class has its own documentation page.
+| Class                 | Description              |
+|-----------------------|--------------------------|
+| [`•>JETexture<•`]()📎 | Texture resource storage |
+| [`•>JEFont<•`]()📎    | Font resource storage    |
+| [`•>JEMusic<•`]()📎   | Music resource storage   |
+| [`•>JESound<•`]()📎   | Sound resource storage   |
 
 ---
 
 ## 🔹 Usage
 
-### Basic Example
-
 ```python
 from jarengine import Resources
 
-# Create a texture resource
 texture = Resources.JETexture(
-    "player_texture",
+    "player",
     "player.png"
 )
 
-# Create a font resource
 font = Resources.JEFont(
-    "default_font",
+    "default",
     "Nasalization.otf",
     20
 )
 ```
 
-### Typical Workflow
-
-```python
-from jarengine import Resources, init, Games
-
-init("/home/user/my_game/")
-
-game = Games.JEGame()
-
-# Create resources
-player_texture = Resources.JETexture(
-    "player",
-    "player.png"
-)
-
-main_font = Resources.JEFont(
-    "main_font",
-    "Nasalization.otf",
-    24
-)
-
-music = Resources.JEMusic(
-    "background_music",
-    "background.ogg"
-)
-
-sound = Resources.JESound(
-    "click_sound",
-    "click.wav"
-)
-
-# Register resources
-game.ressource.texture.add(player_texture)
-game.ressource.font.add(main_font)
-game.ressource.music.add(music)
-game.ressource.sound.add(sound)
-
-# Resources are now available during gameplay
-```
+The module provides resource objects that can be registered inside the game resource manager.
 
 ---
 
-## 🔹 Important Notes
+## 🔹 Notes
 
-Things to know when using this module:
+Useful information:
 
-* These resources classes don't do anything else other than storing, they won't do any actions on the resources.
-
-Common mistakes:
-
-* Forgetting to add the resource to the game resource manager.
+* Resource classes only store and describe resources.
+* Resource loading and management is handled by the game resource system.
+* Resources must be registered before being used by the game.
 
 ---
 
-## 🔹 Dependencies
-
-Uses:
-
-* `pygame`
-* `jarbin-toolkit-error`
-* [`•>JEInternBaseClass<•`]()📎
-* [`•>JEVector2D<•`]()📎
-* [`•>JEInternResource<•`]()📎
-* [`•>JEInternOwnership<•`]()📎
-* [`•>JEInternConfig<•`]()📎
-
----
-
-## 🔹 Related Modules
+## 🔹 Related
 
 * [`•>...<•`]()📎
 * [`•>...<•`]()📎

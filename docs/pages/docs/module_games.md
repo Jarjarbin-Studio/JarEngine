@@ -13,164 +13,69 @@ permalink: /module_games.html
 
 ## 🔹 Overview
 
-**`Games` is a JarEngine module responsible for game and user interaction handling and managing.**
+`Games` provides the classes and utilities related to game management, window handling, input processing and ECS systems.
 
-It provides:
-
-* Game
-* Input
-* Systems
-* Window
-
----
-
-## 🔹 Structure
-
-```text
-jarengine/
-└── <module>/
-    ├── __init__.py
-    ├── game.py
-    ├── input.py
-    ├── systems.py
-    └── window.py
-```
-
-| File          | Description                  |
-|---------------|------------------------------|
-| `__init__.py` | Public module exports.       |
-| `game.py`     | Game handler (highest class) |
-| `input.py`    | User input handler           |
-| `systems.py`  | Systems for the ECS          |
-| `window.py`   | Window handling              |
+It includes:
+* Game management
+* Window handling
+* User input processing
+* ECS update systems
 
 ---
 
-## 🔹 Main Classes
+## 🔹 Contents
 
-| Class                  | Description                                          |
-|------------------------|------------------------------------------------------|
-| `JEGame`               | Game handle, main starting point                     |
-| `JEInput`              | User input handler (not linked to events in any way) |
-| `JEMovementSystem`     | ECS system for movement update                       |
-| `JEAccelerationSystem` | ECS system for acceleration update                   |
-| `JERenderSystem`       | ECS system for rendering update                      |
-| `JEWindow`             | Window handler                                       |
-
-Each class has its own documentation page.
+| Class                            | Description                             |
+|----------------------------------|-----------------------------------------|
+| [`•>JEGame<•`]()📎               | Main game manager and engine controller |
+| [`•>JEWindow<•`]()📎             | Window creation and management          |
+| [`•>JEInput<•`]()📎              | User input handling                     |
+| [`•>JEMovementSystem<•`]()📎     | Entity movement update system           |
+| [`•>JEAccelerationSystem<•`]()📎 | Entity acceleration update system       |
+| [`•>JERenderSystem<•`]()📎       | Entity rendering update system          |
 
 ---
 
 ## 🔹 Usage
 
-### Basic Example
-
-```python
-from jarengine.Games import JEGame, JEWindow
-
-# Create the game
-game = JEGame(use_clock=True, use_input=True)
-
-# Create and attach a window
-window = JEWindow(
-    size=(1280, 720),
-    title="My First Game",
-    fps=60,
-)
-
-game.set_window(window)
-```
-
-### Typical Workflow
-
 ```python
 from jarengine import Games
 
-# Create the game
-game = Games.JEGame(use_clock=True, use_input=True)
+game = Games.JEGame(
+    use_clock=True,
+    use_input=True
+)
 
-# Create the main window
 window = Games.JEWindow(
     size=(1280, 720),
     title="JarEngine Demo",
-    fps=60,
+    fps=60
 )
 
 game.set_window(window)
 
-# Register engine systems
-Games.Systems.JEMovementSystem(game)
 Games.Systems.JERenderSystem(game)
 
-# Build system caches
-game.refresh()
-
-# Main game loop
 while game.is_open:
-    window.fill(JEColor(30, 30, 30))
-
     game.update()
-    # Rendering is performed by the render system during the update
-
     game.display()
 ```
 
----
-
-## 🔹 Important Notes
-
-Things to know when using this module:
-
-* This is the main entry point, game is the handler/manager for the input, event, entity, and many more classes
-* You can create only 1 window, input, game.
-
-Common mistakes:
-
-* Game itself isn't the window, you have to link a JEWindow instance to the game
-* ...
+The module provides the main runtime objects required to create and run a JarEngine application.
 
 ---
 
-## 🔹 Dependencies
+## 🔹 Notes
 
-Uses:
+Useful information:
 
-* `pygame`
-* `jarbin-toolkit-error`
-* [`•>JEEventHandler<•`]()📎
-* [`•>JEInternBaseClass<•`]()📎
-* [`•>JEInternConfig<•`]()📎
-* [`•>JEEntity<•`]()📎
-* [`•>JEContainer<•`]()📎
-* [`•>JEInternSystems<•`]()📎
-* [`•>JEInternResources<•`]()📎
-* [`•>JEBool<•`]()📎
-* [`•>JEColor<•`]()📎
-* [`•>JEInternWindowSettings<•`]()📎
-* [`•>JEKeyCode<•`]()📎
-* [`•>JEMouseCode<•`]()📎
-* [`•>JEVector2D<•`]()📎
-* [`•>JEFontComponent<•`]()📎
-* [`•>JETextComponent<•`]()📎
-* [`•>JEFlipComponent<•`]()📎
-* [`•>JELayerComponent<•`]()📎
-* [`•>JEVisibilityComponent<•`]()📎
-* [`•>JETextureComponent<•`]()📎
-* [`•>JEColorComponent<•`]()📎
-* [`•>JEOutlineComponent<•`]()📎
-* [`•>JEPositionComponent<•`]()📎
-* [`•>JERotationComponent<•`]()📎
-* [`•>JEVelocityComponent<•`]()📎
-* [`•>JESizeComponent<•`]()📎
-* [`•>JEMassComponent<•`]()📎
-* [`•>JEAccelerationComponent<•`]()📎
-* [`•>JEGroupComponent<•`]()📎
-* [`•>JEMusicComponent<•`]()📎
-* [`•>JESoundComponent<•`]()📎
+* `JEGame` is the central object connecting the engine systems together.
+* Only one main game instance and window should normally be created.
+* Systems must be registered before being updated by the game.
 
 ---
 
-## 🔹 Related Modules
+## 🔹 Related
 
 * [`•>...<•`]()📎
 * [`•>...<•`]()📎

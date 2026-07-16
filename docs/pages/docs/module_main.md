@@ -13,65 +13,50 @@ permalink: /module_main.html
 
 ## 🔹 Overview
 
-**`JarEngine` is the main module containing every sub-modules of the game engine.**
+`JarEngine` provides the main entry point and access to all engine modules.
 
-It provides:
-
-* Engine initialization and shutdown
-* Direct access to constants
+It includes:
+* Engine initialization
+* Engine shutdown
+* Access to engine modules and constants
 
 ---
 
-## 🔹 Structure
+## 🔹 Contents
 
-```text
-jarengine/
-├── __init__.py
-├── constants.py
-├── Entities/
-├── Events/
-├── Games/
-├── Interns/
-├── Resources/
-└── Systems/
+| Modules               | Description                     |
+|-----------------------|---------------------------------|
+| [`•>Entities<•`]()📎  | Entity and component management |
+| [`•>Events<•`]()📎    | Event handling system           |
+| [`•>Games<•`]()📎     | Game runtime management         |
+| [`•>Interns<•`]()📎   | Internal engine structures      |
+| [`•>Resources<•`]()📎 | Resource management             |
+| [`•>Systems<•`]()📎   | Core utility systems            |
+
+---
+
+## 🔹 Usage
+
+```python
+import jarengine
+
+jarengine.init()
+
+# Use JarEngine modules here
+
+jarengine.quit()
 ````
 
-| File           | Description                                           |
-|----------------|-------------------------------------------------------|
-| `__init__.py`  | Public module exports.                                |
-| `constants.py` | JarEngine constants (Booléan, Keys, Events, Versions) |
+The main module initializes the engine environment and provides access to its different modules.
 
 ---
 
-## 🔹 Main Modules
+## 🔹 Notes
 
-| Class       | Description                                |
-|-------------|--------------------------------------------|
-| `Entities`  | ECS Entity manager                         |
-| `Events`    | Events handler and manager                 |
-| `Games`     | Game, Window, ECS System and Input manager |
-| `Interns`   | Internal API (use carefully)               |
-| `Resources` | Game resources handler                     |
-| `Systems`   | Logic, Math, Tools classes                 |
+Useful information:
 
-Each module has its own documentation page.
-
-## 🔹 Important Notes
-
-Common mistakes:
-
-* This is not PyGame but a wrapper, do not apply its API to JarEngine.
-* Not initializing JarEngine doesn't initialize subsystems such as pygame, config files, and other outside libraries.
-
----
-
-## 🔹 Dependencies
-
-Uses:
-
-* `pygame`
-* `jarbin-toolkit-console`
-* `jarbin-toolkit-time`
-* `jarbin-toolkit-error`
+* JarEngine is a wrapper and abstraction layer over pygame, not pygame itself.
+* Initialization must be done before using engine features.
+* Internal modules should be used carefully.
 
 ---

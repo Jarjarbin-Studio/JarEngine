@@ -13,140 +13,64 @@ permalink: /module_interns.html
 
 ## 🔹 Overview
 
-**`Interns` is a JarEngine module responsible for private core systems.**
+`Interns` provides the internal core classes and utilities used by JarEngine architecture.
 
-It provides:
-
-* BaseClasse
-* Config
-* Decorators
-* FinalClasses
-* HighClasses
-* LowClasses
+It includes:
+* Base classes
+* Internal engine structures
+* Configuration handling
+* Core decorators
 
 ---
 
-## 🔹 Structure
+## 🔹 Contents
 
-```text
-jarengine/
-└── <module>/
-    ├── __init__.py
-    ├── base_classe.py
-    ├── config.py
-    ├── decorators.py
-    ├── final_classes.py
-    ├── high_classes.py
-    └── low_classes.py
-```
-
-| File               | Description                                                                      |
-|--------------------|----------------------------------------------------------------------------------|
-| `__init__.py`      | Public module exports.                                                           |
-| `base_classe.py`   | Core BaseClass inheriting by every classes in JarEngine (directly or indirectly) |
-| `config.py`        | Config loader/manager                                                            |
-| `decorators.py`    | Custom decorators used by JarEngine                                              |
-| `final_classes.py` | Classes furthest of the core that cannot be mutated by inheritance               |
-| `high_classes.py`  | Classes further of the core BaseClass (generally using Systems classes)          |
-| `low_classes.py`   | Classes closest to core BaseClass                                                |
-
----
-
-## 🔹 Main Classes
-
-| Class                     | Description                                                                               |
-|---------------------------|-------------------------------------------------------------------------------------------|
-| `JEInternBaseClass`       | Core BaseClass inheriting by every classes in JarEngine (directly or indirectly)          |
-| `JEInternConfig`          | Config loader/manager                                                                     |
-| `JEInternEmptyComponent`  | Placeholder for when entities don't have any components                                   |
-| `JEInternConfig`          | Config loader/manager                                                                     |
-| `JEInternResources`       | Resource holder/manager (using JEContainers)                                              |
-| `JEInternWindowSettings`  | Window settings holder (mostly immutable)                                                 |
-| `JEInternOwnership`       | Ownership class (used by inheritance), adds parents and children (using JEContainer)      |
-| `JEInternEntityComponent` | Base of every entity components                                                           |
-| `JEInternSystems`         | Base of every entity systems                                                              |
-| `JEInternGraphic`         | Base of every graphic-linked classes (allows naming and object destruction)               |
-| `JEInternGraphicalObject` | Base of drawable objects (mostly JEEntity) with dirty tag support, and update placeholder |
-| `JEInternResource`        | Base of every game resources with a path handling                                         |
-
-Each class has its own documentation page.
+| Class                               | Description                                           |
+|-------------------------------------|-------------------------------------------------------|
+| [`•>JEInternBaseClass<•`]()📎       | Base class inherited by JarEngine classes             |
+| [`•>JEInternConfig<•`]()📎          | Internal configuration manager                        |
+| [`•>JEInternEmptyComponent<•`]()📎  | Placeholder component for entities without components |
+| [`•>JEInternResources<•`]()📎       | Resource holder and manager                           |
+| [`•>JEInternWindowSettings<•`]()📎  | Window settings storage                               |
+| [`•>JEInternOwnership<•`]()📎       | Parent and child ownership handling                   |
+| [`•>JEInternEntityComponent<•`]()📎 | Base class for entity components                      |
+| [`•>JEInternSystems<•`]()📎         | Base class for entity systems                         |
+| [`•>JEInternGraphic<•`]()📎         | Base class for graphical objects                      |
+| [`•>JEInternGraphicalObject<•`]()📎 | Base class for drawable objects                       |
+| [`•>JEInternResource<•`]()📎        | Base class for engine resources                       |
 
 ---
 
 ## 🔹 Usage
 
-### Basic Example
-
 ```python
-from jarengine import Entities
+from jarengine import Interns
 
-# Internal classes are created automatically.
-# Creating an entity also creates several internal objects.
+# Internals are normally managed automatically by JarEngine.
 
-entity = Entities.JEEntity(name="Player")
+config = Interns.Config.get_config("my_config")
 
-# Users normally never instantiate JEIntern* classes directly.
+config.set("MY_SECTION", "my_option", True)
+
+if config.get_bool("MY_SECTION", "my_option"):
+    print("my_option toggled")
 ```
 
-### Typical Workflow
-
-```python
-from jarengine import init, Games, Entities
-
-init("/home/user/my_game/")
-
-game = Games.JEGame()
-
-# Create an entity
-player = Entities.JEEntity(name="Player")
-
-# Add components
-Entities.Transforms.JEPositionComponent(player, (100, 100))
-Entities.Transforms.JESizeComponent(player, (64, 64))
-Entities.Graphics.JEColorComponent(player, (255, 255, 255, 255))
-
-# Register the entity
-game.add_entity(player)
-
-# Internally, JarEngine automatically uses:
-# - JEInternEntityComponent
-# - JEInternOwnership
-# - JEInternGraphic
-# - JEInternGraphicalObject
-# - JEInternSystems
-# - JEInternResources
-#
-# These classes provide the engine's internal architecture and
-# are managed automatically during execution.
-```
+The module exposes internal engine structures for advanced usage and extension.
 
 ---
 
-## 🔹 Important Notes
+## 🔹 Notes
 
-Things to know when using this module:
+Useful information:
 
-* As the user of my game engine, you shouldn't use the internals.
-* But as I like to give freedom to the users of my creations, I still added the access (use them carefully).
-
----
-
-## 🔹 Dependencies
-
-Uses:
-
-* `jarbin-toolkit-error`
-* `jarbin_toolkit_config`
-* `datetime`
-* [`•>JETexture<•`]()📎
-* [`•>JEMusic<•`]()📎
-* [`•>JESound<•`]()📎
-* [`•>JEFont<•`]()📎
-* [`•>JEBool<•`]()📎
+* This module is intended for advanced users and engine extensions.
+* Most classes should not be instantiated manually.
+* Use internal classes carefully as they directly interact with JarEngine core systems.
 
 ---
 
-## 🔹 Related Modules
+## 🔹 Related
 
 * [`•>...<•`]()📎
 * [`•>...<•`]()📎

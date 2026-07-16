@@ -2,7 +2,7 @@
 layout: page
 title: JarEngine - Module - <Module Name>
 sidebar: sidebar
-permalink: /module_<module name>.html
+permalink: /module_<module_name>.html
 ---
 
 # 📦 <Module Name>
@@ -13,87 +13,43 @@ permalink: /module_<module name>.html
 
 ## 🔹 Overview
 
-**`<Module Name>` is a JarEngine module responsible for <main responsibility>.**
+`<Module Name>` provides the classes and utilities related to <purpose>.
 
-It provides:
-
+It includes:
 * ...
 * ...
 * ...
 
 ---
 
-## 🔹 Structure
+## 🔹 Contents
 
-```text
-jarengine/
-└── <module>/
-    ├── __init__.py
-    ├── class_a.py
-    ├── class_b.py
-    └── ...
-```
-
-| File          | Description            |
-|---------------|------------------------|
-| `__init__.py` | Public module exports. |
-| `...`         | ...                    |
-
----
-
-## 🔹 Main Classes
-
-| Class    | Description |
-|----------|-------------|
-| `ClassA` | ...         |
-| `ClassB` | ...         |
-| `ClassC` | ...         |
-
-Each class has its own documentation page.
+| Class           | Description |
+|-----------------|-------------|
+| [`•>...<•`]()📎 | ...         |
 
 ---
 
 ## 🔹 Usage
 
-### Basic Example
-
 ```python
-# Minimal example
+# Example
 ```
 
-### Typical Workflow
-
-```python
-# Common usage example
-```
+Briefly explain the example.
 
 ---
 
-## 🔹 Important Notes
+## 🔹 Notes
 
-Things to know when using this module:
-
+Useful information:
 * ...
-* ...
-* ...
-
-Common mistakes:
-
 * ...
 * ...
 
 ---
 
-## 🔹 Dependencies
-
-Uses:
-
-* `...`
-* [`•>...<•`]()📎
-
----
-
-## 🔹 Related Modules
+## 🔹 Related
 
 * [`•>...<•`]()📎
 * [`•>...<•`]()📎

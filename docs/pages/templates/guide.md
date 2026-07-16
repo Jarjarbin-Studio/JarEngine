@@ -2,74 +2,46 @@
 layout: page
 title: JarEngine - Guide - <Guide Title>
 sidebar: sidebar
-permalink: /guide.html
+permalink: /guide_<guide name>.html
 ---
 
-# 📦 <Guide Title>
+# 📖 <Guide Title>
 
-> Simple guide explaining the <feature/system> of JarEngine.
+> Guide explaining the <feature/system> of JarEngine.
 
 ---
 
 ## 🔹 Overview
 
-**<Feature/System> is used to <short explanation of what it does>.**
+Briefly explain what this guide covers.
 
-It allows you to:
-
+You will learn how to:
 * ...
 * ...
 * ...
-
-Example uses:
-
-* ...
-* ...
-
----
-
-Explain the role of the main parts.
 
 ---
 
 ## 🔹 Usage
 
-### Basic Example
-
 ```python
-# Minimal working example
+# Example
 ```
 
-Explain the steps:
-
-1. ...
-2. ...
-3. ...
-
-### Common Workflow
-
-```python
-# Typical usage example
-```
+Briefly explain the example and any important steps.
 
 ---
 
-## 🔹 Important Notes
+## 🔹 Notes
 
-Things users should know:
-
+Useful information:
 * ...
-* ...
-* ...
-
-Common mistakes:
-
 * ...
 * ...
 
 ---
 
-## 🔹 Related Guides
+## 🔹 Related
 
 * [`•>...<•`]()📎
 * [`•>...<•`]()📎

@@ -5,6 +5,7 @@ sidebar: sidebar
 permalink: /class_jeversion.html
 ---
 
+
 # 📦 JEVersion
 
 > Technical reference for the `JEVersion` class of JarEngine.
@@ -17,21 +18,15 @@ permalink: /class_jeversion.html
 
 **`JEVersion` is a JarEngine class responsible for versions storing (JarEngine, PyGame, SDL and Python).**
 
-It provides:
-
+Provides:
 * Formated version
 
----
-
-## 🔹 Purpose
-
-The purpose of this class is to:
-
-* Store version in a printable object
+This class is used in the constants, for JarEngine, PyGame, SDL and Python’s versions.
+You can use it to store your game's version.
 
 ---
 
-## 🔹 Location in JarEngine
+## 🔹 Location
 
 ```text
 JarEngine
@@ -42,14 +37,9 @@ JarEngine
 └── ...
 ```
 
-This class is used in the constants, for JarEngine, PyGame, SDL and Python’s versions.
-You can use it to store your game's version.
-
 ---
 
 ## 🔹 Data
-
-Internal data stored by this class.
 
 | Field   | Type  | Description                                             | Public? |
 |---------|-------|---------------------------------------------------------|:-------:|
@@ -59,95 +49,50 @@ Internal data stored by this class.
 
 ---
 
-## 🔹 Functions / API
+## 🔹 API
 
-List all public functions available.
-
-| Function                         | Arguments                                | Returns | Description          |
-|----------------------------------|------------------------------------------|---------|----------------------|
-| [•>`__init__(...)`<•](#__init__) | `major: int`, `minor: int`, `patch: int` |         | JEVersion creator.   |
-| [•>`__str__(...)`<•](#__str__)   |                                          | `str`   | Printable JEVersion. |
-
----
-
-### Argument Details
-
-Additional details for complex functions.
-
-#### __init__
-
-| Argument | Type   | Description                                          |
-|----------|--------|------------------------------------------------------|
-| `major`  | `type` | Incompatible API changes.                            |
-| `minor`  | `type` | Functionality added in a backward-compatible manner. |
-| `patch`  | `type` | Backward-compatible bug fixes.                       |
-
----
-
-#### __str__
-
-**Returns:**
-
-| Type  | Description          |
-|-------|----------------------|
-| `str` | Printable JEVersion. |
+| Function        | Arguments                                | Returns | Description          |
+|-----------------|------------------------------------------|---------|----------------------|
+| `__init__(...)` | `major: int`, `minor: int`, `patch: int` |         | JEVersion creator.   |
+| `__str__(...)`  |                                          | `str`   | Printable JEVersion. |
 
 ---
 
 ## 🔹 Usage
 
-### Basic Example
-
 ```python
-from jarengine.Systems import JEVersion
+from jarengine.systems import JEVersion
 
-JEVersion_MyGame = JEVersion(3, 1, 12)
+# Create a version object
+game_version = JEVersion(3, 1, 12)
 
-print(JEVersion_MyGame)
+# Print the version
+print(game_version)         # 3.1.12
+
+# Access individual components
+print(game_version.major)   # 3
+print(game_version.minor)   # 1
+print(game_version.patch)   # 12
+
+# Compare versions
+minimum = JEVersion(3, 0, 0)
+
+if game_version >= minimum:
+    print("Compatible version")
+
+# Versions behave like tuples
+major, minor, patch = game_version
+
+print(major)                # 3
+print(minor)                # 1
+print(patch)                # 12
 ```
 
 ---
 
-### Typical Workflow
+## 🔹 Related
 
-```python
-# JarEngine version stored as JEVersion
-# JEVersion_JarEngine = JEVersion(...)
-# when JarEngine imported, startup banner uses the version
-
-print(f"JarEngine {JEVersion_JarEngine} (PyGame {JEVersion_PyGame}, SDL {JEVersion_SDL}, Python {JEVersion_Python})")
-
-```
-
----
-
-## 🔹 Internal Behavior
-
-JEVersion inherit directly from PyGame's SoftwareVersion class AND from JEInternBaseClass (which allows it to have PyGame version handling and JarEngine compatibility)
-
----
-
-## 🔹 Current State
-
-⚠️ Stable (and unlikely to be changed).
-
----
-
-## 🔹 Debugging
-
-Useful debugging methods:
-
-* `dump()`
-* `debug()`
-* logs
-* common errors
-
----
-
-## 🔹 Related Classes
-
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
-* [`•>...`]()
+* [`>...<`]()📎
+* [`>...<`]()📎
 
 ---
