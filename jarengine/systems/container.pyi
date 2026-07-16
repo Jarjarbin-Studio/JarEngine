@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TypeVar, Optional, Iterator, Any, Generic
+from typing import TypeVar, Optional, Iterator, Any, Generic, Type
 
 from jarengine.interns.base_classe import JEInternBaseClass
 from jarengine.systems.bool import JEBool
@@ -8,7 +8,7 @@ from jarengine.systems.bool import JEBool
 T = TypeVar("T", bound=JEInternBaseClass)
 
 class JEContainer(Generic[T], JEInternBaseClass):
-    def __init__(self, allowed_type: type, allow_subclass: JEBool = JEBool(0)):
+    def __init__(self, allowed_type: Type[T], allow_subclass: JEBool = JEBool(0)):
         """
             JEContainer
             
@@ -22,43 +22,43 @@ class JEContainer(Generic[T], JEInternBaseClass):
             Add an object to the container
             
             Parameters:
-                obj (<allowed_type>): Object to add
+                obj (T): Object to add
         """
         ...
-    def __getitem__(self, value: str | T | type) -> T:
+    def __getitem__(self, value: str | T | Type) -> T:
         """
             Get an item from the container (automatically reroute to the proper getter)
             
             Parameters:
-                value (str | type | <allowed_type>): Name / JEID / instance / type of the object
+                value (str | type | T): Name / JEID / instance / type of the object
             
             Returns:
-                <allowed_type>: Object
+                T: Object
         """
         ...
-    def get(self, *, name: Optional[str] = None, jeid: Optional[str] = None, instance: Optional[T] = None, _type: Optional[type] = None, default: Any = NotImplemented) -> T:
+    def get(self, *, name: Optional[str] = None, jeid: Optional[str] = None, instance: Optional[T] = None, _type: Optional[Type] = None, default: Any = NotImplemented) -> T:
         """
             Get an item from the container
 
             Parameters:
                 name (Optional[str]) = None: Name of the object
                 jeid (Optional[str]) = None: JEID of the object
-                instance (Optional[<allowed_type>]) = None: instance
+                instance (Optional[T]) = None: instance
                 _type (Optional[type]) = None: Type of the object
                 default (Any) = NotImplemented: Default value to return if object not found (raise an error if leaved as such)
 
             Returns:
-                <allowed_type>: Object
+                T: Object
         """
         ...
-    def rm(self, *, name: Optional[str] = None, jeid: Optional[str] = None, instance: Optional[T] = None, _type: Optional[type] = None) -> T:
+    def rm(self, *, name: Optional[str] = None, jeid: Optional[str] = None, instance: Optional[T] = None, _type: Optional[Type] = None) -> T:
         """
             Remove an item from the container
 
             Parameters:
                 name (Optional[str]) = None: Name of the object
                 jeid (Optional[str]) = None: JEID of the object
-                instance (Optional[<allowed_type>]) = None: instance
+                instance (Optional[T]) = None: instance
                 _type (Optional[type]) = None: Type of the object
         """
         ...
@@ -72,7 +72,7 @@ class JEContainer(Generic[T], JEInternBaseClass):
             Iterate over the container
 
             Returns:
-                Iterator[<allowed_type>]: Iterator of objects
+                Iterator[T]: Iterator of objects
         """
         ...
     @property
@@ -81,6 +81,6 @@ class JEContainer(Generic[T], JEInternBaseClass):
             Get the raw data of the container
 
             Returns:
-                dict[str, <allowed_type>]: Dictionary of objects
+                dict[str, T]: Dictionary of objects
         """
         ...
