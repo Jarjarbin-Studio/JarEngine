@@ -1,15 +1,67 @@
+# =============================================================================
+# JarEngine - Python Game Engine Wrapper (Pygame-based)
+# =============================================================================
+#
+# JarEngine is a lightweight game framework built on top of Pygame
+# that simplifies usage while providing higher-level abstractions for
+# game development and prototyping.
+#
+# =============================================================================
+# Version: jarengine-v1.7
+# Author: Jarjarbin Studio
+# Licence: GPL v3
+# =============================================================================
+#
+# This engine is inspired by Pygame, modern game engine design patterns,
+# and directly influenced by the architecture of NewCSFML.
+#
+# It is designed for educational purposes and small-to-medium game projects.
+#
+# It provides structured systems such as entity management, scene handling,
+# render abstraction, and advanced modules like particle systems.
+#
+# =============================================================================
+# WARNING:
+# =============================================================================
+#
+# This is NOT Pygame itself.
+# It is a custom abstraction layer built on top of Pygame.
+#
+# =============================================================================
+
+"""
+JarEngine core module.
+
+Provides the main interface of the engine, including game management,
+systems, entities, resources, events, and engine-wide utilities.
+"""
+
 from __future__ import annotations
 
 # Public API
 from . import interns as Interns
-from . import entities as Entities
+from . import entity as Entity
 from . import events as Events
 from . import games as Games
 from . import resources as Resources
 from . import systems as Systems
 
-def init(project_path: str) -> tuple[int, int]: ...
-def quit(): ...
+def init(project_path: str) -> tuple[int, int]:
+    """
+        Initialize the engine and set the different configurations paths
+
+        Parameters:
+            project_path (str): The path of the current project (full path from root, not local path)
+
+        Returns:
+            tuple[int, int]: PyGame numpass, numfail
+    """
+    ...
+def quit():
+    """
+        Quit the engine
+    """
+    ...
 
 # Constants
 from .constants import *
@@ -27,7 +79,7 @@ __all__: list[str] = [
     "__license__",
     ## Imports ##
     'Interns',
-    'Entities',
+    'Entity',
     'Events',
     'Games',
     'Resources',

@@ -29,43 +29,30 @@
 #
 # =============================================================================
 
+"""
+JarEngine Entity module.
+
+Provides the entity system and built-in components for creating,
+customizing, and managing game objects.
+"""
+
 from __future__ import annotations
 
-from typing import final as _final
+# Public API exports
+from .entity import JEEntity
 
-from jarengine.interns.config import (
-    get_config as _get_config,
-    JEInternConfig as _JEInternConfig
-)
-from jarengine.interns import (
-    PGExtern as _PGExtern,
-    JTKExternError as _JTKExternError
-)
-from jarengine.interns.high_classes import JEInternOwnership as _JEInternOwnership
-from jarengine.interns.low_classes import JEInternResource as _JEInternResource
-from jarengine.interns.decorators import documentation as _documentation
+# Submodules
+from . import components_physics as Physics
+from . import components_graphics as Graphics
+from . import components_transforms as Transforms
+from . import components_audios as Audios
+from . import components_others as Others
 
-@_documentation
-@_final
-class JEFont(_JEInternResource, _JEInternOwnership):
-
-    def __init__(self, name, path, size):
-        super().__init__(name, path)
-
-        if not "/" in path:
-            path = f"{_get_config("assets").get('ASSETS', 'path')}/{_get_config("assets").get('ASSETS', 'font_dir')}/{path}"
-
-        self._path = path
-        try:
-            self._font = _PGExtern.font.Font(path, size)
-        except FileNotFoundError:
-            raise _JTKExternError.Special.ErrorSpecialConfig(f"\nInvalid font path. Check assets config at {_JEInternConfig.config_path}")
-        self._size = size
-
-    @property
-    def font(self):
-        return self._font
-
-    @property
-    def size(self):
-        return self._size
+__all__: list[str] = [
+    'JEEntity',
+    'Physics',
+    'Graphics',
+    'Transforms',
+    'Audios',
+    'Others'
+]

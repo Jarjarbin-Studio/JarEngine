@@ -31,41 +31,40 @@
 
 from __future__ import annotations
 
-from typing import final as _final
+from jarengine.interns.high_classes import JEInternEntityComponent
+from jarengine.entity.entity import JEEntity
+from jarengine.systems.vector import JEVector2D
 
-from jarengine.interns.config import (
-    get_config as _get_config,
-    JEInternConfig as _JEInternConfig
-)
-from jarengine.interns import (
-    PGExtern as _PGExtern,
-    JTKExternError as _JTKExternError
-)
-from jarengine.interns.high_classes import JEInternOwnership as _JEInternOwnership
-from jarengine.interns.low_classes import JEInternResource as _JEInternResource
-from jarengine.interns.decorators import documentation as _documentation
+class JEAccelerationComponent(JEInternEntityComponent):
+    def __init__(self, owner: JEEntity, acceleration: JEVector2D | tuple[float, float]):
+        """
+            JEAccelerationComponent
 
-@_documentation
-@_final
-class JEFont(_JEInternResource, _JEInternOwnership):
-
-    def __init__(self, name, path, size):
-        super().__init__(name, path)
-
-        if not "/" in path:
-            path = f"{_get_config("assets").get('ASSETS', 'path')}/{_get_config("assets").get('ASSETS', 'font_dir')}/{path}"
-
-        self._path = path
-        try:
-            self._font = _PGExtern.font.Font(path, size)
-        except FileNotFoundError:
-            raise _JTKExternError.Special.ErrorSpecialConfig(f"\nInvalid font path. Check assets config at {_JEInternConfig.config_path}")
-        self._size = size
-
+            Parameters:
+                owner (JEEntity): owner of the component
+                acceleration (JEVector2D | tuple[float, float]): acceleration
+        """
+        ...
     @property
-    def font(self):
-        return self._font
+    def acceleration(self) -> JEVector2D: ...
+    @acceleration.setter
+    def acceleration(self, acceleration: JEVector2D | tuple[float, float]): ...
+    def __call__(self) -> JEVector2D: ...
+    def copy(self, new_owner: JEEntity) -> JEAccelerationComponent: ...
 
+class JEMassComponent(JEInternEntityComponent):
+    def __init__(self, owner: JEEntity, mass: float):
+        """
+            JEMassComponent
+
+            Parameters:
+                owner (JEEntity): owner of the component
+                mass (float): mass of the component
+        """
+        ...
     @property
-    def size(self):
-        return self._size
+    def mass(self) -> float: ...
+    @mass.setter
+    def mass(self, mass: float): ...
+    def __call__(self) -> float: ...
+    def copy(self, new_owner: JEEntity) -> JEMassComponent: ...
