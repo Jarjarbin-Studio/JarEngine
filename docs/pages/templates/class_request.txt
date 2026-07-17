@@ -63,16 +63,9 @@ JarEngine
 ```
 
 ---
-
-## 🔹 Related
-
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
-
----
 """
 
-make the <class name> class (never fill "related" section, keep it as such).
+make the <class name> class.
 do not show "None" in arguments or returns columns (in "API" section), just don't put anything.
 strictly follow the template, do not add/remove any section nor midify their styles.
 When a class has multiple inheritance, put them all (like this example: "> Inherit from `PyGame.version.SoftwareVersion` and [`•>JEInternBaseClass<•`]()📎")

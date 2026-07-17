@@ -67,10 +67,3 @@ background_music = Resources.JEMusic(
 ```
 
 ---
-
-## 🔹 Related
-
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
-
----

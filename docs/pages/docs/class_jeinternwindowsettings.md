@@ -66,10 +66,3 @@ JarEngine
 | `__init__` | `size: JEVector2D, flags: int, fps: int, depth: int, display: int, vsync: int, title: str` |         | Initialize window settings |
 
 ---
-
-## 🔹 Related
-
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
-
----

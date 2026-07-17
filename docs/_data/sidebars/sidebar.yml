@@ -1,7 +1,7 @@
 entries:
   - title: sidebar
     product: JarEngine
-    version: 1.6.0
+    version: 1.7.5
     folders:
 
       - title: Overview
@@ -41,4 +41,134 @@ entries:
 
           - title: Interns
             url: /module_interns.html
+            output: web, pdf
+
+      - title: Classes
+        output: web, pdf
+        folderitems:
+          - title: JEAccelerationSystem
+            url: /class_jeaccelerationsystem.html
+            output: web, pdf
+
+          - title: JEEntity
+            url: /class_jeentity.html
+            output: web, pdf
+
+          - title: JEGame
+            url: /class_jegame.html
+            output: web, pdf
+
+          - title: JETransform
+            url: /class_jetransform.html
+            output: web, pdf
+
+          - title: JEVector2D
+            url: /class_jevector2d.html
+            output: web, pdf
+
+          - title: JEVector3D
+            url: /class_jevector3d.html
+            output: web, pdf
+
+          - title: JEMovementSystem
+            url: /class_jemovementsystem.html
+            output: web, pdf
+
+          - title: JERenderSystem
+            url: /class_jerendersystem.html
+            output: web, pdf
+
+          - title: JEWindow
+            url: /class_jewindow.html
+            output: web, pdf
+
+          - title: JEColor
+            url: /class_jecolor.html
+            output: web, pdf
+
+          - title: JEFont
+            url: /class_jefont.html
+            output: web, pdf
+
+          - title: JEMusic
+            url: /class_jemusic.html
+            output: web, pdf
+
+          - title: JESound
+            url: /class_jesound.html
+            output: web, pdf
+
+          - title: JETexture
+            url: /class_jetexture.html
+            output: web, pdf
+
+      - title: Components
+        output: web, pdf
+        folderitems:
+          - title: Acceleration
+            url: /component_acceleration.html
+            output: web, pdf
+
+          - title: Color
+            url: /component_color.html
+            output: web, pdf
+
+          - title: Flip
+            url: /component_flip.html
+            output: web, pdf
+
+          - title: Font
+            url: /component_font.html
+            output: web, pdf
+
+          - title: Group
+            url: /component_group.html
+            output: web, pdf
+
+          - title: Layer
+            url: /component_layer.html
+            output: web, pdf
+
+          - title: Mass
+            url: /component_mass.html
+            output: web, pdf
+
+          - title: Music
+            url: /component_music.html
+            output: web, pdf
+
+          - title: Outline
+            url: /component_outline.html
+            output: web, pdf
+
+          - title: Position
+            url: /component_position.html
+            output: web, pdf
+
+          - title: Rotation
+            url: /component_rotation.html
+            output: web, pdf
+
+          - title: Size
+            url: /component_size.html
+            output: web, pdf
+
+          - title: Sound
+            url: /component_sound.html
+            output: web, pdf
+
+          - title: Text
+            url: /component_text.html
+            output: web, pdf
+
+          - title: Texture
+            url: /component_texture.html
+            output: web, pdf
+
+          - title: Velocity
+            url: /component_velocity.html
+            output: web, pdf
+
+          - title: Visibility
+            url: /component_visibility.html
             output: web, pdf

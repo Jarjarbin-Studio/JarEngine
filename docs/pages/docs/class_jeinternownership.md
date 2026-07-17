@@ -63,10 +63,3 @@ JarEngine
 | `add_child`  | `child: JEInternBaseClass`  |         | Add a child object              |
 
 ---
-
-## 🔹 Related
-
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
-
----

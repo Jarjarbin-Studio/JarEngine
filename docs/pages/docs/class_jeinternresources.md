@@ -64,10 +64,3 @@ JarEngine
 | `__init__` |           |         | Initialize the resource manager |
 
 ---
-
-## 🔹 Related
-
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
-
----

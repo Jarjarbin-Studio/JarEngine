@@ -41,7 +41,7 @@ JarEngine
 │     └── JEAccelerationSystem
 │
 └── ...
-````
+```
 
 ---
 
@@ -71,12 +71,5 @@ acceleration_system = Games.Systems.JEAccelerationSystem(game)
 
 game.add_system(acceleration_system)
 ```
-
----
-
-## 🔹 Related
-
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
 
 ---

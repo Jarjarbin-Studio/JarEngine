@@ -69,11 +69,3 @@ Useful information:
 * Use internal classes carefully as they directly interact with JarEngine core systems.
 
 ---
-
-## 🔹 Related
-
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
-
----

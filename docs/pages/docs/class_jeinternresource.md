@@ -60,10 +60,3 @@ JarEngine
 | `__init__` | `name: str, path: str` |         | Creates a resource base object |
 
 ---
-
-## 🔹 Related
-
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
-
----

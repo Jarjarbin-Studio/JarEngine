@@ -61,10 +61,3 @@ No public data nor property
 |   `copy`   | `new_owner: JEEntity` | `JEInternEmptyComponent` | Copy the empty component to another entity   |
 
 ---
-
-## 🔹 Related
-
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
-
----

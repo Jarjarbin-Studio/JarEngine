@@ -75,10 +75,3 @@ game.add_system(render_system)
 ```
 
 ---
-
-## 🔹 Related
-
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
-
----

@@ -79,10 +79,3 @@ print(f"Mouse position: {mouse_position}")
 ```
 
 ---
-
-## 🔹 Related
-
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
-
----

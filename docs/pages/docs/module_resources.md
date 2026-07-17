@@ -64,11 +64,3 @@ Useful information:
 * Resources must be registered before being used by the game.
 
 ---
-
-## 🔹 Related
-
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
-
----

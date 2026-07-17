@@ -61,10 +61,3 @@ JarEngine
 | `destroy`  |             |         | Marks the graphic object as destroyed |
 
 ---
-
-## 🔹 Related
-
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
-
----

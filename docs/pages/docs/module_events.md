@@ -24,19 +24,19 @@ It includes:
 
 ## 🔹 Contents
 
-|            Class             | Description            |
-|:----------------------------:|------------------------|
-|     [`•>JEEvent<•`]()📎      | Runtime event object   |
-|  [`•>JEEventHandler<•`]()📎  | Event dispatcher       |
-|   [`•>JEEventCode<•`]()📎    | Single event code      |
-| [`•>JEEventCodeGroup<•`]()📎 | Event code group       |
-|  [`•>JEEventWatcher<•`]()📎  | Event callback watcher |
-|    [`•>JEKeyCode<•`]()📎     | Single keyboard code   |
-|  [`•>JEKeyCodeGroup<•`]()📎  | Keyboard code group    |
-|   [`•>JEKeyWatcher<•`]()📎   | Keyboard input watcher |
-|   [`•>JEMouseCode<•`]()📎    | Single mouse code      |
-| [`•>JEMouseCodeGroup<•`]()📎 | Mouse code group       |
-|  [`•>JEMouseWatcher<•`]()📎  | Mouse input watcher    |
+|                         Class                         | Description            |
+|:-----------------------------------------------------:|------------------------|
+|          [`•>JEEvent<•`](class_jeevent.md)📎          | Runtime event object   |
+|   [`•>JEEventHandler<•`](class_jeeventhandler.md)📎   | Event dispatcher       |
+|      [`•>JEEventCode<•`](class_jeeventcode.md)📎      | Single event code      |
+| [`•>JEEventCodeGroup<•`](class_jeeventcodegroup.md)📎 | Event code group       |
+|   [`•>JEEventWatcher<•`](class_jeeventwatcher.md)📎   | Event callback watcher |
+|        [`•>JEKeyCode<•`](class_jekeycode.md)📎        | Single keyboard code   |
+|   [`•>JEKeyCodeGroup<•`](class_jekeycodegroup.md)📎   | Keyboard code group    |
+|     [`•>JEKeyWatcher<•`](class_jekeywatcher.md)📎     | Keyboard input watcher |
+|      [`•>JEMouseCode<•`](class_jemousecode.md)📎      | Single mouse code      |
+| [`•>JEMouseCodeGroup<•`](class_jemousecodegroup.md)📎 | Mouse code group       |
+|   [`•>JEMouseWatcher<•`](class_jemousewatcher.md)📎   | Mouse input watcher    |
 
 ---
 
@@ -85,13 +85,5 @@ Useful information:
 * Event, keyboard and mouse codes can be combined into groups.
 * Runtime events are automatically generated from PyGame events.
 * Avoid creating custom runtime events manually.
-
----
-
-## 🔹 Related
-
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
 
 ---

@@ -41,7 +41,7 @@ JarEngine
 │     └── JEMovementSystem
 │
 └── ...
-````
+```
 
 ---
 
@@ -71,12 +71,5 @@ movement_system = Games.Systems.JEMovementSystem(game)
 
 game.add_system(movement_system)
 ```
-
----
-
-## 🔹 Related
-
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
 
 ---

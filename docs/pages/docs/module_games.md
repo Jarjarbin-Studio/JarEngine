@@ -25,14 +25,14 @@ It includes:
 
 ## 🔹 Contents
 
-|                 Class                 | Description                             |
-|:-------------------------------------:|-----------------------------------------|
-|   [`•>JEGame<•`](class_jegame.md)📎   | Main game manager and engine controller |
-| [`•>JEWindow<•`](class_jewindow.md)📎 | Window creation and management          |
-|  [`•>JEInput<•`](class_jeinput.md)📎  | User input handling                     |
-|     [`•>JEMovementSystem<•`]()📎      | Entity movement update system           |
-|   [`•>JEAccelerationSystem<•`]()📎    | Entity acceleration update system       |
-|      [`•>JERenderSystem<•`]()📎       | Entity rendering update system          |
+|                             Class                             | Description                             |
+|:-------------------------------------------------------------:|-----------------------------------------|
+|               [`•>JEGame<•`](class_jegame.md)📎               | Main game manager and engine controller |
+|             [`•>JEWindow<•`](class_jewindow.md)📎             | Window creation and management          |
+|              [`•>JEInput<•`](class_jeinput.md)📎              | User input handling                     |
+|     [`•>JEMovementSystem<•`](class_jemovementsystem.md)📎     | Entity movement update system           |
+| [`•>JEAccelerationSystem<•`](class_jeaccelerationsystem.md)📎 | Entity acceleration update system       |
+|       [`•>JERenderSystem<•`](class_jerendersystem.md)📎       | Entity rendering update system          |
 
 ---
 
@@ -72,13 +72,5 @@ Useful information:
 * `JEGame` is the central object connecting the engine systems together.
 * Only one main game instance and window should normally be created.
 * Systems must be registered before being updated by the game.
-
----
-
-## 🔹 Related
-
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
 
 ---

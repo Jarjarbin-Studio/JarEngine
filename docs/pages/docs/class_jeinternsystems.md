@@ -65,10 +65,3 @@ JarEngine
 |     `update`     | `window: JEWindow, entity: JEEntity, entities: JEContainer[JEEntity], dt: float` |          | Update the system for an entity                     |
 
 ---
-
-## 🔹 Related
-
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
-
----

@@ -29,26 +29,29 @@ It provides:
 
 ## 🔹 Contents
 
-|                Class                | Description                  |
-|:-----------------------------------:|------------------------------|
-|    [`•>JEMusicComponent<•`]()📎     | Music (resource)             |
-|    [`•>JESoundComponent<•`]()📎     | Sound (resource)             |
-|     [`•>JEFontComponent<•`]()📎     | Font (resource)              |
-|     [`•>JETextComponent<•`]()📎     | Text (string)                |
-|   [`•>JETextureComponent<•`]()📎    | Texture (resource)           |
-|    [`•>JEColorComponent<•`]()📎     | Color (JEColor)              |
-|   [`•>JEOutlineComponent<•`]()📎    | Outline (JEColor and size)   |
-|  [`•>JEVisibilityComponent<•`]()📎  | Visibility (JEBool)          |
-|    [`•>JELayerComponent<•`]()📎     | Layer (integer)              |
-|     [`•>JEFlipComponent<•`]()📎     | Flip (tuple: JEBool, JEBool) |
-|    [`•>JEGroupComponent<•`]()📎     | Group (JEInternOwnership)    |
-| [`•>JEAccelerationComponent<•`]()📎 | Acceleration (JEVector2D)    |
-|     [`•>JEMassComponent<•`]()📎     | Mass (floating point)        |
-|   [`•>JEPositionComponent<•`]()📎   | Position (JEVector2D)        |
-|   [`•>JEVelocityComponent<•`]()📎   | Velocity (JEVector2D)        |
-|     [`•>JESizeComponent<•`]()📎     | Size (JEVector2D)            |
-|   [`•>JERotationComponent<•`]()📎   | Rotation (integer)           |
-|        [`•>JEEntity<•`]()📎         | Entity (component holder)    |
+|                 Class                 | Description               |
+|:-------------------------------------:|---------------------------|
+| [`•>JEEntity<•`](class_jeentity.md)📎 | Entity (component holder) |
+
+|                          Component                           | Description                  |
+|:------------------------------------------------------------:|------------------------------|
+|        [`•>JEMusicComponent<•`](component_music.md)📎        | Music (resource)             |
+|        [`•>JESoundComponent<•`](component_sound.md)📎        | Sound (resource)             |
+|         [`•>JEFontComponent<•`](component_font.md)📎         | Font (resource)              |
+|         [`•>JETextComponent<•`](component_text.md)📎         | Text (string)                |
+|      [`•>JETextureComponent<•`](component_texture.md)📎      | Texture (resource)           |
+|        [`•>JEColorComponent<•`](component_color.md)📎        | Color (JEColor)              |
+|      [`•>JEOutlineComponent<•`](component_outline.md)📎      | Outline (JEColor and size)   |
+|   [`•>JEVisibilityComponent<•`](component_visibility.md)📎   | Visibility (JEBool)          |
+|        [`•>JELayerComponent<•`](component_layer.md)📎        | Layer (integer)              |
+|         [`•>JEFlipComponent<•`](component_flip.md)📎         | Flip (tuple: JEBool, JEBool) |
+|        [`•>JEGroupComponent<•`](component_group.md)📎        | Group (JEInternOwnership)    |
+| [`•>JEAccelerationComponent<•`](component_acceleration.md)📎 | Acceleration (JEVector2D)    |
+|         [`•>JEMassComponent<•`](component_mass.md)📎         | Mass (floating point)        |
+|     [`•>JEPositionComponent<•`](component_position.md)📎     | Position (JEVector2D)        |
+|     [`•>JEVelocityComponent<•`](component_velocity.md)📎     | Velocity (JEVector2D)        |
+|         [`•>JESizeComponent<•`](component_size.md)📎         | Size (JEVector2D)            |
+|     [`•>JERotationComponent<•`](component_rotation.md)📎     | Rotation (integer)           |
 
 ---
 
@@ -100,13 +103,5 @@ Things to know when using this module:
 * Entity alone doesn't do anything, components are required.
 * Components such as group makes the entity a holder of other entity.
 * ECS has been optimized by me (and IA) for faster computation, but it is still a layer on top of PyGame, and in Python. So it may be slower than any other engine.
-
----
-
-## 🔹 Related
-
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
 
 ---

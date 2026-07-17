@@ -60,10 +60,3 @@ No public data nor property
 |   `copy`   |                                | `JEInternEntityComponent` | Copy the component recursively                                             |
 
 ---
-
-## 🔹 Related
-
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
-
----

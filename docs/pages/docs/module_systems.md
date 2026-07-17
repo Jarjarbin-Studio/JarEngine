@@ -67,11 +67,3 @@ Useful information:
 * Use immutable and container classes carefully with custom objects.
 
 ---
-
-## 🔹 Related
-
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
-
----

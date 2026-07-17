@@ -71,10 +71,3 @@ JarEngine
 |   `dump`   |                                                                                                           |  `str`  | Generate a simplified debug representation of the object                |
 
 ---
-
-## 🔹 Related
-
-* [`•>...<•`]()📎
-* [`•>...<•`]()📎
-
----
