@@ -2,7 +2,7 @@
 layout: page
 title: JarEngine - JarEngine - Resources
 sidebar: sidebar
-permalink: /module_resource.html
+permalink: /module_resources.html
 ---
 
 # 📦 Resources
