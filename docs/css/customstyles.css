@@ -865,6 +865,9 @@ span.soft {
 
     ul#mysidebar {
         width: 225px;
+        max-height: calc(100vh - 80px);
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 }
 
@@ -873,6 +876,18 @@ span.soft {
     ul#mysidebar {
         max-width: 100%;
     }
+}
+
+ul#mysidebar {
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#mysidebar {
+    position: fixed;
+    top: 60px;
+    bottom: 20px;
 }
 
 .col-md-9 img {
