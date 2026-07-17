@@ -269,6 +269,10 @@ entries:
             url: /component_sound.html
             output: web, pdf
 
+          - title: Surface
+            url: /component_surface.html
+            output: web, pdf
+
           - title: Text
             url: /component_text.html
             output: web, pdf

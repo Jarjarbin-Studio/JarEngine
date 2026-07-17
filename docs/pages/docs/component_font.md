@@ -39,6 +39,6 @@ Used by entities requiring font data for text rendering.
 * `get_font`
 
 ### System
-* No system currently requires this component.
+* [`•>JERenderSystem<•`](class_jerendersystem.md)📎 
 
 ---

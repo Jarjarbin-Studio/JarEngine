@@ -58,6 +58,8 @@ JarEngine
 
 |    Component     |        Function        |                               Arguments                               |         Returns         | Description                                      |
 |:----------------:|:----------------------:|:---------------------------------------------------------------------:|:-----------------------:|--------------------------------------------------|
+|   **Surface**    |     `set_surface`      |                       `surface: PyGame.Surface`                       |                         | Sets the entity surface.                         |
+|                  |     `get_surface`      |                                                                       |    `PyGame.Surface`     | Returns the entity surface.                      |
 |     **Font**     |       `set_font`       |                            `font: JEFont`                             |                         | Sets the entity font resource.                   |
 |                  |       `get_font`       |                                                                       |        `JEFont`         | Returns the entity font resource.                |
 |     **Text**     |       `set_text`       |                              `text: str`                              |                         | Sets the displayed text.                         |

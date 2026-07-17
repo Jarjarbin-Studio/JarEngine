@@ -40,6 +40,6 @@ Used by entities requiring orientation information for rendering, transformation
 * `get_rotation`
 
 ### System
-* No system currently requires this component.
+* [`•>JERenderSystem<•`](class_jerendersystem.md)📎 
 
 ---

@@ -40,6 +40,6 @@ Used by entities requiring size information for graphical representation, spatia
 * `get_size`
 
 ### System
-* No system currently requires this component.
+* [`•>JERenderSystem<•`](class_jerendersystem.md)📎 
 
 ---

@@ -39,6 +39,6 @@ Used by text-based graphical entities and rendering features where an entity dis
 * `get_text`
 
 ### System
-* No system currently requires this component.
+* [`•>JERenderSystem<•`](class_jerendersystem.md)📎 
 
 ---

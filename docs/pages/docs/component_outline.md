@@ -44,6 +44,6 @@ Used by graphical entities and rendering features requiring outlined text or sha
 * `get_outline_size`
 
 ### System
-* No system currently requires this component.
+* [`•>JERenderSystem<•`](class_jerendersystem.md)📎 
 
 ---

@@ -40,6 +40,6 @@ Used by entities requiring acceleration-based physics behavior and the `JEAccele
 * `get_acceleration() -> JEVector2D`
 
 ### System
-* No system currently requires this component.
+* [`•>JEAccelerationSystem<•`](class_jeaccelerationsystem.md)📎
 
 ---

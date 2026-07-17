@@ -24,9 +24,26 @@ class JERenderSystem(_JEInternSystems):
 
 JEEntity stub:
 """
-
     ### COMPONENTS ###
     ## Graphics ##
+    # Surface #
+    def set_surface(self, surface: PGExtern.Surface):
+        """
+            Surface component required. Set surface.
+
+            Parameters:
+                surface (PGExtern.Surface): New surface
+        """
+        ...
+    def get_surface(self) -> PGExtern.Surface:
+        """
+            Surface component surface. Get font.
+
+            Returns:
+                PGExtern.Surface: Surface
+        """
+        ...
+
     # Font #
     def set_font(self, font: JEFont):
         """

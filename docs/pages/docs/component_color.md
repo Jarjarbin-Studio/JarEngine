@@ -40,6 +40,6 @@ Used by graphical entities and rendering features where color customization is r
 * `get_color`
 
 ### System
-* No system currently requires this component.
+* [`•>JERenderSystem<•`](class_jerendersystem.md)📎 
 
 ---

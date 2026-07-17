@@ -39,6 +39,6 @@ Used by entities requiring sprite or graphical object flipping.
 * `get_flip`
 
 ### System
-* No system currently requires this component.
+* [`•>JERenderSystem<•`](class_jerendersystem.md)📎 
 
 ---

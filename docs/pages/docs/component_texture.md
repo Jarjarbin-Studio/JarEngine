@@ -39,6 +39,6 @@ Used by graphical entities and rendering features where an entity requires a tex
 * `get_texture`
 
 ### System
-* No system currently requires this component.
+* [`•>JERenderSystem<•`](class_jerendersystem.md)📎 
 
 ---

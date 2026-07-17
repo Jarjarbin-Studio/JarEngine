@@ -40,6 +40,7 @@ Used by entities requiring a location in the game world and systems that process
 * `get_position`
 
 ### System
-* No system currently requires this component.
+* [`•>JEMovementSystem<•`](class_jemovementsystem.md)📎
+* [`•>JEPositionComponent<•`](class_jerendersystem.md)📎
 
 ---

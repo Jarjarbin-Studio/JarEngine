@@ -39,6 +39,6 @@ Used by entities requiring dynamic visibility control.
 * `get_visibility`
 
 ### System
-* No system currently requires this component.
+* [`•>JERenderSystem<•`](class_jerendersystem.md)📎 
 
 ---

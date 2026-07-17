@@ -40,6 +40,7 @@ Used by entities requiring movement behavior and systems that process motion and
 * `get_velocity`
 
 ### System
-* No system currently requires this component.
+* [`•>JEMovementSystem<•`](class_jemovementsystem.md)📎
+* [`•>JEAccelerationSystem<•`](class_jeaccelerationsystem.md)📎
 
 ---

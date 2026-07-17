@@ -40,6 +40,6 @@ Used by entities requiring physical properties and systems handling physics simu
 * `JEEntity.get_mass()`
 
 ### System
-* No system currently requires this component.
+* [`•>JEAccelerationSystem<•`](class_jeaccelerationsystem.md)📎
 
 ---
