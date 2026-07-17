@@ -37,9 +37,25 @@ class JEInternBaseClass:
     __instance_policy__: str            #How the class handles instances (normal/flyweight/singleton). Default: normal
     __instance_limit__: Optional[int]   #How many instances are allowed (None/inf.). Default: None
     __recursive__: bool                 #Is the class pointing to itself (directly or indirectly)(used by dump and debug). Default: True
+
     def __init__(self):
         """
             JEInternBaseClass
+        """
+        ...
+    @property
+    def jeid(self) -> str:
+        """
+            Get the JarEngine ID (JEID) of the object
+
+            Returns:
+                str: JarEngine ID
+        """
+        ...
+    @jeid.setter
+    def jeid(self, /) -> str:
+        """
+            Set the JarEngine ID (JEID) of the object will immediately raise an error
         """
         ...
     def __str__(self) -> str:

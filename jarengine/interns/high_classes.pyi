@@ -101,6 +101,14 @@ class JEInternEntityComponent(JEInternGraphic, JEInternOwnership):
                 Any: Internal value(s)
         """
         ...
+    def copy(self) -> JEInternEntityComponent:
+        """
+            Copy the component recursively (deepcopy)
+
+            Returns:
+                JEInternEntityComponent: Copy of the component
+        """
+        ...
 
 class JEInternSystems(JEInternOwnership):
     cache: list[JEEntity]   #Per-system entity cache (faster computation)

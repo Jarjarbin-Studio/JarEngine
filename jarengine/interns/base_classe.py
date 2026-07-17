@@ -1,8 +1,8 @@
 # =============================================================================
-# JarEngine - Python Game Engine Wrapper (Pygame-based)
+# JarEngine - Python Game Engine Wrapper (PyGame-based)
 # =============================================================================
 #
-# JarEngine is a lightweight game framework built on top of Pygame
+# JarEngine is a lightweight game framework built on top of PyGame
 # that simplifies usage while providing higher-level abstractions for
 # game development and prototyping.
 #
@@ -12,7 +12,7 @@
 # Licence: GPL v3
 # =============================================================================
 #
-# This engine is inspired by Pygame, modern game engine design patterns,
+# This engine is inspired by PyGame, modern game engine design patterns,
 # and directly influenced by the architecture of NewCSFML.
 #
 # It is designed for educational purposes and small-to-medium game projects.
@@ -24,8 +24,8 @@
 # WARNING:
 # =============================================================================
 #
-# This is NOT Pygame itself.
-# It is a custom abstraction layer built on top of Pygame.
+# This is NOT PyGame itself.
+# It is a custom abstraction layer built on top of PyGame.
 #
 # =============================================================================
 
@@ -34,7 +34,10 @@ from __future__ import annotations
 from uuid import uuid4 as _uuid4
 from typing import Any as _Any
 
-from jarengine.interns import JTKExternConsole as _JTKExternConsole
+from jarengine.interns import (
+    JTKExternConsole as _JTKExternConsole,
+    JTKExternError as _JTKExternError
+)
 from jarengine.interns.decorators import documentation as _documentation
 
 @_documentation
@@ -45,11 +48,19 @@ class JEInternBaseClass:
     __recursive__ = True
 
     def __init__(self):
-        self.jeid: str = _uuid4().hex
+        self._jeid: str = _uuid4().hex
+
+    @property
+    def jeid(self):
+        return self._jeid
+
+    @jeid.setter
+    def jeid(self, value):
+        raise _JTKExternError.Error.ErrorValue("\nJEID must not be changed")
 
     def __str__(self):
         name = getattr(self, "name", None)
-        id = getattr(self, "id", None)
+        id = getattr(self, "jeid", None)
 
         if name:
             return f"{self.__class__.__name__}({name=}, {id=})"

@@ -1,5 +1,5 @@
 # =============================================================================
-# JarEngine - Python Game Engine Wrapper (Pygame-based)
+# JarEngine - Python Game Engine Wrapper (PyGame-based)
 # =============================================================================
 #
 # JarEngine is a lightweight game framework built on top of Pygame

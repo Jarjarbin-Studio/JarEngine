@@ -38,5 +38,7 @@ from jarengine.interns import PGExtern as _PGExtern
 @_documentation
 class JEVersion(_PGExtern.version.SoftwareVersion, _JEInternBaseClass):
 
+    __recursive__ = False
+
     def __init__(self, *args, **kwargs):
         super().__init__()

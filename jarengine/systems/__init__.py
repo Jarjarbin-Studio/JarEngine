@@ -1,8 +1,8 @@
 # =============================================================================
-# JarEngine - Python Game Engine Wrapper (Pygame-based)
+# JarEngine - Python Game Engine Wrapper (PyGame-based)
 # =============================================================================
 #
-# JarEngine is a lightweight game framework built on top of Pygame
+# JarEngine is a lightweight game framework built on top of PyGame
 # that simplifies usage while providing higher-level abstractions for
 # game development and prototyping.
 #
@@ -12,7 +12,7 @@
 # Licence: GPL v3
 # =============================================================================
 #
-# This engine is inspired by Pygame, modern game engine design patterns,
+# This engine is inspired by PyGame, modern game engine design patterns,
 # and directly influenced by the architecture of NewCSFML.
 #
 # It is designed for educational purposes and small-to-medium game projects.

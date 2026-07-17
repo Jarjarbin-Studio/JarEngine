@@ -31,14 +31,11 @@
 
 from __future__ import annotations
 
-from typing import Any
-
 from jarengine.interns.base_classe import JEInternBaseClass
 from jarengine.interns import PGExtern
 from jarengine.interns.final_classes import JEInternWindowSettings
 from jarengine.systems.color import JEColor
 from jarengine.systems.vector import JEVector2D
-
 
 class JEWindow(JEInternBaseClass):
     def __init__(self, *, size: JEVector2D | tuple[int, int] = JEVector2D(0, 0), flags: int = 0, fps: int = 60, depth: int = 0, display: int = 0, vsync: int = 0, title: str = "JarEngine Game"):
