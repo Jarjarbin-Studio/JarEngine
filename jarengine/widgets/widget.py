@@ -31,36 +31,31 @@
 
 from __future__ import annotations
 
-from typing import final as _final
-
-from jarengine.interns.config import (
-    get_config as _get_config,
-    JEInternConfig as _JEInternConfig
+from jarengine.entity.entity import JEEntity as _JEEntity
+from jarengine.systems.bool import JEBool as _JEBool
+from jarengine.entity.components_transforms import (
+    JEPositionComponent as _JEPositionComponent,
+    JESizeComponent as _JESizeComponent,
+    JERotationComponent as _JERotationComponent
 )
-from jarengine.interns import (
-    PGExtern as _PGExtern,
-    JTKExternError as _JTKExternError
+from jarengine.entity.components_graphics import (
+    JEVisibilityComponent as _JEVisibilityComponent,
+    JELayerComponent as _JELayerComponent
 )
-from jarengine.interns.high_classes import JEInternOwnership as _JEInternOwnership
-from jarengine.interns.low_classes import JEInternResource as _JEInternResource
+from jarengine.systems.vector import JEVector2D as _JEVector2D
 from jarengine.interns.decorators import documentation as _documentation
 
 @_documentation
-@_final
-class JESound(_JEInternResource, _JEInternOwnership):
+class JEWidget(_JEEntity):
 
-    def __init__(self, name, path):
-        super().__init__(name, path)
+    def __init__(self, *, name = "JEWidget", position = _JEVector2D(0, 0), size = _JEVector2D(0, 0), rotation = 0.0, layer = 0, visibility = _JEBool(1)):
+        super().__init__(name=name)
 
-        if not "/" in path:
-            path = f"{_get_config("assets").get('ASSETS', 'path')}/{_get_config("assets").get('ASSETS', 'sound_dir')}/{path}"
+        _JEPositionComponent(self, position)
+        _JESizeComponent(self, size)
+        _JERotationComponent(self, rotation)
+        _JELayerComponent(self, layer)
+        _JEVisibilityComponent(self, visibility)
 
-        self._path = path
-        try:
-            self._sound = _PGExtern.mixer.Sound(path)
-        except FileNotFoundError:
-            raise _JTKExternError.Special.ErrorSpecialConfig(f"\nInvalid sound path. Check assets config at {_JEInternConfig.config_path}")
-
-    @property
-    def sound(self):
-        return self._sound
+    def copy(self):
+        return super().copy()

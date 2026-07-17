@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.7
+# Version: jarengine-v1.8
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -54,6 +54,14 @@ class JEKeyCode(JEInternBaseClass):
 
             Returns:
                 int: Key code
+        """
+        ...
+    def __str__(self) -> str:
+        """
+        Get key name
+
+            Returns:
+                str: Key name
         """
         ...
     @property

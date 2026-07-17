@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.7
+# Version: jarengine-v1.8
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -31,8 +31,6 @@
 
 from __future__ import annotations
 
-from typing import final as _final
-
 from jarengine.interns.high_classes import JEInternOwnership as _JEInternOwnership
 from jarengine.interns.final_classes import JEInternEmptyComponent as _JEInternEmptyComponent
 from jarengine.interns.high_classes import JEInternEntityComponent as _JEInternEntityComponent
@@ -42,7 +40,6 @@ from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.interns.decorators import documentation as _documentation
 
 @_documentation
-@_final
 class JEEntity(_JEInternGraphicalObject, _JEInternOwnership):
 
     def __init__(self, *, name = "JEEntity"):

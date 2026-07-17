@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.7
+# Version: jarengine-v1.8
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -36,7 +36,7 @@ from datetime import datetime as _datetime
 ##Metadata##
 __author__ = 'Nathan Jarjarbin'
 __email__ = 'nathan.amaraggi@epitech.eu'
-__version__ = "1.7.5"
+__version__ = "1.8.0"
 __license__ = "GPL"
 
 ##Imports##
@@ -46,6 +46,7 @@ import jarengine.events as Events
 import jarengine.games as Games
 import jarengine.resources as Resources
 import jarengine.systems as Systems
+import jarengine.widgets as Widgets
 from jarengine.constants import *
 
 ##Special##
@@ -108,6 +109,7 @@ __all__ = [
     'Games',
     'Resources',
     'Systems',
+    'Widgets',
     ## Functions ##
     'init',
     'quit',

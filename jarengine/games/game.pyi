@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.7
+# Version: jarengine-v1.8
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -44,6 +44,8 @@ from jarengine.interns.high_classes import JEInternSystems
 from jarengine.interns.final_classes import JEInternResources
 from jarengine.systems.bool import JEBool
 from jarengine.systems.clock import JEClock
+from jarengine.widgets.widget import JEWidget
+
 
 class JEGame(JEInternBaseClass):
     def __init__(self, *, use_clock: JEBool = JEBool(0), use_input: JEBool = JEBool(0)):
@@ -163,7 +165,7 @@ class JEGame(JEInternBaseClass):
             Refresh game info, systems' cache, and other sub systems with 1 entity (low cost on CPU)
         """
         ...
-    def add_entity(self, entity: JEEntity, *, refresh: JEBool = JETrue):
+    def add_entity(self, entity: JEEntity | JEWidget, *, refresh: JEBool = JETrue):
         """
             Add an entity to the game (do not use if you want manual handling of the entity)
 

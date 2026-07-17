@@ -31,36 +31,35 @@
 
 from __future__ import annotations
 
-from typing import final as _final
-
-from jarengine.interns.config import (
-    get_config as _get_config,
-    JEInternConfig as _JEInternConfig
+from jarengine.systems.bool import JEBool as _JEBool
+from jarengine.widgets.widget import JEWidget as _JEWidget
+from jarengine.entity.components_graphics import (
+    JETextComponent as _JETextComponent,
+    JEFontComponent as _JEFontComponent,
+    JEColorComponent as _JEColorComponent,
+    JETextureComponent as _JETextureComponent,
+    JEFlipComponent as _JEFlipComponent
 )
-from jarengine.interns import (
-    PGExtern as _PGExtern,
-    JTKExternError as _JTKExternError
-)
-from jarengine.interns.high_classes import JEInternOwnership as _JEInternOwnership
-from jarengine.interns.low_classes import JEInternResource as _JEInternResource
+from jarengine.systems.vector import JEVector2D as _JEVector2D
 from jarengine.interns.decorators import documentation as _documentation
 
 @_documentation
-@_final
-class JESound(_JEInternResource, _JEInternOwnership):
+class JESprite(_JEWidget):
 
-    def __init__(self, name, path):
-        super().__init__(name, path)
+    def __init__(self, texture, *, flip = (_JEBool(0), _JEBool(0)), name = "JESprite", position = _JEVector2D(0, 0), size = _JEVector2D(0, 0), rotation = 0.0, layer = 0, visibility = _JEBool(1)):
+        super().__init__(name=name, position=position, size=size, rotation=rotation, layer=layer, visibility=visibility)
 
-        if not "/" in path:
-            path = f"{_get_config("assets").get('ASSETS', 'path')}/{_get_config("assets").get('ASSETS', 'sound_dir')}/{path}"
+        _JETextureComponent(self, texture)
+        _JEFlipComponent(self, flip)
 
-        self._path = path
-        try:
-            self._sound = _PGExtern.mixer.Sound(path)
-        except FileNotFoundError:
-            raise _JTKExternError.Special.ErrorSpecialConfig(f"\nInvalid sound path. Check assets config at {_JEInternConfig.config_path}")
+@_documentation
+class JEText(_JEWidget):
 
-    @property
-    def sound(self):
-        return self._sound
+    def __init__(self, text, font, *, color = None, flip = (_JEBool(0), _JEBool(0)), name = "JESprite", position = _JEVector2D(0, 0), size = _JEVector2D(0, 0), rotation = 0.0, layer = 0, visibility = _JEBool(1)):
+        super().__init__(name=name, position=position, size=size, rotation=rotation, layer=layer, visibility=visibility)
+
+        _JETextComponent(self, text)
+        _JEFontComponent(self, font)
+        _JEFlipComponent(self, flip)
+        if color:
+            _JEColorComponent(self, color)

@@ -1,11 +1,11 @@
-[ ] #Optimization
-[ ] #Optimization Ask AI for advice
+[@] #Optimization
+[@] #Optimization Ask AI for advice
 [ ] #Optimization Instead of having functions to access component's data, have a dict the allows direct access
 [x] #Optimization We don't need every events to have type, key, button AND mouse position.
 [x] #Optimization Cache sorted entity list
-[ ] #Optimization Instead of storing a list of components when updating through systems, store a dict of "name - values"
+[~] #Optimization Instead of storing a list of components when updating through systems, store a dict of "name - values"
 [ ] #Optimization For resources components, instead of storing pointers to
-[ ] #Fix Refactor the documentation for better readability and simplicity
+[x] #Fix Refactor the documentation for better readability and simplicity
 [ ] #Optimization Find a better and faster system for the JEContainer
 [ ] #Implement Resource-dependent components will lookup for the resource itself inside the game instead of manually giving it.
 [ ] #Add Sprite sheet animation support (frame-based texture animations)

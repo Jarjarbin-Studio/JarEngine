@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.7
+# Version: jarengine-v1.8
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -67,15 +67,15 @@ class JEKeyCode(_JEInternBaseClass):
             cls._name_cache[code] = str(i)
 
         cls._name_cache.update({
-            _PGExtern.K_RETURN: "ENTER",
-            _PGExtern.K_BACKSPACE: "BACKSPACE",
-            _PGExtern.K_DELETE: "DELETE",
-            _PGExtern.K_TAB: "TAB",
-            _PGExtern.K_ESCAPE: "ESCAPE",
-            _PGExtern.K_UP: "UP",
-            _PGExtern.K_DOWN: "DOWN",
-            _PGExtern.K_LEFT: "LEFT",
-            _PGExtern.K_RIGHT: "RIGHT",
+            _PGExtern.K_RETURN: "Enter",
+            _PGExtern.K_BACKSPACE: "Backspace",
+            _PGExtern.K_DELETE: "Delete",
+            _PGExtern.K_TAB: "Tab",
+            _PGExtern.K_ESCAPE: "Escape",
+            _PGExtern.K_UP: "Up",
+            _PGExtern.K_DOWN: "Down",
+            _PGExtern.K_LEFT: "Left",
+            _PGExtern.K_RIGHT: "Right",
         })
 
     def __new__(cls, key = None):
@@ -99,6 +99,9 @@ class JEKeyCode(_JEInternBaseClass):
 
     def __int__(self):
         return self._key
+
+    def __str__(self):
+        return self._name
 
     @property
     def name(self):

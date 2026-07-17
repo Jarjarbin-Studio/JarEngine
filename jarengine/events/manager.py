@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.7
+# Version: jarengine-v1.8
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -42,8 +42,14 @@ from jarengine.events.event import (
     JEEventCode as _JEEventCode,
     JEEventWatcher as _JEEventWatcher
 )
-from jarengine.events.keyboard import JEKeyWatcher as _JEKeyWatcher
-from jarengine.events.mouse import JEMouseWatcher as _JEMouseWatcher
+from jarengine.events.keyboard import (
+    JEKeyCode as _JEKeyCode,
+    JEKeyWatcher as _JEKeyWatcher
+)
+from jarengine.events.mouse import (
+    JEMouseCode as _JEMouseCode,
+    JEMouseWatcher as _JEMouseWatcher
+)
 from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.interns.decorators import documentation as _documentation
 
@@ -56,7 +62,7 @@ class JEEvent(_JEInternBaseClass):
         self._event = event
         self._type = None
         self._key = None
-        self._button = None
+        self._mouse = None
         self._pos = None
 
     @property
@@ -68,14 +74,14 @@ class JEEvent(_JEInternBaseClass):
     @property
     def key(self):
         if not self._key:
-            self._key = _JEEventCode(self._event.type) if hasattr(self._event, "key") else None
+            self._key = _JEKeyCode(self._event.key) if hasattr(self._event, "key") else None
         return self._key
 
     @property
     def mouse(self):
-        if not self._button:
-            self._button = _JEEventCode(self._event.type) if hasattr(self._event, "button") else None
-        return self._button
+        if not self._mouse:
+            self._mouse = _JEMouseCode(self._event.button) if hasattr(self._event, "button") else None
+        return self._mouse
 
 @_documentation
 @_final

@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.7
+# Version: jarengine-v1.8
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -41,6 +41,7 @@ from jarengine.systems.bool import JEBool
 from jarengine.systems.color import JEColor
 from jarengine.resources.music import JEMusic
 from jarengine.resources.sound import JESound
+from jarengine.interns import PGExtern
 
 class JEEntity(JEInternGraphicalObject, JEInternOwnership):
     def __init__(self, *, name: str = "JEEntity"):
@@ -91,6 +92,24 @@ class JEEntity(JEInternGraphicalObject, JEInternOwnership):
 
     ### COMPONENTS ###
     ## Graphics ##
+    # Surface #
+    def set_surface(self, surface: PGExtern.Surface):
+        """
+            Surface component required. Set surface.
+
+            Parameters:
+                surface (PGExtern.Surface): New surface
+        """
+        ...
+    def get_surface(self) -> PGExtern.Surface:
+        """
+            Surface component surface. Get font.
+
+            Returns:
+                PGExtern.Surface: Surface
+        """
+        ...
+
     # Font #
     def set_font(self, font: JEFont):
         """

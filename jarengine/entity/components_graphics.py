@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.7
+# Version: jarengine-v1.8
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -37,6 +37,39 @@ from typing import final as _final
 from jarengine.interns.high_classes import JEInternEntityComponent as _JEInternEntityComponent
 from jarengine.interns.decorators import documentation as _documentation
 from jarengine.systems.color import JEColor as _JEColor
+
+
+@_documentation
+@_final
+class JESurfaceComponent(_JEInternEntityComponent):
+
+    def __init__(self, owner, surface):
+        super().__init__(owner, JESurfaceComponent)
+        self._surface = surface
+
+        def set_surface(owner_self, surface):
+            self.surface = surface
+
+        def get_surface(owner_self):
+            return self.surface
+
+        owner.set_surface = set_surface.__get__(owner, type(owner))
+        owner.get_surface = get_surface.__get__(owner, type(owner))
+
+    @property
+    def surface(self):
+        return self._surface
+
+    @surface.setter
+    def surface(self, surface):
+        self._surface = surface
+
+    def __call__(self):
+        return self._surface
+
+    def copy(self, new_owner):
+        return JESurfaceComponent(new_owner, _deepcopy(self._surface))
+
 
 @_documentation
 @_final

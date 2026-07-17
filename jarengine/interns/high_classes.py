@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.7
+# Version: jarengine-v1.8
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -33,7 +33,6 @@ from __future__ import annotations
 
 from jarengine.interns.low_classes import JEInternGraphic as _JEInternGraphic
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
-from jarengine.interns import JTKExternError as _JTKExternError
 from jarengine.systems.container import JEContainer as _JEContainer
 from jarengine.interns.decorators import documentation as _documentation
 from jarengine.systems.bool import JEBool as _JEBool
@@ -71,11 +70,11 @@ class JEInternEntityComponent(_JEInternGraphic, JEInternOwnership):
     def __call__(self):
         raise NotImplementedError
 
-    def copy(self):
+    def copy(self, new_owner):
         raise NotImplementedError
 
     def __deepcopy__(self, memo):
-        return self.copy()
+        raise NotImplementedError
 
 @_documentation
 class JEInternSystems(JEInternOwnership):

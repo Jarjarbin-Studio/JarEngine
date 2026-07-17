@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.7
+# Version: jarengine-v1.8
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -54,7 +54,7 @@ class JETexture(_JEInternResource, _JEInternOwnership):
         super().__init__(name, path)
 
         if not "/" in path:
-            path = f"{_get_config("assets").get('ASSETS', 'path')}/{_get_config("assets").get('ASSETS', 'font_dir')}/{path}"
+            path = f"{_get_config("assets").get('ASSETS', 'path')}/{_get_config("assets").get('ASSETS', 'texture_dir')}/{path}"
 
         self._path = path
         try:

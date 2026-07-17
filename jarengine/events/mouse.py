@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.7
+# Version: jarengine-v1.8
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -59,9 +59,9 @@ class JEMouseCode(_JEInternBaseClass):
             return
 
         cls._name_cache.update({
-            _PGExtern.BUTTON_LEFT: "LEFT",
-            _PGExtern.BUTTON_MIDDLE: "MIDDLE",
-            _PGExtern.BUTTON_RIGHT: "RIGHT",
+            _PGExtern.BUTTON_LEFT: "Left",
+            _PGExtern.BUTTON_MIDDLE: "Middle",
+            _PGExtern.BUTTON_RIGHT: "Right",
         })
 
     def __new__(cls, mouse = None):
@@ -85,6 +85,9 @@ class JEMouseCode(_JEInternBaseClass):
 
     def __int__(self):
         return self._mouse
+
+    def __str__(self):
+        return self._name
 
     @property
     def name(self):

@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.7
+# Version: jarengine-v1.8
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -53,6 +53,14 @@ class JEEventCode(JEInternBaseClass):
 
             Returns:
                 int: Event code
+        """
+        ...
+    def __str__(self) -> str:
+        """
+        Get event name
+
+            Returns:
+                str: Event name
         """
         ...
     @property

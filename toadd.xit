@@ -1,16 +1,5 @@
 [x] #Entity #Systems #MovementSystem
-[x] #Entity #Systems #MovementSystem *JEPositionComponent* #Required
-[x] #Entity #Systems #MovementSystem *JEVelocityComponent* #Required
-[x] #Entity #Systems #MovementSystem *JEAccelerationComponent* #Optional
 [x] #Entity #Systems #RenderSystem
-[x] #Entity #Systems #RenderSystem *JETextureComponent* #Required
-[x] #Entity #Systems #RenderSystem *JEPositionComponent* #Required
-[x] #Entity #Systems #RenderSystem *JESizeComponent* #Optional
-[x] #Entity #Systems #RenderSystem *JERotationComponent* #Optional
-[x] #Entity #Systems #RenderSystem *JEFlipComponent* #Optional
-[x] #Entity #Systems #RenderSystem *JEColorComponent* #Optional
-[x] #Entity #Systems #RenderSystem *JEVisibilityComponent* #Optional
-[x] #Entity #Systems #RenderSystem *JELayerComponent* #Optional
 [ ] #Entity #Systems #RotationSystem
 [ ] #Entity #Systems #RotationSystem *JERotationComponent* #Required
 [ ] #Entity #Systems #RotationSystem *JEPositionComponent* #Optional
@@ -23,9 +12,6 @@
 [ ] #Entity #Systems #OriginSystem *JEOriginComponent* #Required
 [ ] #Entity #Systems #OriginSystem *JESizeComponent* #Optional
 [x] #Entity #Systems #AccelerationSystem
-[x] #Entity #Systems #AccelerationSystem *JEAccelerationComponent* #Required
-[x] #Entity #Systems #AccelerationSystem *JEVelocityComponent* #Required
-[x] #Entity #Systems #AccelerationSystem *JEMassComponent* #Optional
 [ ] #Entity #Systems #PhysicsSystem
 [ ] #Entity #Systems #PhysicsSystem *JEMassComponent* #Required
 [ ] #Entity #Systems #PhysicsSystem *JEVelocityComponent* #Optional
@@ -38,7 +24,6 @@
 [ ] #Entity #Systems #DragSystem *JEVelocityComponent* #Required
 [ ] #Entity #Systems #DragSystem *JEMassComponent* #Optional
 [~] #Entity #Systems #VisibilitySystem
-[~] #Entity #Systems #VisibilitySystem *JEVisibilityComponent* #Required
 [ ] #Entity #Systems #ColorSystem
 [ ] #Entity #Systems #ColorSystem *JEColorComponent* #Required
 [ ] #Entity #Systems #ColorSystem *JETextureComponent* #Optional
@@ -116,3 +101,99 @@
 [ ] #Entity #Systems #LightSystem *JEPositionComponent* #Required
 [ ] #Entity #Systems #LightSystem *JEColorComponent* #Optional
 [ ] #Entity #Systems #LightSystem *JERadiusComponent* #Optional
+[@] #Entity #Widgets
+[@] #Entity #Widgets #Graphics
+[x] #Entity #Widgets #Graphics *JESprite*
+[ ] #Entity #Widgets #Graphics *JEAnimatedSprite*
+[ ] #Entity #Widgets #Graphics *JEAnimatedSprite* #Components
+[ ] #Entity #Widgets #Graphics #JEAnimatedSprite *JETextureComponent* #Required
+[ ] #Entity #Widgets #Graphics #JEAnimatedSprite *JEPositionComponent* #Required
+[ ] #Entity #Widgets #Graphics #JEAnimatedSprite *JESizeComponent* #Optional
+[ ] #Entity #Widgets #Graphics #JEAnimatedSprite *JEAnimationComponent* #Required
+[ ] #Entity #Widgets #Graphics #JEAnimatedSprite *JEFlipComponent* #Optional
+[@] #Entity #Widgets #Graphics *JEText*
+[@] #Entity #Widgets #Graphics *JEText* #Components
+[@] #Entity #Widgets #Graphics #JEText *JETextComponent* #Required
+[@] #Entity #Widgets #Graphics #JEText *JEFontComponent* #Required
+[@] #Entity #Widgets #Graphics #JEText *JEPositionComponent* #Required
+[@] #Entity #Widgets #Graphics #JEText *JEColorComponent* #Optional
+[ ] #Entity #Widgets #Graphics *JERectangle*
+[ ] #Entity #Widgets #Graphics *JERectangle* #Components
+[ ] #Entity #Widgets #Graphics #JERectangle *JESurfaceComponent* #Required
+[ ] #Entity #Widgets #Graphics #JERectangle *JEPositionComponent* #Required
+[ ] #Entity #Widgets #Graphics #JERectangle *JESizeComponent* #Required
+[ ] #Entity #Widgets #Graphics #JERectangle *JEColorComponent* #Optional
+[ ] #Entity #Widgets #Graphics #JERectangle *JEOutlineComponent* #Optional
+[ ] #Entity #Widgets #Graphics *JECircle*
+[ ] #Entity #Widgets #Graphics *JECircle* #Components
+[ ] #Entity #Widgets #Graphics #JECircle *JESurfaceComponent* #Required
+[ ] #Entity #Widgets #Graphics #JECircle *JEPositionComponent* #Required
+[ ] #Entity #Widgets #Graphics #JECircle *JERadiusComponent* #Required
+[ ] #Entity #Widgets #Graphics #JECircle *JEColorComponent* #Optional
+[ ] #Entity #Widgets #Graphics #JECircle *JEOutlineComponent* #Optional
+[ ] #Entity #Widgets #Graphics *JELine*
+[ ] #Entity #Widgets #Graphics *JELine* #Components
+[ ] #Entity #Widgets #Graphics #JELine *JESurfaceComponent* #Required
+[ ] #Entity #Widgets #Graphics #JELine *JEPositionComponent* #Required
+[ ] #Entity #Widgets #Graphics #JELine *JESizeComponent* #Required
+[ ] #Entity #Widgets #Graphics #JELine *JEColorComponent* #Required
+[ ] #Entity #Widgets #Graphics *JEPolygon*
+[ ] #Entity #Widgets #Graphics *JEPolygon* #Components
+[ ] #Entity #Widgets #Graphics #JEPolygon *JESurfaceComponent* #Required
+[ ] #Entity #Widgets #Graphics #JEPolygon *JEPositionComponent* #Required
+[ ] #Entity #Widgets #Graphics #JEPolygon *JEPointsComponent* #Required
+[ ] #Entity #Widgets #Graphics #JEPolygon *JEColorComponent* #Optional
+[ ] #Entity #Widgets #Graphics #JEPolygon *JEOutlineComponent* #Optional
+[ ] #Entity #Widgets #UI
+[ ] #Entity #Widgets #UI *JEButton*
+[ ] #Entity #Widgets #UI *JEButton* #Composition
+[ ] #Entity #Widgets #UI #JEButton *JERectangle* #Required
+[ ] #Entity #Widgets #UI #JEButton *JEText* #Required
+[ ] #Entity #Widgets #UI #JEButton *JEClickableComponent* #Required
+[ ] #Entity #Widgets #UI #JEButton *JEHoverComponent* #Optional
+[ ] #Entity #Widgets #UI #JEButton *JECallbackComponent* #Optional
+[ ] #Entity #Widgets #UI *JEImageButton*
+[ ] #Entity #Widgets #UI *JEImageButton* #Composition
+[ ] #Entity #Widgets #UI #JEImageButton *JEButton* #Required
+[ ] #Entity #Widgets #UI #JEImageButton *JESprite* #Required
+[ ] #Entity #Widgets #UI *JELabel*
+[ ] #Entity #Widgets #UI *JELabel* #Composition
+[ ] #Entity #Widgets #UI #JELabel *JEText* #Required
+[ ] #Entity #Widgets #UI *JEPanel*
+[ ] #Entity #Widgets #UI *JEPanel* #Composition
+[ ] #Entity #Widgets #UI #JEPanel *JERectangle* #Required
+[ ] #Entity #Widgets #UI #JEPanel *JEGroupComponent* #Required
+[ ] #Entity #Widgets #UI #JEPanel *JEAnchorComponent* #Optional
+[ ] #Entity #Widgets #UI *JETextInput*
+[ ] #Entity #Widgets #UI *JETextInput* #Components
+[ ] #Entity #Widgets #UI #JETextInput *JETextComponent* #Required
+[ ] #Entity #Widgets #UI #JETextInput *JEFontComponent* #Required
+[ ] #Entity #Widgets #UI #JETextInput *JEInputComponent* #Required
+[ ] #Entity #Widgets #UI #JETextInput *JEClickableComponent* #Optional
+[ ] #Entity #Widgets #UI *JECheckbox*
+[ ] #Entity #Widgets #UI *JECheckbox* #Composition
+[ ] #Entity #Widgets #UI #JECheckbox *JERectangle* #Required
+[ ] #Entity #Widgets #UI #JECheckbox *JEText* #Optional
+[ ] #Entity #Widgets #UI #JECheckbox *JEClickableComponent* #Required
+[ ] #Entity #Widgets #UI *JERadioButton*
+[ ] #Entity #Widgets #UI *JERadioButton* #Composition
+[ ] #Entity #Widgets #UI #JERadioButton *JECheckbox* #Required
+[ ] #Entity #Widgets #UI #JERadioButton *JERadioGroupComponent* #Required
+[ ] #Entity #Widgets #UI *JESlider*
+[ ] #Entity #Widgets #UI *JESlider* #Components
+[ ] #Entity #Widgets #UI #JESlider *JEProgressComponent* #Required
+[ ] #Entity #Widgets #UI #JESlider *JEClickableComponent* #Required
+[ ] #Entity #Widgets #UI #JESlider *JEPositionComponent* #Required
+[ ] #Entity #Widgets #UI #JESlider *JESizeComponent* #Required
+[ ] #Entity #Widgets #UI *JEProgressBar*
+[ ] #Entity #Widgets #UI *JEProgressBar* #Components
+[ ] #Entity #Widgets #UI #JEProgressBar *JEProgressComponent* #Required
+[ ] #Entity #Widgets #UI #JEProgressBar *JESurfaceComponent* #Required
+[ ] #Entity #Widgets #UI #JEProgressBar *JEPositionComponent* #Required
+[ ] #Entity #Widgets #UI #JEProgressBar *JESizeComponent* #Required
+[ ] #Entity #Widgets #UI *JEDropdown*
+[ ] #Entity #Widgets #UI *JEDropdown* #Composition
+[ ] #Entity #Widgets #UI #JEDropdown *JEButton* #Required
+[ ] #Entity #Widgets #UI #JEDropdown *JEPanel* #Required
+[ ] #Entity #Widgets #UI #JEDropdown *JEListComponent* #Required
+[ ] #Entity #Widgets #UI #JEDropdown *JEClickableComponent* #Required

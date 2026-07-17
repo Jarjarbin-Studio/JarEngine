@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.7
+# Version: jarengine-v1.8
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -58,7 +58,7 @@ class JEEventCode(_JEInternBaseClass):
             return
 
         cls._name_cache.update({
-            _PGExtern.QUIT: "quit",
+            _PGExtern.QUIT: "Quit",
             _PGExtern.HIDDEN: "Hidden",
             _PGExtern.KEYDOWN: "KeyDown",
             _PGExtern.KEYUP: "KeyUp",
@@ -87,6 +87,9 @@ class JEEventCode(_JEInternBaseClass):
 
     def __int__(self):
         return self._event
+
+    def __str__(self):
+        return self._name
 
     @property
     def name(self):

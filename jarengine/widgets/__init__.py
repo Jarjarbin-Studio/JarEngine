@@ -31,27 +31,10 @@
 
 from __future__ import annotations
 
-import pygame as PGExtern
-import jarbin_toolkit_time as JTKExternTime
-import jarbin_toolkit_console as JTKExternConsole
-import jarbin_toolkit_error as JTKExternError
-
-from jarengine.interns.base_classe import JEInternBaseClass
-import jarengine.interns.decorators as Decorators
-import jarengine.interns.low_classes as LowClasses
-import jarengine.interns.high_classes as HighClasses
-import jarengine.interns.final_classes as FinalClasses
-import jarengine.interns.config as Config
+import jarengine.widgets.graphics as Graphics
+from jarengine.widgets.widget import JEWidget
 
 __all__ = [
-    "PGExtern",
-    "JEInternBaseClass",
-    "LowClasses",
-    "HighClasses",
-    "FinalClasses",
-    "Config",
-    "Decorators",
-    "JTKExternTime",
-    "JTKExternConsole",
-    "JTKExternError"
+    "JEWidget",
+    "Graphics",
 ]

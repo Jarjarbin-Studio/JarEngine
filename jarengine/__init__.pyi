@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.7
+# Version: jarengine-v1.8
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -45,6 +45,7 @@ from . import events as Events
 from . import games as Games
 from . import resources as Resources
 from . import systems as Systems
+from . import widgets as Widgets
 
 def init(project_path: str) -> tuple[int, int]:
     """
@@ -84,6 +85,7 @@ __all__: list[str] = [
     'Games',
     'Resources',
     'Systems',
+    'Widgets',
     ## Functions ##
     'init',
     'quit',

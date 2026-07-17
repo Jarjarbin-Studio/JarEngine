@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.7
+# Version: jarengine-v1.8
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -31,14 +31,14 @@
 
 from __future__ import annotations
 
-import jarengine.events.manager as EventManager
+import jarengine.events.manager as Manager
 import jarengine.events.event as Event
-import jarengine.events.keyboard as EventKeyboard
-import jarengine.events.mouse as EventMouse
+import jarengine.events.keyboard as Keyboard
+import jarengine.events.mouse as Mouse
 
 __all__ = [
-    "EventManager",
+    "Manager",
     "Event",
-    "EventKeyboard",
-    "EventMouse"
+    "Keyboard",
+    "Mouse"
 ]

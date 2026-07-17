@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.7
+# Version: jarengine-v1.8
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -38,6 +38,7 @@ from jarengine.interns.decorators import documentation as _documentation
 from jarengine.interns import PGExtern as _PGExtern
 from jarengine.entity.entity import JEEntity as _JEEntity
 from jarengine.entity.components_graphics import (
+    JESurfaceComponent as _JESurfaceComponent,
     JEFontComponent as _JEFontComponent,
     JETextComponent as _JETextComponent,
     JEFlipComponent as _JEFlipComponent,
@@ -71,7 +72,10 @@ class JEMovementSystem(_JEInternSystems):
 
     def __init__(self, owner):
         super().__init__(owner)
-        self._required = [_JEPositionComponent, _JEVelocityComponent]
+        self._required = [
+            _JEPositionComponent,
+            _JEVelocityComponent
+        ]
 
     def update(self, window, entity, entities, dt):
         position = entity.get(_JEPositionComponent)
@@ -113,7 +117,9 @@ class JERenderSystem(_JEInternSystems):
 
     def __init__(self, owner):
         super().__init__(owner)
-        self._required = [_JEPositionComponent]
+        self._required = [
+            _JEPositionComponent
+        ]
 
     def sort_cache(self):
         self.cache.sort(
@@ -123,9 +129,7 @@ class JERenderSystem(_JEInternSystems):
             else 0
         )
 
-    def _get_world_position(self, entity):
-        position = entity.get(_JEPositionComponent)
-
+    def _get_world_position(self, entity, position):
         if not position:
             return 0, 0
 
@@ -135,7 +139,7 @@ class JERenderSystem(_JEInternSystems):
         parent = entity.parents.get(_type=_JEEntity, default=None)
 
         if parent:
-            px, py = self._get_world_position(parent)
+            px, py = self._get_world_position(parent, parent.get(_JEPositionComponent))
 
             x += px
             y += py
@@ -177,36 +181,56 @@ class JERenderSystem(_JEInternSystems):
             y += line_height
 
     def _render_texture(self, window, x, y, texture, size, rotation, flip, color):
-            surface = texture().texture
+        surface = texture().texture
 
-            if size:
-                surface = _PGExtern.transform.scale(
-                    surface,
-                    (int(size().x), int(size().y))
+        if size:
+            surface = _PGExtern.transform.scale(
+                surface,
+                (int(size().x), int(size().y))
+            )
+
+        if flip:
+            surface = _PGExtern.transform.flip(
+                surface,
+                bool(flip()[0]),
+                bool(flip()[1])
+            )
+
+        if color:
+            tint = surface.copy()
+            tint.fill(
+                color().rgba,
+                special_flags=_PGExtern.BLEND_RGBA_MULT
+            )
+            surface = tint
+
+        if rotation:
+            rect = surface.get_rect(
+                center=(
+                    x + surface.get_width() / 2,
+                    y + surface.get_height() / 2
                 )
+            )
 
-            if rotation:
-                surface = _PGExtern.transform.rotate(
-                    surface,
-                    rotation()
-                )
+            surface = _PGExtern.transform.rotate(
+                surface,
+                rotation()
+            )
 
-            if flip:
-                surface = _PGExtern.transform.flip(
-                    surface,
-                    bool(flip()[0]),
-                    bool(flip()[1])
-                )
+            rect = surface.get_rect(
+                center=rect.center
+            )
 
-            if color:
-                tint = surface.copy()
-                tint.fill(
-                    color().rgba,
-                    special_flags=_PGExtern.BLEND_RGBA_MULT
-                )
-                surface = tint
+            window.blit(
+                surface,
+                rect.topleft
+            )
 
-            window.blit(surface, (x, y))
+        else:
+            window.blit(
+                surface,
+                (x, y)
+            )
 
     def _render_rectangle(self, window, x, y, size, color, outline):
         rectangle = (x, y, int(size().x), int(size().y))
@@ -226,9 +250,62 @@ class JERenderSystem(_JEInternSystems):
                 outline()[1]
             )
 
+    def _render_texture(self, window, x, y, texture, size, rotation, flip, color):
+        surface = texture().texture
+
+        if size:
+            surface = _PGExtern.transform.scale(
+                surface,
+                (int(size().x), int(size().y))
+            )
+
+        if flip:
+            surface = _PGExtern.transform.flip(
+                surface,
+                bool(flip()[0]),
+                bool(flip()[1])
+            )
+
+        if color:
+            tint = surface.copy()
+            tint.fill(
+                color().rgba,
+                special_flags=_PGExtern.BLEND_RGBA_MULT
+            )
+            surface = tint
+
+        if rotation:
+            rect = surface.get_rect(
+                center=(
+                    x + surface.get_width() / 2,
+                    y + surface.get_height() / 2
+                )
+            )
+
+            surface = _PGExtern.transform.rotate(
+                surface,
+                rotation()
+            )
+
+            rect = surface.get_rect(
+                center=rect.center
+            )
+
+            window.blit(
+                surface,
+                rect.topleft
+            )
+
+        else:
+            window.blit(
+                surface,
+                (x, y)
+            )
+
     def update(self, window, entity, entities, dt):
         position = entity.get(_JEPositionComponent)
 
+        surface = entity.get(_JESurfaceComponent)
         size = entity.get(_JESizeComponent)
         rotation = entity.get(_JERotationComponent)
         flip = entity.get(_JEFlipComponent)
@@ -242,9 +319,11 @@ class JERenderSystem(_JEInternSystems):
         if visibility and not visibility():
             return
 
-        x, y = self._get_world_position(entity)
+        x, y = self._get_world_position(entity, position)
 
-        if text and font:
+        if surface:
+            self._render_surface(window, x, y, surface, size, rotation, flip, color)
+        elif text and font:
             self._render_text(window, x, y, text, font, color, rotation, flip)
         elif texture:
             self._render_texture(window, x, y, texture, size, rotation, flip, color)

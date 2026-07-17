@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.7
+# Version: jarengine-v1.8
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -39,14 +39,14 @@ keyboard input, and mouse input processing.
 from __future__ import annotations
 
 # Submodules
-from . import manager as EventManager
+from . import manager as Manager
 from . import event as Event
-from . import keyboard as EventKeyboard
-from . import mouse as EventMouse
+from . import keyboard as Keyboard
+from . import mouse as Mouse
 
 __all__: list[str] = [
-    "EventManager",
+    "Manager",
     "Event",
-    "EventKeyboard",
-    "EventMouse"
+    "Keyboard",
+    "Mouse"
 ]

@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.7
+# Version: jarengine-v1.8
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -101,7 +101,7 @@ class JEInternEntityComponent(JEInternGraphic, JEInternOwnership):
                 Any: Internal value(s)
         """
         ...
-    def copy(self) -> JEInternEntityComponent:
+    def copy(self, new_owner: JEEntity) -> JEInternEntityComponent:
         """
             Copy the component recursively (deepcopy)
 
