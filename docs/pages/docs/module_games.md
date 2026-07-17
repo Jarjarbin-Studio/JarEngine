@@ -25,14 +25,14 @@ It includes:
 
 ## 🔹 Contents
 
-| Class                            | Description                             |
-|----------------------------------|-----------------------------------------|
-| [`•>JEGame<•`]()📎               | Main game manager and engine controller |
-| [`•>JEWindow<•`]()📎             | Window creation and management          |
-| [`•>JEInput<•`]()📎              | User input handling                     |
-| [`•>JEMovementSystem<•`]()📎     | Entity movement update system           |
-| [`•>JEAccelerationSystem<•`]()📎 | Entity acceleration update system       |
-| [`•>JERenderSystem<•`]()📎       | Entity rendering update system          |
+|                 Class                 | Description                             |
+|:-------------------------------------:|-----------------------------------------|
+|   [`•>JEGame<•`](class_jegame.md)📎   | Main game manager and engine controller |
+| [`•>JEWindow<•`](class_jewindow.md)📎 | Window creation and management          |
+|  [`•>JEInput<•`](class_jeinput.md)📎  | User input handling                     |
+|     [`•>JEMovementSystem<•`]()📎      | Entity movement update system           |
+|   [`•>JEAccelerationSystem<•`]()📎    | Entity acceleration update system       |
+|      [`•>JERenderSystem<•`]()📎       | Entity rendering update system          |
 
 ---
 

@@ -24,19 +24,19 @@ It includes:
 
 ## 🔹 Contents
 
-| Class                        | Description            |
-|------------------------------|------------------------|
-| [`•>JEEvent<•`]()📎          | Runtime event object   |
-| [`•>JEEventHandler<•`]()📎   | Event dispatcher       |
-| [`•>JEEventCode<•`]()📎      | Single event code      |
+|            Class             | Description            |
+|:----------------------------:|------------------------|
+|     [`•>JEEvent<•`]()📎      | Runtime event object   |
+|  [`•>JEEventHandler<•`]()📎  | Event dispatcher       |
+|   [`•>JEEventCode<•`]()📎    | Single event code      |
 | [`•>JEEventCodeGroup<•`]()📎 | Event code group       |
-| [`•>JEEventWatcher<•`]()📎   | Event callback watcher |
-| [`•>JEKeyCode<•`]()📎        | Single keyboard code   |
-| [`•>JEKeyCodeGroup<•`]()📎   | Keyboard code group    |
-| [`•>JEKeyWatcher<•`]()📎     | Keyboard input watcher |
-| [`•>JEMouseCode<•`]()📎      | Single mouse code      |
+|  [`•>JEEventWatcher<•`]()📎  | Event callback watcher |
+|    [`•>JEKeyCode<•`]()📎     | Single keyboard code   |
+|  [`•>JEKeyCodeGroup<•`]()📎  | Keyboard code group    |
+|   [`•>JEKeyWatcher<•`]()📎   | Keyboard input watcher |
+|   [`•>JEMouseCode<•`]()📎    | Single mouse code      |
 | [`•>JEMouseCodeGroup<•`]()📎 | Mouse code group       |
-| [`•>JEMouseWatcher<•`]()📎   | Mouse input watcher    |
+|  [`•>JEMouseWatcher<•`]()📎  | Mouse input watcher    |
 
 ---
 

@@ -25,16 +25,16 @@ It includes:
 
 ## 🔹 Contents
 
-| Class                   | Description              |
-|-------------------------|--------------------------|
-| [`•>JEBool<•`]()📎      | Custom boolean wrapper   |
-| [`•>JEClock<•`]()📎     | Controlled FPS clock     |
-| [`•>JEColor<•`]()📎     | RGBA color management    |
-| [`•>JEContainer<•`]()📎 | Custom data container    |
-| [`•>JEImmutable<•`]()📎 | Immutable data storage   |
-| [`•>JEVector2D<•`]()📎  | 2D vector representation |
-| [`•>JEVector3D<•`]()📎  | 3D vector representation |
-| [`•>JEVersion<•`]()📎   | Version storage          |
+|                    Class                    | Description              |
+|:-------------------------------------------:|--------------------------|
+|      [`•>JEBool<•`](class_jebool.md)📎      | Custom boolean wrapper   |
+|     [`•>JEClock<•`](class_jeclock.md)📎     | Controlled FPS clock     |
+|     [`•>JEColor<•`](class_jecolor.md)📎     | RGBA color management    |
+| [`•>JEContainer<•`](class_jecontainer.md)📎 | Custom data container    |
+| [`•>JEImmutable<•`](class_jeimmutable.md)📎 | Immutable data storage   |
+|  [`•>JEVector2D<•`](class_jevector2d.md)📎  | 2D vector representation |
+|  [`•>JEVector3D<•`](class_jevector3d.md)📎  | 3D vector representation |
+|   [`•>JEVersion<•`](class_jeversion.md)📎   | Version storage          |
 
 ---
 

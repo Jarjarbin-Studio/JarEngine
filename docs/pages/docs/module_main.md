@@ -24,14 +24,14 @@ It includes:
 
 ## 🔹 Contents
 
-| Modules               | Description                     |
-|-----------------------|---------------------------------|
-| [`•>Entities<•`]()📎  | Entity and component management |
-| [`•>Events<•`]()📎    | Event handling system           |
-| [`•>Games<•`]()📎     | Game runtime management         |
-| [`•>Interns<•`]()📎   | Internal engine structures      |
-| [`•>Resources<•`]()📎 | Resource management             |
-| [`•>Systems<•`]()📎   | Core utility systems            |
+|                 Modules                  | Description                     |
+|:----------------------------------------:|---------------------------------|
+|    [`•>Entity<•`](module_entity.md)📎    | Entity and component management |
+|    [`•>Events<•`](module_events.md)📎    | Event handling system           |
+|     [`•>Games<•`](module_games.md)📎     | Game runtime management         |
+|   [`•>Interns<•`](module_interns.md)📎   | Internal engine structures      |
+| [`•>Resources<•`](module_resources.md)📎 | Resource management             |
+|   [`•>Systems<•`](module_systems.md)📎   | Core utility systems            |
 
 ---
 

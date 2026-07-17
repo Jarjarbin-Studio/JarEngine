@@ -20,7 +20,7 @@ entries:
         output: web, pdf
         folderitems:
           - title: Entities
-            url: /module_entities.html
+            url: /module_entity.html
             output: web, pdf
 
           - title: Events

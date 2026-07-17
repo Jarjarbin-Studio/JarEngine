@@ -29,26 +29,26 @@ It provides:
 
 ## 🔹 Contents
 
-| Class                     | Description                  |
-|---------------------------|------------------------------|
-| `JEMusicComponent`        | Music (resource)             |
-| `JESoundComponent`        | Sound (resource)             |
-| `JEFontComponent`         | Font (resource)              |
-| `JETextComponent`         | Text (string)                |
-| `JETextureComponent`      | Texture (resource)           |
-| `JEColorComponent`        | Color (JEColor)              |
-| `JEOutlineComponent`      | Outline (JEColor and size)   |
-| `JEVisibilityComponent`   | Visibility (JEBool)          |
-| `JELayerComponent`        | Layer (integer)              |
-| `JEFlipComponent`         | Flip (tuple: JEBool, JEBool) |
-| `JEGroupComponent`        | Group (JEInternOwnership)    |
-| `JEAccelerationComponent` | Acceleration (JEVector2D)    |
-| `JEMassComponent`         | Mass (floating point)        |
-| `JEPositionComponent`     | Position (JEVector2D)        |
-| `JEVelocityComponent`     | Velocity (JEVector2D)        |
-| `JESizeComponent`         | Size (JEVector2D)            |
-| `JERotationComponent`     | Rotation (integer)           |
-| `JEEntity`                | Entity (component holder)    |
+|                Class                | Description                  |
+|:-----------------------------------:|------------------------------|
+|    [`•>JEMusicComponent<•`]()📎     | Music (resource)             |
+|    [`•>JESoundComponent<•`]()📎     | Sound (resource)             |
+|     [`•>JEFontComponent<•`]()📎     | Font (resource)              |
+|     [`•>JETextComponent<•`]()📎     | Text (string)                |
+|   [`•>JETextureComponent<•`]()📎    | Texture (resource)           |
+|    [`•>JEColorComponent<•`]()📎     | Color (JEColor)              |
+|   [`•>JEOutlineComponent<•`]()📎    | Outline (JEColor and size)   |
+|  [`•>JEVisibilityComponent<•`]()📎  | Visibility (JEBool)          |
+|    [`•>JELayerComponent<•`]()📎     | Layer (integer)              |
+|     [`•>JEFlipComponent<•`]()📎     | Flip (tuple: JEBool, JEBool) |
+|    [`•>JEGroupComponent<•`]()📎     | Group (JEInternOwnership)    |
+| [`•>JEAccelerationComponent<•`]()📎 | Acceleration (JEVector2D)    |
+|     [`•>JEMassComponent<•`]()📎     | Mass (floating point)        |
+|   [`•>JEPositionComponent<•`]()📎   | Position (JEVector2D)        |
+|   [`•>JEVelocityComponent<•`]()📎   | Velocity (JEVector2D)        |
+|     [`•>JESizeComponent<•`]()📎     | Size (JEVector2D)            |
+|   [`•>JERotationComponent<•`]()📎   | Rotation (integer)           |
+|        [`•>JEEntity<•`]()📎         | Entity (component holder)    |
 
 ---
 

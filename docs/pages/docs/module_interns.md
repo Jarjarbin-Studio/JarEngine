@@ -25,19 +25,19 @@ It includes:
 
 ## 🔹 Contents
 
-| Class                               | Description                                           |
-|-------------------------------------|-------------------------------------------------------|
-| [`•>JEInternBaseClass<•`]()📎       | Base class inherited by JarEngine classes             |
-| [`•>JEInternConfig<•`]()📎          | Internal configuration manager                        |
-| [`•>JEInternEmptyComponent<•`]()📎  | Placeholder component for entities without components |
-| [`•>JEInternResources<•`]()📎       | Resource holder and manager                           |
-| [`•>JEInternWindowSettings<•`]()📎  | Window settings storage                               |
-| [`•>JEInternOwnership<•`]()📎       | Parent and child ownership handling                   |
-| [`•>JEInternEntityComponent<•`]()📎 | Base class for entity components                      |
-| [`•>JEInternSystems<•`]()📎         | Base class for entity systems                         |
-| [`•>JEInternGraphic<•`]()📎         | Base class for graphical objects                      |
-| [`•>JEInternGraphicalObject<•`]()📎 | Base class for drawable objects                       |
-| [`•>JEInternResource<•`]()📎        | Base class for engine resources                       |
+|                                Class                                | Description                                           |
+|:-------------------------------------------------------------------:|-------------------------------------------------------|
+|       [`•>JEInternBaseClass<•`](class_jeinternbaseclass.md)📎       | Base class inherited by JarEngine classes             |
+|          [`•>JEInternConfig<•`](class_jeinternconfig.md)📎          | Internal configuration manager                        |
+|  [`•>JEInternEmptyComponent<•`](class_jeinternemptycomponent.md)📎  | Placeholder component for entities without components |
+|       [`•>JEInternResources<•`](class_jeinternresources.md)📎       | Resource holder and manager                           |
+|  [`•>JEInternWindowSettings<•`](class_jeinternwindowsettings.md)📎  | Window settings storage                               |
+|       [`•>JEInternOwnership<•`](class_jeinternownership.md)📎       | Parent and child ownership handling                   |
+| [`•>JEInternEntityComponent<•`](class_jeinternentitycomponent.md)📎 | Base class for entity components                      |
+|         [`•>JEInternSystems<•`](class_jeinternsystems.md)📎         | Base class for entity systems                         |
+|         [`•>JEInternGraphic<•`](class_jeinterngraphic.md)📎         | Base class for graphical objects                      |
+| [`•>JEInternGraphicalObject<•`](class_jeinterngraphicalobject.md)📎 | Base class for drawable objects                       |
+|        [`•>JEInternResource<•`](class_jeinternresource.md)📎        | Base class for engine resources                       |
 
 ---
 

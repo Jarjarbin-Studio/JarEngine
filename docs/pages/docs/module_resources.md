@@ -25,12 +25,12 @@ It includes:
 
 ## 🔹 Contents
 
-| Class                 | Description              |
-|-----------------------|--------------------------|
-| [`•>JETexture<•`]()📎 | Texture resource storage |
-| [`•>JEFont<•`]()📎    | Font resource storage    |
-| [`•>JEMusic<•`]()📎   | Music resource storage   |
-| [`•>JESound<•`]()📎   | Sound resource storage   |
+|                  Class                  | Description              |
+|:---------------------------------------:|--------------------------|
+| [`•>JETexture<•`](class_jetexture.md)📎 | Texture resource storage |
+|    [`•>JEFont<•`](class_jefont.md)📎    | Font resource storage    |
+|   [`•>JEMusic<•`](class_jemusic.md)📎   | Music resource storage   |
+|   [`•>JESound<•`](class_jesound.md)📎   | Sound resource storage   |
 
 ---
 
