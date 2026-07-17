@@ -43,10 +43,10 @@ It includes:
 ## 🔹 Usage
 
 ```python
-from jarengine import JEGame, JEEvtQuit, JEKey_Space
+from jarengine import JEGame, JEEvtQuit, JEKey_Space, JETrue
 from jarengine.events import Event, EventKeyboard
 
-game = JEGame(use_input=True)
+game = JEGame(use_input=JETrue)
 
 # Create event callbacks
 def on_quit(game, event):

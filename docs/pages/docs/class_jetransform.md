@@ -37,7 +37,7 @@ JarEngine
 └── Vector classes
       ├── JEVector2D
       └── JEVector3D
-````
+```
 
 ---
 
@@ -49,25 +49,25 @@ No public data nor property
 
 ## 🔹 API
 
-| Function        | Arguments     | Returns       | Description                        |
-|-----------------|---------------|---------------|------------------------------------|
-| `__add__()`     | `JETransform` | `JETransform` | Add two vectors together           |
-| `__sub__()`     | `JETransform` | `JETransform` | Subtract two vectors               |
-| `__mul__()`     | `JETransform` | `JETransform` | Multiply two vectors               |
+|    Function     |   Arguments   |    Returns    | Description                        |
+|:---------------:|:-------------:|:-------------:|------------------------------------|
+|   `__add__()`   | `JETransform` | `JETransform` | Add two vectors together           |
+|   `__sub__()`   | `JETransform` | `JETransform` | Subtract two vectors               |
+|   `__mul__()`   | `JETransform` | `JETransform` | Multiply two vectors               |
 | `__truediv__()` | `JETransform` | `JETransform` | Divide two vectors                 |
-| `__neg__()`     | None          | `JETransform` | Negate a vector                    |
-| `__eq__()`      | `JETransform` | `JEBool`      | Compare two vectors                |
-| `__iadd__()`    | `int`         | `JETransform` | Add a scalar value                 |
-| `__isub__()`    | `int`         | `JETransform` | Subtract a scalar value            |
-| `__imul__()`    | `int`         | `JETransform` | Multiply by a scalar value         |
-| `__len__()`     | None          | `float`       | Get vector length                  |
-| `length()`      | None          | `float`       | Calculate vector magnitude         |
-| `normalize()`   | None          | `JETransform` | Get normalized vector              |
-| `dot()`         | `JETransform` | `float`       | Calculate dot product              |
-| `distance()`    | `JETransform` | `float`       | Calculate distance between vectors |
-| `copy()`        | None          | `JETransform` | Create a vector copy               |
-| `to_list()`     | None          | `list`        | Convert vector to list             |
-| `__repr__()`    | None          | `str`         | Get vector representation          |
+|   `__neg__()`   |     None      | `JETransform` | Negate a vector                    |
+|   `__eq__()`    | `JETransform` |   `JEBool`    | Compare two vectors                |
+|  `__iadd__()`   |     `int`     | `JETransform` | Add a scalar value                 |
+|  `__isub__()`   |     `int`     | `JETransform` | Subtract a scalar value            |
+|  `__imul__()`   |     `int`     | `JETransform` | Multiply by a scalar value         |
+|   `__len__()`   |     None      |    `float`    | Get vector length                  |
+|   `length()`    |     None      |    `float`    | Calculate vector magnitude         |
+|  `normalize()`  |     None      | `JETransform` | Get normalized vector              |
+|     `dot()`     | `JETransform` |    `float`    | Calculate dot product              |
+|  `distance()`   | `JETransform` |    `float`    | Calculate distance between vectors |
+|    `copy()`     |     None      | `JETransform` | Create a vector copy               |
+|   `to_list()`   |     None      |    `list`     | Convert vector to list             |
+|  `__repr__()`   |     None      |     `str`     | Get vector representation          |
 
 ---
 

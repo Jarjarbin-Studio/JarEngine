@@ -41,18 +41,18 @@ JarEngine
 
 ## 🔹 Data
 
-| Field    | Type          | Description   | Property? |
-|----------|---------------|---------------|:---------:|
-| `x`      | `float`       | Value storage |   True    |
-| `y`      | `float`       | Value storage |   True    |
-| `z`      | `float`       | Value storage |   True    |
+|  Field   |     Type      | Description   | Property? | Can be set? |
+|:--------:|:-------------:|---------------|:---------:|:-----------:|
+|   `x`    |    `float`    | Value storage |   True    |    True     |
+|   `y`    |    `float`    | Value storage |   True    |    True     |
+|   `z`    |    `float`    | Value storage |   True    |    True     |
 
 ---
 
 ## 🔹 API
 
-| Function        | Arguments                                            | Returns           | Description              |
-|-----------------|------------------------------------------------------|-------------------|--------------------------|
+|    Function     |                      Arguments                       | Returns           | Description              |
+|:---------------:|:----------------------------------------------------:|-------------------|--------------------------|
 | `__init__(...)` | `x: float = 0.0`, `y: float = 0.0`, `z: float = 0.0` |                   | JEVector3D creator.      |
 | `__iter__(...)` |                                                      | `Iterator[float]` | Iterate over the vector. |
 

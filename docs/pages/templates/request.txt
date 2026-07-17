@@ -1,0 +1,96 @@
+"""
+---
+layout: page
+title: JarEngine - Class - <Class Name>
+sidebar: sidebar
+permalink: /class_<class name>.html
+---
+
+# 📦 <Class Name>
+
+> Technical reference for the `<Class Name>` class of JarEngine.
+
+> Inherit from [`•>...<•`]()📎
+
+---
+
+## 🔹 Overview
+
+**`<Class Name>` is responsible for <main purpose>.**
+
+Provides:
+* ...
+* ...
+* ...
+
+Small description. Where it is used.
+
+---
+
+## 🔹 Location
+
+```text
+JarEngine
+│
+├── <Module>
+│     └── <Class Name>
+│
+└── ...
+```
+
+---
+
+## 🔹 Data
+
+| Field | Type  | Description | Property? | Can be set? |
+|:-----:|:-----:|-------------|:---------:|:-----------:|
+| `...` | `...` | ...         |   True    |    True     |
+
+---
+
+## 🔹 API
+
+| Function | Arguments | Returns | Description |
+|:--------:|:---------:|:-------:|-------------|
+| `...`    | `...`     | `...`   | ...         |
+
+---
+
+## 🔹 Usage
+
+```python
+# Example usage
+```
+
+---
+
+## 🔹 Related
+
+* [`•>...<•`]()📎
+* [`•>...<•`]()📎
+
+---
+"""
+
+make the <class name> class (never fill "related" section, keep it as such).
+do not show "None" in arguments or returns columns (in "API" section), just don't put anything.
+strictly follow the template, do not add/remove any section nor midify their styles.
+When a class has multiple inheritance, put them all (like this example: "> Inherit from `PyGame.version.SoftwareVersion` and [`•>JEInternBaseClass<•`]()📎")
+Do not talk, only return me the filled markdown.
+Instead of "PGExtern" or "pygame", put "PyGame".
+Do not put properties into the API section, put them only in the data section.
+Data isn't the arguments, it's what is publicly stocked.
+If no data, put "No public data nor property" instead of the table.
+You are allowed to completely delete the section "Usage" ONLY and ONLY when the class is an internal (otherwise, create a simple yet effective and working example).
+If it IS an internal, also put this note right after the inheritance, right before the overview:
+```
+> ⚠️ **Internal Class Warning**
+>
+> This class is part of JarEngine's internal architecture and is not intended for normal user usage.
+>
+> Direct usage or modification may break engine behavior. Use only when creating advanced extensions, custom systems, or engine-level features.
+```
+
+"""
+
+"""

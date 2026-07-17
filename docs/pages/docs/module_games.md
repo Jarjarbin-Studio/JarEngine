@@ -39,11 +39,11 @@ It includes:
 ## 🔹 Usage
 
 ```python
-from jarengine import Games
+from jarengine import Games, JETrue
 
 game = Games.JEGame(
-    use_clock=True,
-    use_input=True
+    use_clock=JETrue,
+    use_input=JETrue
 )
 
 window = Games.JEWindow(

@@ -106,7 +106,7 @@ defaults:
 sidebars:
 - sidebar
 
-description: "JarEngine is a lightweight Python wrapper over pygame for building modular game systems. It is currently in early development."
+description: "JarEngine is a lightweight Python wrapper over PyGame for building modular game systems. It is currently in early development."
 # the description is used in the feed.xml file
 
 # needed for sitemap.xml file only

@@ -45,7 +45,7 @@ jarengine.init()
 # Use JarEngine modules here
 
 jarengine.quit()
-````
+```
 
 The main module initializes the engine environment and provides access to its different modules.
 
@@ -55,7 +55,7 @@ The main module initializes the engine environment and provides access to its di
 
 Useful information:
 
-* JarEngine is a wrapper and abstraction layer over pygame, not pygame itself.
+* JarEngine is a wrapper and abstraction layer over PyGame, not PyGame itself.
 * Initialization must be done before using engine features.
 * Internal modules should be used carefully.
 

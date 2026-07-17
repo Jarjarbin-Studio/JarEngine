@@ -99,7 +99,7 @@ Things to know when using this module:
 
 * Entity alone doesn't do anything, components are required.
 * Components such as group makes the entity a holder of other entity.
-* ECS has been optimized by me (and IA) for faster computation, but it is still a layer on top of pygame, and in Python. So it may be slower than any other engine.
+* ECS has been optimized by me (and IA) for faster computation, but it is still a layer on top of PyGame, and in Python. So it may be slower than any other engine.
 
 ---
 

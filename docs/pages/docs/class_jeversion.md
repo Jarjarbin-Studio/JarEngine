@@ -41,20 +41,20 @@ JarEngine
 
 ## 🔹 Data
 
-| Field   | Type  | Description                                             | Public? |
-|---------|-------|---------------------------------------------------------|:-------:|
-| `major` | `int` | Incompatible API changes.                               |  True   |
-| `minor` | `int` | Functionality is added in a backward-compatible manner. |  True   |
-| `patch` | `int` | Backward-compatible bug fixes are made.                 |  True   |
+|  Field  | Type  | Description                                             | Public? | Can be set? |
+|:-------:|:-----:|---------------------------------------------------------|:-------:|:-----------:|
+| `major` | `int` | Incompatible API changes.                               |  True   |    False    |
+| `minor` | `int` | Functionality is added in a backward-compatible manner. |  True   |    False    |
+| `patch` | `int` | Backward-compatible bug fixes are made.                 |  True   |    False    |
 
 ---
 
 ## 🔹 API
 
-| Function        | Arguments                                | Returns | Description          |
-|-----------------|------------------------------------------|---------|----------------------|
+|    Function     |                Arguments                 | Returns | Description          |
+|:---------------:|:----------------------------------------:|:-------:|----------------------|
 | `__init__(...)` | `major: int`, `minor: int`, `patch: int` |         | JEVersion creator.   |
-| `__str__(...)`  |                                          | `str`   | Printable JEVersion. |
+| `__str__(...)`  |                                          |  `str`  | Printable JEVersion. |
 
 ---
 

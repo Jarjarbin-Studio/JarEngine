@@ -35,29 +35,29 @@ JarEngine
 │     └── JEContainer
 │
 └── ...
-````
+```
 
 ---
 
 ## 🔹 Data
 
-| Field            | Type           | Description                            | Property? |
-|------------------|----------------|----------------------------------------|:---------:|
-| `data`           | `dict[str, T]` | Raw stored objects                     |   True    |
+|      Field       |      Type      | Description                            | Property? | Can be set? |
+|:----------------:|:--------------:|----------------------------------------|:---------:|:-----------:|
+|      `data`      | `dict[str, T]` | Raw stored objects                     |   True    |    False    |
 
 ---
 
 ## 🔹 API
 
-| Function        | Arguments                                                      | Returns       | Description                       |
-|-----------------|----------------------------------------------------------------|---------------|-----------------------------------|
-| `__init__()`    | `allowed_type: Type[T], allow_subclass: JEBool`                |               | Creates a typed container         |
-| `add()`         | `obj: T`                                                       |               | Adds an object to the container   |
-| `__getitem__()` | `value: str \| T \| Type`                                      | `T`           | Retrieves an object automatically |
-| `get()`         | `name: str, jeid: str, instance: T, _type: Type, default: Any` | `T`           | Searches and returns an object    |
-| `rm()`          | `name: str, jeid: str, instance: T, _type: Type`               | `T`           | Removes and returns an object     |
-| `clear()`       |                                                                |               | Removes all objects               |
-| `__iter__()`    |                                                                | `Iterator[T]` | Iterates through stored objects   |
+|    Function     |                           Arguments                            |    Returns    | Description                       |
+|:---------------:|:--------------------------------------------------------------:|:-------------:|-----------------------------------|
+|  `__init__()`   |        `allowed_type: Type[T], allow_subclass: JEBool`         |               | Creates a typed container         |
+|     `add()`     |                            `obj: T`                            |               | Adds an object to the container   |
+| `__getitem__()` |                   `value: str \| T \| Type`                    |      `T`      | Retrieves an object automatically |
+|     `get()`     | `name: str, jeid: str, instance: T, _type: Type, default: Any` |      `T`      | Searches and returns an object    |
+|     `rm()`      |        `name: str, jeid: str, instance: T, _type: Type`        |      `T`      | Removes and returns an object     |
+|    `clear()`    |                                                                |               | Removes all objects               |
+|  `__iter__()`   |                                                                | `Iterator[T]` | Iterates through stored objects   |
 
 ---
 
