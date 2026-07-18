@@ -59,12 +59,13 @@ class JEButton(JEWidget):
         ...
     def set_callback(self, callback: Callable[[], None]):
         """
-            Set the functino to be called when button clicked
+            Set the function to be called when button clicked
             
             Parameters:
                 callback (Callable[[], None]): callback function
         """
         ...
+
     def set_color(self, color: JEColor | tuple[int, int, int] | tuple[int, int, int, int]):
         """
             Color component required. Set color.
@@ -165,12 +166,13 @@ class JEImageButton(JEWidget):
         ...
     def set_callback(self, callback: Callable[[], None]):
         """
-            Set the functino to be called when button clicked
+            Set the function to be called when button clicked
 
             Parameters:
                 callback (Callable[[], None]): callback function
         """
         ...
+
     def set_outline_color(self, color: JEColor | tuple[int, int, int] | tuple[int, int, int, int]):
         """
             Outline component required. Set outline color.
@@ -276,7 +278,7 @@ class JECheckbox(JEWidget):
         ...
     def set_callback(self, callback: Callable[[JEBool], None]):
         """
-            Set the functino to be called when button clicked
+            Set the function to be called when button clicked
 
             Parameters:
                 callback (Callable[[], None]): callback function
@@ -303,6 +305,7 @@ class JECheckbox(JEWidget):
             Toggle checked status
         """
         ...
+
     def set_color(self, color: JEColor | tuple[int, int, int] | tuple[int, int, int, int]):
         """
             Color component required. Set color.
@@ -379,5 +382,49 @@ class JECheckbox(JEWidget):
 
             Returns:
                 int: Outline size
+        """
+        ...
+
+class JERadio(JEWidget):
+    def __init__(self, positions: list[JEVector2D | tuple[float, float]] | tuple[JEVector2D | tuple[float, float]], *, checked: int = 0, color: JEColor | tuple[int, int, int] | tuple[int, int, int, int] = JEColor(100, 100, 100, 255), checked_color: JEColor | tuple[int, int, int] | tuple[int, int, int, int] = JEColor(100, 255, 100, 255), outline_color: Optional[JEColor | tuple[int, int, int] | tuple[int, int, int, int]] = None, outline_size: Optional[int] = None, size: JEVector2D | tuple[float, float] = JEVector2D(30, 30), name: str = "JERadio", rotation: float = 0.0, layer: int = 0, visibility: JEBool = JEBool(1)):
+        """
+            JERadio
+
+            Parameters:
+                positions list[(JEVector2D | tuple[float, float]] | tuple[(JEVector2D | tuple[float, float]]): buttons positions
+                checked (int): checked
+                color (JEColor | tuple[int, int, int] | tuple[int, int, int, int]) = JEColor(100, 100, 100, 255): color
+                checked_color (JEColor | tuple[int, int, int] | tuple[int, int, int, int]) = JEColor(100, 255, 100, 255): checked color
+                outline_color (Optional[JEColor | tuple[int, int, int] | tuple[int, int, int, int]]) = None: outline color
+                outline_size  (Optional[int]) = None: outline size
+                size (JEVector2D | tuple[float, float]) = (0, 0): size
+                name (str) = "JERadio": name
+                rotation (float) = 0.0: rotation
+                layer (int) = 0: layer
+                visibility (JEBool) = JETrue: visibility
+        """
+        ...
+    def set_callback(self, callback: Callable[[JEBool], None]):
+        """
+            Set the function to be called when button clicked
+
+            Parameters:
+                callback (Callable[[], None]): callback function
+        """
+        ...
+    def get_selected(self) -> int:
+        """
+            Get the currently selected button
+
+            Returns:
+                int: Selected button
+        """
+        ...
+    def set_selected(self, index: int):
+        """
+            Set selected button
+            
+            Parameters:
+                index (int): Selected
         """
         ...

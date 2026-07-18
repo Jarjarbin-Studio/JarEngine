@@ -43,6 +43,7 @@ from jarengine.entity.components_graphics import (
     JEColorComponent as _JEColorComponent,
     JEOutlineComponent as _JEOutlineComponent
 )
+from jarengine.entity.components_others import JEGroupComponent as _JEGroupComponent
 from jarengine.events.mouse import JEMouseWatcher as _JEMouseWatcher
 from jarengine.constants import JEMse_Left as _JEMse_Left
 
@@ -203,3 +204,65 @@ class JECheckbox(_JEWidget):
 
             if self._callback:
                 self._callback(self._checked)
+
+@_documentation
+class JERadio(_JEWidget):
+
+    def __init__(self, positions, *, checked = 0, color = _JEColor(100, 100, 100, 255), checked_color = _JEColor(100, 255, 100, 255), outline_color = None, outline_size = None, size = _JEVector2D(30, 30), name = "JERadio", rotation = 0.0, layer = 0, visibility = _JEBool(1)):
+        super().__init__(name=name, position=_JEVector2D(0, 0), size=_JEVector2D(0, 0), rotation=rotation, layer=layer, visibility=visibility)
+
+        _JEGroupComponent(self)
+
+        self._callback = lambda index: None
+
+        for i, position in enumerate(positions):
+
+            checkbox = JECheckbox(checked=_JEBool(i == checked), color=color, checked_color=checked_color, outline_color=outline_color, outline_size=outline_size, position=position, size=size, layer=layer, visibility=visibility)
+
+            checkbox.set_callback(
+                lambda state, index=i: self._on_checkbox(index, state)
+            )
+
+            self.group_add(checkbox)
+
+    def on_parent_added(self, parent):
+
+        if isinstance(parent, _JEGame):
+
+            for checkbox in self.get_group():
+                parent.add_entity(checkbox)
+
+        super().on_parent_added(parent)
+
+    def set_callback(self, callback):
+        self._callback = callback
+
+    def get_selected(self):
+
+        for i, checkbox in enumerate(self.get_group()):
+
+            if checkbox.is_checked():
+                return i
+
+        return None
+
+    def set_selected(self, index):
+
+        for i, checkbox in enumerate(self.get_group()):
+            checkbox.set_checked(
+                _JEBool(i == index)
+            )
+
+    def _on_checkbox(self, index, checked):
+
+        if not checked:
+            self.get_group()[index].set_checked(_JEBool(1))
+            return
+
+        for i, checkbox in enumerate(self.get_group()):
+            checkbox.set_checked(
+                _JEBool(i == index)
+            )
+
+        if self._callback:
+            self._callback(index)

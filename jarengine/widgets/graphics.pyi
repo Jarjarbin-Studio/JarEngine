@@ -58,6 +58,7 @@ class JESprite(JEWidget):
                 visibility (JEBool) = JETrue: visibility
         """
         ...
+
     def set_texture(self, texture: JETexture):
         """
             Set texture.
@@ -109,6 +110,7 @@ class JEText(JEWidget):
                 visibility (JEBool) = JETrue: visibility
         """
         ...
+
     def set_text(self, text: str):
         """
             Text component required. Set text.
@@ -202,6 +204,7 @@ class JERectangle(JEWidget):
                 visibility (JEBool) = JETrue: visibility
         """
         ...
+
     def set_surface(self, surface: PGExtern.Surface):
         """
             Surface component required. Set surface.
@@ -236,6 +239,7 @@ class JECircle(JEWidget):
                 visibility (JEBool) = JETrue: visibility
         """
         ...
+
     def set_surface(self, surface: PGExtern.Surface):
         """
             Surface component required. Set surface.
@@ -269,6 +273,7 @@ class JELine(JEWidget):
                 visibility (JEBool) = JETrue: visibility
         """
         ...
+
     def set_surface(self, surface: PGExtern.Surface):
         """
             Surface component required. Set surface.
@@ -302,6 +307,7 @@ class JEPolygon(JEWidget):
                 visibility (JEBool) = JETrue: visibility
         """
         ...
+
     def set_surface(self, surface: PGExtern.Surface):
         """
             Surface component required. Set surface.
