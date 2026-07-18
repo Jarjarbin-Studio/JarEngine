@@ -44,12 +44,12 @@ class JEWidget(JEInternGraphicalObject, JEInternOwnership):
             JEWidget
 
             Parameters:
-                name (str) = "JEWidget": name of the widget
-                position (JEVector2D) = (0, 0): position of the widget
-                size (JEVector2D) = (0, 0): size of the widget
-                rotation (float) = 0.0: rotation of the widget
-                layer (int) = 0: layer of the widget
-                visibility (JEBool) = JETrue: visibility of the widget
+                name (str) = "JEWidget": name
+                position (JEVector2D) = (0, 0): position
+                size (JEVector2D) = (0, 0): size
+                rotation (float) = 0.0: rotation
+                layer (int) = 0: layer
+                visibility (JEBool) = JETrue: visibility
         """
         ...
     def copy(self) -> JEWidget:

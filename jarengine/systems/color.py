@@ -86,9 +86,22 @@ class JEColor(_JEInternBaseClass):
     def rgb(self):
         return tuple(self._color[:3])
 
+    @rgb.setter
+    def rgb(self, rgb):
+        self.r = rgb[0]
+        self.g = rgb[1]
+        self.b = rgb[2]
+
     @property
     def rgba(self):
         return tuple(self._color)
+
+    @rgba.setter
+    def rgba(self, rgba):
+        self.r = rgba[0]
+        self.g = rgba[1]
+        self.b = rgba[2]
+        self.a = rgba[3]
 
     def __iter__(self):
         return iter(self._color)

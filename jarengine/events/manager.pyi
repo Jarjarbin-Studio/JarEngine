@@ -125,12 +125,12 @@ class JEEventHandler(JEInternBaseClass):
                 JEBool: JETrue if code is being checked, JEFalse otherwise
         """
         ...
-    def process(self, game: JEGame, is_single_match: JEBool = JEBool(1)):
+    def process(self, game: JEGame, broadcast: JEBool = JEBool(1)):
         """
             Process PyGame poll event. Activate 'is_single_match' for faster process speed (only if watchers don't have any codes in common).
             
             Parameters:
                 game (JEGame): Game
-                is_single_match (JEBool): Value indicating if event should be processed 1 time, or until the end of watcher list.
+                broadcast (JEBool): Value indicating if event should be processed 1 time, or until the end of watcher list.
         """
         ...

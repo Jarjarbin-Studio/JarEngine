@@ -117,17 +117,8 @@
 [x] #Entity #Widgets #Graphics *JELine*
 [x] #Entity #Widgets #Graphics *JEPolygon*
 [@] #Entity #Widgets #UI
-[@] #Entity #Widgets #UI *JEButton*
-[@] #Entity #Widgets #UI *JEButton* #Composition
-[@] #Entity #Widgets #UI #JEButton *JERectangle* #Required
-[@] #Entity #Widgets #UI #JEButton *JEText* #Required
-[@] #Entity #Widgets #UI #JEButton *JEClickableComponent* #Required
-[@] #Entity #Widgets #UI #JEButton *JEHoverComponent* #Optional
-[@] #Entity #Widgets #UI #JEButton *JECallbackComponent* #Optional
-[ ] #Entity #Widgets #UI *JEImageButton*
-[ ] #Entity #Widgets #UI *JEImageButton* #Composition
-[ ] #Entity #Widgets #UI #JEImageButton *JEButton* #Required
-[ ] #Entity #Widgets #UI #JEImageButton *JESprite* #Required
+[x] #Entity #Widgets #UI *JEButton*
+[x] #Entity #Widgets #UI *JEImageButton*
 [ ] #Entity #Widgets #UI *JELabel*
 [ ] #Entity #Widgets #UI *JELabel* #Composition
 [ ] #Entity #Widgets #UI #JELabel *JEText* #Required
@@ -142,11 +133,7 @@
 [ ] #Entity #Widgets #UI #JETextInput *JEFontComponent* #Required
 [ ] #Entity #Widgets #UI #JETextInput *JEInputComponent* #Required
 [ ] #Entity #Widgets #UI #JETextInput *JEClickableComponent* #Optional
-[ ] #Entity #Widgets #UI *JECheckbox*
-[ ] #Entity #Widgets #UI *JECheckbox* #Composition
-[ ] #Entity #Widgets #UI #JECheckbox *JERectangle* #Required
-[ ] #Entity #Widgets #UI #JECheckbox *JEText* #Optional
-[ ] #Entity #Widgets #UI #JECheckbox *JEClickableComponent* #Required
+[x] #Entity #Widgets #UI *JECheckbox*
 [ ] #Entity #Widgets #UI *JERadioButton*
 [ ] #Entity #Widgets #UI *JERadioButton* #Composition
 [ ] #Entity #Widgets #UI #JERadioButton *JECheckbox* #Required

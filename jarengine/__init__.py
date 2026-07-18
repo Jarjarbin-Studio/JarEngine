@@ -65,6 +65,9 @@ def init(project_path) -> tuple[int, int]:
             "first_run": _datetime.now(),
             "last_run": "",
             "last_run_duration": "",
+        },
+        "EVENT": {
+            "event_broadcast": False
         }
     })
     config.set("PROJECT", "last_run", _datetime.now())

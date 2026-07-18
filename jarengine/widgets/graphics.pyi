@@ -48,14 +48,14 @@ class JESprite(JEWidget):
             JESprite
 
             Parameters:
-                texture (JETexture): texture of the widget
-                flip (tuple[JEBool, JEBool]): flip of the widget
-                name (str) = "JESprite": name of the widget
-                position (JEVector2D | tuple[float, float]) = (0, 0): position of the widget
-                size (JEVector2D | tuple[float, float]) = (0, 0): size of the widget
-                rotation (float) = 0.0: rotation of the widget
-                layer (int) = 0: layer of the widget
-                visibility (JEBool) = JETrue: visibility of the widget
+                texture (JETexture): texture
+                flip (tuple[JEBool, JEBool]) = (JEFalse, JEFalse): flip
+                name (str) = "JESprite": name
+                position (JEVector2D | tuple[float, float]) = (0, 0): position
+                size (JEVector2D | tuple[float, float]) = (0, 0): size
+                rotation (float) = 0.0: rotation
+                layer (int) = 0: layer
+                visibility (JEBool) = JETrue: visibility
         """
         ...
     def set_texture(self, texture: JETexture):
@@ -97,16 +97,16 @@ class JEText(JEWidget):
             JEText
 
             Parameters:
-                text (str): text of the widget
-                font (JEFont): font of the text
-                color (Optional[JEColor | tuple[int, int, int] | tuple[int, int, int, int]]): color of the text
-                flip (tuple[JEBool, JEBool]): flip of the widget
-                name (str) = "JEText": name of the widget
-                position (JEVector2D | tuple[float, float]) = (0, 0): position of the widget
-                size (JEVector2D | tuple[float, float]) = (0, 0): size of the widget
-                rotation (float) = 0.0: rotation of the widget
-                layer (int) = 0: layer of the widget
-                visibility (JEBool) = JETrue: visibility of the widget
+                text (str): text
+                font (JEFont): font
+                color (Optional[JEColor | tuple[int, int, int] | tuple[int, int, int, int]]) = None: color
+                flip (tuple[JEBool, JEBool]) = (JEFalse, JEFalse): flip
+                name (str) = "JEText": name
+                position (JEVector2D | tuple[float, float]) = (0, 0): position
+                size (JEVector2D | tuple[float, float]) = (0, 0): size
+                rotation (float) = 0.0: rotation
+                layer (int) = 0: layer
+                visibility (JEBool) = JETrue: visibility
         """
         ...
     def set_text(self, text: str):
@@ -191,15 +191,15 @@ class JERectangle(JEWidget):
             JERectangle
 
             Parameters:
-                size (JEVector2D | tuple[float, float]): size of the rectangle
-                color (Optional[JEColor | tuple[int, int, int] | tuple[int, int, int, int]]): color of the rectangle
-                outline_color (Optional[JEColor | tuple[int, int, int] | tuple[int, int, int, int]]): outline color of the rectangle
-                outline_size  (Optional[int]): outline size
-                name (str) = "JERectangle": name of the widget
-                position (JEVector2D | tuple[float, float]) = (0, 0): position of the widget
-                rotation (float) = 0.0: rotation of the widget
-                layer (int) = 0: layer of the widget
-                visibility (JEBool) = JETrue: visibility of the widget
+                size (JEVector2D | tuple[float, float]): size
+                color (Optional[JEColor | tuple[int, int, int] | tuple[int, int, int, int]]) = None: color
+                outline_color (Optional[JEColor | tuple[int, int, int] | tuple[int, int, int, int]]) = None: outline color
+                outline_size  (Optional[int]) = None: outline size
+                name (str) = "JERectangle": name
+                position (JEVector2D | tuple[float, float]) = (0, 0): position
+                rotation (float) = 0.0: rotation
+                layer (int) = 0: layer
+                visibility (JEBool) = JETrue: visibility
         """
         ...
     def set_surface(self, surface: PGExtern.Surface):
@@ -225,15 +225,15 @@ class JECircle(JEWidget):
             JECircle
 
             Parameters:
-                radius (float): radius of the circle
-                color (Optional[JEColor | tuple[int, int, int] | tuple[int, int, int, int]]): color of the circle
-                outline_color (Optional[JEColor | tuple[int, int, int] | tuple[int, int, int, int]]): outline color of the circle
-                outline_size  (Optional[int]): outline size
-                name (str) = "JECircle": name of the widget
-                position (JEVector2D | tuple[float, float]) = (0, 0): position of the widget
-                rotation (float) = 0.0: rotation of the widget
-                layer (int) = 0: layer of the widget
-                visibility (JEBool) = JETrue: visibility of the widget
+                radius (float): radius
+                color (Optional[JEColor | tuple[int, int, int] | tuple[int, int, int, int]]) = None: color
+                outline_color (Optional[JEColor | tuple[int, int, int] | tuple[int, int, int, int]]) = None: outline color
+                outline_size  (Optional[int]) = None: outline size
+                name (str) = "JECircle": name
+                position (JEVector2D | tuple[float, float]) = (0, 0): position
+                rotation (float) = 0.0: rotation
+                layer (int) = 0: layer
+                visibility (JEBool) = JETrue: visibility
         """
         ...
     def set_surface(self, surface: PGExtern.Surface):
@@ -259,14 +259,14 @@ class JELine(JEWidget):
             JELine
 
             Parameters:
-                start (JEVector2D | tuple[float, float]): start of the line
-                end (JEVector2D | tuple[float, float]): end of the line
-                color (Optional[JEColor | tuple[int, int, int] | tuple[int, int, int, int]]): color of the line
-                width (int) = 1: width of the line
-                name (str) = "JELine": name of the widget
-                rotation (float) = 0.0: rotation of the widget
-                layer (int) = 0: layer of the widget
-                visibility (JEBool) = JETrue: visibility of the widget
+                start (JEVector2D | tuple[float, float]): start point
+                end (JEVector2D | tuple[float, float]): end point
+                color (Optional[JEColor | tuple[int, int, int] | tuple[int, int, int, int]]) = None: color
+                width (int) = 1: width
+                name (str) = "JELine": name
+                rotation (float) = 0.0: rotation
+                layer (int) = 0: layer
+                visibility (JEBool) = JETrue: visibility
         """
         ...
     def set_surface(self, surface: PGExtern.Surface):
@@ -292,15 +292,14 @@ class JEPolygon(JEWidget):
             JEPolygon
 
             Parameters:
-                radius (float): radius of the circle
-                color (Optional[JEColor | tuple[int, int, int] | tuple[int, int, int, int]]): color of the circle
-                outline_color (Optional[JEColor | tuple[int, int, int] | tuple[int, int, int, int]]): outline color of the circle
-                outline_size  (Optional[int]): outline size
-                name (str) = "JEPolygon": name of the widget
-                position (JEVector2D | tuple[float, float]) = (0, 0): position of the widget
-                rotation (float) = 0.0: rotation of the widget
-                layer (int) = 0: layer of the widget
-                visibility (JEBool) = JETrue: visibility of the widget
+                points (list[JEVector2D | tuple[float, float]] | tuple[JEVector2D | tuple[float, float], ...]): list of points
+                color (Optional[JEColor | tuple[int, int, int] | tuple[int, int, int, int]]) = None: color
+                outline_color (Optional[JEColor | tuple[int, int, int] | tuple[int, int, int, int]]) = None: outline color
+                outline_size  (Optional[int]) = None: outline size
+                name (str) = "JEPolygon": name
+                rotation (float) = 0.0: rotation
+                layer (int) = 0: layer
+                visibility (JEBool) = JETrue: visibility
         """
         ...
     def set_surface(self, surface: PGExtern.Surface):

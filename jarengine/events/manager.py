@@ -140,14 +140,14 @@ class JEEventHandler(_JEInternBaseClass):
                 return _JEBool(1)
         return _JEBool(0)
 
-    def process(self, game, is_single_match = _JEBool(1)):
+    def process(self, game, broadcast = _JEBool(1)):
         events = [JEEvent(evt) for evt in _PGExtern.event.get()]
 
         for event in events:
             for watcher in self._watchers:
                 if watcher.match(event):
                     watcher(game, event)
-                    if is_single_match:
+                    if broadcast:
                         break
 
     def __deepcopy__(self, memo):

@@ -128,6 +128,15 @@ class JEColor(JEInternBaseClass):
                 tuple[int, int, int]: RGB value
         """
         ...
+    @rgb.setter
+    def rgb(self, rgb: tuple[int, int, int]):
+        """
+            Set the RGBA value as a tuple
+
+            Parameters:
+                rgb (tuple[int, int, int]): RGB value
+        """
+        ...
     @property
     def rgba(self) -> tuple[int, int, int, int]:
         """
@@ -135,6 +144,15 @@ class JEColor(JEInternBaseClass):
 
             Returns:
                 tuple[int, int, int, int]: RGBA value
+        """
+        ...
+    @rgba.setter
+    def rgba(self, rgba: tuple[int, int, int, int]):
+        """
+            Set the RGBA value as a tuple
+
+            Parameters:
+                rgba (tuple[int, int, int, int]): RGBA value
         """
         ...
     def __iter__(self) -> Iterator[float]:

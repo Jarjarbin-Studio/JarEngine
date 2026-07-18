@@ -177,7 +177,7 @@ class JEGame(_JEInternBaseClass):
             yield from iterate(entity)
 
     def update(self):
-        self._event_manager.process(self)
+        self._event_manager.process(self, broadcast = _JEBool(_get_config("config").get_bool('EVENT', 'event_broadcast'))())
 
         if self._clock:
             self._clock.update()
