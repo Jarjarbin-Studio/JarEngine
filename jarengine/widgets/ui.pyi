@@ -42,8 +42,8 @@ from jarengine.resources.font import JEFont
 from jarengine.systems.color import JEColor
 from jarengine.interns import PGExtern
 
-class JESprite(JEWidget):
-    def __init__(self, texture: JETexture, *, flip: tuple[JEBool, JEBool] = (JEFalse, JEFalse), name: str = "JESprite", position: JEVector2D | tuple[float, float] = JEVector2D(0, 0), size: JEVector2D | tuple[float, float] = JEVector2D(0, 0), rotation: float = 0.0, layer: int = 0, visibility: JEBool = JETrue):
+class JEButton(JEWidget):
+    def __init__(self, *, name: str = "JEButton", position: JEVector2D | tuple[float, float] = JEVector2D(0, 0), size: JEVector2D | tuple[float, float] = JEVector2D(0, 0), rotation: float = 0.0, layer: int = 0, visibility: JEBool = JETrue):
         """
             JESprite
 
@@ -56,37 +56,5 @@ class JESprite(JEWidget):
                 rotation (float) = 0.0: rotation of the widget
                 layer (int) = 0: layer of the widget
                 visibility (JEBool) = JETrue: visibility of the widget
-        """
-        ...
-    def set_texture(self, texture: JETexture):
-        """
-            Set texture.
-
-            Parameters:
-                texture (JETexture): new texture ressource
-        """
-        ...
-    def get_texture(self) -> JETexture:
-        """
-            Get texture.
-
-            Returns:
-                JETexture: Texture resource
-        """
-        ...
-    def set_flip(self, flip: tuple[JEBool, JEBool]):
-        """
-            Set flip.
-
-            Parameters:
-                flip (tuple[JEBool, JEBool]): New flip
-        """
-        ...
-    def get_flip(self) -> tuple[JEBool, JEBool]:
-        """
-            Get flip.
-
-            Returns:
-                tuple[JEBool, JEBool]: Flip
         """
         ...

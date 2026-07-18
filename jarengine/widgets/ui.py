@@ -33,27 +33,12 @@ from __future__ import annotations
 
 from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.widgets.widget import JEWidget as _JEWidget
-from jarengine.entity.components_graphics import (
-    JESurfaceComponent as _JESurfaceComponent,
-    JETextComponent as _JETextComponent,
-    JEFontComponent as _JEFontComponent,
-    JEColorComponent as _JEColorComponent,
-    JETextureComponent as _JETextureComponent,
-    JEFlipComponent as _JEFlipComponent
-)
 from jarengine.systems.vector import JEVector2D as _JEVector2D
-from jarengine.systems.color import JEColor as _JEColor
 from jarengine.interns.decorators import documentation as _documentation
-from jarengine.interns import (
-    PGExtern as _PGExtern,
-    JTKExternError as _JTKExternError
-)
 
 @_documentation
-class JESprite(_JEWidget):
+class JEButton(_JEWidget):
 
-    def __init__(self, texture, *, flip = (_JEBool(0), _JEBool(0)), name = "JESprite", position = _JEVector2D(0, 0), size = _JEVector2D(0, 0), rotation = 0.0, layer = 0, visibility = _JEBool(1)):
+    def __init__(self, *, name = "JEButton", position = _JEVector2D(0, 0), size = _JEVector2D(0, 0), rotation = 0.0, layer = 0, visibility = _JEBool(1)):
         super().__init__(name=name, position=position, size=size, rotation=rotation, layer=layer, visibility=visibility)
 
-        _JETextureComponent(self, texture)
-        _JEFlipComponent(self, flip)
