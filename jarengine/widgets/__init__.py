@@ -32,9 +32,11 @@
 from __future__ import annotations
 
 import jarengine.widgets.graphics as Graphics
+import jarengine.widgets.ui as UI
 from jarengine.widgets.widget import JEWidget
 
 __all__ = [
     "JEWidget",
     "Graphics",
+    "UI",
 ]

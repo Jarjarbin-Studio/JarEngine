@@ -82,6 +82,14 @@ class JEInternOwnership(JEInternBaseClass):
                 child (JEInternBaseClass): Child
         """
         ...
+    def on_parent_added(self, parent: JEInternBaseClass):
+        """
+            Run when a parent is added (placeholder for special use cases)
+
+            Parameters:
+                parent (JEInternBaseClass): Parent
+        """
+        ...
 
 class JEInternEntityComponent(JEInternGraphic, JEInternOwnership):
     def __init__(self, owner: JEEntity, _type: type):

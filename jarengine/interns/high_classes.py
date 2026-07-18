@@ -51,6 +51,7 @@ class JEInternOwnership(_JEInternBaseClass):
 
     def add_parent(self, parent):
         self._parents.add(parent)
+        self.on_parent_added(parent)
 
     @property
     def children(self):
@@ -58,6 +59,9 @@ class JEInternOwnership(_JEInternBaseClass):
 
     def add_child(self, child):
         self._children.add(child)
+
+    def on_parent_added(self, parent):
+        pass
 
 @_documentation
 class JEInternEntityComponent(_JEInternGraphic, JEInternOwnership):

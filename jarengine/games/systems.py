@@ -250,8 +250,8 @@ class JERenderSystem(_JEInternSystems):
                 outline()[1]
             )
 
-    def _render_texture(self, window, x, y, texture, size, rotation, flip, color):
-        surface = texture().texture
+    def _render_surface(self, window, x, y, texture, size, rotation, flip, color):
+        surface = texture()
 
         if size:
             surface = _PGExtern.transform.scale(

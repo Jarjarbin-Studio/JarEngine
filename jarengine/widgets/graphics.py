@@ -34,6 +34,7 @@ from __future__ import annotations
 from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.widgets.widget import JEWidget as _JEWidget
 from jarengine.entity.components_graphics import (
+    JESurfaceComponent as _JESurfaceComponent,
     JETextComponent as _JETextComponent,
     JEFontComponent as _JEFontComponent,
     JEColorComponent as _JEColorComponent,
@@ -41,7 +42,12 @@ from jarengine.entity.components_graphics import (
     JEFlipComponent as _JEFlipComponent
 )
 from jarengine.systems.vector import JEVector2D as _JEVector2D
+from jarengine.systems.color import JEColor as _JEColor
 from jarengine.interns.decorators import documentation as _documentation
+from jarengine.interns import (
+    PGExtern as _PGExtern,
+    JTKExternError as _JTKExternError
+)
 
 @_documentation
 class JESprite(_JEWidget):
@@ -55,7 +61,7 @@ class JESprite(_JEWidget):
 @_documentation
 class JEText(_JEWidget):
 
-    def __init__(self, text, font, *, color = None, flip = (_JEBool(0), _JEBool(0)), name = "JESprite", position = _JEVector2D(0, 0), size = _JEVector2D(0, 0), rotation = 0.0, layer = 0, visibility = _JEBool(1)):
+    def __init__(self, text, font, *, color = None, flip = (_JEBool(0), _JEBool(0)), name = "JEText", position = _JEVector2D(0, 0), size = _JEVector2D(0, 0), rotation = 0.0, layer = 0, visibility = _JEBool(1)):
         super().__init__(name=name, position=position, size=size, rotation=rotation, layer=layer, visibility=visibility)
 
         _JETextComponent(self, text)
@@ -63,3 +69,94 @@ class JEText(_JEWidget):
         _JEFlipComponent(self, flip)
         if color:
             _JEColorComponent(self, color)
+
+@_documentation
+class JERectangle(_JEWidget):
+
+    def __init__(self, size, *, color = _JEColor(255, 255, 255, 255), outline_color = None, outline_size = None, name = "JERectangle", position = _JEVector2D(0, 0), rotation = 0.0, layer = 0, visibility = _JEBool(1)):
+        super().__init__(name=name, position=position, size=size, rotation=rotation, layer=layer, visibility=visibility)
+
+        surface = _PGExtern.Surface(
+            (int(size.x), int(size.y)),
+            _PGExtern.SRCALPHA
+        )
+
+        surface.fill(color)
+
+        if outline_color and outline_size:
+            _PGExtern.draw.rect(
+                surface,
+                outline_color,
+                surface.get_rect(),
+                outline_size
+            )
+
+        _JESurfaceComponent(self, surface)
+
+@_documentation
+class JECircle(_JEWidget):
+
+    def __init__(self, radius, *, color = _JEColor(255, 255, 255, 255), outline_color = None, outline_size = None, name = "JECircle", position = _JEVector2D(0, 0), rotation = 0.0, layer = 0, visibility = _JEBool(1)):
+        diameter = radius * 2
+
+        super().__init__(name=name, position=position, size=_JEVector2D(diameter, diameter), rotation=rotation, layer=layer, visibility=visibility)
+
+        surface = _PGExtern.Surface((diameter, diameter), _PGExtern.SRCALPHA)
+
+        _PGExtern.draw.circle(surface, color, (radius, radius), radius)
+
+        if outline_color and outline_size:
+            _PGExtern.draw.circle(surface, outline_color, (radius, radius), radius, outline_size)
+
+        _JESurfaceComponent(self, surface)
+
+@_documentation
+class JELine(_JEWidget):
+
+    def __init__(self, start, end, *, color = _JEColor(255, 255, 255, 255), width = 1, name = "JELine", rotation = 0.0, layer = 0, visibility = _JEBool(1)):
+        start = list(start)
+        end = list(end)
+
+        min_x = min(start[0], end[0])
+        min_y = min(start[1], end[1])
+
+        local_start = (start[0] - min_x, start[1] - min_y)
+        local_end = (end[0] - min_x, end[1] - min_y)
+
+        size = _JEVector2D(abs(end[0] - start[0]) + width, abs(end[1] - start[1]) + width)
+
+        super().__init__(name=name, position=_JEVector2D(0, 0) + _JEVector2D(min_x, min_y), size=size, rotation=rotation, layer=layer, visibility=visibility)
+
+        surface = _PGExtern.Surface((int(size.x), int(size.y)), _PGExtern.SRCALPHA)
+
+        _PGExtern.draw.line(surface, color, local_start, local_end, width)
+
+        _JESurfaceComponent(self, surface)
+
+@_documentation
+class JEPolygon(_JEWidget):
+
+    def __init__(self, points, *, color = _JEColor(255, 255, 255, 255), outline_color = None, outline_size = None, name = "JEPolygon", rotation = 0.0, layer = 0, visibility = _JEBool(1)):
+        raw_points = [tuple(point) for point in points]
+
+        if len(raw_points) < 3:
+            raise _JTKExternError.Error.ErrorValue("\nJEPolygon requires at least 3 points.")
+
+        min_x = min(point[0] for point in raw_points)
+        min_y = min(point[1] for point in raw_points)
+        max_x = max(point[0] for point in raw_points)
+        max_y = max(point[1] for point in raw_points)
+
+        local_points = [(point[0] - min_x, point[1] - min_y) for point in raw_points]
+        size = _JEVector2D(max_x - min_x, max_y - min_y)
+
+        super().__init__(name=name, position=_JEVector2D(0, 0) + _JEVector2D(min_x, min_y), size=size, rotation=rotation, layer=layer, visibility=visibility)
+
+        surface = _PGExtern.Surface((int(size.x), int(size.y)), _PGExtern.SRCALPHA)
+
+        _PGExtern.draw.polygon(surface, color, local_points)
+
+        if outline_color and outline_size:
+            _PGExtern.draw.polygon(surface, outline_color, local_points, outline_size)
+
+        _JESurfaceComponent(self, surface)
