@@ -146,6 +146,18 @@ class JERenderSystem(_JEInternSystems):
 
         return x, y
 
+    def _is_visible(self, entity, visibility):
+
+        if visibility and not visibility():
+            return False
+
+        parent = entity.parents.get(_type=_JEEntity, default=None)
+
+        if parent:
+            return self._is_visible(parent, parent.get(_JEVisibilityComponent))
+
+        return True
+
     def _render_text(self, window, x, y, text, font, color, rotation, flip):
         lines = text().split("\n")
 
@@ -316,7 +328,7 @@ class JERenderSystem(_JEInternSystems):
         font = entity.get(_JEFontComponent)
         outline = entity.get(_JEOutlineComponent)
 
-        if visibility and not visibility():
+        if not self._is_visible(entity, visibility):
             return
 
         x, y = self._get_world_position(entity, position)

@@ -85,21 +85,22 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
         self._data[key] = obj
 
     def __getitem__(self, value):
-        if type(value) == str:
+        if isinstance(value, str):
             try:
                 return self.get(name=value)
             except Exception:
                 return self.get(jeid=value)
-        else:
+        elif isinstance(value, int):
             try:
-                return self.get(instance=value)
-            except _JTKExternError.BaseError:
-                return self.get(_type=value)
+                return self.get(index=value)
+            except Exception:
+                pass
+        return self.get(_type=value)
 
-    def get(self, *, name = None, jeid = None, instance = None, _type = None, default = NotImplemented):
-        if not (name or jeid or instance or _type):
+    def get(self, *, name = None, jeid = None, index = None, _type = None, default = NotImplemented):
+        if not (name or jeid or index or _type):
             raise _JTKExternError.Error.ErrorKey(
-                "\nName, JEID or Instance are required."
+                "\nName, JEID, index or type are required."
             )
 
         if name:
@@ -108,24 +109,22 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
                     return obj
         elif jeid and jeid in self._data:
             return self._data[jeid]
-        elif instance:
-            for key, obj in self._data.items():
-                if obj == instance:
-                    return obj
+        elif index:
+            return list(self._data.values())[index]
         elif _type:
             for key, obj in self._data.items():
                 if isinstance(obj, _type):
                     return obj
         if default == NotImplemented:
             raise _JTKExternError.Error.ErrorKey(
-                f"\n{name or jeid or instance or _type!r} not in container."
+                f"\n{name or jeid or index or _type!r} not in container."
             )
         return default
 
-    def rm(self, *, name = None, jeid = None, instance = None, _type = None):
-        if not (name or jeid or instance or _type):
+    def rm(self, *, name = None, jeid = None, index = None, instance = None, _type = None):
+        if not (name or jeid or index or instance or _type):
             raise _JTKExternError.Error.ErrorKey(
-                "\nName, JEID or Instance are required."
+                "\nName, JEID, index, instance or type are required."
             )
 
         if name:
@@ -134,6 +133,8 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
                     return self._data.pop(key)
         elif jeid and jeid in self._data:
             return self._data.pop(jeid)
+        elif index:
+            return self._data.pop(self._data.values()[index].jeid)
         elif instance:
             for key, obj in self._data.items():
                 if obj == instance:
@@ -143,7 +144,7 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
                 if isinstance(obj, _type):
                     return self._data.pop(key)
         raise _JTKExternError.Error.ErrorKey(
-            f"\n{name or jeid or instance or _type!r} not in container."
+            f"\n{name or jeid or index or instance or _type!r} not in container."
         )
 
     def clear(self):
