@@ -135,12 +135,12 @@
 [ ] #Entity #Widgets #UI #JETextInput *JEClickableComponent* #Optional
 [x] #Entity #Widgets #UI *JECheckbox*
 [x] #Entity #Widgets #UI *JERadioButton*
-[ ] #Entity #Widgets #UI *JESlider*
-[ ] #Entity #Widgets #UI *JESlider* #Components
-[ ] #Entity #Widgets #UI #JESlider *JEProgressComponent* #Required
-[ ] #Entity #Widgets #UI #JESlider *JEClickableComponent* #Required
-[ ] #Entity #Widgets #UI #JESlider *JEPositionComponent* #Required
-[ ] #Entity #Widgets #UI #JESlider *JESizeComponent* #Required
+[@] #Entity #Widgets #UI *JESlider*
+[@] #Entity #Widgets #UI *JESlider* #Components
+[@] #Entity #Widgets #UI #JESlider *JEProgressComponent* #Required
+[@] #Entity #Widgets #UI #JESlider *JEClickableComponent* #Required
+[@] #Entity #Widgets #UI #JESlider *JEPositionComponent* #Required
+[@] #Entity #Widgets #UI #JESlider *JESizeComponent* #Required
 [ ] #Entity #Widgets #UI *JEProgressBar*
 [ ] #Entity #Widgets #UI *JEProgressBar* #Components
 [ ] #Entity #Widgets #UI #JEProgressBar *JEProgressComponent* #Required

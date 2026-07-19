@@ -61,20 +61,20 @@ class JEContainer(Generic[T], JEInternBaseClass):
             Get an item from the container (automatically reroute to the proper getter)
             
             Parameters:
-                value (str | type | T): Name / JEID / instance / type of the object
+                value (str | type | T): Name / JEID / index / type of the object
             
             Returns:
                 T: Object
         """
         ...
-    def get(self, *, name: Optional[str] = None, jeid: Optional[str] = None, instance: Optional[T] = None, _type: Optional[Type] = None, default: Any = NotImplemented) -> T:
+    def get(self, *, name: Optional[str] = None, jeid: Optional[str] = None, index: Optional[int] = None, _type: Optional[Type] = None, default: Any = NotImplemented) -> T:
         """
             Get an item from the container
 
             Parameters:
                 name (Optional[str]) = None: Name of the object
                 jeid (Optional[str]) = None: JEID of the object
-                instance (Optional[T]) = None: instance
+                index (Optional[int]) = None: Index
                 _type (Optional[type]) = None: Type of the object
                 default (Any) = NotImplemented: Default value to return if object not found (raise an error if leaved as such)
 
@@ -82,14 +82,15 @@ class JEContainer(Generic[T], JEInternBaseClass):
                 T: Object
         """
         ...
-    def rm(self, *, name: Optional[str] = None, jeid: Optional[str] = None, instance: Optional[T] = None, _type: Optional[Type] = None) -> T:
+    def rm(self, *, name: Optional[str] = None, jeid: Optional[str] = None, index: Optional[int] = None, instance: Optional[T] = None, _type: Optional[Type] = None) -> T:
         """
             Remove an item from the container
 
             Parameters:
                 name (Optional[str]) = None: Name of the object
                 jeid (Optional[str]) = None: JEID of the object
-                instance (Optional[T]) = None: instance
+                index (Optional[int]) = None: Index
+                instance (Optional[T]) = None: Instance
                 _type (Optional[type]) = None: Type of the object
         """
         ...

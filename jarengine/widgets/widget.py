@@ -57,5 +57,22 @@ class JEWidget(_JEEntity):
         _JELayerComponent(self, layer)
         _JEVisibilityComponent(self, visibility)
 
+        def get_visibility(self):
+            return self._get_visible(self)
+
+        self.get_visibility = get_visibility.__get__(self, type(self))
+
+    def _get_visible(self, entity):
+
+        if not entity.get(_JEVisibilityComponent)():
+            return _JEBool(0)
+
+        parent = entity.parents.get(_type=_JEEntity, default=None)
+
+        if parent:
+            return self._get_visible(parent)
+
+        return _JEBool(1)
+
     def copy(self):
         return super().copy()

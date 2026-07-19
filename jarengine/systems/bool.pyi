@@ -60,6 +60,14 @@ class JEBool(JEInternBaseClass):
                 int: Int
         """
         ...
+    def __str__(self) -> str:
+        """
+            Get the string of the boolean
+
+            Returns:
+                str: String
+        """
+        ...
     def __call__(self) -> JEBool:
         """
             Revers the boolean (False <-> True)

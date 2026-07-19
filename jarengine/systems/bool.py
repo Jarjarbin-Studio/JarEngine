@@ -67,6 +67,9 @@ class JEBool(_JEInternBaseClass):
     def __int__(self):
         return int(self._bool)
 
+    def __str__(self):
+        return "JETrue" if self else "JEFalse"
+
     def __call__(self):
         return JEBool(not self)
 
