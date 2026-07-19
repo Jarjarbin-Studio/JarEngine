@@ -245,6 +245,7 @@ class JERenderSystem(_JEInternSystems):
             )
 
     def _render_rectangle(self, window, x, y, size, color, outline):
+
         rectangle = (x, y, int(size().x), int(size().y))
 
         if color:

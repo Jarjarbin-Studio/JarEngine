@@ -62,7 +62,7 @@ class JEInternGraphicalObject(JEInternGraphic):
         self._dirty = _JEBool(1)
 
     def update(self, dt):
-        raise NotImplementedError
+        pass
 
     def mark_dirty(self):
         self._dirty = _JEBool(1)

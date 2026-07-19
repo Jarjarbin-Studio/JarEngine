@@ -113,7 +113,7 @@ class JEText(JEWidget):
 
     def set_text(self, text: str):
         """
-            Text component required. Set text.
+            Set text.
 
             Parameters:
                 text (JEFont): New text
@@ -121,7 +121,7 @@ class JEText(JEWidget):
         ...
     def get_text(self) -> str:
         """
-            Text component required. Get text.
+            Get text.
 
             Returns:
                 str: Text
@@ -129,7 +129,7 @@ class JEText(JEWidget):
         ...
     def set_font(self, font: JEFont):
         """
-            Font component required. Set font.
+            Set font.
 
             Parameters:
                 font (JEFont): New font ressource
@@ -137,7 +137,7 @@ class JEText(JEWidget):
         ...
     def get_font(self) -> JEFont:
         """
-            Font component required. Get font.
+            Get font.
 
             Returns:
                 JEFont: Font resource
@@ -161,7 +161,7 @@ class JEText(JEWidget):
         ...
     def set_color(self, color: JEColor | tuple[int, int, int] | tuple[int, int, int, int]):
         """
-            Color component required. Set color.
+            Set color.
 
             Parameters:
                 color (JEColor | tuple[int, int, int] | tuple[int, int, int, int]): New color
@@ -169,7 +169,7 @@ class JEText(JEWidget):
         ...
     def update_color(self, *, r: int = 0, g: int = 0, b: int = 0, a: int = 0):
         """
-            Color component required. Update color.
+            Update color.
 
             Parameters:
                 r (int) = 0: Color r to add to the current color r
@@ -180,7 +180,7 @@ class JEText(JEWidget):
         ...
     def get_color(self) -> JEColor:
         """
-            Color component required. Get color.
+            Get color.
 
             Returns:
                 JEColor: Color
@@ -207,7 +207,7 @@ class JERectangle(JEWidget):
 
     def set_surface(self, surface: PGExtern.Surface):
         """
-            Surface component required. Set surface.
+            Set surface.
 
             Parameters:
                 surface (PGExtern.Surface): New surface
@@ -215,7 +215,7 @@ class JERectangle(JEWidget):
         ...
     def get_surface(self) -> PGExtern.Surface:
         """
-            Surface component surface. Get font.
+            Get font.
 
             Returns:
                 PGExtern.Surface: Surface
@@ -242,7 +242,7 @@ class JECircle(JEWidget):
 
     def set_surface(self, surface: PGExtern.Surface):
         """
-            Surface component required. Set surface.
+            Set surface.
 
             Parameters:
                 surface (PGExtern.Surface): New surface
@@ -250,7 +250,7 @@ class JECircle(JEWidget):
         ...
     def get_surface(self) -> PGExtern.Surface:
         """
-            Surface component surface. Get font.
+            Get font.
 
             Returns:
                 PGExtern.Surface: Surface
@@ -276,7 +276,7 @@ class JELine(JEWidget):
 
     def set_surface(self, surface: PGExtern.Surface):
         """
-            Surface component required. Set surface.
+            Set surface.
 
             Parameters:
                 surface (PGExtern.Surface): New surface
@@ -284,7 +284,7 @@ class JELine(JEWidget):
         ...
     def get_surface(self) -> PGExtern.Surface:
         """
-            Surface component surface. Get font.
+            Get font.
 
             Returns:
                 PGExtern.Surface: Surface
@@ -310,7 +310,7 @@ class JEPolygon(JEWidget):
 
     def set_surface(self, surface: PGExtern.Surface):
         """
-            Surface component required. Set surface.
+            Set surface.
 
             Parameters:
                 surface (PGExtern.Surface): New surface
@@ -318,7 +318,7 @@ class JEPolygon(JEWidget):
         ...
     def get_surface(self) -> PGExtern.Surface:
         """
-            Surface component surface. Get font.
+            Get font.
 
             Returns:
                 PGExtern.Surface: Surface

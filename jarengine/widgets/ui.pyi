@@ -68,7 +68,7 @@ class JEButton(JEWidget):
 
     def set_color(self, color: JEColor | tuple[int, int, int] | tuple[int, int, int, int]):
         """
-            Color component required. Set color.
+            Set color.
 
             Parameters:
                 color (JEColor | tuple[int, int, int] | tuple[int, int, int, int]): New color
@@ -76,7 +76,7 @@ class JEButton(JEWidget):
         ...
     def update_color(self, *, r: int = 0, g: int = 0, b: int = 0, a: int = 0):
         """
-            Color component required. Update color.
+            Update color.
 
             Parameters:
                 r (int) = 0: Color r to add to the current color r
@@ -87,7 +87,7 @@ class JEButton(JEWidget):
         ...
     def get_color(self) -> JEColor:
         """
-            Color component required. Get color.
+            Get color.
 
             Returns:
                 JEColor: Color
@@ -95,7 +95,7 @@ class JEButton(JEWidget):
         ...
     def set_outline_color(self, color: JEColor | tuple[int, int, int] | tuple[int, int, int, int]):
         """
-            Outline component required. Set outline color.
+            Set outline color.
 
             Parameters:
                 color (JEColor | tuple[int, int, int] | tuple[int, int, int, int]): New outline color
@@ -103,7 +103,7 @@ class JEButton(JEWidget):
         ...
     def update_outline_color(self, *, r: int = 0, g: int = 0, b: int = 0, a: int = 0):
         """
-            Outline component required. Update outline color.
+            Update outline color.
 
             Parameters:
                 r (int) = 0: Outline color r to add to the current outline color r
@@ -114,7 +114,7 @@ class JEButton(JEWidget):
         ...
     def get_outline_color(self) -> JEColor:
         """
-            Outline component required. Get outline color.
+            Get outline color.
 
             Returns:
                 JEColor: Outline color
@@ -122,7 +122,7 @@ class JEButton(JEWidget):
         ...
     def set_outline_size(self, size: int):
         """
-            Outline component required. Set outline size.
+            Set outline size.
 
             Parameters:
                 size (int): New size
@@ -130,7 +130,7 @@ class JEButton(JEWidget):
         ...
     def update_outline_size(self, *, s: int = 0):
         """
-            Outline component required. Update outline size.
+            Update outline size.
 
             Parameters:
                 s (int) = 0: Outline size to add to the current size
@@ -138,7 +138,7 @@ class JEButton(JEWidget):
         ...
     def get_outline_size(self) -> int:
         """
-            Outline component required. Get outline size.
+            Get outline size.
 
             Returns:
                 int: Outline size
@@ -175,7 +175,7 @@ class JEImageButton(JEWidget):
 
     def set_outline_color(self, color: JEColor | tuple[int, int, int] | tuple[int, int, int, int]):
         """
-            Outline component required. Set outline color.
+            Set outline color.
 
             Parameters:
                 color (JEColor | tuple[int, int, int] | tuple[int, int, int, int]): New outline color
@@ -183,7 +183,7 @@ class JEImageButton(JEWidget):
         ...
     def update_outline_color(self, *, r: int = 0, g: int = 0, b: int = 0, a: int = 0):
         """
-            Outline component required. Update outline color.
+            Update outline color.
 
             Parameters:
                 r (int) = 0: Outline color r to add to the current outline color r
@@ -194,7 +194,7 @@ class JEImageButton(JEWidget):
         ...
     def get_outline_color(self) -> JEColor:
         """
-            Outline component required. Get outline color.
+            Get outline color.
 
             Returns:
                 JEColor: Outline color
@@ -202,7 +202,7 @@ class JEImageButton(JEWidget):
         ...
     def set_outline_size(self, size: int):
         """
-            Outline component required. Set outline size.
+            Set outline size.
 
             Parameters:
                 size (int): New size
@@ -210,7 +210,7 @@ class JEImageButton(JEWidget):
         ...
     def update_outline_size(self, *, s: int = 0):
         """
-            Outline component required. Update outline size.
+            Update outline size.
 
             Parameters:
                 s (int) = 0: Outline size to add to the current size
@@ -218,7 +218,7 @@ class JEImageButton(JEWidget):
         ...
     def get_outline_size(self) -> int:
         """
-            Outline component required. Get outline size.
+            Get outline size.
 
             Returns:
                 int: Outline size
@@ -226,7 +226,7 @@ class JEImageButton(JEWidget):
         ...
     def set_flip(self, flip: tuple[JEBool, JEBool]):
         """
-            Flip component required. Set flip.
+            Set flip.
 
             Parameters:
                 flip (tuple[JEBool, JEBool]): New flip
@@ -234,7 +234,7 @@ class JEImageButton(JEWidget):
         ...
     def get_flip(self) -> tuple[JEBool, JEBool]:
         """
-            Flip component required. Get flip.
+            Get flip.
 
             Returns:
                 tuple[JEBool, JEBool]: Flip
@@ -242,7 +242,7 @@ class JEImageButton(JEWidget):
         ...
     def set_texture(self, texture: JETexture):
         """
-            Texture component required. Set texture.
+            Set texture.
 
             Parameters:
                 texture (JETexture): new texture ressource
@@ -250,7 +250,7 @@ class JEImageButton(JEWidget):
         ...
     def get_texture(self) -> JETexture:
         """
-            Texture component required. Get texture.
+            Get texture.
 
             Returns:
                 JETexture: Texture resource
@@ -308,7 +308,7 @@ class JECheckbox(JEWidget):
 
     def set_color(self, color: JEColor | tuple[int, int, int] | tuple[int, int, int, int]):
         """
-            Color component required. Set color.
+            Set color.
 
             Parameters:
                 color (JEColor | tuple[int, int, int] | tuple[int, int, int, int]): New color
@@ -316,7 +316,7 @@ class JECheckbox(JEWidget):
         ...
     def update_color(self, *, r: int = 0, g: int = 0, b: int = 0, a: int = 0):
         """
-            Color component required. Update color.
+            Update color.
 
             Parameters:
                 r (int) = 0: Color r to add to the current color r
@@ -327,7 +327,7 @@ class JECheckbox(JEWidget):
         ...
     def get_color(self) -> JEColor:
         """
-            Color component required. Get color.
+            Get color.
 
             Returns:
                 JEColor: Color
@@ -335,7 +335,7 @@ class JECheckbox(JEWidget):
         ...
     def set_outline_color(self, color: JEColor | tuple[int, int, int] | tuple[int, int, int, int]):
         """
-            Outline component required. Set outline color.
+            Set outline color.
 
             Parameters:
                 color (JEColor | tuple[int, int, int] | tuple[int, int, int, int]): New outline color
@@ -343,7 +343,7 @@ class JECheckbox(JEWidget):
         ...
     def update_outline_color(self, *, r: int = 0, g: int = 0, b: int = 0, a: int = 0):
         """
-            Outline component required. Update outline color.
+            Update outline color.
 
             Parameters:
                 r (int) = 0: Outline color r to add to the current outline color r
@@ -354,7 +354,7 @@ class JECheckbox(JEWidget):
         ...
     def get_outline_color(self) -> JEColor:
         """
-            Outline component required. Get outline color.
+            Get outline color.
 
             Returns:
                 JEColor: Outline color
@@ -362,7 +362,7 @@ class JECheckbox(JEWidget):
         ...
     def set_outline_size(self, size: int):
         """
-            Outline component required. Set outline size.
+            Set outline size.
 
             Parameters:
                 size (int): New size
@@ -370,7 +370,7 @@ class JECheckbox(JEWidget):
         ...
     def update_outline_size(self, *, s: int = 0):
         """
-            Outline component required. Update outline size.
+            Update outline size.
 
             Parameters:
                 s (int) = 0: Outline size to add to the current size
@@ -378,7 +378,7 @@ class JECheckbox(JEWidget):
         ...
     def get_outline_size(self) -> int:
         """
-            Outline component required. Get outline size.
+            Get outline size.
 
             Returns:
                 int: Outline size
@@ -391,7 +391,7 @@ class JERadio(JEWidget):
             JERadio
 
             Parameters:
-                positions list[(JEVector2D | tuple[float, float]] | tuple[(JEVector2D | tuple[float, float]]): buttons positions
+                positions (list[JEVector2D | tuple[float, float]] | tuple[JEVector2D | tuple[float, float]]): buttons positions
                 checked (int): checked
                 color (JEColor | tuple[int, int, int] | tuple[int, int, int, int]) = JEColor(100, 100, 100, 255): color
                 checked_color (JEColor | tuple[int, int, int] | tuple[int, int, int, int]) = JEColor(100, 255, 100, 255): checked color
@@ -426,5 +426,164 @@ class JERadio(JEWidget):
             
             Parameters:
                 index (int): Selected
+        """
+        ...
+
+class JESlider(JEWidget):
+    def __init__(self, *, minimum: float = 0.0, maximum: float = 100.0, value: float = 0.0, color: JEColor | tuple[int, int, int] | tuple[int, int, int, int] = JEColor(100, 100, 100, 255), cursor_color: JEColor | tuple[int, int, int] | tuple[int, int, int, int] = JEColor(255, 255, 255, 255), cursor_size: JEVector2D | tuple[float, float] = JEVector2D(20, 40), name: str = "JESlider", position: JEVector2D | tuple[float, float] = JEVector2D(0, 0), size: JEVector2D | tuple[float, float] = JEVector2D(200, 10), rotation: float = 0.0, layer: int = 0, visibility: JEBool = JETrue):
+        """
+            JESlider
+
+            Parameters:
+                minimum (float): minimum value
+                maximum (float): maximum value
+                value (float): start value
+                color (JEColor | tuple[int, int, int] | tuple[int, int, int, int]) = JEColor(100, 100, 100, 255): color
+                cursor_color (JEColor | tuple[int, int, int] | tuple[int, int, int, int]) = JEColor(100, 100, 100, 255): cursor color
+                cursor_size (JEVector2D | tuple[float, float]) = (0, 0): cursor size
+                size (JEVector2D | tuple[float, float]) = (0, 0): size
+                name (str) = "JESlider": name
+                position (JEVector2D | tuple[float, float]) = (0, 0): position
+                size (JEVector2D | tuple[float, float]) = (0, 0): size
+                rotation (float) = 0.0: rotation
+                layer (int) = 0: layer
+                visibility (JEBool) = JETrue: visibility
+        """
+        ...
+    def set_callback(self, callback, continuous_callback = JETrue):
+        """
+            Set the function to be called when button clicked
+
+            Parameters:
+                callback (Callable[[], None]): callback function
+        """
+        ...
+    def set_value(self, value: float):
+        """
+            Set the slider value
+            
+            Parameters:
+                value (float): value
+        """
+        ...
+    def get_value(self):
+        """
+            Get the current value
+
+            Returns:
+                float: value
+        """
+        ...
+    def set_range(self, minimum: float, maximum: float):
+        """
+            Set a new slider range
+
+            Parameters:
+                minimum (float): minimum value
+                maximum (float): maximum value
+        """
+        ...
+
+    def set_color(self, color: JEColor | tuple[int, int, int] | tuple[int, int, int, int]):
+        """
+            Set color.
+
+            Parameters:
+                color (JEColor | tuple[int, int, int] | tuple[int, int, int, int]): New color
+        """
+        ...
+    def update_color(self, *, r: int = 0, g: int = 0, b: int = 0, a: int = 0):
+        """
+            Update color.
+
+            Parameters:
+                r (int) = 0: Color r to add to the current color r
+                g (int) = 0: Color g to add to the current color g
+                b (int) = 0: Color b to add to the current color b
+                a (int) = 0: Color a to add to the current color a
+        """
+        ...
+    def get_color(self) -> JEColor:
+        """
+            Get color.
+
+            Returns:
+                JEColor: Color
+        """
+        ...
+
+class JEProgressBar(JEWidget):
+    def __init__(self, *, minimum: float = 0.0, maximum: float = 100.0, value: float = 0.0, color: JEColor | tuple[int, int, int] | tuple[int, int, int, int] = JEColor(100, 100, 100, 255), progress_color: JEColor | tuple[int, int, int] | tuple[int, int, int, int] = JEColor(255, 255, 255, 255), name: str = "JEProgressBar", position: JEVector2D | tuple[float, float] = JEVector2D(0, 0), size: JEVector2D | tuple[float, float] = JEVector2D(200, 20), rotation: float = 0.0, layer: int = 0, visibility: JEBool = JETrue):
+        """
+            JEProgressBar
+
+            Parameters:
+                minimum (float): minimum value
+                maximum (float): maximum value
+                value (float): current progress value
+                color (JEColor | tuple[int, int, int] | tuple[int, int, int, int]) = JEColor(100, 100, 100, 255): background color
+                progress_color (JEColor | tuple[int, int, int] | tuple[int, int, int, int]) = JEColor(255, 255, 255, 255): progress color
+                name (str) = "JEProgressBar": name
+                position (JEVector2D | tuple[float, float]) = (0, 0): position
+                size (JEVector2D | tuple[float, float]) = (200, 20): size
+                rotation (float) = 0.0: rotation
+                layer (int) = 0: layer
+                visibility (JEBool) = JETrue: visibility
+        """
+        ...
+
+    def set_value(self, value: float):
+        """
+            Set the progress value
+
+            Parameters:
+                value (float): value
+        """
+        ...
+
+    def get_value(self):
+        """
+            Get the current value
+
+            Returns:
+                float: value
+        """
+        ...
+
+    def set_range(self, minimum: float, maximum: float):
+        """
+            Set a new progress range
+
+            Parameters:
+                minimum (float): minimum value
+                maximum (float): maximum value
+        """
+        ...
+
+    def set_color(self, color: JEColor | tuple[int, int, int] | tuple[int, int, int, int]):
+        """
+            Set color.
+
+            Parameters:
+                color (JEColor | tuple[int, int, int] | tuple[int, int, int, int]): New color
+        """
+        ...
+    def update_color(self, *, r: int = 0, g: int = 0, b: int = 0, a: int = 0):
+        """
+            Update color.
+
+            Parameters:
+                r (int) = 0: Color r to add to the current color r
+                g (int) = 0: Color g to add to the current color g
+                b (int) = 0: Color b to add to the current color b
+                a (int) = 0: Color a to add to the current color a
+        """
+        ...
+    def get_color(self) -> JEColor:
+        """
+            Get color.
+
+            Returns:
+                JEColor: Color
         """
         ...

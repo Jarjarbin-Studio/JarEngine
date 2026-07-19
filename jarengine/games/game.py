@@ -190,6 +190,7 @@ class JEGame(_JEInternBaseClass):
 
         for system in self._systems:
             for entity in system.cache:
+                entity.update(dt)
                 system.update(
                     window,
                     entity,
