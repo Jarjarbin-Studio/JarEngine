@@ -122,11 +122,7 @@
 [ ] #Entity #Widgets #UI *JELabel*
 [ ] #Entity #Widgets #UI *JELabel* #Composition
 [ ] #Entity #Widgets #UI #JELabel *JEText* #Required
-[ ] #Entity #Widgets #UI *JEPanel*
-[ ] #Entity #Widgets #UI *JEPanel* #Composition
-[ ] #Entity #Widgets #UI #JEPanel *JERectangle* #Required
-[ ] #Entity #Widgets #UI #JEPanel *JEGroupComponent* #Required
-[ ] #Entity #Widgets #UI #JEPanel *JEAnchorComponent* #Optional
+[x] #Entity #Widgets #UI *JEPanel*
 [ ] #Entity #Widgets #UI *JETextInput*
 [ ] #Entity #Widgets #UI *JETextInput* #Components
 [ ] #Entity #Widgets #UI #JETextInput *JETextComponent* #Required

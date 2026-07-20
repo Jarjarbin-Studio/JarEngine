@@ -125,6 +125,14 @@ class JEWidget(JEInternGraphicalObject, JEInternOwnership):
                 JEVector2D: Position
         """
         ...
+    def get_world_position(self) -> JEVector2D:
+        """
+            Get world position.
+
+            Returns:
+                JEVector2D: World position
+        """
+        ...
     def set_size(self, size: JEVector2D | tuple[float, float]):
         """
             Set size.

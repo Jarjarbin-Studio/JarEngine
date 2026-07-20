@@ -198,6 +198,9 @@ class JEGame(_JEInternBaseClass):
                     dt
                 )
 
+        window.display()
+        window.clear()
+
     def display(self):
         _PGExtern.display.flip()
 

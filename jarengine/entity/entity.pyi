@@ -500,6 +500,14 @@ class JEEntity(JEInternGraphicalObject, JEInternOwnership):
                 JEVector2D: Position
         """
         ...
+    def get_world_position(self) -> JEVector2D:
+        """
+            Position component required. Get world position.
+
+            Returns:
+                JEVector2D: World position
+        """
+        ...
 
     # Velocity #
     def set_velocity(self, velocity: JEVector2D | tuple[float, float]):

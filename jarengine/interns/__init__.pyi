@@ -47,7 +47,6 @@ from .base_classe import JEInternBaseClass
 
 # Submodules
 import pygame as PGExtern
-import jarbin_toolkit_time as JTKExternTime
 import jarbin_toolkit_console as JTKExternConsole
 import jarbin_toolkit_error as JTKExternError
 from . import decorators as Decorators
@@ -65,7 +64,6 @@ __all__: list[str] = [
     "FinalClasses",
     "Config",
     "Decorators",
-    "JTKExternTime",
     "JTKExternConsole",
     "JTKExternError"
 ]

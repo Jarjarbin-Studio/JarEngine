@@ -53,9 +53,18 @@ class JEWindow(JEInternBaseClass):
         """
         ...
     @property
+    def render_surface(self) -> PGExtern.Surface:
+        """
+            Get PyGame screen (rendering)
+
+            Returns:
+                PGExtern.Surface: PyGame screen
+        """
+        ...
+    @property
     def screen(self) -> PGExtern.Surface:
         """
-            Get PyGame screen
+            Get PyGame screen (window)
 
             Returns:
                 PGExtern.Surface: PyGame screen
@@ -78,12 +87,22 @@ class JEWindow(JEInternBaseClass):
                 color (JEColor | tuple[int, int, int] | tuple[int, int, int, int]): Color to fill
         """
         ...
-    def blit(self, source: PGExtern.Surface, dest: PGExtern.Surface):
+    def clear(self):
         """
-            Copy a PyGame surface to another
+            Clear the rendering surface
+        """
+        ...
+    def blit(self, source: PGExtern.Surface, dest: JEVector2D | tuple[int, int]):
+        """
+            Copy a PyGame surface to the window
             
             Parameters:
-                source (PGExtern.Surface): PyGame surface
-                dest (PGExtern.Surface): Destination PyGame surface
+                source (PGExtern.Surface): PyGame surface to copy
+                dest (JEVector2D | tuple[int, int]): Destination position
+        """
+        ...
+    def display(self):
+        """
+            Display the rendering surface in the window
         """
         ...

@@ -42,7 +42,8 @@ from jarengine.entity.components_graphics import (
     JETextureComponent as _JETextureComponent,
     JEColorComponent as _JEColorComponent,
     JEOutlineComponent as _JEOutlineComponent,
-    JEVisibilityComponent as _JEVisibilityComponent
+    JEVisibilityComponent as _JEVisibilityComponent,
+    JELayerComponent as _JELayerComponent
 )
 from jarengine.entity.components_others import JEGroupComponent as _JEGroupComponent
 from jarengine.events.mouse import JEMouseWatcher as _JEMouseWatcher
@@ -81,11 +82,11 @@ class JEButton(_JEWidget):
             return
 
         mouse = game.input.mouse_pos()
-        position = self.get_position()
+        position = self.get_world_position()
         size = self.get_size()
-        inside = (
-            position.x <= mouse.x <= position.x + size.x
+        inside = (            position.x <= mouse.x <= position.x + size.x
             and
+
             position.y <= mouse.y <= position.y + size.y
         )
 
@@ -136,7 +137,7 @@ class JEImageButton(_JEWidget):
             return
 
         mouse = game.input.mouse_pos()
-        position = self.get_position()
+        position = self.get_world_position()
         size = self.get_size()
         inside = (
             position.x <= mouse.x <= position.x + size.x
@@ -146,6 +147,52 @@ class JEImageButton(_JEWidget):
 
         if inside and self._callback:
             self._callback()
+
+@_documentation
+class JEPanel(_JEWidget):
+
+    def __init__(self, *, color=None, outline_color=None, outline_size=None, auto_size=_JEBool(1), name="JEPanel", position=_JEVector2D(0, 0), size=_JEVector2D(0, 0), rotation=0.0, layer=0, visibility=_JEBool(1)):
+        super().__init__(name=name, position=position, size=size, rotation=rotation, layer=layer, visibility=visibility)
+
+        _JEGroupComponent(self)
+
+        self._auto_size = auto_size
+
+        if color:
+            _JEColorComponent(self, color)
+
+        if outline_color and outline_size:
+            _JEOutlineComponent(self, outline_color, outline_size)
+
+    def add(self, entity):
+        self.group_add(entity)
+
+        self.refresh()
+
+    def refresh(self):
+        max_x = 0
+        max_y = 0
+
+        widgets = sorted(
+            self.get_group(),
+            key=lambda widget: widget.get_layer()
+        )
+
+        for widget in widgets:
+
+            position = widget.get_world_position()
+            size = widget.get_size()
+
+            max_x = max(max_x, position.x + size.x)
+            max_y = max(max_y, position.y + size.y)
+
+            if isinstance(widget, JEPanel):
+                widget.refresh()
+
+        if self._auto_size:
+            self.set_size(
+                _JEVector2D(max_x, max_y)
+            )
 
 @_documentation
 class JECheckbox(_JEWidget):
@@ -201,7 +248,7 @@ class JECheckbox(_JEWidget):
 
         mouse = game.input.mouse_pos()
 
-        position = self.get_position()
+        position = self.get_world_position()
         size = self.get_size()
 
         inside = (
@@ -384,7 +431,7 @@ class JESlider(_JEWidget):
             self._is_dragging = _JEBool(1)
             return
 
-        position = self.get_position()
+        position = self.get_world_position()
         size = self.get_size()
 
         inside = (
@@ -404,14 +451,8 @@ class JESlider(_JEWidget):
         self._is_dragging = _JEBool(0)
 
     def _is_cursor_hovered(self, mouse):
-        cursor_pos = self._cursor.get_position()
-        slider_pos = self.get_position()
 
-        cursor_world = _JEVector2D(
-            slider_pos.x + cursor_pos.x,
-            slider_pos.y + cursor_pos.y
-        )
-
+        cursor_world = self._cursor.get_world_position()
         cursor_size = self._cursor.get_size()
 
         return (
@@ -430,7 +471,7 @@ class JESlider(_JEWidget):
         self._update_value_from_mouse(mouse)
 
     def _update_value_from_mouse(self, mouse):
-        position = self.get_position()
+        position = self.get_world_position()
         size = self.get_size()
 
         local_x = mouse.x - position.x
@@ -508,14 +549,9 @@ class JEDropdown(_JEWidget):
     class JEDropdownOption(_JEWidget):
 
         def __init__(self, index, text, font, callback, *, color=_JEColor(100, 100, 100, 255), text_color=_JEColor(255, 255, 255, 255), name="JEDropdownOption", position=_JEVector2D(0, 0), size=_JEVector2D(200, 30), rotation=0.0, layer=0, visibility=_JEBool(1)):
-            super().__init__(
-                name=name,
-                position=position,
-                size=size,
-                rotation=rotation,
-                layer=layer,
-                visibility=visibility
-            )
+            raise NotImplementedError
+
+            super().__init__(name=name, position=position, size=size, rotation=rotation, layer=layer, visibility=visibility)
 
             _JEGroupComponent(self)
 
@@ -565,6 +601,7 @@ class JEDropdown(_JEWidget):
                 self._callback(self._index)
 
     def __init__(self, options, font, *, selected = 0, color = _JEColor(100, 100, 100, 255), option_color = _JEColor(80, 80, 80, 255), text_color = _JEColor(255, 255, 255, 255), option_size = _JEVector2D(200, 30), name = "JEDropdown", position = _JEVector2D(0, 0), size = _JEVector2D(200, 30), rotation = 0.0, layer = 0, visibility = _JEBool(1)):
+        raise NotImplementedError
 
         super().__init__(name=name, position=position, size=size, rotation=rotation, layer=layer, visibility=visibility)
 

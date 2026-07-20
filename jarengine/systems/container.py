@@ -91,14 +91,11 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
             except Exception:
                 return self.get(jeid=value)
         elif isinstance(value, int):
-            try:
-                return self.get(index=value)
-            except Exception:
-                pass
+            return self.get(index=value)
         return self.get(_type=value)
 
     def get(self, *, name = None, jeid = None, index = None, _type = None, default = NotImplemented):
-        if not (name or jeid or index or _type):
+        if not (name or jeid or _type) and index is None:
             raise _JTKExternError.Error.ErrorKey(
                 "\nName, JEID, index or type are required."
             )
@@ -109,7 +106,7 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
                     return obj
         elif jeid and jeid in self._data:
             return self._data[jeid]
-        elif index:
+        elif index is not None:
             return list(self._data.values())[index]
         elif _type:
             for key, obj in self._data.items():
@@ -117,7 +114,7 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
                     return obj
         if default == NotImplemented:
             raise _JTKExternError.Error.ErrorKey(
-                f"\n{name or jeid or index or _type!r} not in container."
+                f"\n{f'{index!r}' if not index is None else f'{name or jeid or _type!r}'} not in container."
             )
         return default
 

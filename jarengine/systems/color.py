@@ -31,11 +31,9 @@
 
 from __future__ import annotations
 
-from typing import (
-    final as _final,
-    Iterator as _Iterator
-)
+from typing import final as _final
 
+from jarengine.interns import JTKExternError as _JTKExternError
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from jarengine.interns.decorators import documentation as _documentation
 
@@ -49,6 +47,10 @@ class JEColor(_JEInternBaseClass):
         super().__init__()
 
         self._color = [r, g, b, a]
+
+        for c in self._color:
+            if not (0 <= c <= 255):
+                raise _JTKExternError.Error.ErrorValue("\nInvalid color, every channels must be between 0 and 255.")
 
     @property
     def r(self):

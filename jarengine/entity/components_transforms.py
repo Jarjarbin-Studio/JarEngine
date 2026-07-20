@@ -62,9 +62,30 @@ class JEPositionComponent(_JEInternEntityComponent):
         def get_position(owner_self):
             return self.position
 
+        def get_world_position(owner_self):
+
+            position = owner_self.get_position()
+
+            if position is None:
+                return _JEVector2D(0, 0)
+
+            x = position.x
+            y = position.y
+
+            parent = owner_self.parents.get(_type=type(owner_self), default=None)
+
+            if parent:
+                world = parent.get_world_position()
+
+                x += world.x
+                y += world.y
+
+            return _JEVector2D(x, y)
+
         owner.set_position = set_position.__get__(owner, type(owner))
         owner.update_position = update_position.__get__(owner, type(owner))
         owner.get_position = get_position.__get__(owner, type(owner))
+        owner.get_world_position = get_world_position.__get__(owner, type(owner))
 
     @property
     def position(self):

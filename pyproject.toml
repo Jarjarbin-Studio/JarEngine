@@ -14,7 +14,6 @@ requires-python = ">=3.13"
 license = "GPL-3.0-or-later"
 
 dependencies = [
-    "jarbin_toolkit_time>=0.1.2.2",
     "jarbin_toolkit_console>=0.1.2.5",
     "jarbin_toolkit_error>=0.1.6.1",
     "pygame>=2.6.1",

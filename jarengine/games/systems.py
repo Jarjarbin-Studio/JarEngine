@@ -129,23 +129,6 @@ class JERenderSystem(_JEInternSystems):
             else 0
         )
 
-    def _get_world_position(self, entity, position):
-        if not position:
-            return 0, 0
-
-        x = position().x
-        y = position().y
-
-        parent = entity.parents.get(_type=_JEEntity, default=None)
-
-        if parent:
-            px, py = self._get_world_position(parent, parent.get(_JEPositionComponent))
-
-            x += px
-            y += py
-
-        return x, y
-
     def _is_visible(self, entity, visibility):
 
         if visibility and not visibility():
@@ -250,14 +233,14 @@ class JERenderSystem(_JEInternSystems):
 
         if color:
             _PGExtern.draw.rect(
-                window.screen,
+                window.render_surface,
                 color().rgba,
                 rectangle
             )
 
         if outline:
             _PGExtern.draw.rect(
-                window.screen,
+                window.render_surface,
                 outline()[0].rgba,
                 rectangle,
                 outline()[1]
@@ -332,7 +315,7 @@ class JERenderSystem(_JEInternSystems):
         if not self._is_visible(entity, visibility):
             return
 
-        x, y = self._get_world_position(entity, position)
+        x, y = entity.get_world_position()
 
         if surface:
             self._render_surface(window, x, y, surface, size, rotation, flip, color)

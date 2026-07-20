@@ -77,11 +77,11 @@ class JERectangle(_JEWidget):
         super().__init__(name=name, position=position, size=size, rotation=rotation, layer=layer, visibility=visibility)
 
         surface = _PGExtern.Surface(
-            (int(size.x), int(size.y)),
+            list(size),
             _PGExtern.SRCALPHA
         )
 
-        surface.fill(color)
+        surface.fill(color.rgba if isinstance(color, _JEColor) else color)
 
         if outline_color and outline_size:
             _PGExtern.draw.rect(

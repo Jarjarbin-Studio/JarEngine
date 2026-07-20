@@ -32,7 +32,6 @@
 from __future__ import annotations
 
 import pygame as PGExtern
-import jarbin_toolkit_time as JTKExternTime
 import jarbin_toolkit_console as JTKExternConsole
 import jarbin_toolkit_error as JTKExternError
 
@@ -51,7 +50,6 @@ __all__ = [
     "FinalClasses",
     "Config",
     "Decorators",
-    "JTKExternTime",
     "JTKExternConsole",
     "JTKExternError"
 ]

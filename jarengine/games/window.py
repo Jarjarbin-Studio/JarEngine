@@ -68,8 +68,16 @@ class JEWindow(_JEInternBaseClass):
             return
         JEWindow._is_created = _JEBool(1)
         super().__init__()
-        self._screen = _PGExtern.display.set_mode((size.x, size.y) if isinstance(size, _JEVector2D) else size, flags, depth, display, vsync)
-        self._settings = _JEInternWindowSettings(_JEVector2D(*size) if isinstance(size, tuple) else size, flags, fps, depth, display, vsync, title)
+        self._render_surface = _PGExtern.Surface(
+            list(size),
+            _PGExtern.SRCALPHA
+        )
+        self._screen = _PGExtern.display.set_mode(list(size), flags, depth, display, vsync)
+        self._settings = _JEInternWindowSettings(_JEVector2D(*size) if isinstance(size, (tuple, list)) else size, flags, fps, depth, display, vsync, title)
+
+    @property
+    def render_surface(self):
+        return self._render_surface
 
     @property
     def screen(self):
@@ -80,10 +88,20 @@ class JEWindow(_JEInternBaseClass):
         return self._settings
 
     def fill(self, color):
-        self._screen.fill(color.rgba if isinstance(color, _JEColor) else color)
+        self._render_surface.fill(list(color))
+
+    def clear(self):
+        self.fill(_JEColor(0, 0, 0, 0))
 
     def blit(self, source, dest):
-        self._screen.blit(source, dest)
+        self._render_surface.blit(source, list(dest))
+
+    def display(self):
+        self._screen.fill((0, 0, 0, 255))
+        self._screen.blit(
+            self._render_surface,
+            (0, 0)
+        )
 
     def __deepcopy__(self, memo):
         return self
