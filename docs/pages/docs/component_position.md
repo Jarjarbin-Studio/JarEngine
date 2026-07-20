@@ -13,7 +13,7 @@ permalink: /component_position.html
 
 ## 🔹 Overview
 
-**`Position` stores the 2D world position of an entity.**
+**`Position` stores the 2D local position of an entity.**
 
 Provides:
 * Storage of the entity's X and Y coordinates.
