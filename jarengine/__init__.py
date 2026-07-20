@@ -59,36 +59,14 @@ def init(project_path) -> tuple[int, int]:
 
     Interns.Config.JEInternConfig.project_path = f"{project_path.removesuffix("/")}"
     Interns.Config.JEInternConfig.config_path = f"{Interns.Config.JEInternConfig.project_path}/.je-config"
-    config = Interns.Config.JEInternConfig("config", {
-        "PROJECT": {
-            "path": project_path,
-            "first_run": _datetime.now(),
-            "last_run": "",
-            "last_run_duration": "",
-        },
-        "EVENT": {
-            "event_broadcast": False
-        }
-    })
-    config.set("PROJECT", "last_run", _datetime.now())
-    Interns.Config.JEInternConfig("assets", {
-        "ASSETS": {
-            "path": f"{Interns.Config.JEInternConfig.project_path}/assets",
-            "font_dir": "fonts",
-            "texture_dir": "textures",
-            "animation_dir": "animations",
-            "sound_dir": "sounds",
-            "music_dir": "musics",
-        }
-    })
+    Interns.Config.init_all()
     Interns.JTKExternConsole.init(banner=False)
     return Interns.PGExtern.init()
 
 def quit():
     if _start_time is not None:
-        config = Interns.Config.JEInternConfig("config")
         duration = _datetime.now() - _start_time
-        config.set("PROJECT", "last_run_duration", str(duration))
+        Interns.Config.set('session', 'LAST_RUN', 'duration', str(duration))
     Interns.PGExtern.quit()
 
 def _banner():
@@ -97,7 +75,6 @@ def _banner():
         ansi.Line.clear_previous_line(2).s +
         f"JarEngine {JEVersion_JarEngine} (PyGame {JEVersion_PyGame}, SDL {JEVersion_SDL}, Python {JEVersion_Python})"
     )
-
 
 __all__ = [
     ## Special ##

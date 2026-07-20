@@ -37,7 +37,7 @@ from jarengine.games.window import JEWindow as _JEWindow
 from jarengine.games.input import JEInput as _JEInput
 from jarengine.events.manager import JEEventHandler as _JEEventHandler
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
-from jarengine.interns.config import get_config as _get_config
+from jarengine.interns.config import get as _get
 from jarengine.interns import (
     JTKExternError as _JTKExternError,
     PGExtern as _PGExtern
@@ -73,7 +73,6 @@ class JEGame(_JEInternBaseClass):
             return
         JEGame._is_created = _JEBool(1)
         super().__init__()
-        self._config = _get_config()
         self._window = None
         self._resources = _JEInternResources()
         self._entities = _JEContainer(_JEEntity)
@@ -177,7 +176,7 @@ class JEGame(_JEInternBaseClass):
             yield from iterate(entity)
 
     def update(self):
-        self._event_manager.process(self, broadcast = _JEBool(_get_config("config").get_bool('EVENT', 'event_broadcast'))())
+        self._event_manager.process(self, broadcast = _JEBool(_get('event', 'EVENT', 'event_broadcast', bool, _JEBool(0)))())
 
         if self._clock:
             self._clock.update()

@@ -34,7 +34,7 @@ from __future__ import annotations
 from typing import final as _final
 
 from jarengine.interns.config import (
-    get_config as _get_config,
+    get as _get,
     JEInternConfig as _JEInternConfig
 )
 from jarengine.interns import (
@@ -54,7 +54,7 @@ class JETexture(_JEInternResource, _JEInternOwnership):
         super().__init__(name, path)
 
         if not "/" in path:
-            path = f"{_get_config("assets").get('ASSETS', 'path')}/{_get_config("assets").get('ASSETS', 'texture_dir')}/{path}"
+            path = f"{_get('assets', 'ASSETS', 'path')}/{_get('assets', 'DIRECTORY', 'texture')}/{path}"
 
         self._path = path
         try:
