@@ -319,9 +319,9 @@ class JERenderSystem(_JEInternSystems):
 
         if surface:
             self._render_surface(window, x, y, surface, size, rotation, flip, color)
-        elif text and font:
+        if text and font:
             self._render_text(window, x, y, text, font, color, rotation, flip)
-        elif texture:
+        if texture:
             self._render_texture(window, x, y, texture, size, rotation, flip, color)
         elif size and (color or outline):
             self._render_rectangle(window, x, y, size, color, outline)
