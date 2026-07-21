@@ -37,6 +37,7 @@ from datetime import datetime as _datetime
 __author__ = 'Nathan Jarjarbin'
 __email__ = 'nathan.amaraggi@epitech.eu'
 __version__ = "1.8.0"
+__config_version__ = "0.1.0"
 __license__ = "GPL"
 
 ##Imports##

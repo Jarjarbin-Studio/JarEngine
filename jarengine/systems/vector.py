@@ -45,7 +45,7 @@ class JEVector2D(_JETransform):
     def __init__(self, x = 0.0, y = 0.0):
         super().__init__()
 
-        self._vector = [x, y]
+        self._vector = [float(x), float(y)]
 
     @property
     def x(self):
@@ -78,7 +78,7 @@ class JEVector3D(_JETransform):
     def __init__(self, x = 0.0, y = 0.0, z = 0.0):
         super().__init__()
 
-        self._vector: list[float] = [x, y, z]
+        self._vector = [float(x), float(y), float(z)]
 
     @property
     def x(self):

@@ -43,6 +43,7 @@ from jarengine.systems.color import JEColor as _JEColor
 from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.interns.decorators import documentation as _documentation
 from jarengine.systems.vector import JEVector2D as _JEVector2D
+from jarengine.interns.config import get as _get
 
 @_documentation
 @_final
@@ -63,21 +64,55 @@ class JEWindow(_JEInternBaseClass):
         cls._instance = super().__new__(cls)
         return cls._instance
 
-    def __init__(self, *, size = (0, 0), flags = 0, fps = 60, depth = 0, display = 0, vsync = 0, title = "JarEngine Game"):
+    def __init__(self):
         if JEWindow._is_created:
             return
         JEWindow._is_created = _JEBool(1)
+
         super().__init__()
+
+        size = _JEVector2D(
+            _get("window", "WINDOW", "width", int, 1280),
+            _get("window", "WINDOW", "height", int, 720)
+        )
+
+        flags = _PGExtern.FULLSCREEN if _get("window", "WINDOW", "fullscreen", bool, False) else 0
+        flags |= _PGExtern.RESIZABLE if _get("window", "WINDOW", "resizable", bool, True) else 0
+        flags |= _PGExtern.NOFRAME if _get("window", "WINDOW", "borderless", bool, False) else 0
+        flags |= _PGExtern.OPENGL if _get("render", "RENDER", "renderer", str, "pygame") == "opengl" else 0
+        flags |= _PGExtern.DOUBLEBUF if _get("render", "RENDER", "double_buffer", bool, False) else 0
+
+        depth = _get("window", "DISPLAY", "depth", int, 32)
+
+        fps = _get("window", "DISPLAY", "fpr", int, 60)
+
+        vsync = _get("window", "DISPLAY", "vsync", bool, False)
+
+        display = _get("window", "DISPLAY", "display", int, 0)
+
+        title = _get("window", "TITLE", "text", str, "JarEngine Application")
+
+        self._position = _JEVector2D(
+            _get("window", "POSITION", "x", int, 0),
+            _get("window", "POSITION", "y", int, 0)
+        )
+        self._buffered_rendering = _JEBool(_get("render", "RENDER", "mode", str, "buffered") == "buffered")
         self._render_surface = _PGExtern.Surface(
             list(size),
-            _PGExtern.SRCALPHA
+            _PGExtern.SRCALPHA if _get("render", "ALPHA", "enabled", bool, True) else 0
         )
         self._screen = _PGExtern.display.set_mode(list(size), flags, depth, display, vsync)
         self._settings = _JEInternWindowSettings(_JEVector2D(*size) if isinstance(size, (tuple, list)) else size, flags, fps, depth, display, vsync, title)
 
+        if _get("window", "ICON", "enabled", bool, False):
+            icon = _PGExtern.image.load(_get("window", "ICON", "path", str))
+            _PGExtern.display.set_icon(icon)
+
     @property
     def render_surface(self):
-        return self._render_surface
+        if self._buffered_rendering:
+            return self._render_surface
+        return self._screen
 
     @property
     def screen(self):
@@ -88,7 +123,10 @@ class JEWindow(_JEInternBaseClass):
         return self._settings
 
     def fill(self, color):
-        self._render_surface.fill(list(color))
+        if self._buffered_rendering:
+            self._render_surface.fill(list(color))
+        else:
+            self._screen.fill(list(color))
 
     def clear(self):
         self.fill(_JEColor(0, 0, 0, 0))
@@ -97,11 +135,12 @@ class JEWindow(_JEInternBaseClass):
         self._render_surface.blit(source, list(dest))
 
     def display(self):
-        self._screen.fill((0, 0, 0, 255))
-        self._screen.blit(
-            self._render_surface,
-            (0, 0)
-        )
+        if self._buffered_rendering:
+            self._screen.fill((0, 0, 0, 255))
+            self._screen.blit(
+                self._render_surface,
+                list(self._position)
+            )
 
     def __deepcopy__(self, memo):
         return self

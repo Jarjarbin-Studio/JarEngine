@@ -38,18 +38,9 @@ from jarengine.systems.color import JEColor
 from jarengine.systems.vector import JEVector2D
 
 class JEWindow(JEInternBaseClass):
-    def __init__(self, *, size: JEVector2D | tuple[int, int] = JEVector2D(0, 0), flags: int = 0, fps: int = 60, depth: int = 0, display: int = 0, vsync: int = 0, title: str = "JarEngine Game"):
+    def __init__(self):
         """
             JEWindow
-
-            Parameters:
-                size (JEVector2D | tuple[int, int]) = JEVector2D(0, 0): Size
-                flags (int) = 0: Flags (Not handled by JarEngine)
-                fps (int) = 60: FPS
-                depth (int) = 0: Depth (Not handled by JarEngine)
-                display (int) = 0: Display (Not handled by JarEngine)
-                vsync (int) = 0: Vsync (Not handled by JarEngine)
-                title (str) = "JarEngine Game": Title
         """
         ...
     @property

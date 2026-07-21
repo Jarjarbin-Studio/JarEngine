@@ -40,7 +40,10 @@ from jarbin_toolkit_config import Config as _JTKInternConfig
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from jarengine.interns import JTKExternError as _JTKExternError
 from jarengine.interns.decorators import documentation as _documentation
-from jarengine import __version__
+from jarengine import (
+    __version__,
+    __config_version__
+)
 
 @_documentation
 @_final
@@ -65,6 +68,7 @@ class JEInternConfig(_JTKInternConfig, _JEInternBaseClass):
                 "name": name,                                       #Configuration file identifier.
                 "creation": _datetime.now(),                        #Timestamp when this config was first created.
                 "version": __version__,                             #Version of JarEngine when the config was created.
+                "config_version": __config_version__,               #Version of configuration when the config was created
             }
         } | data, file_name=f"je-{name}.ini")
         JEInternConfig.configs[name] = self
@@ -115,40 +119,41 @@ def init_all():
         "engine",
         {
             "ENGINE": {
-                "name": "JarEngine",                                #Engine display name.
-                "version": __version__,                             #Current JarEngine version.
-                "auto_init": True,                                  #Automatically initialize required engine systems.
-                "safe_mode": False,                                 #Enable additional safety checks and restricted behavior.
-                "auto_update": True,                                #Automatically updates internal engine states every frame
-                "error_handling": True,                             #Enables internal error handling and recovery mechanisms
-                "exception_mode": "strict",                         #Defines exception behavior mode (strict, warning, silent)
+                "name": "JarEngine",                                #Engine display name. #Unused
+                "version": __version__,                             #Current JarEngine version. #Unused
+                "auto_init": True,                                  #Automatically initialize required engine systems. #Unused
+                "safe_mode": False,                                 #Enable additional safety checks and restricted behavior. #Unused
+                "auto_update": True,                                #Automatically updates internal engine states every frame #Unused
+                "error_handling": True,                             #Enables internal error handling and recovery mechanisms #Unused
+                "exception_mode": "strict",                         #Defines exception behavior mode (strict, warning, silent) #Unused
             },
 
             "THREAD": {
-                "enabled": False,                                   #Enable or disable multithreaded engine execution.
-                "max_threads": 4,                                   #Maximum number of worker threads available.
+                "enabled": False,                                   #Enable or disable multithreaded engine execution. #Unused
+                "max_threads": 4,                                   #Maximum number of worker threads available. #Unused
             },
 
             "SYSTEM": {
-                "auto_register": True,                              #Automatically register compatible engine systems.
-                "system_sorting": True,                             #Automatically sort systems by execution order.
-                "entity_cache": True,                               #Cache entities matching system requirements.
-                "parallel_execution": False,                        #Enables or disables parallel execution of engine systems
-                "execution_order": "automatic",                     #Defines how systems execution order is determined
+                "auto_register": True,                              #Automatically register compatible engine systems. #Unused
+                "system_sorting": True,                             #Automatically sort systems by execution order. #Unused
+                "entity_cache": True,                               #Cache entities matching system requirements. #Unused
+                "parallel_execution": False,                        #Enables or disables parallel execution of engine systems #Unused
+                "execution_order": "automatic",                     #Defines how systems execution order is determined #Unused
             },
 
             "MEMORY": {
-                "garbage_collection": True,                         #Automatically perform memory cleanup operations.
-                "resource_cache": True,                             #Keep loaded resources cached for faster reuse.
-                "cache_limit": 1024,                                #Maximum number of cached resources allowed.
-                "resource_unload": True,                            #Automatically unloads unused resources from memory
-                "entity_cleanup": True,                             #Automatically removes unused or destroyed entities
+                "garbage_collection": True,                         #Automatically perform memory cleanup operations. #Unused
+                "resource_cache": True,                             #Keep loaded resources cached for faster reuse. #Unused
+                "cache_limit": 1024,                                #Maximum number of cached resources allowed. #Unused
+                "resource_unload": True,                            #Automatically unloads unused resources from memory #Unused
+                "entity_cleanup": True,                             #Automatically removes unused or destroyed entities #Unused
             },
 
             "COMPATIBILITY": {
-                "jarengine_version_check": True,                    #Checks if the installed JarEngine version is compatible
-                "pygame_version_check": True,                       #Checks if the installed PyGame version is compatible
-                "python_version_check": True,                       #Checks if the current Python version is compatible
+                "jarengine_version_check": True,                    #Checks if the installed JarEngine version is compatible #Unused
+                "pygame_version_check": True,                       #Checks if the installed PyGame version is compatible #Unused
+                "python_version_check": True,                       #Checks if the current Python version is compatible #Unused
+                "config_version_check": True,                       #Checks if the each config version are compatible #Unused
             },
         }
     )
@@ -157,15 +162,15 @@ def init_all():
         "project",
         {
             "PROJECT": {
-                "name": "Unnamed Project",                          #Defines the display name of the project
-                "path": JEInternConfig.project_path,                #Defines the absolute path where the project is located
-                "version": "0.1.0",                                 #Defines the absolute path where the project is located
-                "engine_version": __version__                       #Defines the JarEngine version required by the project
+                "name": "Unnamed Project",                          #Defines the display name of the project #Unused
+                "path": JEInternConfig.project_path,                #Defines the absolute path where the project is located #Unused
+                "version": "0.1.0",                                 #Defines the absolute path where the project is located #Unused
+                "engine_version": __version__                       #Defines the JarEngine version required by the project #Unused
             },
 
             "AUTHOR": {
-                "name": "",                                         #Defines the name of the project author
-                "company": "",                                      #Defines the company or organization associated with the project
+                "name": "",                                         #Defines the name of the project author #Unused
+                "company": "",                                      #Defines the company or organization associated with the project #Unused
             },
         }
     )
@@ -202,6 +207,7 @@ def init_all():
             },
 
             "DISPLAY": {
+                "display": 0,                                       #Display where the window will be created
                 "vsync": False,                                     #Synchronizes rendering with the monitor refresh rate.
                 "fps": 60,                                          #Maximum target frames per second.
                 "depth": 32,                                        #Color depth of the display surface in bits.
@@ -228,39 +234,41 @@ def init_all():
         "render",
         {
             "RENDER": {
+                "mode": "buffered",                                 #Rendering mode: buffered or direct
                 "renderer": "pygame",                               #Rendering backend used by the engine.
-                "clear_each_frame": True,                           #Clears the render surface before drawing each frame.
+                "double_buffer": False,                             #Enables double buffering for smoother rendering (only if using opengl renderer).
+                "clear_each_frame": True,                           #Clears the render surface before drawing each frame. #Unused
             },
 
             "BACKGROUND": {
-                "color": "20,15,20,255",                            #Default background color applied when clearing the render surface (RGBA format).
+                "color": "20,15,20,255",                            #Default background color applied when clearing the render surface (RGBA format). #Unused
             },
 
             "ALPHA": {
                 "enabled": True,                                    #Enables transparency support in the rendering pipeline.
-                "surface_format": "RGBA",                           #Pixel format used by rendering surfaces.
-                "premultiplied": False,                             #Enables or disables premultiplied alpha blending.
+                "surface_format": "RGBA",                           #Pixel format used by rendering surfaces. #Unused
+                "premultiplied": False,                             #Enables or disables premultiplied alpha blending. #Unused
             },
 
             "LAYER": {
-                "enabled": True,                                    #Enables the layer-based rendering system.
-                "automatic_sort": True,                             #Automatically sorts entities by their rendering layer.
-                "min": 0,                                           #Minimum allowed rendering layer value.
-                "max": 999999,                                      #Maximum allowed rendering layer value.
+                "enabled": True,                                    #Enables the layer-based rendering system. #Unused
+                "automatic_sort": True,                             #Automatically sorts entities by their rendering layer. #Unused
+                "min": 0,                                           #Minimum allowed rendering layer value. #Unused
+                "max": 999999,                                      #Maximum allowed rendering layer value. #Unused
             },
 
             "TEXT": {
-                "antialias": True,                                  #Enables font smoothing when rendering text.
+                "antialias": True,                                  #Enables font smoothing when rendering text. #Unused
             },
 
             "TEXTURE": {
-                "smooth_scaling": True,                             #Enables filtered texture scaling to reduce pixelation.
+                "smooth_scaling": True,                             #Enables filtered texture scaling to reduce pixelation. #Unused
             },
 
             "DEBUG": {
-                "show_fps": False,                                  #Displays the current frames per second counter.
-                "show_hitboxes": False,                             #Displays collision or object boundaries for debugging.
-                "show_layers": False,                               #Displays entity rendering layers for debugging.
+                "show_fps": False,                                  #Displays the current frames per second counter. #Unused
+                "show_hitboxes": False,                             #Displays collision or object boundaries for debugging. #Unused
+                "show_layers": False,                               #Displays entity rendering layers for debugging. #Unused
             },
         }
     )
@@ -275,26 +283,26 @@ def init_all():
             "DIRECTORY": {
                 "font": "fonts",                                    #Directory containing font files.
                 "texture": "textures",                              #Directory containing texture and image files.
-                "animation": "animations",                          #Directory containing animation assets.
+                "animation": "animations",                          #Directory containing animation assets. #Unused
                 "sound": "sounds",                                  #Directory containing sound effect files.
                 "music": "musics",                                  #Directory containing background music files.
-                "shader": "shaders",                                #Directory containing shader source files.
-                "scene": "scenes",                                  #Directory containing scene definitions.
-                "prefab": "prefabs",                                #Directory containing reusable prefab definitions.
+                "shader": "shaders",                                #Directory containing shader source files. #Unused
+                "scene": "scenes",                                  #Directory containing scene definitions. #Unused
+                "prefab": "prefabs",                                #Directory containing reusable prefab definitions. #Unused
             },
 
             "LOADER": {
-                "recursive": True,                                  #Search asset directories recursively.
-                "lazy_loading": True,                               #Load assets only when first requested.
-                "cache": True,                                      #Keep loaded assets cached in memory.
+                "recursive": True,                                  #Search asset directories recursively. #Unused
+                "lazy_loading": True,                               #Load assets only when first requested. #Unused
+                "cache": True,                                      #Keep loaded assets cached in memory. #Unused
             },
 
             "TEXTURE": {
-                "extensions": "png,jpg,jpeg,bmp",                      #Comma-separated list of supported texture formats.
+                "extensions": "png,jpg,jpeg,bmp",                      #Comma-separated list of supported texture formats. #Unused
             },
 
             "AUDIO": {
-                "extensions": "wav,ogg,mp3",                           #Comma-separated list of supported audio formats.
+                "extensions": "wav,ogg,mp3",                           #Comma-separated list of supported audio formats. #Unused
             },
         }
     )
@@ -303,30 +311,30 @@ def init_all():
         "input",
         {
             "INPUT": {
-                "enabled": True,                                    #Enables or disables the global input management system
+                "enabled": True,                                    #Enables or disables the global input management system #Unused
             },
 
             "MOUSE": {
-                "enabled": True,                                    #Enables or disables mouse input handling
-                "visible": True,                                    #Controls whether the mouse cursor is visible inside the window
-                "relative": False,                                  #Enables or disables relative mouse movement mode
+                "enabled": True,                                    #Enables or disables mouse input handling #Unused
+                "visible": True,                                    #Controls whether the mouse cursor is visible inside the window #Unused
+                "relative": False,                                  #Enables or disables relative mouse movement mode #Unused
             },
 
             "KEYBOARD": {
-                "enabled": True,                                    #Enables or disables keyboard input handling
-                "repeat": False,                                    #Enables or disables repeated key events while holding a key
+                "enabled": True,                                    #Enables or disables keyboard input handling #Unused
+                "repeat": False,                                    #Enables or disables repeated key events while holding a key #Unused
             },
 
             "GAMEPAD": {
-                "enabled": False,                                   #Enables or disables gamepad input handling
-                "max_devices": 4,                                   #Defines the maximum number of supported gamepad devices
+                "enabled": False,                                   #Enables or disables gamepad input handling #Unused
+                "max_devices": 4,                                   #Defines the maximum number of supported gamepad devices #Unused
             },
 
             "BINDING": {
-                "move_up": "z",                                     #Defines the key used for moving upward
-                "move_down": "s",                                   #Defines the key used for moving downward
-                "move_left": "q",                                   #Defines the key used for moving left
-                "move_right": "d",                                  #Defines the key used for moving right
+                "move_up": "z",                                     #Defines the key used for moving upward #Unused
+                "move_down": "s",                                   #Defines the key used for moving downward #Unused
+                "move_left": "q",                                   #Defines the key used for moving left #Unused
+                "move_right": "d",                                  #Defines the key used for moving right #Unused
             },
         }
     )
@@ -335,23 +343,23 @@ def init_all():
         "audio",
         {
             "AUDIO": {
-                "enabled": True,                                    #Enable or disable the entire audio system.
-                "master_volume": 1.0,                               #Global volume multiplier applied to all audio.
+                "enabled": True,                                    #Enable or disable the entire audio system. #Unused
+                "master_volume": 1.0,                               #Global volume multiplier applied to all audio. #Unused
             },
 
             "MUSIC": {
-                "enabled": True,                                    #Enable or disable background music playback.
-                "volume": 0.8,                                      #Default music volume multiplier.
+                "enabled": True,                                    #Enable or disable background music playback. #Unused
+                "volume": 0.8,                                      #Default music volume multiplier. #Unused
             },
 
             "SOUND": {
-                "enabled": True,                                    #Enable or disable sound effect playback.
-                "volume": 1.0,                                      #Default sound effect volume multiplier.
+                "enabled": True,                                    #Enable or disable sound effect playback. #Unused
+                "volume": 1.0,                                      #Default sound effect volume multiplier. #Unused
             },
 
             "DEVICE": {
-                "channels": 32,                                     #Number of simultaneous audio channels available.
-                "frequency": 44100,                                 #Audio output sample rate in Hz.
+                "channels": 32,                                     #Number of simultaneous audio channels available. #Unused
+                "frequency": 44100,                                 #Audio output sample rate in Hz. #Unused
             },
         }
     )
@@ -360,32 +368,32 @@ def init_all():
         "debug",
         {
             "DEBUG": {
-                "enabled": False,                                   #Enable or disable all debug features.
+                "enabled": False,                                   #Enable or disable all debug features. #Unused
             },
 
             "LOG": {
-                "enabled": True,                                    #Enable or disable engine logging.
-                "level": "INFO",                                    #Minimum log severity to record.
-                "file": "jarengine.log",                            #Log file name.
+                "enabled": True,                                    #Enable or disable engine logging. #Unused
+                "level": "INFO",                                    #Minimum log severity to record. #Unused
+                "file": "jarengine.log",                            #Log file name. #Unused
             },
 
             "ASSERT": {
-                "enabled": True,                                    #Enable or disable runtime assertions.
+                "enabled": True,                                    #Enable or disable runtime assertions. #Unused
             },
 
             "PROFILE": {
-                "enabled": False,                                   #Enable or disable performance profiling.
+                "enabled": False,                                   #Enable or disable performance profiling. #Unused
             },
 
             "MEMORY": {
-                "track_entities": False,                            #Track entity allocation and lifetime.
-                "track_resources": False,                           #Track resource allocation and lifetime.
+                "track_entities": False,                            #Track entity allocation and lifetime. #Unused
+                "track_resources": False,                           #Track resource allocation and lifetime. #Unused
             },
 
             "DISPLAY": {
-                "show_fps": False,                                  #Display the current FPS on screen.
-                "show_entity_count": False,                         #Display the current number of loaded entities.
-                "show_components": False,                           #Display the current number of loaded entities.
+                "show_fps": False,                                  #Display the current FPS on screen. #Unused
+                "show_entity_count": False,                         #Display the current number of loaded entities. #Unused
+                "show_components": False,                           #Display the current number of loaded entities. #Unused
             },
         }
     )
@@ -394,22 +402,22 @@ def init_all():
         "physics",
         {
             "PHYSICS": {
-                "enabled": False,                                   #Enables or disables the physics simulation system.
+                "enabled": False,                                   #Enables or disables the physics simulation system. #Unused
             },
 
             "WORLD": {
-                "gravity_x": 0,                                     #Horizontal gravity acceleration applied to physics objects.
-                "gravity_y": 9.81,                                  #Vertical gravity acceleration applied to physics objects.
+                "gravity_x": 0,                                     #Horizontal gravity acceleration applied to physics objects. #Unused
+                "gravity_y": 9.81,                                  #Vertical gravity acceleration applied to physics objects. #Unused
             },
 
             "TIME": {
-                "fixed_update": True,                               #Uses a fixed timestep update loop for deterministic physics simulation.
-                "timestep": 1 / 60,                                 #Fixed physics update interval in seconds.
+                "fixed_update": True,                               #Uses a fixed timestep update loop for deterministic physics simulation. #Unused
+                "timestep": 1 / 60,                                 #Fixed physics update interval in seconds. #Unused
             },
 
             "COLLISION": {
-                "enabled": True,                                    #Enables collision detection and response.
-                "layers": True,                                     #Enables collision layers filtering between object groups.
+                "enabled": True,                                    #Enables collision detection and response. #Unused
+                "layers": True,                                     #Enables collision layers filtering between object groups. #Unused
             },
         }
     )
@@ -418,17 +426,17 @@ def init_all():
         "event",
         {
             "EVENT": {
-                "enabled": True,                                    #Enables or disables the event management system
-                "event_broadcast": False,                           #Allows events to be automatically broadcasted to registered listeners
+                "enabled": True,                                    #Enables or disables the event management system #Unused
+                "event_broadcast": False,                           #Allows events to be automatically broadcasted to registered listeners #Unused
             },
 
             "QUEUE": {
-                "enabled": True,                                    #Enables the internal event queue system
-                "max_size": 1000,                                   #Maximum number of events stored in the queue before overflow
+                "enabled": True,                                    #Enables the internal event queue system #Unused
+                "max_size": 1000,                                   #Maximum number of events stored in the queue before overflow #Unused
             },
 
             "DEBUG": {
-                "log_events": False,                                #Logs emitted and processed events for debugging purposes
+                "log_events": False,                                #Logs emitted and processed events for debugging purposes #Unused
             },
         }
     )
