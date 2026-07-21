@@ -31,8 +31,15 @@
 
 from __future__ import annotations
 
+from enum import IntEnum
+
 from jarengine.interns.base_classe import JEInternBaseClass
 from jarengine.interns import PGExtern
+
+class JECompatibility(IntEnum):
+    OK: int
+    WARNING: int
+    ERROR: int
 
 class JEVersion(PGExtern.version.SoftwareVersion, JEInternBaseClass):
     def __init__(self, major: int, minor: int, patch: int):
@@ -78,5 +85,16 @@ class JEVersion(PGExtern.version.SoftwareVersion, JEInternBaseClass):
 
             Returns:
                 int: Patch version
+        """
+        ...
+    def compatibility(self, other: JEVersion) -> int:
+        """
+            Check backward compatibility
+            
+            Parameters:
+                other (JEVersion): JEVersion
+            
+            Returns:
+                
         """
         ...

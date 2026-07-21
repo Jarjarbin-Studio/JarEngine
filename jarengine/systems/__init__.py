@@ -37,7 +37,7 @@ from jarengine.systems.color import JEColor
 from jarengine.systems.bool import JEBool
 from jarengine.systems.container import JEContainer
 from jarengine.systems.immutable import JEImmutable
-from jarengine.systems.version import JEVersion
+from jarengine.systems.version import JEVersion, JECompatibility
 
 __all__ = [
     'JETransform',
@@ -47,5 +47,6 @@ __all__ = [
     'JEBool',
     'JEContainer',
     'JEImmutable',
-    'JEVersion'
+    'JEVersion',
+    'JECompatibility'
 ]

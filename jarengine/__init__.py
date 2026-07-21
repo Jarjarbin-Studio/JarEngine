@@ -60,7 +60,10 @@ def init(project_path) -> tuple[int, int]:
 
     Interns.Config.JEInternConfig.project_path = f"{project_path.removesuffix("/")}"
     Interns.Config.JEInternConfig.config_path = f"{Interns.Config.JEInternConfig.project_path}/.je-config"
+
     Interns.Config.init_all()
+    Interns.Config._Checks.compatibility()
+
     Interns.JTKExternConsole.init(banner=False)
     return Interns.PGExtern.init()
 
@@ -82,6 +85,7 @@ __all__ = [
     "__author__",
     "__email__",
     "__version__",
+    "__config_version__",
     "__license__",
     ## Imports ##
     'Interns',
@@ -97,6 +101,7 @@ __all__ = [
     ## Constants ##
     # Versions #
     'JEVersion_JarEngine',
+    'JEVersion_Config',
     'JEVersion_PyGame',
     'JEVersion_SDL',
     'JEVersion_Python',

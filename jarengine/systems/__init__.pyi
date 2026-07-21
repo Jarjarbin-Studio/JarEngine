@@ -45,7 +45,7 @@ from .color import JEColor
 from .bool import JEBool
 from .container import JEContainer
 from .immutable import JEImmutable
-from .version import JEVersion
+from .version import JEVersion, JECompatibility
 
 __all__: list[str] = [
     'JETransform',
@@ -55,5 +55,6 @@ __all__: list[str] = [
     'JEBool',
     'JEContainer',
     'JEImmutable',
-    'JEVersion'
+    'JEVersion',
+    'JECompatibility'
 ]

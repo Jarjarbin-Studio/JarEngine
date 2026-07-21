@@ -78,6 +78,7 @@ __all__: list[str] = [
     "__author__",
     "__email__",
     "__version__",
+    "__config_version__",
     "__license__",
     ## Imports ##
     'Interns',
@@ -93,6 +94,7 @@ __all__: list[str] = [
     ## Constants ##
     # Versions #
     'JEVersion_JarEngine',
+    'JEVersion_Config',
     'JEVersion_PyGame',
     'JEVersion_SDL',
     'JEVersion_Python',

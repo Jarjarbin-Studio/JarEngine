@@ -37,6 +37,7 @@ from jarengine.systems.version import JEVersion
 
 # Versions #
 JEVersion_JarEngine: JEVersion
+JEVersion_Config: JEVersion
 JEVersion_PyGame: JEVersion
 JEVersion_SDL: JEVersion
 JEVersion_Python: JEVersion
