@@ -36,7 +36,7 @@ from typing import (
     Callable as _Callable
 )
 
-from events.keyboard import JEKeyCode
+from jarengine.events.keyboard import JEKeyCode
 from jarengine.events.event import JEEventCode as _JEEventCode
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from jarengine.interns import (
