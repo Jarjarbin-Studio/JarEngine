@@ -36,7 +36,10 @@ from typing import final as _final
 from jarengine.interns import PGExtern as _PGExtern
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from jarengine.interns.decorators import documentation as _documentation
-from jarengine.interns.helpers import assertion_type as _assertion_type
+from jarengine.interns.helpers import (
+    assertion_type as _assertion_type,
+    safe_cast as _safe_cast
+)
 
 @_documentation
 @_final
@@ -46,7 +49,7 @@ class JEClock(_JEInternBaseClass):
 
     def __init__(self, fps = 60):
 
-        _assertion_type(fps, int, "fps must be of type 'int'")
+        fps = _safe_cast(_assertion_type(fps, int, "fps must be of type 'int'"), int)
 
         super().__init__()
         self._clock = _PGExtern.time.Clock()
@@ -67,7 +70,7 @@ class JEClock(_JEInternBaseClass):
     @target_fps.setter
     def target_fps(self, value):
 
-        _assertion_type(value, int, "value must be of type 'int'")
+        value = _safe_cast(_assertion_type(value, int, "value must be of type 'int'"), int)
 
         self._target_fps = max(1, value)
 

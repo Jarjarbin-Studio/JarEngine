@@ -46,15 +46,10 @@ from jarengine.systems.bool import JEBool
 from jarengine.systems.clock import JEClock
 from jarengine.widgets.widget import JEWidget
 
-
 class JEGame(JEInternBaseClass):
-    def __init__(self, *, use_clock: JEBool = JEBool(0), use_input: JEBool = JEBool(0)):
+    def __init__(self):
         """
             JEGame
-
-            Parameters:
-                use_clock (JEBool) = JEFalse: Activate clock handler
-                use_input (JEBool) = JEFalse: Activate input handler
         """
         ...
     def set_window(self, window: JEWindow):

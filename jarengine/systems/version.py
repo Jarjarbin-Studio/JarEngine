@@ -53,7 +53,7 @@ class JEVersion(_PGExtern.version.SoftwareVersion, _JEInternBaseClass):
 
     def compatibility(self, other):
 
-        _assertion_type(other, JEVersion, "other must be of type 'JEVersion'")
+        _assertion_type(other, JEVersion, "other must be of type 'JEVersion'", True)
 
         if self.major != other.major:
             return JECompatibility.ERROR

@@ -36,6 +36,8 @@ from typing import final as _final
 from jarengine.games.window import JEWindow as _JEWindow
 from jarengine.games.input import JEInput as _JEInput
 from jarengine.events.manager import JEEventHandler as _JEEventHandler
+from jarengine.events.keyboard import JEKeyCode as _JEKeyCode
+from jarengine.events.mouse import JEMouseCode as _JEMouseCode
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from jarengine.interns.config import get as _get
 from jarengine.interns import (
@@ -49,7 +51,11 @@ from jarengine.interns.final_classes import JEInternResources as _JEInternResour
 from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.systems.clock import JEClock as _JEClock
 from jarengine.interns.decorators import documentation as _documentation
-from jarengine.interns.helpers import assertion_type as _assertion_type
+from jarengine.interns.helpers import (
+    assertion_type as _assertion_type,
+    safe_cast as _safe_cast,
+    enabled as _enabled
+)
 
 @_documentation
 @_final
@@ -69,7 +75,7 @@ class JEGame(_JEInternBaseClass):
         cls._instance = super().__new__(cls)
         return cls._instance
 
-    def __init__(self, *, use_clock = _JEBool(0), use_input = _JEBool(0)):
+    def __init__(self):
         if JEGame._is_created:
             return
         JEGame._is_created = _JEBool(1)
@@ -77,17 +83,16 @@ class JEGame(_JEInternBaseClass):
         self._window = None
         self._resources = _JEInternResources()
         self._entities = _JEContainer(_JEEntity)
-        self._clock = _JEClock() if use_clock else None
-        self._input = _JEInput() if use_input else None
+        self._clock = _JEClock() if _get("window", "DISPLAY", "fps") != -1 else None
+        self._input = _JEInput() if _enabled("input", "INPUT") else None
         self._is_open = _JEBool(1)
         self._event_manager = _JEEventHandler()
         self._systems = _JEContainer(_JEInternSystems, _JEBool(1))
 
     def set_window(self, window):
-        if not isinstance(window, _JEWindow):
-            raise _JTKExternError.Error.ErrorType(
-                f"\n{type(window).__name__!r} isn't of type  {_JEWindow.__name__!r}."
-            )
+
+        _assertion_type(window, _JEWindow, "window must be of type 'JEWindow'", True)
+
         if self._window:
             raise _JTKExternError.Error.ErrorRuntime(
                 f"\nWindow already set."
@@ -108,9 +113,15 @@ class JEGame(_JEInternBaseClass):
         return self._input
 
     def is_key_down(self, key):
+
+        key = _safe_cast(_assertion_type(key, _JEKeyCode, "key must be of type 'JEKeyCode'"), _JEKeyCode)
+
         return self._input.is_key_down(key)
 
     def is_mouse_down(self, button):
+
+        button = _safe_cast(_assertion_type(button, _JEMouseCode, "button must be of type 'JEMouseCode'"), _JEMouseCode)
+
         return self._input.is_mouse_down(button)
 
     @property
@@ -143,10 +154,17 @@ class JEGame(_JEInternBaseClass):
             self._clock.target_fps = self._window.settings.fps
 
     def refresh_entity(self, entity):
+
+        _assertion_type(entity, _JEEntity, "entity must be of type 'JEEntity'", True)
+
         for system in self._systems:
             system.refresh_entity(entity)
 
     def add_entity(self, entity, *, refresh = _JEBool(0)):
+
+        _assertion_type(entity, _JEEntity, "entity must be of type 'JEEntity'", True)
+        refresh = _safe_cast(_assertion_type(refresh, _JEBool, "refresh must be of type 'JEBool'"), _JEBool)
+
         self._entities.add(entity)
         entity.add_parent(self)
         if refresh:
@@ -157,6 +175,9 @@ class JEGame(_JEInternBaseClass):
         return self._entities
 
     def add_system(self, system):
+
+        _assertion_type(system, _JEInternSystems, "system must be of type 'JEInternSystems'", True)
+
         self._systems.add(system)
 
     @property

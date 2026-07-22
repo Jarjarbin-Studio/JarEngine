@@ -44,7 +44,10 @@ from jarengine.interns import (
 )
 from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.interns.decorators import documentation as _documentation
-from jarengine.interns.helpers import assertion_type as _assertion_type
+from jarengine.interns.helpers import (
+    assertion_type as _assertion_type,
+    safe_cast as _safe_cast
+)
 
 @_documentation
 @_final
@@ -94,7 +97,7 @@ class JEKeyCode(_JEInternBaseClass):
     def __init__(self, key = None):
 
         if key:
-            _assertion_type(key, int, "key must be of type 'int'")
+            key = _safe_cast( _assertion_type(key, (JEKeyCode, int), "key must be of type 'int'"), int)
 
         if hasattr(self, "_initialized") or key is None:
             return
@@ -108,6 +111,9 @@ class JEKeyCode(_JEInternBaseClass):
     def __int__(self):
         return self._key
 
+    def __list__(self):
+        return [int(self)]
+
     def __str__(self):
         return self._name
 
@@ -117,13 +123,13 @@ class JEKeyCode(_JEInternBaseClass):
 
     def __or__(self, other):
 
-        _assertion_type(other, JEKeyCode, "other must be of type 'JEKeyCode'")
+        other = _safe_cast(_assertion_type(other, JEKeyCode, "other must be of type 'JEKeyCode'"), JEKeyCode)
 
         return JEKeyCodeGroup([self, other])
 
     def __eq__(self, other):
 
-        _assertion_type(other, JEKeyCode, "other must be of type 'JEKeyCode'")
+        other = _safe_cast(_assertion_type(other, (JEKeyCode, int), "other must be of type 'JEKeyCode'"), JEKeyCode)
 
         return _JEBool(int(self) == int(other))
 
@@ -138,14 +144,14 @@ class JEKeyCodeGroup(_JEInternBaseClass):
 
     def __init__(self, keys):
 
-        _assertion_type(keys, list, "events must be of type 'list'")
+        keys = _safe_cast(_assertion_type(keys, list, "events must be of type 'list'"), list)
 
         super().__init__()
         self._keys = list(dict.fromkeys(keys))
 
     def __or__(self, other):
 
-        _assertion_type(other, (JEKeyCode, JEKeyCodeGroup), "other must be of type 'JEKeyCode' or 'JEKeyCodeGroup'")
+        other = _safe_cast(_assertion_type(other, (JEKeyCode, JEKeyCodeGroup), "other must be of type 'JEKeyCode' or 'JEKeyCodeGroup'"), JEKeyCodeGroup)
 
         if isinstance(other, JEKeyCode):
             return JEKeyCodeGroup([*self._keys, other])
@@ -167,9 +173,9 @@ class JEKeyWatcher(_JEInternBaseClass):
 
     def __init__(self, on, do, on_press = _JEBool(1)):
 
-        _assertion_type(on, (JEKeyCode, list, JEKeyCodeGroup), "on must be of type 'JEKeyCode', 'list' or 'JEKeyCodeGroup'")
+        _assertion_type(on, (JEKeyCode, list, JEKeyCodeGroup), "on must be of type 'JEKeyCode', 'list' or 'JEKeyCodeGroup'", True)
         _assertion_type(do, _Callable, "do must be of type 'Callable'")
-        _assertion_type(on_press, _JEBool, "on_press must be of type 'JEBool'")
+        on_press = _safe_cast(_assertion_type(on_press, _JEBool, "on_press must be of type 'JEBool'"), _JEBool)
 
         super().__init__()
         self._on = (

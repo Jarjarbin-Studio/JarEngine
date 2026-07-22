@@ -52,7 +52,7 @@ class JEInternConfig(_JTKInternConfig, _JEInternBaseClass):
     configs = {}
 
     def __init__(self, name, data = None):
-        from constants import (
+        from jarengine.constants import (
             JEVersion_JarEngine as _JEVersion_JarEngine,
             JEVersion_Config as _JEVersion_Config
         )
@@ -117,7 +117,7 @@ def set(name, section, setting, value):
         raise _JTKExternError.Special.ErrorSpecialConfig("\nSection or setting not found")
 
 def init_all():
-    from constants import (
+    from jarengine.constants import (
         JEVersion_JarEngine as _JEVersion_JarEngine,
         JEVersion_Config as _JEVersion_Config,
         JEVersion_PyGame as _JEVersion_PyGame,
@@ -133,6 +133,7 @@ def init_all():
                 "safe_mode": False,                                 #Enable additional safety checks and restricted behavior.
                 "auto_update": True,                                #Automatically updates internal engine states every frame #Unused
                 "error_handling": False,                            #Enables internal error handling and recovery mechanisms
+                "error_traceback": True,                            #Enables internal error traceback
                 "exception_mode": "strict",                         #Defines exception behavior mode (strict, warning, silent)
             },
 
@@ -478,7 +479,7 @@ class _Checks:
             error as _error,
             warning as _warning,
         )
-        from constants import (
+        from jarengine.constants import (
             JEVersion_JarEngine as _JEVersion_JarEngine,
             JEVersion_Config as _JEVersion_Config,
             JEVersion_PyGame as _JEVersion_PyGame,

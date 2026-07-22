@@ -35,16 +35,17 @@ from typing import Optional, Any, TypeVar
 
 from jarengine.systems.version import JEVersion
 
-def assertion(condition: bool, message: str):
+def assertion(condition: bool, message: str, strict: bool = False):
     """
         Run an assertion
         
         Parameters:
             condition (bool): condition
             message (str): message
+            strict (bool): force the exception raise if True
     """
     ...
-def assertion_type(value: Any, _type: type | TypeVar | tuple[type | TypeVar, ...], message: str):
+def assertion_type(value: Any, _type: type | TypeVar | tuple[type | TypeVar, ...], message: str, strict: bool = False):
     """
         Run a type assertion
 
@@ -52,9 +53,20 @@ def assertion_type(value: Any, _type: type | TypeVar | tuple[type | TypeVar, ...
             value (Any): condition
             _type (type | tuple[type, ...]): type
             message (str): message
+            strict (bool): force the exception raise if True
     """
     ...
-    assertion(isinstance(value, type), message)
+def assertion_class(value: Any, _class: type | TypeVar | tuple[type | TypeVar, ...], message: str, strict: bool = False):
+    """
+        Run a subclass assertion
+
+        Parameters:
+            value (Any): condition
+            _class (type | tuple[type, ...]): class
+            message (str): message
+            strict (bool): force the exception raise if True
+    """
+    ...
 def error(err: Exception | str):
     """
         Show an error
@@ -167,5 +179,17 @@ def version(config: str, section: str, key: str) -> JEVersion:
         
         Returns:
             JEVersion: Version
+    """
+    ...
+def safe_cast(value: Any, _type: type) -> Any:
+    """
+        Cast a value
+
+        Parameters:
+            value (str): Value to cast
+            _type (str): Type to cast in
+
+        Returns:
+            Any: Cast value
     """
     ...

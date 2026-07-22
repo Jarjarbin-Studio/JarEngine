@@ -131,13 +131,13 @@ class JEImmutable(_Generic[_T], _JEInternBaseClass):
 
     def map(self, func):
 
-        _assertion_type(func, _Callable, "func must be of type 'Callable'")
+        _assertion_type(func, _Callable, "func must be of type 'Callable'", True)
 
         return list(map(func, self._reconstruction))
 
     def filter(self, func):
 
-        _assertion_type(func, _Callable, "func must be of type 'Callable'")
+        _assertion_type(func, _Callable, "func must be of type 'Callable'", True)
 
         return list(filter(func, self._reconstruction))
 

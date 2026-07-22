@@ -36,6 +36,7 @@ from typing import (
     Callable as _Callable
 )
 
+from events.keyboard import JEKeyCode
 from jarengine.events.event import JEEventCode as _JEEventCode
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from jarengine.interns import (
@@ -44,7 +45,10 @@ from jarengine.interns import (
 )
 from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.interns.decorators import documentation as _documentation
-from jarengine.interns.helpers import assertion_type as _assertion_type
+from jarengine.interns.helpers import (
+    assertion_type as _assertion_type,
+    safe_cast as _safe_cast
+)
 
 @_documentation
 @_final
@@ -80,7 +84,7 @@ class JEMouseCode(_JEInternBaseClass):
     def __init__(self, mouse = None):
 
         if mouse:
-            _assertion_type(mouse, int, "mouse must be of type 'int'")
+            mouse = _safe_cast(_assertion_type(mouse, (JEMouseCode, int), "mouse must be of type 'int'"), int)
 
         if hasattr(self, "_initialized") or mouse is None:
             return
@@ -94,6 +98,9 @@ class JEMouseCode(_JEInternBaseClass):
     def __int__(self):
         return self._mouse
 
+    def __list__(self):
+        return [int(self)]
+
     def __str__(self):
         return self._name
 
@@ -103,13 +110,13 @@ class JEMouseCode(_JEInternBaseClass):
 
     def __or__(self, other):
 
-        _assertion_type(other, JEMouseCode, "other must be of type 'JEMouseCode'")
+        other = _safe_cast(_assertion_type(other, JEMouseCode, "other must be of type 'JEMouseCode'"), JEMouseCode)
 
         return JEMouseCodeGroup([self, other])
 
     def __eq__(self, other):
 
-        _assertion_type(other, JEMouseCode, "other must be of type 'JEMouseCode'")
+        other = _safe_cast(_assertion_type(other, (JEMouseCode, int), "other must be of type 'JEMouseCode'"), JEKeyCode)
 
         return _JEBool(int(self) == int(other))
 
@@ -127,14 +134,14 @@ class JEMouseCodeGroup(_JEInternBaseClass):
             mouses
         ):
 
-        _assertion_type(mouses, list, "events must be of type 'list'")
+        mouses = _safe_cast(_assertion_type(mouses, list, "events must be of type 'list'"), list)
 
         super().__init__()
         self._mouses = list(dict.fromkeys(mouses))
 
     def __or__(self, other):
 
-        _assertion_type(other, (JEMouseCode, JEMouseCodeGroup), "other must be of type 'JEMouseCode' or 'JEMouseCodeGroup'")
+        other = _safe_cast(_assertion_type(other, (JEMouseCode, JEMouseCodeGroup), "other must be of type 'JEMouseCode' or 'JEMouseCodeGroup'"), JEMouseCodeGroup)
 
         if isinstance(other, JEMouseCode):
             return JEMouseCodeGroup([*self._mouses, other])
@@ -156,9 +163,9 @@ class JEMouseWatcher(_JEInternBaseClass):
 
     def __init__(self, on, do, on_press = _JEBool(1)):
 
-        _assertion_type(on, (JEMouseCode, list, JEMouseCodeGroup), "on must be of type 'JEMouseCode', 'list' or 'JEMouseCodeGroup'")
+        _assertion_type(on, (JEMouseCode, list, JEMouseCodeGroup), "on must be of type 'JEMouseCode', 'list' or 'JEMouseCodeGroup'", True)
         _assertion_type(do, _Callable, "do must be of type 'Callable'")
-        _assertion_type(on_press, _JEBool, "on_press must be of type 'JEBool'")
+        on_press = _safe_cast( _assertion_type(on_press, _JEBool, "on_press must be of type 'JEBool'"), _JEBool)
 
         super().__init__()
         self._on = (

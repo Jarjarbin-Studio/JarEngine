@@ -36,7 +36,10 @@ from typing import final as _final
 from jarengine.interns import JTKExternError as _JTKExternError
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from jarengine.interns.decorators import documentation as _documentation
-from jarengine.interns.helpers import assertion_type as _assertion_type
+from jarengine.interns.helpers import (
+    assertion_type as _assertion_type,
+    safe_cast as _safe_cast
+)
 
 @_documentation
 @_final
@@ -46,10 +49,10 @@ class JEColor(_JEInternBaseClass):
 
     def __init__(self, r = 0, g = 0, b = 0, a = 255):
 
-        _assertion_type(r, int, "r must be of type 'int'")
-        _assertion_type(g, int, "g must be of type 'int'")
-        _assertion_type(b, int, "b must be of type 'int'")
-        _assertion_type(a, int, "a must be of type 'int'")
+        r = _safe_cast(_assertion_type(r, int, "r must be of type 'int'"), int)
+        g = _safe_cast(_assertion_type(g, int, "g must be of type 'int'"), int)
+        b = _safe_cast(_assertion_type(b, int, "b must be of type 'int'"), int)
+        a = _safe_cast(_assertion_type(a, int, "a must be of type 'int'"), int)
 
         super().__init__()
 
@@ -66,7 +69,7 @@ class JEColor(_JEInternBaseClass):
     @r.setter
     def r(self, r):
 
-        _assertion_type(r, int, "r must be of type 'int'")
+        r = _safe_cast(_assertion_type(r, int, "r must be of type 'int'"), int)
 
         self._color[0] = r
 
@@ -77,7 +80,7 @@ class JEColor(_JEInternBaseClass):
     @g.setter
     def g(self, g):
 
-        _assertion_type(g, int, "g must be of type 'int'")
+        g = _safe_cast(_assertion_type(g, int, "g must be of type 'int'"), int)
 
         self._color[1] = g
 
@@ -88,7 +91,7 @@ class JEColor(_JEInternBaseClass):
     @b.setter
     def b(self, b):
 
-        _assertion_type(b, int, "b must be of type 'int'")
+        b = _safe_cast(_assertion_type(b, int, "b must be of type 'int'"), int)
 
         self._color[2] = b
 
@@ -99,7 +102,7 @@ class JEColor(_JEInternBaseClass):
     @a.setter
     def a(self, a):
 
-        _assertion_type(a, int, "a must be of type 'int'")
+        a = _safe_cast(_assertion_type(a, int, "a must be of type 'int'"), int)
 
         self._color[3] = a
 
@@ -110,7 +113,7 @@ class JEColor(_JEInternBaseClass):
     @rgb.setter
     def rgb(self, rgb):
 
-        _assertion_type(rgb, (tuple, list), "rgb must be of type 'tuple' or 'list'")
+        rgb = _safe_cast(_assertion_type(rgb, (tuple, list), "rgb must be of type 'tuple' or 'list'"), tuple)
 
         self.r = rgb[0]
         self.g = rgb[1]
@@ -123,7 +126,7 @@ class JEColor(_JEInternBaseClass):
     @rgba.setter
     def rgba(self, rgba):
 
-        _assertion_type(rgba, (tuple, list), "rgba must be of type 'tuple' or 'list'")
+        rgba = _safe_cast(_assertion_type(rgba, (tuple, list), "rgba must be of type 'tuple' or 'list'"), tuple)
 
         self.r = rgba[0]
         self.g = rgba[1]

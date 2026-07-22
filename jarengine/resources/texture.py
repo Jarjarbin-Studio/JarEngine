@@ -47,7 +47,8 @@ from jarengine.systems.vector import JEVector2D as _JEVector2D
 from jarengine.interns.decorators import documentation as _documentation
 from jarengine.interns.helpers import (
     assertion_type as _assertion_type,
-    asset_path as _asset_path
+    asset_path as _asset_path,
+    safe_cast as _safe_cast
 )
 
 @_documentation
@@ -56,8 +57,8 @@ class JETexture(_JEInternResource, _JEInternOwnership):
 
     def __init__(self, name, path):
 
-        _assertion_type(name, str, "name must be of type 'str'")
-        _assertion_type(path, str, "path must be of type 'str'")
+        name = _safe_cast(_assertion_type(name, str, "name must be of type 'str'"), str)
+        path = _safe_cast(_assertion_type(path, str, "path must be of type 'str'"), str)
 
         super().__init__(name, path)
 

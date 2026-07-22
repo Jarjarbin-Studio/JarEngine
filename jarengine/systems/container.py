@@ -31,19 +31,21 @@
 
 from __future__ import annotations
 
-from types import NoneType as _NoneType
 from typing import (
     final as _final,
     TypeVar as _TypeVar,
-    Generic as _Generic,
-    Any as _Any
+    Generic as _Generic
 )
 
 from jarengine.interns import JTKExternError as _JTKExternError
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from jarengine.interns.decorators import documentation as _documentation
 from jarengine.systems.bool import JEBool as _JEBool
-from jarengine.interns.helpers import assertion_type as _assertion_type
+from jarengine.interns.helpers import (
+    assertion_type as _assertion_type,
+    assertion_class as _assertion_class,
+    safe_cast as _safe_cast
+)
 
 _T = _TypeVar("_T", bound=_JEInternBaseClass)
 
@@ -53,18 +55,11 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
 
     def __init__(self, allowed_type, allow_subclass = _JEBool(0)):
 
-        _assertion_type(allowed_type, type, "allowed_type must be of type 'type'")
-        _assertion_type(allow_subclass, _JEBool, "allow_subclass must be of type 'JEBool'")
+        _assertion_type(allowed_type, type, "allowed_type must be of type 'type'", True)
 
-        if not isinstance(allowed_type, type):
-            raise _JTKExternError.Error.ErrorType(
-                f"\n{allowed_type.__name__!r} is not a class type."
-            )
+        allow_subclass = _safe_cast(_assertion_type(allow_subclass, _JEBool, "allow_subclass must be of type 'JEBool'"), _JEBool)
 
-        if not issubclass(allowed_type, _JEInternBaseClass):
-            raise _JTKExternError.Error.ErrorType(
-                f"\n{allowed_type.__name__!r} isn't of type {_JEInternBaseClass.__name__!r}."
-            )
+        _assertion_class(allowed_type, _JEInternBaseClass, "allowed_type must be a subclass of 'JEInternBaseClass'", True)
 
         super().__init__()
         self._data = {}
@@ -73,13 +68,10 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
 
     def add(self, obj):
 
-        _assertion_type(obj, _JEInternBaseClass, "obj must be of type 'JEInternBaseClass'")
+        _assertion_type(obj, self._allowed_type, f"obj must be of type '{self._allowed_type.__name__}'", True)
 
-        if not isinstance(obj, self._allowed_type):
-            if not (self._allow_subclass and issubclass(type(obj), self._allowed_type)):
-                raise _JTKExternError.Error.ErrorType(
-                    f"\n{type(obj).__name__!r} isn't of type {self._allowed_type.__name__!r}."
-                )
+        if self._allow_subclass:
+            _assertion_class(type(obj), self._allowed_type, "allowed_type must be a subclass of 'JEInternBaseClass'", True)
 
         base_key = str(obj.jeid)
         key = base_key
@@ -96,7 +88,7 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
 
     def __getitem__(self, value):
 
-        _assertion_type(value, (str, int, type), "value must be of type 'str', 'int' or 'type'")
+        value = _safe_cast(_assertion_type(value, (str, int, type), "value must be of type 'str', 'int' or 'type'"), str)
 
         if isinstance(value, str):
             try:
@@ -109,10 +101,14 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
 
     def get(self, *, name = None, jeid = None, index = None, _type = None, default = NotImplemented):
 
-        _assertion_type(name, (str, _NoneType), "name must be of type 'str'")
-        _assertion_type(jeid, (str, _NoneType), "jeid must be of type 'str'")
-        _assertion_type(index, (int, _NoneType), "index must be of type 'int'")
-        _assertion_type(_type, (type, _NoneType), "_type must be of type 'type'")
+        if name is not None:
+            name = _safe_cast(_assertion_type(name, str, "name must be of type 'str'"), str)
+        if jeid is not None:
+            jeid = _safe_cast(_assertion_type(jeid, str, "jeid must be of type 'str'"), str)
+        if index is not None:
+            index = _safe_cast(_assertion_type(index, int, "index must be of type 'int'"), int)
+        if _type is not None:
+            _assertion_type(_type, type, "_type must be of type 'type'", True)
 
         if not (name or jeid or _type) and index is None:
             raise _JTKExternError.Error.ErrorKey(
@@ -139,11 +135,16 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
 
     def rm(self, *, name = None, jeid = None, index = None, instance = None, _type = None):
 
-        _assertion_type(name, str, "name must be of type 'str'")
-        _assertion_type(jeid, str, "jeid must be of type 'str'")
-        _assertion_type(index, int, "index must be of type 'int'")
-        _assertion_type(instance, _JEInternBaseClass, "instance must be of type 'JEInternBaseClass'")
-        _assertion_type(_type, type, "_type must be of type 'type'")
+        if name is not None:
+            name = _safe_cast(_assertion_type(name, str, "name must be of type 'str'"), str)
+        if jeid is not None:
+            jeid = _safe_cast(_assertion_type(jeid, str, "jeid must be of type 'str'"), str)
+        if index is not None:
+            index = _safe_cast(_assertion_type(index, int, "index must be of type 'int'"), int)
+        if instance is not None:
+            _assertion_type(instance, _JEInternBaseClass, "instance must be of type 'JEInternBaseClass'", True)
+        if _type is not None:
+            _assertion_type(_type, type, "_type must be of type 'type'", True)
 
         if not (name or jeid or index or instance or _type):
             raise _JTKExternError.Error.ErrorKey(

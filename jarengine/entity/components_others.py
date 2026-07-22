@@ -34,7 +34,10 @@ from __future__ import annotations
 from copy import deepcopy as _deepcopy
 from typing import final as _final
 
-from jarengine.interns.helpers import assertion_type as _assertion_type
+from jarengine.interns.helpers import (
+    assertion_type as _assertion_type,
+    safe_cast as _safe_cast
+)
 from jarengine.interns.high_classes import JEInternEntityComponent as _JEInternEntityComponent
 from jarengine.interns.decorators import documentation as _documentation
 from jarengine.entity.entity import JEEntity as _JEEntity

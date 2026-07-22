@@ -31,10 +31,7 @@
 
 from __future__ import annotations
 
-from jarengine.interns.low_classes import (
-    JEInternGraphic as _JEInternGraphic,
-    JEInternGraphicalObject as _JEInternGraphicalObject
-)
+from jarengine.interns.low_classes import JEInternGraphic as _JEInternGraphic
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from jarengine.systems.container import JEContainer as _JEContainer
 from jarengine.interns.decorators import documentation as _documentation
@@ -55,7 +52,7 @@ class JEInternOwnership(_JEInternBaseClass):
 
     def add_parent(self, parent):
 
-        _assertion_type(parent, _JEInternBaseClass, "parent must be of type 'JEInternBaseClass'")
+        _assertion_type(parent, _JEInternBaseClass, "parent must be of type 'JEInternBaseClass'", True)
 
         self._parents.add(parent)
         self.on_parent_added(parent)
@@ -66,7 +63,7 @@ class JEInternOwnership(_JEInternBaseClass):
 
     def add_child(self, child):
 
-        _assertion_type(child, _JEInternBaseClass, "child must be of type 'JEInternBaseClass'")
+        _assertion_type(child, _JEInternBaseClass, "child must be of type 'JEInternBaseClass'", True)
 
         self._children.add(child)
 
@@ -79,8 +76,8 @@ class JEInternEntityComponent(_JEInternGraphic, JEInternOwnership):
     def __init__(self, owner, _type):
         from jarengine.entity.entity import JEEntity as _JEEntity
 
-        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'")
-        _assertion_type(_type, type, "_type must be of type 'type'")
+        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'", True)
+        _assertion_type(_type, type, "_type must be of type 'type'", True)
 
         super().__init__(f"{_type.__name__}({owner.jeid})")
         self.add_parent(owner)
@@ -92,7 +89,7 @@ class JEInternEntityComponent(_JEInternGraphic, JEInternOwnership):
     def copy(self, new_owner):
         from jarengine.entity.entity import JEEntity as _JEEntity
 
-        _assertion_type(new_owner, _JEEntity, "new_owner must be of type 'JEEntity'")
+        _assertion_type(new_owner, _JEEntity, "new_owner must be of type 'JEEntity'", True)
 
         raise NotImplementedError
 
@@ -105,7 +102,7 @@ class JEInternSystems(JEInternOwnership):
     def __init__(self, owner):
         from jarengine.games.game import JEGame as _JEGame
 
-        _assertion_type(owner, _JEGame, "owner must be of type 'JEGame'")
+        _assertion_type(owner, _JEGame, "owner must be of type 'JEGame'", True)
 
         super().__init__()
         self.cache = []
@@ -132,7 +129,7 @@ class JEInternSystems(JEInternOwnership):
     def refresh_entity(self, entity):
         from jarengine.entity.entity import JEEntity as _JEEntity
 
-        _assertion_type(entity, _JEEntity, "entity must be of type 'JEEntity'")
+        _assertion_type(entity, _JEEntity, "entity must be of type 'JEEntity'", True)
 
         if self.accepts(entity.components):
             if entity not in self.cache:
@@ -147,7 +144,7 @@ class JEInternSystems(JEInternOwnership):
         pass
 
     def accepts(self, components):
-        _assertion_type(components, _JEContainer, "components must be of type 'JEContainer'")
+        _assertion_type(components, _JEContainer, "components must be of type 'JEContainer'", True)
 
         try:
             return _JEBool(all(components.get(_type=req) is not None for req in self._required))

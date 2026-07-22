@@ -44,7 +44,10 @@ from jarengine.resources.music import JEMusic as _JEMusic
 from jarengine.resources.sound import JESound as _JESound
 from jarengine.resources.font import JEFont as _JEFont
 from jarengine.interns import PGExtern as _PGExtern
-from jarengine.interns.helpers import assertion_type as _assertion_type
+from jarengine.interns.helpers import (
+    assertion_type as _assertion_type,
+    safe_cast as _safe_cast
+)
 from jarengine.systems.vector import JEVector2D as _JEVector2D
 
 @_documentation
@@ -54,7 +57,7 @@ class JEInternEmptyComponent(_JEInternEntityComponent):
     def __init__(self, owner):
         from jarengine.entity.entity import JEEntity as _JEEntity
 
-        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'")
+        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'", True)
 
         super().__init__(owner, JEInternEmptyComponent)
 
@@ -106,13 +109,13 @@ class JEInternWindowSettings(_JEInternBaseClass):
 
     def __init__(self, size, flags, fps, depth, display, vsync, title):
 
-        _assertion_type(size, _JEVector2D, "size must be of type 'JEVector2D'")
-        _assertion_type(flags, int, "flags must be of type 'int'")
-        _assertion_type(fps, int, "fps must be of type 'int'")
-        _assertion_type(depth, int, "depth must be of type 'int'")
-        _assertion_type(display, int, "display must be of type 'int'")
-        _assertion_type(vsync, int, "vsync must be of type 'int'")
-        _assertion_type(title, str, "title must be of type 'str'")
+        _assertion_type(size, _JEVector2D, "size must be of type 'JEVector2D'", True)
+        flags = _safe_cast(_assertion_type(flags, int, "flags must be of type 'int'"), int)
+        fps = _safe_cast(_assertion_type(fps, int, "fps must be of type 'int'"), int)
+        depth = _safe_cast(_assertion_type(depth, int, "depth must be of type 'int'"), int)
+        display = _safe_cast(_assertion_type(display, int, "display must be of type 'int'"), int)
+        vsync = _safe_cast(_assertion_type(vsync, int, "vsync must be of type 'int'"), int)
+        title = _safe_cast(_assertion_type(title, str, "title must be of type 'str'"), str)
 
         super().__init__()
 
@@ -132,7 +135,7 @@ class JEInternWindowSettings(_JEInternBaseClass):
     @size.setter
     def size(self, size):
 
-        _assertion_type(size, _JEVector2D, "fps must be of type 'JEVector2D'")
+        _assertion_type(size, _JEVector2D, "fps must be of type 'JEVector2D'", True)
 
         self._size = size
 
@@ -147,7 +150,7 @@ class JEInternWindowSettings(_JEInternBaseClass):
     @fps.setter
     def fps(self, fps):
 
-        _assertion_type(fps, int, "fps must be of type 'int'")
+        fps = _safe_cast(_assertion_type(fps, int, "fps must be of type 'int'"), int)
 
         self._fps = fps
 
@@ -170,7 +173,7 @@ class JEInternWindowSettings(_JEInternBaseClass):
     @title.setter
     def title(self, title):
 
-        _assertion_type(title, str, "title must be of type 'str'")
+        title = _safe_cast(_assertion_type(title, str, "title must be of type 'str'"), str)
 
         self._title = title
         _PGExtern.display.set_caption(title)

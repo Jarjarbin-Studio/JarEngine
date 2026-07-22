@@ -31,7 +31,10 @@
 
 from __future__ import annotations
 
-from jarengine.interns.helpers import assertion_type as _assertion_type
+from jarengine.interns.helpers import (
+    assertion_type as _assertion_type,
+    safe_cast as _safe_cast
+)
 from jarengine.interns.high_classes import JEInternOwnership as _JEInternOwnership
 from jarengine.interns.final_classes import JEInternEmptyComponent as _JEInternEmptyComponent
 from jarengine.interns.high_classes import JEInternEntityComponent as _JEInternEntityComponent

@@ -33,9 +33,11 @@ from __future__ import annotations
 
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from jarengine.interns.decorators import documentation as _documentation
-from jarengine.interns import JTKExternError as _JTKExternError
 from jarengine.systems.bool import JEBool as _JEBool
-from jarengine.interns.helpers import assertion_type as _assertion_type
+from jarengine.interns.helpers import (
+    assertion_type as _assertion_type,
+    safe_cast as _safe_cast
+)
 
 @_documentation
 class JETransform(_JEInternBaseClass):
@@ -44,7 +46,7 @@ class JETransform(_JEInternBaseClass):
 
     def _check(self, other):
 
-        _assertion_type(other, type(self), f"other must be of type '{type(self)}'")
+        _assertion_type(other, type(self), f"other must be of type '{type(self)}'", True)
 
         return type(self)
 
@@ -169,7 +171,7 @@ class JETransform(_JEInternBaseClass):
 
     def __iadd__(self, other):
 
-        _assertion_type(other, int, "other must be of type 'int'")
+        other = _safe_cast(_assertion_type(other, int, "other must be of type 'int'"), int)
 
         result = self + other
 
@@ -179,7 +181,7 @@ class JETransform(_JEInternBaseClass):
 
     def __isub__(self, other):
 
-        _assertion_type(other, int, "other must be of type 'int'")
+        other = _safe_cast(_assertion_type(other, int, "other must be of type 'int'"), int)
 
         result = self - other
 
@@ -189,7 +191,7 @@ class JETransform(_JEInternBaseClass):
 
     def __imul__(self, other):
 
-        _assertion_type(other, int, "other must be of type 'int'")
+        other = _safe_cast(_assertion_type(other, int, "other must be of type 'int'"), int)
 
         result = self * other
 
@@ -199,7 +201,7 @@ class JETransform(_JEInternBaseClass):
 
     def __itruediv__(self, other):
 
-        _assertion_type(other, int, "other must be of type 'int'")
+        other = _safe_cast(_assertion_type(other, int, "other must be of type 'int'"), int)
 
         result = self / other
 

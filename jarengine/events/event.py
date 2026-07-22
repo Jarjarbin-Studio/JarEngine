@@ -37,13 +37,13 @@ from typing import (
 )
 
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
-from jarengine.interns import (
-    JTKExternError as _JTKExternError,
-    PGExtern as _PGExtern
-)
+from jarengine.interns import PGExtern as _PGExtern
 from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.interns.decorators import documentation as _documentation
-from jarengine.interns.helpers import assertion_type as _assertion_type
+from jarengine.interns.helpers import (
+    assertion_type as _assertion_type,
+    safe_cast as _safe_cast
+)
 
 @_documentation
 @_final
@@ -82,7 +82,7 @@ class JEEventCode(_JEInternBaseClass):
     def __init__(self, event = None):
 
         if event:
-            _assertion_type(event, int, "event must be of type 'int'")
+            event = _safe_cast(_assertion_type(event, (JEEventCode, int), "event must be of type 'int'"), int)
 
         if hasattr(self, "_initialized") or event is None:
             return
@@ -96,6 +96,9 @@ class JEEventCode(_JEInternBaseClass):
     def __int__(self):
         return self._event
 
+    def __list__(self):
+        return [int(self)]
+
     def __str__(self):
         return self._name
 
@@ -105,13 +108,13 @@ class JEEventCode(_JEInternBaseClass):
 
     def __or__(self, other):
 
-        _assertion_type(other, JEEventCode, "other must be of type 'JEEventCode'")
+        other = _safe_cast(_assertion_type(other, JEEventCode, "other must be of type 'JEEventCode'"), JEEventCode)
 
         return JEEventCodeGroup([self, other])
 
     def __eq__(self, other):
 
-        _assertion_type(other, JEEventCode, "other must be of type 'JEEventCode'")
+        other = _safe_cast(_assertion_type(other, (JEEventCode, int), "other must be of type 'JEEventCode'"), JEEventCode)
 
         return _JEBool(int(self) == int(other))
 
@@ -126,19 +129,22 @@ class JEEventCodeGroup(_JEInternBaseClass):
 
     def __init__(self, events):
 
-        _assertion_type(events, list, "events must be of type 'list'")
+        events = _safe_cast(_assertion_type(events, list, "events must be of type 'list'"), list)
 
         super().__init__()
         self._events = list(dict.fromkeys(events))
 
     def __or__(self, other):
 
-        _assertion_type(other, (JEEventCode, JEEventCodeGroup), "other must be of type 'JEEventCode' or 'JEEventCodeGroup'")
+        other = _safe_cast(_assertion_type(other, (JEEventCode, JEEventCodeGroup), "other must be of type 'JEEventCode' or 'JEEventCodeGroup'"), JEEventCodeGroup)
 
         if isinstance(other, JEEventCode):
             return JEEventCodeGroup([*self, other])
 
         return JEEventCodeGroup([*self, *other])
+
+    def __list__(self):
+        return [int(self)]
 
     def __iter__(self):
         return iter(self._events)
@@ -155,8 +161,8 @@ class JEEventWatcher(_JEInternBaseClass):
 
     def __init__(self, on, do):
 
-        _assertion_type(on, (JEEventCode, list, JEEventCodeGroup), "on must be of type 'JEEventCode', 'list' or 'JEEventCodeGroup'")
-        _assertion_type(do, _Callable, "do must be of type 'Callable'")
+        _assertion_type(on, (JEEventCode, list, JEEventCodeGroup), "on must be of type 'JEEventCode', 'list' or 'JEEventCodeGroup'", True)
+        _assertion_type(do, _Callable, "do must be of type 'Callable'", True)
 
         super().__init__()
         self._on = (

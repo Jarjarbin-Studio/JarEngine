@@ -36,7 +36,7 @@ from datetime import datetime as _datetime
 ##Metadata##
 __author__ = 'Nathan Jarjarbin'
 __email__ = 'nathan.amaraggi@epitech.eu'
-__version__ = "1.8.0"
+__version__ = "1.9.1"
 __config_version__ = "0.2.0"
 __license__ = "GPL"
 
@@ -53,7 +53,21 @@ from jarengine.constants import *
 ##Special##
 _start_time: _datetime | None = None
 
-def init(project_path) -> tuple[int, int]:
+def _title_color(title):
+
+    text = Interns.JTKExternConsole.Text.Text
+    color = Interns.JTKExternConsole.ANSI.Color
+
+    return color.rgb_fg(70, 160, 255) + text(str(title)) + color(color.C_RESET)
+
+def _version_color(version):
+
+    text = Interns.JTKExternConsole.Text.Text
+    color = Interns.JTKExternConsole.ANSI.Color
+
+    return color.rgb_fg(150, 150, 150) + text(str(version)) + color(color.C_RESET)
+
+def init(project_path):
     global _start_time
 
     _start_time = _datetime.now()
@@ -65,6 +79,15 @@ def init(project_path) -> tuple[int, int]:
     Interns.Config._Checks.compatibility()
 
     Interns.JTKExternConsole.init(banner=False)
+
+    name = Interns.Config.get('project', 'PROJECT', 'name', str, "Unnamed Project")
+    version = Interns.Config.get('project', 'PROJECT', 'version', str, "0.0.0")
+    author = Interns.Config.get('project', 'AUTHOR', 'name', str, None)
+
+    Interns.JTKExternConsole.Console.print(
+        f"{_title_color(name)} {_version_color(version)} {(f'(by {author})' if author else "")}"
+    )
+
     return Interns.PGExtern.init()
 
 def quit():
@@ -76,8 +99,8 @@ def quit():
 def _banner():
     ansi = Interns.JTKExternConsole.ANSI
     Interns.JTKExternConsole.Console.print(
-        ansi.Line.clear_previous_line(2).s +
-        f"JarEngine {JEVersion_JarEngine} (PyGame {JEVersion_PyGame}, SDL {JEVersion_SDL}, Python {JEVersion_Python})"
+        ansi.Line.clear_previous_line(2) +
+        f"{_title_color("JarEngine")} {_version_color(JEVersion_JarEngine)} ({_title_color("PyGame")} {_version_color(JEVersion_PyGame)}, {_title_color("SDL")} {_version_color(JEVersion_SDL)}, {_title_color("Python")} {_version_color(JEVersion_Python)})"
     )
 
 __all__ = [

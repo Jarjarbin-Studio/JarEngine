@@ -52,7 +52,10 @@ from jarengine.events.mouse import (
 )
 from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.interns.decorators import documentation as _documentation
-from jarengine.interns.helpers import assertion_type as _assertion_type
+from jarengine.interns.helpers import (
+    assertion_type as _assertion_type,
+    safe_cast as _safe_cast
+)
 
 @_documentation
 @_final
@@ -60,7 +63,7 @@ class JEEvent(_JEInternBaseClass):
 
     def __init__(self, event):
 
-        _assertion_type(event, _PGExtern.event.Event, "event must be of type 'PyGame.event.Event'")
+        _assertion_type(event, _PGExtern.event.Event, "event must be of type 'PyGame.event.Event'", True)
 
         super().__init__()
         self._event = event
@@ -124,7 +127,7 @@ class JEEventHandler(_JEInternBaseClass):
 
     def add(self, watcher):
 
-        _assertion_type(watcher, (_JEEventWatcher, _JEKeyWatcher, _JEMouseWatcher), "watcher must be of type 'JEEventWatcher', 'JEKeyWatcher' or 'JEMouseWatcher'")
+        _assertion_type(watcher, (_JEEventWatcher, _JEKeyWatcher, _JEMouseWatcher), "watcher must be of type 'JEEventWatcher', 'JEKeyWatcher' or 'JEMouseWatcher'", True)
 
         if not isinstance(watcher, (_JEEventWatcher, _JEKeyWatcher, _JEMouseWatcher)):
             raise _JTKExternError.Error.ErrorType(
@@ -135,7 +138,7 @@ class JEEventHandler(_JEInternBaseClass):
 
     def remove(self, watcher):
 
-        _assertion_type(watcher, (_JEEventWatcher, _JEKeyWatcher, _JEMouseWatcher), "watcher must be of type 'JEEventWatcher', 'JEKeyWatcher' or 'JEMouseWatcher'")
+        _assertion_type(watcher, (_JEEventWatcher, _JEKeyWatcher, _JEMouseWatcher), "watcher must be of type 'JEEventWatcher', 'JEKeyWatcher' or 'JEMouseWatcher'", True)
 
         if not self.has(watcher):
             raise _JTKExternError.Error.ErrorRuntime(
@@ -152,7 +155,7 @@ class JEEventHandler(_JEInternBaseClass):
 
     def has(self, code):
 
-        _assertion_type(code, (_JEEventCode, _JEKeyCode, _JEMouseCode), "code must be of type 'JEEventCode', 'JEKeyCode' or 'JEMouseCode'")
+        _assertion_type(code, (_JEEventCode, _JEKeyCode, _JEMouseCode), "code must be of type 'JEEventCode', 'JEKeyCode' or 'JEMouseCode'", True)
 
         for w in self._watchers:
             if code == w:
@@ -160,8 +163,8 @@ class JEEventHandler(_JEInternBaseClass):
         return _JEBool(0)
 
     def process(self, game, broadcast = _JEBool(1)):
-        _assertion_type(game, JEEventHandler._game_type, "game must be of type 'JEGame'")
-        _assertion_type(broadcast, _JEBool, "game must be of type 'JEBool'")
+        _assertion_type(game, JEEventHandler._game_type, "game must be of type 'JEGame'", True)
+        broadcast = _safe_cast(_assertion_type(broadcast, _JEBool, "game must be of type 'JEBool'"), _JEBool)
 
         events = [JEEvent(evt) for evt in _PGExtern.event.get()]
 
