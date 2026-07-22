@@ -65,6 +65,7 @@ from jarengine.entity.components_audios import (
     JEMusicComponent as _JEMusicComponent,
     JESoundComponent as _JESoundComponent,
 )
+from jarengine.interns.helpers import assertion_type as _assertion_type
 
 @_documentation
 @_final

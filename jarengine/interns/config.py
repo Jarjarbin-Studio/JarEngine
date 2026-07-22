@@ -38,18 +38,9 @@ from datetime import datetime as _datetime
 
 from jarbin_toolkit_config import Config as _JTKInternConfig
 
-from constants import JEVersion_JarEngine
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from jarengine.interns import JTKExternError as _JTKExternError
 from jarengine.interns.decorators import documentation as _documentation
-from jarengine.constants import (
-    JEVersion_JarEngine as _JEVersion_JarEngine,
-    JEVersion_Config as _JEVersion_Config
-)
-from jarengine.systems.version import (
-    JEVersion as _JEVersion,
-    JECompatibility as _JECompatibility
-)
 
 @_documentation
 @_final
@@ -61,6 +52,11 @@ class JEInternConfig(_JTKInternConfig, _JEInternBaseClass):
     configs = {}
 
     def __init__(self, name, data = None):
+        from constants import (
+            JEVersion_JarEngine as _JEVersion_JarEngine,
+            JEVersion_Config as _JEVersion_Config
+        )
+
         if not JEInternConfig.project_path or  not JEInternConfig.config_path:
             raise _JTKExternError.State.ErrorStateNotInitialized("\nJarEngine.init(path) must be called first")
         if not exists(JEInternConfig.config_path):
@@ -121,6 +117,13 @@ def set(name, section, setting, value):
         raise _JTKExternError.Special.ErrorSpecialConfig("\nSection or setting not found")
 
 def init_all():
+    from constants import (
+        JEVersion_JarEngine as _JEVersion_JarEngine,
+        JEVersion_Config as _JEVersion_Config,
+        JEVersion_PyGame as _JEVersion_PyGame,
+        JEVersion_Python as _JEVersion_Python
+    )
+
     config = JEInternConfig(
         "engine",
         {
@@ -129,7 +132,7 @@ def init_all():
                 "version": "",                                      #Current JarEngine version. #Unused
                 "safe_mode": False,                                 #Enable additional safety checks and restricted behavior.
                 "auto_update": True,                                #Automatically updates internal engine states every frame #Unused
-                "error_handling": True,                             #Enables internal error handling and recovery mechanisms #Unused
+                "error_handling": False,                            #Enables internal error handling and recovery mechanisms
                 "exception_mode": "strict",                         #Defines exception behavior mode (strict, warning, silent)
             },
 
@@ -160,9 +163,9 @@ def init_all():
 
             "COMPATIBILITY": {
                 "jarengine_version_check": True,                    #Checks if the installed JarEngine version is compatible
+                "config_version_check": True,                       #Checks if each config version are compatible
                 "pygame_version_check": True,                       #Checks if the installed PyGame version is compatible #Unused
                 "python_version_check": True,                       #Checks if the current Python version is compatible #Unused
-                "config_version_check": True,                       #Checks if each config version are compatible
             },
         }
     )
@@ -186,8 +189,10 @@ def init_all():
                 "name": "Unnamed Project",                          #Defines the display name of the project #Unused
                 "path": JEInternConfig.project_path,                #Defines the absolute path where the project is located #Unused
                 "version": "0.1.0",                                 #Defines the current game version
-                "jarengine_version": str(JEVersion_JarEngine),      #Defines the required JarEngine version
-                "config_version": "0.1.0",                          #Defines the required Config version
+                "jarengine_version": str(_JEVersion_JarEngine),     #Defines the required JarEngine version
+                "config_version": str(_JEVersion_Config),           #Defines the required Config version
+                "pygame_version": str(_JEVersion_PyGame),           #Defines the required PyGame version
+                "python_version": str(_JEVersion_Python),           #Defines the required Python version
             },
 
             "AUTHOR": {
@@ -236,7 +241,7 @@ def init_all():
             },
 
             "TITLE": {
-                "text": "JarEngine Application",                    #Text displayed in the application window title bar.
+                "text": "JarEngine Application",                    #Text displayed in the application window title bar. #Unused
             },
 
             "POSITION": {
@@ -467,36 +472,62 @@ class _Checks:
 
     @staticmethod
     def compatibility():
-        if get("engine", "COMPATIBILITY", "jarengine_version_check", bool, True):
-            engine_version = _JEVersion(*[int(v) for v in get("project", "PROJECT", "jarengine_version", str).split('.')])
-            compatibility_status = _JEVersion_JarEngine.compatibility(engine_version)
-            if compatibility_status == _JECompatibility.ERROR:
-                raise _JTKExternError.Special.ErrorSpecialConfig(f"\nCompatibility error on jarengine version (current: {_JEVersion_JarEngine}, required: {engine_version})")
-            elif compatibility_status == _JECompatibility.WARNING:
-                print(_JTKExternError.Special.ErrorSpecialConfig(f"\nCompatibility warning on jarengine version (current: {_JEVersion_JarEngine}, required: {engine_version})"))
+        from jarengine.interns.helpers import (
+            version as _version,
+            enabled as _enabled,
+            error as _error,
+            warning as _warning,
+        )
+        from constants import (
+            JEVersion_JarEngine as _JEVersion_JarEngine,
+            JEVersion_Config as _JEVersion_Config,
+            JEVersion_PyGame as _JEVersion_PyGame,
+            JEVersion_Python as _JEVersion_Python
+        )
+        from jarengine.systems.version import JECompatibility as _JECompatibility
 
-            for config in JEInternConfig.configs.values():
-                engine_version = _JEVersion(*[int(v) for v in config.get("INFO", "jarengine_version").split('.')])
-                compatibility_status = _JEVersion_JarEngine.compatibility(engine_version)
+        def _check(current, required, name):
+            status = current.compatibility(required)
+            err = _JTKExternError.Special.ErrorSpecialConfig(
+                f"\nCompatibility failure on {name} "
+                f"(current: {current}, required: {required})"
+            )
 
-                if compatibility_status == _JECompatibility.ERROR:
-                    raise _JTKExternError.Special.ErrorSpecialConfig(f"\nCompatibility error on jarengine version (current: {_JEVersion_Config}, required: {engine_version})")
-                elif compatibility_status == _JECompatibility.WARNING:
-                    print(_JTKExternError.Special.ErrorSpecialConfig(f"\nCompatibility warning on jarengine version (current: {_JEVersion_Config}, required: {engine_version})"))
+            if status == _JECompatibility.ERROR:
+                _error(err)
 
-        if get("engine", "COMPATIBILITY", "config_version_check", bool, True):
-            config_version = _JEVersion(*[int(v) for v in get("project", "PROJECT", "config_version", str).split('.')])
-            compatibility_status = _JEVersion_Config.compatibility(config_version)
-            if compatibility_status == _JECompatibility.ERROR:
-                raise _JTKExternError.Special.ErrorSpecialConfig(f"\nCompatibility error on config version (current: {_JEVersion_JarEngine}, required: {config_version})")
-            elif compatibility_status == _JECompatibility.WARNING:
-                print(_JTKExternError.Special.ErrorSpecialConfig(f"\nCompatibility warning on config version (current: {_JEVersion_JarEngine}, required: {config_version})"))
+            elif status == _JECompatibility.WARNING:
+                _warning(err)
 
-            for config in JEInternConfig.configs.values():
-                config_version = _JEVersion(*[int(v) for v in config.get("INFO", "config_version").split('.')])
-                compatibility_status = _JEVersion_Config.compatibility(config_version)
+        required_engine = _version("project", "PROJECT", "jarengine_version")
+        required_config = _version("project", "PROJECT", "config_version")
+        required_pygame = _version("project", "PROJECT", "pygame_version")
+        required_python = _version("project", "PROJECT", "python_version")
 
-                if compatibility_status == _JECompatibility.ERROR:
-                    raise _JTKExternError.Special.ErrorSpecialConfig(f"\nCompatibility error on config version (current: {_JEVersion_Config}, required: {config_version})")
-                elif compatibility_status == _JECompatibility.WARNING:
-                    print(_JTKExternError.Special.ErrorSpecialConfig(f"\nCompatibility warning on config version (current: {_JEVersion_Config}, required: {config_version})"))
+        if _enabled("engine", "COMPATIBILITY", "jarengine_version_check"):
+            _check(_JEVersion_JarEngine, required_engine, "JarEngine version")
+
+        if _enabled("engine", "COMPATIBILITY", "config_version_check"):
+            _check(_JEVersion_Config, required_config, "Config version")
+
+        if _enabled("engine", "COMPATIBILITY", "pygame_version_check"):
+            _check(_JEVersion_PyGame, required_pygame, "Pygame version")
+
+        if _enabled("engine", "COMPATIBILITY", "python_version_check"):
+            _check(_JEVersion_Python, required_python, "Python version")
+
+        for config in JEInternConfig.configs:
+
+            if _enabled("engine", "COMPATIBILITY", "jarengine_version_check"):
+                _check(
+                    _version(config, "INFO", "jarengine_version"),
+                    required_engine,
+                    f"{get(config, 'INFO', 'name')} JarEngine version"
+                )
+
+            if _enabled("engine", "COMPATIBILITY", "config_version_check"):
+                _check(
+                    _version(config, "INFO", "config_version"),
+                    required_config,
+                    f"{get(config, 'INFO', 'name')} config version"
+                )

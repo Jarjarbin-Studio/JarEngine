@@ -52,12 +52,16 @@ from jarengine.events.mouse import (
 )
 from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.interns.decorators import documentation as _documentation
+from jarengine.interns.helpers import assertion_type as _assertion_type
 
 @_documentation
 @_final
 class JEEvent(_JEInternBaseClass):
 
     def __init__(self, event):
+
+        _assertion_type(event, _PGExtern.event.Event, "event must be of type 'PyGame.event.Event'")
+
         super().__init__()
         self._event = event
         self._type = None
@@ -94,6 +98,8 @@ class JEEventHandler(_JEInternBaseClass):
     __instance_limit__ = 1
     __recursive__ = False
 
+    _game_type = None
+
     def __new__(cls, *args, **kwargs):
         if cls._instance is not None:
             raise _JTKExternError.Error.ErrorRuntime(
@@ -104,7 +110,11 @@ class JEEventHandler(_JEInternBaseClass):
         return cls._instance
 
     def __init__(self):
+        from jarengine.games.game import JEGame as _JEGame
+
         super().__init__()
+
+        JEEventHandler._game_type = _JEGame
         JEEventHandler._is_created = _JEBool(1)
         self._watchers = []
 
@@ -113,6 +123,9 @@ class JEEventHandler(_JEInternBaseClass):
         return self._watchers
 
     def add(self, watcher):
+
+        _assertion_type(watcher, (_JEEventWatcher, _JEKeyWatcher, _JEMouseWatcher), "watcher must be of type 'JEEventWatcher', 'JEKeyWatcher' or 'JEMouseWatcher'")
+
         if not isinstance(watcher, (_JEEventWatcher, _JEKeyWatcher, _JEMouseWatcher)):
             raise _JTKExternError.Error.ErrorType(
                 "\nOnly JEEventWatcher, JEKeyWatcher and JEMouseWatcher can be added."
@@ -121,6 +134,9 @@ class JEEventHandler(_JEInternBaseClass):
         self._watchers.append(watcher)
 
     def remove(self, watcher):
+
+        _assertion_type(watcher, (_JEEventWatcher, _JEKeyWatcher, _JEMouseWatcher), "watcher must be of type 'JEEventWatcher', 'JEKeyWatcher' or 'JEMouseWatcher'")
+
         if not self.has(watcher):
             raise _JTKExternError.Error.ErrorRuntime(
                 f"\n{watcher!r} not found in watcher list."
@@ -135,12 +151,18 @@ class JEEventHandler(_JEInternBaseClass):
         self._watchers.clear()
 
     def has(self, code):
+
+        _assertion_type(code, (_JEEventCode, _JEKeyCode, _JEMouseCode), "code must be of type 'JEEventCode', 'JEKeyCode' or 'JEMouseCode'")
+
         for w in self._watchers:
             if code == w:
                 return _JEBool(1)
         return _JEBool(0)
 
     def process(self, game, broadcast = _JEBool(1)):
+        _assertion_type(game, JEEventHandler._game_type, "game must be of type 'JEGame'")
+        _assertion_type(broadcast, _JEBool, "game must be of type 'JEBool'")
+
         events = [JEEvent(evt) for evt in _PGExtern.event.get()]
 
         for event in events:

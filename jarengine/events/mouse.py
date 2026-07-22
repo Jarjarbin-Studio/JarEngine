@@ -31,7 +31,10 @@
 
 from __future__ import annotations
 
-from typing import final as _final
+from typing import (
+    final as _final,
+    Callable as _Callable
+)
 
 from jarengine.events.event import JEEventCode as _JEEventCode
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
@@ -41,6 +44,7 @@ from jarengine.interns import (
 )
 from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.interns.decorators import documentation as _documentation
+from jarengine.interns.helpers import assertion_type as _assertion_type
 
 @_documentation
 @_final
@@ -74,6 +78,10 @@ class JEMouseCode(_JEInternBaseClass):
         return cls._instances[mouse]
 
     def __init__(self, mouse = None):
+
+        if mouse:
+            _assertion_type(mouse, int, "mouse must be of type 'int'")
+
         if hasattr(self, "_initialized") or mouse is None:
             return
 
@@ -94,16 +102,15 @@ class JEMouseCode(_JEInternBaseClass):
         return self._name
 
     def __or__(self, other):
-        if not isinstance(other, JEMouseCode):
-            raise _JTKExternError.Error.ErrorType(
-                "\nOther must be JEMouseCode"
-            )
+
+        _assertion_type(other, JEMouseCode, "other must be of type 'JEMouseCode'")
 
         return JEMouseCodeGroup([self, other])
 
     def __eq__(self, other):
-        if not isinstance(other, JEMouseCode):
-            return NotImplemented
+
+        _assertion_type(other, JEMouseCode, "other must be of type 'JEMouseCode'")
+
         return _JEBool(int(self) == int(other))
 
     def __hash__(self):
@@ -119,19 +126,20 @@ class JEMouseCodeGroup(_JEInternBaseClass):
             self,
             mouses
         ):
+
+        _assertion_type(mouses, list, "events must be of type 'list'")
+
         super().__init__()
         self._mouses = list(dict.fromkeys(mouses))
 
     def __or__(self, other):
+
+        _assertion_type(other, (JEMouseCode, JEMouseCodeGroup), "other must be of type 'JEMouseCode' or 'JEMouseCodeGroup'")
+
         if isinstance(other, JEMouseCode):
             return JEMouseCodeGroup([*self._mouses, other])
 
-        if isinstance(other, JEMouseCodeGroup):
-            return JEMouseCodeGroup([*self._mouses, *other._mouses])
-
-        raise _JTKExternError.error.ErrorType(
-            "\nInvalid type for union"
-        )
+        return JEMouseCodeGroup([*self._mouses, *other._mouses])
 
     def __iter__(self):
         return iter(self._mouses)
@@ -147,10 +155,10 @@ class JEMouseWatcher(_JEInternBaseClass):
     __recursive__ = False
 
     def __init__(self, on, do, on_press = _JEBool(1)):
-        if not isinstance(on, (JEMouseCode, list, JEMouseCodeGroup)):
-            raise _JTKExternError.Error.ErrorType(
-                "\nOn must be JEEventCode, list or JEKeyCodeGroup"
-            )
+
+        _assertion_type(on, (JEMouseCode, list, JEMouseCodeGroup), "on must be of type 'JEMouseCode', 'list' or 'JEMouseCodeGroup'")
+        _assertion_type(do, _Callable, "do must be of type 'Callable'")
+        _assertion_type(on_press, _JEBool, "on_press must be of type 'JEBool'")
 
         super().__init__()
         self._on = (
@@ -170,6 +178,7 @@ class JEMouseWatcher(_JEInternBaseClass):
         self._do = do
 
     def match(self, event):
+
         if event.type == self._on_param:
             for rule in self._on:
                 if event.mouse == rule:
@@ -177,6 +186,7 @@ class JEMouseWatcher(_JEInternBaseClass):
         return False
 
     def __call__(self, game, event):
+
         self._do(game, event)
 
     @property

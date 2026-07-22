@@ -36,6 +36,7 @@ from enum import IntEnum
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from jarengine.interns.decorators import documentation as _documentation
 from jarengine.interns import PGExtern as _PGExtern
+from jarengine.interns.helpers import assertion_type as _assertion_type
 
 class JECompatibility(IntEnum):
     OK = 0
@@ -51,6 +52,9 @@ class JEVersion(_PGExtern.version.SoftwareVersion, _JEInternBaseClass):
         super().__init__()
 
     def compatibility(self, other):
+
+        _assertion_type(other, JEVersion, "other must be of type 'JEVersion'")
+
         if self.major != other.major:
             return JECompatibility.ERROR
 

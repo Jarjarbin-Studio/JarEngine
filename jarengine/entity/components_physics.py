@@ -34,6 +34,8 @@ from __future__ import annotations
 from copy import deepcopy as _deepcopy
 from typing import final as _final
 
+from jarengine.entity.entity import JEEntity as _JEEntity
+from jarengine.interns.helpers import assertion_type as _assertion_type
 from jarengine.interns.high_classes import JEInternEntityComponent as _JEInternEntityComponent
 from jarengine.interns.decorators import documentation as _documentation
 from jarengine.systems.vector import JEVector2D as _JEVector2D
@@ -46,6 +48,10 @@ class JEAccelerationComponent(_JEInternEntityComponent):
     __recursive__ = False
 
     def __init__(self, owner, acceleration):
+
+        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'")
+        _assertion_type(acceleration, _JEVector2D, "acceleration must be of type 'JEVector2D'")
+
         super().__init__(owner, JEAccelerationComponent)
         self._acceleration = (
             acceleration
@@ -54,9 +60,18 @@ class JEAccelerationComponent(_JEInternEntityComponent):
         )
 
         def set_acceleration(owner_self, acceleration):
+
+            _assertion_type(acceleration, _JEVector2D, "acceleration must be of type 'JEVector2D'")
+
             self.acceleration =  acceleration
 
         def update_acceleration(owner_self, *, x = 0, y = 0):
+
+            _assertion_type(acceleration, _JEVector2D, "acceleration must be of type 'JEVector2D'")
+
+            _assertion_type(x, (float, int), "x must be of type 'float' or 'int'")
+            _assertion_type(y, (float, int), "y must be of type 'float' or 'int'")
+
             self._acceleration.x += x
             self._acceleration.y += y
 
@@ -92,13 +107,23 @@ class JEMassComponent(_JEInternEntityComponent):
     __recursive__ = False
 
     def __init__(self, owner, mass):
+
+        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'")
+        _assertion_type(mass, (float, int), "mass must be of type 'float' or 'int'")
+
         super().__init__(owner, JEMassComponent)
         self._mass = mass
 
         def set_mass(owner_self, mass):
+
+            _assertion_type(mass, (float, int), "mass must be of type 'float' or 'int'")
+
             self.mass = mass
 
         def update_mass(owner_self, *, m = 0):
+
+            _assertion_type(m, (float, int), "m must be of type 'float' or 'int'")
+
             self._mass += m
 
         def get_mass(owner_self):

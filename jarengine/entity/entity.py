@@ -31,6 +31,7 @@
 
 from __future__ import annotations
 
+from jarengine.interns.helpers import assertion_type as _assertion_type
 from jarengine.interns.high_classes import JEInternOwnership as _JEInternOwnership
 from jarengine.interns.final_classes import JEInternEmptyComponent as _JEInternEmptyComponent
 from jarengine.interns.high_classes import JEInternEntityComponent as _JEInternEntityComponent
@@ -43,6 +44,9 @@ from jarengine.interns.decorators import documentation as _documentation
 class JEEntity(_JEInternGraphicalObject, _JEInternOwnership):
 
     def __init__(self, *, name = "JEEntity"):
+
+        _assertion_type(name, str, "name must be of type 'str'")
+
         super().__init__(name)
         self._components = _JEContainer(_JEInternEntityComponent, _JEBool(1))
         self._components.add(_JEInternEmptyComponent(self))
@@ -56,9 +60,15 @@ class JEEntity(_JEInternGraphicalObject, _JEInternOwnership):
         return self._components
 
     def add_component(self, component):
+
+        _assertion_type(component, _JEInternEntityComponent, "component must be of type 'JEInternEntityComponent'")
+
         self._components.add(component)
 
     def get(self, component):
+
+        _assertion_type(component, type, "component must be of type 'JEInternEntityComponent'")
+
         for c in self._components:
             if isinstance(c, component):
                 return c

@@ -35,6 +35,7 @@ from typing import final as _final
 
 from jarengine.systems.transform import JETransform as _JETransform
 from jarengine.interns.decorators import documentation as _documentation
+from jarengine.interns.helpers import assertion_type as _assertion_type
 
 @_documentation
 @_final
@@ -43,6 +44,10 @@ class JEVector2D(_JETransform):
     __recursive__ = False
 
     def __init__(self, x = 0.0, y = 0.0):
+
+        _assertion_type(x, (int, float), "x must be of type 'int' or 'float'")
+        _assertion_type(y, (int, float), "y must be of type 'int' or 'float'")
+
         super().__init__()
 
         self._vector = [float(x), float(y)]
@@ -53,6 +58,9 @@ class JEVector2D(_JETransform):
 
     @x.setter
     def x(self, x):
+
+        _assertion_type(x, (int, float), "x must be of type 'int' or 'float'")
+
         self._vector[0] = x
 
     @property
@@ -61,6 +69,9 @@ class JEVector2D(_JETransform):
 
     @y.setter
     def y(self, y):
+
+        _assertion_type(y, (int, float), "y must be of type 'int' or 'float'")
+
         self._vector[1] = y
 
     def __iter__(self):
@@ -76,6 +87,11 @@ class JEVector3D(_JETransform):
     __recursive__ = False
 
     def __init__(self, x = 0.0, y = 0.0, z = 0.0):
+
+        _assertion_type(x, (int, float), "x must be of type 'int' or 'float'")
+        _assertion_type(y, (int, float), "y must be of type 'int' or 'float'")
+        _assertion_type(z, (int, float), "z must be of type 'int' or 'float'")
+
         super().__init__()
 
         self._vector = [float(x), float(y), float(z)]
@@ -86,6 +102,9 @@ class JEVector3D(_JETransform):
 
     @x.setter
     def x(self, x):
+
+        _assertion_type(x, (int, float), "x must be of type 'int' or 'float'")
+
         self._vector[0] = x
 
     @property
@@ -94,6 +113,9 @@ class JEVector3D(_JETransform):
 
     @y.setter
     def y(self, y):
+
+        _assertion_type(y, (int, float), "y must be of type 'int' or 'float'")
+
         self._vector[1] = y
 
     @property
@@ -102,6 +124,9 @@ class JEVector3D(_JETransform):
 
     @z.setter
     def z(self, z):
+
+        _assertion_type(z, (int, float), "z must be of type 'int' or 'float'")
+
         self._vector[2] = z
 
     def __iter__(self):

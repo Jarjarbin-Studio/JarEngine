@@ -34,11 +34,15 @@ from __future__ import annotations
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.interns.decorators import documentation as _documentation
+from jarengine.interns.helpers import assertion_type as _assertion_type
 
 @_documentation
 class JEInternGraphic(_JEInternBaseClass):
 
     def __init__(self, name):
+
+        _assertion_type(name, str, "name must be of type 'str'")
+
         super().__init__()
 
         self.name = name
@@ -50,13 +54,16 @@ class JEInternGraphic(_JEInternBaseClass):
         self._destroyed = _JEBool(1)
 
     @property
-    def is_alive(self) -> _JEBool:
+    def is_alive(self):
         return _JEBool(not self._destroyed)
 
 @_documentation
 class JEInternGraphicalObject(JEInternGraphic):
 
     def __init__(self, name):
+
+        _assertion_type(name, str, "name must be of type 'str'")
+
         super().__init__(name)
 
         self._dirty = _JEBool(1)
@@ -78,6 +85,10 @@ class JEInternGraphicalObject(JEInternGraphic):
 class JEInternResource(JEInternGraphic):
 
     def __init__(self, name, path):
+
+        _assertion_type(name, str, "name must be of type 'str'")
+        _assertion_type(path, str, "path must be of type 'str'")
+
         super().__init__(name)
 
         self._path = path

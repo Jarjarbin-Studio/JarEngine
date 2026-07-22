@@ -44,6 +44,7 @@ from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.interns.decorators import documentation as _documentation
 from jarengine.systems.vector import JEVector2D as _JEVector2D
 from jarengine.interns.config import get as _get
+from jarengine.interns.helpers import assertion_type as _assertion_type
 
 @_documentation
 @_final
@@ -123,6 +124,9 @@ class JEWindow(_JEInternBaseClass):
         return self._settings
 
     def fill(self, color):
+
+        _assertion_type(color, (_JEColor, tuple), "color must be of type 'JEColor' or 'tuple'")
+
         if self._buffered_rendering:
             self._render_surface.fill(list(color))
         else:
@@ -132,6 +136,10 @@ class JEWindow(_JEInternBaseClass):
         self.fill(_JEColor(0, 0, 0, 0))
 
     def blit(self, source, dest):
+
+        _assertion_type(source, _PGExtern.Surface, "source must be of type 'PyGame.Surface'")
+        _assertion_type(dest, (_JEVector2D, tuple), "dest must be of type 'JEVector2D' or 'tuple'")
+
         self._render_surface.blit(source, list(dest))
 
     def display(self):

@@ -31,16 +31,19 @@
 
 from __future__ import annotations
 
+from types import NoneType as _NoneType
 from typing import (
     final as _final,
     TypeVar as _TypeVar,
-    Generic as _Generic
+    Generic as _Generic,
+    Any as _Any
 )
 
 from jarengine.interns import JTKExternError as _JTKExternError
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from jarengine.interns.decorators import documentation as _documentation
 from jarengine.systems.bool import JEBool as _JEBool
+from jarengine.interns.helpers import assertion_type as _assertion_type
 
 _T = _TypeVar("_T", bound=_JEInternBaseClass)
 
@@ -49,6 +52,10 @@ _T = _TypeVar("_T", bound=_JEInternBaseClass)
 class JEContainer(_Generic[_T], _JEInternBaseClass):
 
     def __init__(self, allowed_type, allow_subclass = _JEBool(0)):
+
+        _assertion_type(allowed_type, type, "allowed_type must be of type 'type'")
+        _assertion_type(allow_subclass, _JEBool, "allow_subclass must be of type 'JEBool'")
+
         if not isinstance(allowed_type, type):
             raise _JTKExternError.Error.ErrorType(
                 f"\n{allowed_type.__name__!r} is not a class type."
@@ -65,6 +72,9 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
         self._allow_subclass = allow_subclass
 
     def add(self, obj):
+
+        _assertion_type(obj, _JEInternBaseClass, "obj must be of type 'JEInternBaseClass'")
+
         if not isinstance(obj, self._allowed_type):
             if not (self._allow_subclass and issubclass(type(obj), self._allowed_type)):
                 raise _JTKExternError.Error.ErrorType(
@@ -85,6 +95,9 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
         self._data[key] = obj
 
     def __getitem__(self, value):
+
+        _assertion_type(value, (str, int, type), "value must be of type 'str', 'int' or 'type'")
+
         if isinstance(value, str):
             try:
                 return self.get(name=value)
@@ -95,6 +108,12 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
         return self.get(_type=value)
 
     def get(self, *, name = None, jeid = None, index = None, _type = None, default = NotImplemented):
+
+        _assertion_type(name, (str, _NoneType), "name must be of type 'str'")
+        _assertion_type(jeid, (str, _NoneType), "jeid must be of type 'str'")
+        _assertion_type(index, (int, _NoneType), "index must be of type 'int'")
+        _assertion_type(_type, (type, _NoneType), "_type must be of type 'type'")
+
         if not (name or jeid or _type) and index is None:
             raise _JTKExternError.Error.ErrorKey(
                 "\nName, JEID, index or type are required."
@@ -119,6 +138,13 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
         return default
 
     def rm(self, *, name = None, jeid = None, index = None, instance = None, _type = None):
+
+        _assertion_type(name, str, "name must be of type 'str'")
+        _assertion_type(jeid, str, "jeid must be of type 'str'")
+        _assertion_type(index, int, "index must be of type 'int'")
+        _assertion_type(instance, _JEInternBaseClass, "instance must be of type 'JEInternBaseClass'")
+        _assertion_type(_type, type, "_type must be of type 'type'")
+
         if not (name or jeid or index or instance or _type):
             raise _JTKExternError.Error.ErrorKey(
                 "\nName, JEID, index, instance or type are required."

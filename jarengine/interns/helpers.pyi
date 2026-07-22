@@ -31,7 +31,7 @@
 
 from __future__ import annotations
 
-from typing import Optional, Any
+from typing import Optional, Any, TypeVar
 
 from jarengine.systems.version import JEVersion
 
@@ -44,20 +44,31 @@ def assertion(condition: bool, message: str):
             message (str): message
     """
     ...
-def error(err: Exception):
+def assertion_type(value: Any, _type: type | TypeVar | tuple[type | TypeVar, ...], message: str):
+    """
+        Run a type assertion
+
+        Parameters:
+            value (Any): condition
+            _type (type | tuple[type, ...]): type
+            message (str): message
+    """
+    ...
+    assertion(isinstance(value, type), message)
+def error(err: Exception | str):
     """
         Show an error
         
         Parameters:
-            err (Exception): error
+            err (Exception | str): error
     """
     ...
-def warning(message: str):
+def warning(message: Exception | str):
     """
         Show a warning
 
         Parameters:
-            message (str): message
+            message (Exception | str): message
     """
     ...
 def enabled(config: str, section: str, setting: str = "enabled") -> bool:
@@ -73,7 +84,7 @@ def enabled(config: str, section: str, setting: str = "enabled") -> bool:
             bool: True or False
     """
     ...
-def project_path(*paths: list[str]) -> str:
+def project_path(*paths: str) -> str:
     """
         Get a project path
 
@@ -84,7 +95,7 @@ def project_path(*paths: list[str]) -> str:
             str: path
     """
     ...
-def asset_path(*paths: list[str]) -> str:
+def asset_path(*paths: str) -> str:
     """
         Get a asset path
 

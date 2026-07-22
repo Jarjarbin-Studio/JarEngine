@@ -42,8 +42,7 @@ from jarengine.entity.components_graphics import (
     JETextureComponent as _JETextureComponent,
     JEColorComponent as _JEColorComponent,
     JEOutlineComponent as _JEOutlineComponent,
-    JEVisibilityComponent as _JEVisibilityComponent,
-    JELayerComponent as _JELayerComponent
+    JEVisibilityComponent as _JEVisibilityComponent
 )
 from jarengine.entity.components_others import JEGroupComponent as _JEGroupComponent
 from jarengine.events.mouse import JEMouseWatcher as _JEMouseWatcher

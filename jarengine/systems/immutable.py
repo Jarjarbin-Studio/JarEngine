@@ -36,6 +36,7 @@ from typing import (
     Generic as _Generic,
     TypeVar as _TypeVar,
     cast as _cast,
+    Callable as _Callable
 )
 
 from copy import deepcopy as _deepcopy
@@ -43,6 +44,7 @@ from copy import deepcopy as _deepcopy
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from jarengine.interns.decorators import documentation as _documentation
 from jarengine.systems.bool import JEBool as _JEBool
+from jarengine.interns.helpers import assertion_type as _assertion_type
 
 _T = _TypeVar("_T")
 
@@ -128,9 +130,15 @@ class JEImmutable(_Generic[_T], _JEInternBaseClass):
         return reversed(self._reconstruction)
 
     def map(self, func):
+
+        _assertion_type(func, _Callable, "func must be of type 'Callable'")
+
         return list(map(func, self._reconstruction))
 
     def filter(self, func):
+
+        _assertion_type(func, _Callable, "func must be of type 'Callable'")
+
         return list(filter(func, self._reconstruction))
 
     def any(self):

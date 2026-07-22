@@ -35,6 +35,7 @@ from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClas
 from jarengine.interns.decorators import documentation as _documentation
 from jarengine.interns import JTKExternError as _JTKExternError
 from jarengine.systems.bool import JEBool as _JEBool
+from jarengine.interns.helpers import assertion_type as _assertion_type
 
 @_documentation
 class JETransform(_JEInternBaseClass):
@@ -42,8 +43,8 @@ class JETransform(_JEInternBaseClass):
     _fields = ["x", "y", "z"]
 
     def _check(self, other):
-        if not isinstance(other, type(self)):
-            raise _JTKExternError.Error.ErrorType("\nInvalid transform type")
+
+        _assertion_type(other, type(self), f"other must be of type '{type(self)}'")
 
         return type(self)
 
@@ -51,6 +52,7 @@ class JETransform(_JEInternBaseClass):
         return (getattr(self, f, 0.0) for f in self._fields)
 
     def _create(self, x, y, z):
+
         try:
             return type(self)(x, y, z)
         except TypeError:
@@ -166,6 +168,9 @@ class JETransform(_JEInternBaseClass):
         )
 
     def __iadd__(self, other):
+
+        _assertion_type(other, int, "other must be of type 'int'")
+
         result = self + other
 
         self._apply(result)
@@ -173,6 +178,9 @@ class JETransform(_JEInternBaseClass):
         return self
 
     def __isub__(self, other):
+
+        _assertion_type(other, int, "other must be of type 'int'")
+
         result = self - other
 
         self._apply(result)
@@ -180,6 +188,9 @@ class JETransform(_JEInternBaseClass):
         return self
 
     def __imul__(self, other):
+
+        _assertion_type(other, int, "other must be of type 'int'")
+
         result = self * other
 
         self._apply(result)
@@ -187,6 +198,9 @@ class JETransform(_JEInternBaseClass):
         return self
 
     def __itruediv__(self, other):
+
+        _assertion_type(other, int, "other must be of type 'int'")
+
         result = self / other
 
         self._apply(result)

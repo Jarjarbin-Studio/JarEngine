@@ -34,6 +34,7 @@ from __future__ import annotations
 from copy import deepcopy as _deepcopy
 from typing import final as _final
 
+from jarengine.interns.helpers import assertion_type as _assertion_type
 from jarengine.interns.high_classes import JEInternEntityComponent as _JEInternEntityComponent
 from jarengine.interns.decorators import documentation as _documentation
 from jarengine.entity.entity import JEEntity as _JEEntity
@@ -43,12 +44,21 @@ from jarengine.entity.entity import JEEntity as _JEEntity
 class JEGroupComponent(_JEInternEntityComponent):
 
     def __init__(self, owner):
+
+        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'")
+
         super().__init__(owner, JEGroupComponent)
 
         def group_add(owner_self, entity):
+
+            _assertion_type(entity, _JEEntity, "entity must be of type 'JEEntity'")
+
             self.group = entity
 
         def group_remove(owner_self, entity):
+
+            _assertion_type(entity, _JEEntity, "entity must be of type 'JEEntity'")
+
             self.group_remove(entity)
 
         def get_group(owner_self):

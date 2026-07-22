@@ -31,7 +31,10 @@
 
 from __future__ import annotations
 
-from typing import final as _final
+from typing import (
+    final as _final,
+    Callable as _Callable
+)
 
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from jarengine.interns import (
@@ -40,6 +43,7 @@ from jarengine.interns import (
 )
 from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.interns.decorators import documentation as _documentation
+from jarengine.interns.helpers import assertion_type as _assertion_type
 
 @_documentation
 @_final
@@ -76,6 +80,10 @@ class JEEventCode(_JEInternBaseClass):
         return cls._instances[event]
 
     def __init__(self, event = None):
+
+        if event:
+            _assertion_type(event, int, "event must be of type 'int'")
+
         if hasattr(self, "_initialized") or event is None:
             return
 
@@ -96,16 +104,15 @@ class JEEventCode(_JEInternBaseClass):
         return self._name
 
     def __or__(self, other):
-        if not isinstance(other, JEEventCode):
-            raise _JTKExternError.Error.ErrorType(
-                "\nOther must be JEEventCode"
-            )
+
+        _assertion_type(other, JEEventCode, "other must be of type 'JEEventCode'")
 
         return JEEventCodeGroup([self, other])
 
     def __eq__(self, other):
-        if not isinstance(other, JEEventCode):
-            return NotImplemented
+
+        _assertion_type(other, JEEventCode, "other must be of type 'JEEventCode'")
+
         return _JEBool(int(self) == int(other))
 
     def __hash__(self):
@@ -118,19 +125,20 @@ class JEEventCodeGroup(_JEInternBaseClass):
     __recursive__ = False
 
     def __init__(self, events):
+
+        _assertion_type(events, list, "events must be of type 'list'")
+
         super().__init__()
         self._events = list(dict.fromkeys(events))
 
     def __or__(self, other):
+
+        _assertion_type(other, (JEEventCode, JEEventCodeGroup), "other must be of type 'JEEventCode' or 'JEEventCodeGroup'")
+
         if isinstance(other, JEEventCode):
             return JEEventCodeGroup([*self, other])
 
-        if isinstance(other, JEEventCodeGroup):
-            return JEEventCodeGroup([*self, *other])
-
-        raise _JTKExternError.error.ErrorType(
-            "\nInvalid type for union"
-        )
+        return JEEventCodeGroup([*self, *other])
 
     def __iter__(self):
         return iter(self._events)
@@ -146,10 +154,9 @@ class JEEventWatcher(_JEInternBaseClass):
     __recursive__ = False
 
     def __init__(self, on, do):
-        if not isinstance(on, (JEEventCode, list, JEEventCodeGroup)):
-            raise _JTKExternError.Error.ErrorType(
-                "\nOn must be JEEventCode, list or JEEventCodeGroup"
-            )
+
+        _assertion_type(on, (JEEventCode, list, JEEventCodeGroup), "on must be of type 'JEEventCode', 'list' or 'JEEventCodeGroup'")
+        _assertion_type(do, _Callable, "do must be of type 'Callable'")
 
         super().__init__()
         self._on = (

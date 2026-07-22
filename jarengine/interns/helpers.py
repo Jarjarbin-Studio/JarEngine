@@ -38,15 +38,18 @@ from jarengine.interns.config import (
     JEInternConfig as _JEInternConfig
 )
 from jarengine.interns import JTKExternError as _JTKExternError
-from jarengine.systems.version import JEVersion as _JEVersion
 
 def assertion(condition, message):
     if not condition:
         error = _JTKExternError.BaseError(f"\n{message}", error = "ErrorAssertion")
 
-        if _get("engine", "ENGINE", "safe_mode", bool, False):
+        if _get("engine", "ENGINE", "safe_mode", bool, True):
             raise error
-        print(error)
+        else:
+            print(error)
+
+def assertion_type(value, _type, message):
+    assertion(isinstance(value, _type), message)
 
 def error(err):
     mode = _get("engine", "ENGINE", "exception_mode", str, "strict")
@@ -56,13 +59,18 @@ def error(err):
 
     elif mode == "warning":
         if isinstance(err, _JTKExternError.BaseError):
+            err.error = f"WARNING - {err.error}"
             print(err)
         else:
-            _JTKExternError.BaseError(str(err), error = "WARNING")
+            print(_JTKExternError.BaseError(f"\n{err.strip()}", error = "WARNING"))
 
-def warning(message):
+def warning(err):
     if _get("engine", "ENGINE", "exception_mode", str, "strict") != "silent":
-        print(_JTKExternError.BaseError(f"\n{message}", error="Warning"))
+        if isinstance(err, _JTKExternError.BaseError):
+            err.error = f"WARNING - {err.error}"
+            print(err)
+        else:
+            print(_JTKExternError.BaseError(f"{err.strip()}", error = "WARNING"))
 
 def enabled(config, section, setting = "enabled"):
     return _get(config, section, setting, bool, False)
@@ -89,6 +97,9 @@ def clamp(value, minimum, maximum):
 def safe_mode():
     return _get("engine", "ENGINE", "safe_mode", bool, False)
 
+def error_handling():
+    return _get("engine", "ENGINE", "error_handling", bool, True)
+
 def debug_enabled(feature=None):
     if not _get("debug", "DEBUG", "enabled", bool, False):
         return False
@@ -99,4 +110,6 @@ def debug_enabled(feature=None):
     return True
 
 def version(config, section, key):
+    from jarengine.systems.version import JEVersion as _JEVersion
+
     return _JEVersion(*[int(v) for v in _get(config, section, key).split(".")])

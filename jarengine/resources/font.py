@@ -44,16 +44,25 @@ from jarengine.interns import (
 from jarengine.interns.high_classes import JEInternOwnership as _JEInternOwnership
 from jarengine.interns.low_classes import JEInternResource as _JEInternResource
 from jarengine.interns.decorators import documentation as _documentation
+from jarengine.interns.helpers import (
+    assertion_type as _assertion_type,
+    asset_path as _asset_path
+)
 
 @_documentation
 @_final
 class JEFont(_JEInternResource, _JEInternOwnership):
 
     def __init__(self, name, path, size):
+
+        _assertion_type(name, str, "name must be of type 'str'")
+        _assertion_type(path, str, "path must be of type 'str'")
+        _assertion_type(size, int, "size must be of type 'int'")
+
         super().__init__(name, path)
 
         if not "/" in path:
-            path = f"{_get('assets', 'ASSETS', 'path')}/{_get('assets', 'DIRECTORY', 'font')}/{path}"
+            path = _asset_path(_get("assets", "DIRECTORY", "font", str, "fonts"), path)
 
         self._path = path
         try:

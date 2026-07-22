@@ -44,12 +44,18 @@ from jarengine.resources.music import JEMusic as _JEMusic
 from jarengine.resources.sound import JESound as _JESound
 from jarengine.resources.font import JEFont as _JEFont
 from jarengine.interns import PGExtern as _PGExtern
+from jarengine.interns.helpers import assertion_type as _assertion_type
+from jarengine.systems.vector import JEVector2D as _JEVector2D
 
 @_documentation
 @_final
 class JEInternEmptyComponent(_JEInternEntityComponent):
 
     def __init__(self, owner):
+        from jarengine.entity.entity import JEEntity as _JEEntity
+
+        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'")
+
         super().__init__(owner, JEInternEmptyComponent)
 
     def __call__(self) -> _NoneType:
@@ -99,6 +105,15 @@ class JEInternResources(_JEInternBaseClass):
 class JEInternWindowSettings(_JEInternBaseClass):
 
     def __init__(self, size, flags, fps, depth, display, vsync, title):
+
+        _assertion_type(size, _JEVector2D, "size must be of type 'JEVector2D'")
+        _assertion_type(flags, int, "flags must be of type 'int'")
+        _assertion_type(fps, int, "fps must be of type 'int'")
+        _assertion_type(depth, int, "depth must be of type 'int'")
+        _assertion_type(display, int, "display must be of type 'int'")
+        _assertion_type(vsync, int, "vsync must be of type 'int'")
+        _assertion_type(title, str, "title must be of type 'str'")
+
         super().__init__()
 
         self._size = size
@@ -116,6 +131,9 @@ class JEInternWindowSettings(_JEInternBaseClass):
 
     @size.setter
     def size(self, size):
+
+        _assertion_type(size, _JEVector2D, "fps must be of type 'JEVector2D'")
+
         self._size = size
 
     @property
@@ -128,6 +146,9 @@ class JEInternWindowSettings(_JEInternBaseClass):
 
     @fps.setter
     def fps(self, fps):
+
+        _assertion_type(fps, int, "fps must be of type 'int'")
+
         self._fps = fps
 
     @property
@@ -148,6 +169,9 @@ class JEInternWindowSettings(_JEInternBaseClass):
 
     @title.setter
     def title(self, title):
+
+        _assertion_type(title, str, "title must be of type 'str'")
+
         self._title = title
         _PGExtern.display.set_caption(title)
 

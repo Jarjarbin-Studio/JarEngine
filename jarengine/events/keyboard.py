@@ -31,7 +31,10 @@
 
 from __future__ import annotations
 
-from typing import final as _final
+from typing import (
+    final as _final,
+    Callable as _Callable
+)
 
 from jarengine.events.event import JEEventCode as _JEEventCode
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
@@ -41,6 +44,7 @@ from jarengine.interns import (
 )
 from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.interns.decorators import documentation as _documentation
+from jarengine.interns.helpers import assertion_type as _assertion_type
 
 @_documentation
 @_final
@@ -88,6 +92,10 @@ class JEKeyCode(_JEInternBaseClass):
         return cls._instances[key]
 
     def __init__(self, key = None):
+
+        if key:
+            _assertion_type(key, int, "key must be of type 'int'")
+
         if hasattr(self, "_initialized") or key is None:
             return
 
@@ -108,16 +116,15 @@ class JEKeyCode(_JEInternBaseClass):
         return self._name
 
     def __or__(self, other):
-        if not isinstance(other, JEKeyCode):
-            raise _JTKExternError.Error.ErrorType(
-                "\nOther must be JEKeyCode"
-            )
+
+        _assertion_type(other, JEKeyCode, "other must be of type 'JEKeyCode'")
 
         return JEKeyCodeGroup([self, other])
 
     def __eq__(self, other):
-        if not isinstance(other, JEKeyCode):
-            return NotImplemented
+
+        _assertion_type(other, JEKeyCode, "other must be of type 'JEKeyCode'")
+
         return _JEBool(int(self) == int(other))
 
     def __hash__(self):
@@ -130,19 +137,20 @@ class JEKeyCodeGroup(_JEInternBaseClass):
     __recursive__ = False
 
     def __init__(self, keys):
+
+        _assertion_type(keys, list, "events must be of type 'list'")
+
         super().__init__()
         self._keys = list(dict.fromkeys(keys))
 
     def __or__(self, other):
+
+        _assertion_type(other, (JEKeyCode, JEKeyCodeGroup), "other must be of type 'JEKeyCode' or 'JEKeyCodeGroup'")
+
         if isinstance(other, JEKeyCode):
             return JEKeyCodeGroup([*self._keys, other])
 
-        if isinstance(other, JEKeyCodeGroup):
-            return JEKeyCodeGroup([*self._keys, *other._keys])
-
-        raise _JTKExternError.error.ErrorType(
-            "\nInvalid type for union"
-        )
+        return JEKeyCodeGroup([*self._keys, *other._keys])
 
     def __iter__(self):
         return iter(self._keys)
@@ -158,10 +166,10 @@ class JEKeyWatcher(_JEInternBaseClass):
     __recursive__ = False
 
     def __init__(self, on, do, on_press = _JEBool(1)):
-        if not isinstance(on, (JEKeyCode, list, JEKeyCodeGroup)):
-            raise _JTKExternError.Error.ErrorType(
-                "\nOn must be JEEventCode, list or JEKeyCodeGroup"
-            )
+
+        _assertion_type(on, (JEKeyCode, list, JEKeyCodeGroup), "on must be of type 'JEKeyCode', 'list' or 'JEKeyCodeGroup'")
+        _assertion_type(do, _Callable, "do must be of type 'Callable'")
+        _assertion_type(on_press, _JEBool, "on_press must be of type 'JEBool'")
 
         super().__init__()
         self._on = (

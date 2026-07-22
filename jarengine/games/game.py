@@ -49,6 +49,7 @@ from jarengine.interns.final_classes import JEInternResources as _JEInternResour
 from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.systems.clock import JEClock as _JEClock
 from jarengine.interns.decorators import documentation as _documentation
+from jarengine.interns.helpers import assertion_type as _assertion_type
 
 @_documentation
 @_final

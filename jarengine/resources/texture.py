@@ -45,16 +45,24 @@ from jarengine.interns.high_classes import JEInternOwnership as _JEInternOwnersh
 from jarengine.interns.low_classes import JEInternResource as _JEInternResource
 from jarengine.systems.vector import JEVector2D as _JEVector2D
 from jarengine.interns.decorators import documentation as _documentation
+from jarengine.interns.helpers import (
+    assertion_type as _assertion_type,
+    asset_path as _asset_path
+)
 
 @_documentation
 @_final
 class JETexture(_JEInternResource, _JEInternOwnership):
 
     def __init__(self, name, path):
+
+        _assertion_type(name, str, "name must be of type 'str'")
+        _assertion_type(path, str, "path must be of type 'str'")
+
         super().__init__(name, path)
 
         if not "/" in path:
-            path = f"{_get('assets', 'ASSETS', 'path')}/{_get('assets', 'DIRECTORY', 'texture')}/{path}"
+            path = _asset_path(_get("assets", "DIRECTORY", "texture", str, "textures"), path)
 
         self._path = path
         try:

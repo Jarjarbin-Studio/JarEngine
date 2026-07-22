@@ -34,6 +34,8 @@ from __future__ import annotations
 from copy import deepcopy as _deepcopy
 from typing import final as _final
 
+from jarengine.entity.entity import JEEntity as _JEEntity
+from jarengine.interns.helpers import assertion_type as _assertion_type
 from jarengine.interns.high_classes import JEInternEntityComponent as _JEInternEntityComponent
 from jarengine.interns.decorators import documentation as _documentation
 from jarengine.systems.vector import JEVector2D as _JEVector2D
@@ -45,6 +47,10 @@ class JEPositionComponent(_JEInternEntityComponent):
     __recursive__ = False
 
     def __init__(self, owner, position):
+
+        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'")
+        _assertion_type(position, (tuple, _JEVector2D), "position must be of type 'tuple' or 'JEVector2D'")
+
         super().__init__(owner, JEPositionComponent)
         self._position = (
             position
@@ -53,9 +59,16 @@ class JEPositionComponent(_JEInternEntityComponent):
         )
 
         def set_position(owner_self, position):
+
+            _assertion_type(position, (tuple, _JEVector2D), "position must be of type 'tuple' or 'JEVector2D'")
+
             self.position = position
 
         def update_position(owner_self, *, x = 0, y = 0):
+
+            _assertion_type(x, (float, int), "x must be of type 'float' or 'int'")
+            _assertion_type(y, (float, int), "y must be of type 'float' or 'int'")
+
             self._position.x += x
             self._position.y += y
 
@@ -120,9 +133,16 @@ class JEVelocityComponent(_JEInternEntityComponent):
         )
 
         def set_velocity(owner_self, velocity):
+
+            _assertion_type(velocity, (tuple, _JEVector2D), "velocity must be of type 'tuple' or 'JEVector2D'")
+
             self.velocity = velocity
 
         def update_velocity(owner_self, *, x = 0, y = 0):
+
+            _assertion_type(x, (float, int), "x must be of type 'float' or 'int'")
+            _assertion_type(y, (float, int), "y must be of type 'float' or 'int'")
+
             self._velocity.x += x
             self._velocity.y += y
 
@@ -166,9 +186,16 @@ class JESizeComponent(_JEInternEntityComponent):
         )
 
         def set_size(owner_self, size):
+
+            _assertion_type(size, (tuple, _JEVector2D), "size must be of type 'tuple' or 'JEVector2D'")
+
             self.size = size
 
         def update_size(owner_self, *, x = 0, y = 0):
+
+            _assertion_type(x, (float, int), "x must be of type 'float' or 'int'")
+            _assertion_type(y, (float, int), "y must be of type 'float' or 'int'")
+
             self._size.x += x
             self._size.y += y
 

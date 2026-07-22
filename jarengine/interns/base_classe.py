@@ -92,6 +92,7 @@ class JEInternBaseClass:
         }
 
     def debug(self, *, is_colored = False, max_depth = -1, branched_recursive = False, show_root = True, _is_last = True, _is_root = True, _prefix = "", _visited = None, _stack = None):
+        from jarengine.systems.immutable import JEImmutable
 
         COLOR_THEME: dict[str, tuple[int, int, int]] = {
             "class": (180, 220, 255),
@@ -113,8 +114,6 @@ class JEInternBaseClass:
 
         BRANCH = "│   "
         SPACE = "    "
-
-        from jarengine.systems.immutable import JEImmutable
 
         if _visited is None:
             _visited = set()

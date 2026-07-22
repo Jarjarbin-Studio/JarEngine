@@ -43,7 +43,7 @@ from jarengine.events.keyboard import JEKeyCode as _JEKeyCode
 from jarengine.events.mouse import JEMouseCode as _JEMouseCode
 from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.systems.vector import JEVector2D as _JEVector2D
-
+from jarengine.interns.helpers import assertion_type as _assertion_type
 
 @_documentation
 @_final
@@ -81,15 +81,24 @@ class JEInput(_JEInternBaseClass):
         self._mouse_pos = _JEVector2D(*_PGExtern.mouse.get_pos())
 
     def is_key_down(self, key):
+
+        _assertion_type(key, _JEKeyCode, "key must be of type 'JEKeyCode'")
+
         return self._keys_down[int(key)]
 
     def is_mouse_down(self, button):
+
+        _assertion_type(button, _JEMouseCode, "button must be of type 'JEMouseCode'")
+
         return self._mouse_down[int(button) - 1]
 
     def mouse_pos(self):
         return self._mouse_pos
 
     def __call__(self, code):
+
+        _assertion_type(code, (_JEKeyCode, _JEMouseCode), "code must be of type 'JEKeyCode' or 'JEMouseCode")
+
         if isinstance(code, _JEKeyCode):
             return self.is_key_down(code)
         elif isinstance(code, _JEMouseCode):

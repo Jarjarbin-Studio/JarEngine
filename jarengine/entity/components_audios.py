@@ -34,15 +34,23 @@ from __future__ import annotations
 from copy import deepcopy as _deepcopy
 from typing import final as _final
 
+from jarengine.entity.entity import JEEntity as _JEEntity
+from jarengine.interns.helpers import assertion_type as _assertion_type
 from jarengine.interns import PGExtern as _PGExtern
 from jarengine.interns.high_classes import JEInternEntityComponent as _JEInternEntityComponent
 from jarengine.interns.decorators import documentation as _documentation
+from jarengine.resources.music import JEMusic as _JEMusic
+from jarengine.resources.sound import JESound as _JESound
 
 @_documentation
 @_final
 class JEMusicComponent(_JEInternEntityComponent):
 
     def __init__(self, owner, music):
+
+        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'")
+        _assertion_type(music, _JEMusic, "music must be of type 'JEMusic'")
+
         super().__init__(owner, JEMusicComponent)
         self._music = music
         self._loop = 0
@@ -50,9 +58,15 @@ class JEMusicComponent(_JEInternEntityComponent):
         _PGExtern.mixer.music.set_volume(self._volume / 100)
 
         def set_music(owner_self, music):
+
+            _assertion_type(music, _JEMusic, "music must be of type 'JEMusic'")
+
             self.music = music
 
         def play_music(owner_self, loop=-1):
+
+            _assertion_type(loop, int, "loop must be of type 'int'")
+
             self.play(loop)
 
         def pause_music(owner_self):
@@ -65,6 +79,9 @@ class JEMusicComponent(_JEInternEntityComponent):
             self.stop()
 
         def set_music_volume(owner_self, volume):
+
+            _assertion_type(volume, int, "volume must be of type 'int'")
+
             self.volume = volume
 
         def get_music(owner_self):
@@ -121,6 +138,10 @@ class JEMusicComponent(_JEInternEntityComponent):
 class JESoundComponent(_JEInternEntityComponent):
 
     def __init__(self, owner, sound):
+
+        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'")
+        _assertion_type(sound, _JESound, "sound must be of type 'JESound'")
+
         super().__init__(owner, JESoundComponent)
         self._sound = sound
         self._channel = None
@@ -129,9 +150,15 @@ class JESoundComponent(_JEInternEntityComponent):
         self._sound.sound.set_volume(self._volume / 100)
 
         def set_sound(owner_self, sound):
+
+            _assertion_type(sound, _JESound, "sound must be of type 'JESound'")
+
             self.sound = sound
 
         def play_sound(owner_self, loop=0):
+
+            _assertion_type(loop, int, "loop must be of type 'int'")
+
             return self.play(loop)
 
         def stop_sound(owner_self):
@@ -144,9 +171,15 @@ class JESoundComponent(_JEInternEntityComponent):
             self.resume()
 
         def fade_sound(owner_self, time):
+
+            _assertion_type(time, int, "time must be of type 'int'")
+
             self.fadeout(time)
 
         def set_sound_volume(owner_self, volume):
+
+            _assertion_type(volume, int, "volume must be of type 'int'")
+
             self.volume = volume
 
         def get_sound(owner_self):
