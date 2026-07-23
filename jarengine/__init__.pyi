@@ -38,6 +38,8 @@ systems, entities, resources, events, and engine-wide utilities.
 
 from __future__ import annotations
 
+from typing import Any, Callable
+
 # Public API
 from . import interns as Interns
 from . import entity as Entity
@@ -56,6 +58,18 @@ def init(project_path: str) -> tuple[int, int]:
 
         Returns:
             tuple[int, int]: PyGame numpass, numfail
+    """
+    ...
+def run(main: Callable[[...], None], *args: Any) -> Any:
+    """
+        Run the main for proper error handling.
+        
+        Parameters:
+            main (Callable[[...], None]): Main function
+            *args (Any): Arguments
+        
+        Returns:
+            Any: Result
     """
     ...
 def quit():
@@ -90,6 +104,7 @@ __all__: list[str] = [
     'Widgets',
     ## Functions ##
     'init',
+    'run',
     'quit',
     ## Constants ##
     # Versions #

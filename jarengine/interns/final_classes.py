@@ -49,6 +49,7 @@ from jarengine.interns.helpers import (
     safe_cast as _safe_cast
 )
 from jarengine.systems.vector import JEVector2D as _JEVector2D
+import jarengine.interns.log as _log
 
 @_documentation
 @_final
@@ -60,6 +61,8 @@ class JEInternEmptyComponent(_JEInternEntityComponent):
         _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'", True)
 
         super().__init__(owner, JEInternEmptyComponent)
+
+        _log.log("DEBUG", "OBJECT", f"JEInternEmptyComponent: Created", self.jeid, owner)
 
     def __call__(self) -> _NoneType:
         return None
@@ -82,6 +85,8 @@ class JEInternResources(_JEInternBaseClass):
         self._font = _JEContainer(_JEFont)
         self._music = _JEContainer(_JEMusic)
         self._sound = _JEContainer(_JESound)
+
+        _log.log("DEBUG", "OBJECT", f"JEInternResources: Created", self.jeid)
 
     @property
     def texture(self):
@@ -127,6 +132,8 @@ class JEInternWindowSettings(_JEInternBaseClass):
         self._vsync = vsync
         self._title = title
         _PGExtern.display.set_caption(title)
+
+        _log.log("DEBUG", "OBJECT", f"JEInternWindowSettings: Created", self.jeid, size, flags, fps, depth, display, vsync, title)
 
     @property
     def size(self):

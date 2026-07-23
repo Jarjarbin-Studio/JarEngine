@@ -56,6 +56,7 @@ from jarengine.interns.helpers import (
     assertion_type as _assertion_type,
     safe_cast as _safe_cast
 )
+import jarengine.interns.log as _log
 
 @_documentation
 @_final
@@ -71,6 +72,8 @@ class JEEvent(_JEInternBaseClass):
         self._key = None
         self._mouse = None
         self._pos = None
+
+        _log.log("DEBUG", "OBJECT", f"JEEvent: Created", self.jeid, event)
 
     @property
     def type(self):
@@ -121,6 +124,8 @@ class JEEventHandler(_JEInternBaseClass):
         JEEventHandler._is_created = _JEBool(1)
         self._watchers = []
 
+        _log.log("DEBUG", "OBJECT", f"JEEventHandler: Created", self.jeid)
+
     @property
     def watchers(self):
         return self._watchers
@@ -136,6 +141,8 @@ class JEEventHandler(_JEInternBaseClass):
 
         self._watchers.append(watcher)
 
+        _log.log("DEBUG", "EVENT", f"JEEventHandler: Watcher added", self.jeid, watcher)
+
     def remove(self, watcher):
 
         _assertion_type(watcher, (_JEEventWatcher, _JEKeyWatcher, _JEMouseWatcher), "watcher must be of type 'JEEventWatcher', 'JEKeyWatcher' or 'JEMouseWatcher'", True)
@@ -150,8 +157,12 @@ class JEEventHandler(_JEInternBaseClass):
                 self._watchers.remove(w)
                 return
 
+        _log.log("DEBUG", "EVENT", f"JEEventHandler: Watcher removed", self.jeid, watcher)
+
     def clear(self):
         self._watchers.clear()
+
+        _log.log("DEBUG", "EVENT", f"JEEventHandler: Cleared", self.jeid)
 
     def has(self, code):
 

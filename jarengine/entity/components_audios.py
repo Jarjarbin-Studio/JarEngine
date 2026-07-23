@@ -44,6 +44,9 @@ from jarengine.interns.high_classes import JEInternEntityComponent as _JEInternE
 from jarengine.interns.decorators import documentation as _documentation
 from jarengine.resources.music import JEMusic as _JEMusic
 from jarengine.resources.sound import JESound as _JESound
+import jarengine.interns.log as _log
+from resources import music
+
 
 @_documentation
 @_final
@@ -51,8 +54,8 @@ class JEMusicComponent(_JEInternEntityComponent):
 
     def __init__(self, owner, music):
 
-        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'")
-        _assertion_type(music, _JEMusic, "music must be of type 'JEMusic'")
+        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'", True)
+        _assertion_type(music, _JEMusic, "music must be of type 'JEMusic'", True)
 
         super().__init__(owner, JEMusicComponent)
         self._music = music
@@ -62,13 +65,13 @@ class JEMusicComponent(_JEInternEntityComponent):
 
         def set_music(owner_self, music):
 
-            _assertion_type(music, _JEMusic, "music must be of type 'JEMusic'")
+            _assertion_type(music, _JEMusic, "music must be of type 'JEMusic'", True)
 
             self.music = music
 
         def play_music(owner_self, loop=-1):
 
-            _assertion_type(loop, int, "loop must be of type 'int'")
+            loop = _safe_cast(_assertion_type(loop, int, "loop must be of type 'int'"), int)
 
             self.play(loop)
 
@@ -83,7 +86,7 @@ class JEMusicComponent(_JEInternEntityComponent):
 
         def set_music_volume(owner_self, volume):
 
-            _assertion_type(volume, int, "volume must be of type 'int'")
+            volume = _safe_cast(_assertion_type(volume, (int, float), "volume must be of type 'int' or 'float'"), int)
 
             self.volume = volume
 
@@ -97,6 +100,8 @@ class JEMusicComponent(_JEInternEntityComponent):
         owner.stop_music = stop_music.__get__(owner, type(owner))
         owner.set_music_volume = set_music_volume.__get__(owner, type(owner))
         owner.get_music = get_music.__get__(owner, type(owner))
+
+        _log.log("DEBUG", "OBJECT", f"JEMusicComponent: Created", self.jeid, owner, music)
 
     @property
     def music(self):
@@ -134,6 +139,9 @@ class JEMusicComponent(_JEInternEntityComponent):
         return self._music
 
     def copy(self, new_owner):
+
+        _log.log("DEBUG", "ENTITY", f"JEFlipComponent: Copied", self.jeid, new_owner)
+
         return JEMusicComponent(new_owner, _deepcopy(self._music))
 
 @_documentation
@@ -142,8 +150,8 @@ class JESoundComponent(_JEInternEntityComponent):
 
     def __init__(self, owner, sound):
 
-        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'")
-        _assertion_type(sound, _JESound, "sound must be of type 'JESound'")
+        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'", True)
+        _assertion_type(sound, _JESound, "sound must be of type 'JESound'", True)
 
         super().__init__(owner, JESoundComponent)
         self._sound = sound
@@ -154,13 +162,13 @@ class JESoundComponent(_JEInternEntityComponent):
 
         def set_sound(owner_self, sound):
 
-            _assertion_type(sound, _JESound, "sound must be of type 'JESound'")
+            _assertion_type(sound, _JESound, "sound must be of type 'JESound'", True)
 
             self.sound = sound
 
         def play_sound(owner_self, loop=0):
 
-            _assertion_type(loop, int, "loop must be of type 'int'")
+            loop = _safe_cast(_assertion_type(loop, (int, float), "loop must be of type 'int' or 'float'"), int)
 
             return self.play(loop)
 
@@ -175,13 +183,13 @@ class JESoundComponent(_JEInternEntityComponent):
 
         def fade_sound(owner_self, time):
 
-            _assertion_type(time, int, "time must be of type 'int'")
+            time = _safe_cast(_assertion_type(time, (int, float), "time must be of type 'int' or 'float'"), int)
 
             self.fadeout(time)
 
         def set_sound_volume(owner_self, volume):
 
-            _assertion_type(volume, int, "volume must be of type 'int'")
+            volume = _safe_cast(_assertion_type(volume, (int, float), "volume must be of type 'int' or 'float'"), int)
 
             self.volume = volume
 
@@ -196,6 +204,8 @@ class JESoundComponent(_JEInternEntityComponent):
         owner.fade_sound = fade_sound.__get__(owner, type(owner))
         owner.set_sound_volume = set_sound_volume.__get__(owner, type(owner))
         owner.get_sound = get_sound.__get__(owner, type(owner))
+
+        _log.log("DEBUG", "OBJECT", f"JESoundComponent: Created", self.jeid, owner, sound)
 
     @property
     def volume(self):
@@ -233,4 +243,7 @@ class JESoundComponent(_JEInternEntityComponent):
         return self._sound
 
     def copy(self, new_owner):
+
+        _log.log("DEBUG", "ENTITY", f"JESoundComponent: Copied", self.jeid, new_owner)
+
         return JESoundComponent(new_owner, _deepcopy(self._sound))

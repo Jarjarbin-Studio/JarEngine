@@ -45,6 +45,7 @@ from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClas
 from jarengine.interns.decorators import documentation as _documentation
 from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.interns.helpers import assertion_type as _assertion_type
+import jarengine.interns.log as _log
 
 _T = _TypeVar("_T")
 
@@ -92,6 +93,8 @@ class JEImmutable(_Generic[_T], _JEInternBaseClass):
         self._original_type = type(value)
         self._frozen = _freeze(value)
         self._reconstruction = _cast(self._original_type, _unfreeze(self._frozen))
+
+        _log.log("DEBUG", "OBJECT", f"JEImmutable: Created", self.jeid, value)
 
     @property
     def type(self):

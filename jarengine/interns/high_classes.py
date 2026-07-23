@@ -37,6 +37,7 @@ from jarengine.systems.container import JEContainer as _JEContainer
 from jarengine.interns.decorators import documentation as _documentation
 from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.interns.helpers import assertion_type as _assertion_type
+import jarengine.interns.log as _log
 
 @_documentation
 class JEInternOwnership(_JEInternBaseClass):
@@ -45,6 +46,8 @@ class JEInternOwnership(_JEInternBaseClass):
         super().__init__()
         self._parents = _JEContainer(_JEInternBaseClass)
         self._children = _JEContainer(_JEInternBaseClass)
+
+        _log.log("DEBUG", "OBJECT", f"JEInternOwnership: Created", self.jeid)
 
     @property
     def parents(self):
@@ -57,6 +60,8 @@ class JEInternOwnership(_JEInternBaseClass):
         self._parents.add(parent)
         self.on_parent_added(parent)
 
+        _log.log("DEBUG", "CORE", f"JEInternOwnership: Parent added", self.jeid, parent)
+
     @property
     def children(self):
         return self._children
@@ -66,6 +71,8 @@ class JEInternOwnership(_JEInternBaseClass):
         _assertion_type(child, _JEInternBaseClass, "child must be of type 'JEInternBaseClass'", True)
 
         self._children.add(child)
+
+        _log.log("DEBUG", "CORE", f"JEInternOwnership: Child added", self.jeid, child)
 
     def on_parent_added(self, parent):
         pass
@@ -82,6 +89,8 @@ class JEInternEntityComponent(_JEInternGraphic, JEInternOwnership):
         super().__init__(f"{_type.__name__}({owner.jeid})")
         self.add_parent(owner)
         owner.add_component(self)
+
+        _log.log("DEBUG", "OBJECT", f"JEInternEntityComponent: Created", self.jeid, owner, _type)
 
     def __call__(self):
         raise NotImplementedError
@@ -110,6 +119,8 @@ class JEInternSystems(JEInternOwnership):
         self.add_parent(owner)
         owner.add_system(self)
 
+        _log.log("DEBUG", "OBJECT", f"JEInternSystems: Created", self.jeid, owner)
+
     def refresh(self):
         from jarengine.games.game import JEGame as _JEGame
 
@@ -126,6 +137,8 @@ class JEInternSystems(JEInternOwnership):
 
         self.sort_cache()
 
+        _log.log("DEBUG", "SYSTEM", f"JEInternSystems: Cache refreshed", self.jeid)
+
     def refresh_entity(self, entity):
         from jarengine.entity.entity import JEEntity as _JEEntity
 
@@ -139,6 +152,8 @@ class JEInternSystems(JEInternOwnership):
 
         if entity in self.cache:
             self.cache.remove(entity)
+
+        _log.log("DEBUG", "SYSTEM", f"JEInternSystems: Cache refreshed for 1 entity", self.jeid, entity)
 
     def sort_cache(self):
         pass

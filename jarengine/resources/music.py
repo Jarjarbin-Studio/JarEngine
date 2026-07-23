@@ -47,6 +47,7 @@ from jarengine.interns.helpers import (
     asset_path as _asset_path,
     safe_cast as _safe_cast
 )
+import jarengine.interns.log as _log
 
 @_documentation
 @_final
@@ -65,3 +66,5 @@ class JEMusic(_JEInternResource, _JEInternOwnership):
         self._path = path
         if not _exists(path):
             raise _JTKExternError.Special.ErrorSpecialConfig(f"\nInvalid music path. Check assets config at {_JEInternConfig.config_path}")
+
+        _log.log("DEBUG", "OBJECT", f"JEMusic: Created", self.jeid, name, path)

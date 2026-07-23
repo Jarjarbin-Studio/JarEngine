@@ -48,6 +48,7 @@ from jarengine.interns.helpers import (
     assertion_type as _assertion_type,
     safe_cast as _safe_cast
 )
+import jarengine.interns.log as _log
 
 @_documentation
 @_final
@@ -111,6 +112,8 @@ class JEWindow(_JEInternBaseClass):
         if _get("window", "ICON", "enabled", bool, False):
             icon = _PGExtern.image.load(_get("window", "ICON", "path", str))
             _PGExtern.display.set_icon(icon)
+
+        _log.log("DEBUG", "OBJECT", f"JEWindow: Created", self.jeid)
 
     @property
     def render_surface(self):

@@ -42,6 +42,7 @@ from jarengine.interns.helpers import (
 from jarengine.interns.high_classes import JEInternEntityComponent as _JEInternEntityComponent
 from jarengine.interns.decorators import documentation as _documentation
 from jarengine.systems.vector import JEVector2D as _JEVector2D
+import jarengine.interns.log as _log
 
 @_documentation
 @_final
@@ -51,8 +52,8 @@ class JEPositionComponent(_JEInternEntityComponent):
 
     def __init__(self, owner, position):
 
-        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'")
-        _assertion_type(position, (tuple, _JEVector2D), "position must be of type 'tuple' or 'JEVector2D'")
+        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'", True)
+        position = _safe_cast(_assertion_type(position, (tuple, _JEVector2D), "position must be of type 'tuple' or 'JEVector2D'"), tuple)
 
         super().__init__(owner, JEPositionComponent)
         self._position = (
@@ -63,14 +64,14 @@ class JEPositionComponent(_JEInternEntityComponent):
 
         def set_position(owner_self, position):
 
-            _assertion_type(position, (tuple, _JEVector2D), "position must be of type 'tuple' or 'JEVector2D'")
+            position = _safe_cast(_assertion_type(position, (tuple, _JEVector2D), "position must be of type 'tuple' or 'JEVector2D'"), tuple)
 
             self.position = position
 
         def update_position(owner_self, *, x = 0, y = 0):
 
-            _assertion_type(x, (float, int), "x must be of type 'float' or 'int'")
-            _assertion_type(y, (float, int), "y must be of type 'float' or 'int'")
+            x = _safe_cast(_assertion_type(x, (float, int), "x must be of type 'float' or 'int'"), float)
+            y = _safe_cast(_assertion_type(y, (float, int), "y must be of type 'float' or 'int'"), float)
 
             self._position.x += x
             self._position.y += y
@@ -103,6 +104,8 @@ class JEPositionComponent(_JEInternEntityComponent):
         owner.get_position = get_position.__get__(owner, type(owner))
         owner.get_world_position = get_world_position.__get__(owner, type(owner))
 
+        _log.log("DEBUG", "OBJECT", f"JEPositionComponent: Created", self.jeid, owner, position)
+
     @property
     def position(self):
         return self._position
@@ -119,6 +122,9 @@ class JEPositionComponent(_JEInternEntityComponent):
         return self._position
 
     def copy(self, new_owner):
+
+        _log.log("DEBUG", "ENTITY", f"JEPositionComponent: Copied", self.jeid, new_owner)
+
         return JEPositionComponent(new_owner, _deepcopy(self._position))
 
 @_documentation
@@ -128,6 +134,10 @@ class JEVelocityComponent(_JEInternEntityComponent):
     __recursive__ = False
 
     def __init__(self, owner, velocity):
+
+        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'", True)
+        velocity = _safe_cast(_assertion_type(velocity, (tuple, _JEVector2D), "velocity must be of type 'tuple' or 'JEVector2D'"), tuple)
+
         super().__init__(owner, JEVelocityComponent)
         self._velocity = (
             velocity
@@ -137,14 +147,14 @@ class JEVelocityComponent(_JEInternEntityComponent):
 
         def set_velocity(owner_self, velocity):
 
-            _assertion_type(velocity, (tuple, _JEVector2D), "velocity must be of type 'tuple' or 'JEVector2D'")
+            velocity = _safe_cast(_assertion_type(velocity, (tuple, _JEVector2D), "velocity must be of type 'tuple' or 'JEVector2D'"), tuple)
 
             self.velocity = velocity
 
         def update_velocity(owner_self, *, x = 0, y = 0):
 
-            _assertion_type(x, (float, int), "x must be of type 'float' or 'int'")
-            _assertion_type(y, (float, int), "y must be of type 'float' or 'int'")
+            x = _safe_cast(_assertion_type(x, (float, int), "x must be of type 'float' or 'int'"), float)
+            y = _safe_cast(_assertion_type(y, (float, int), "y must be of type 'float' or 'int'"), float)
 
             self._velocity.x += x
             self._velocity.y += y
@@ -155,6 +165,8 @@ class JEVelocityComponent(_JEInternEntityComponent):
         owner.set_velocity = set_velocity.__get__(owner, type(owner))
         owner.update_velocity = update_velocity.__get__(owner, type(owner))
         owner.get_velocity = get_velocity.__get__(owner, type(owner))
+
+        _log.log("DEBUG", "OBJECT", f"JEVelocityComponent: Created", self.jeid, owner, velocity)
 
     @property
     def velocity(self):
@@ -172,6 +184,9 @@ class JEVelocityComponent(_JEInternEntityComponent):
         return self._velocity
 
     def copy(self, new_owner):
+
+        _log.log("DEBUG", "ENTITY", f"JEVelocityComponent: Copied", self.jeid, new_owner)
+
         return JEVelocityComponent(new_owner, _deepcopy(self._velocity))
 
 @_documentation
@@ -181,6 +196,10 @@ class JESizeComponent(_JEInternEntityComponent):
     __recursive__ = False
 
     def __init__(self, owner, size):
+
+        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'", True)
+        size = _safe_cast(_assertion_type(size, (tuple, _JEVector2D), "size must be of type 'tuple' or 'JEVector2D'"), tuple)
+
         super().__init__(owner, JESizeComponent)
         self._size = (
             size
@@ -190,14 +209,14 @@ class JESizeComponent(_JEInternEntityComponent):
 
         def set_size(owner_self, size):
 
-            _assertion_type(size, (tuple, _JEVector2D), "size must be of type 'tuple' or 'JEVector2D'")
+            size = _safe_cast(_assertion_type(size, (tuple, _JEVector2D), "size must be of type 'tuple' or 'JEVector2D'"), tuple)
 
             self.size = size
 
         def update_size(owner_self, *, x = 0, y = 0):
 
-            _assertion_type(x, (float, int), "x must be of type 'float' or 'int'")
-            _assertion_type(y, (float, int), "y must be of type 'float' or 'int'")
+            x = _safe_cast(_assertion_type(x, (float, int), "x must be of type 'float' or 'int'"), float)
+            y = _safe_cast(_assertion_type(y, (float, int), "y must be of type 'float' or 'int'"), float)
 
             self._size.x += x
             self._size.y += y
@@ -208,6 +227,8 @@ class JESizeComponent(_JEInternEntityComponent):
         owner.set_size = set_size.__get__(owner, type(owner))
         owner.update_size = update_size.__get__(owner, type(owner))
         owner.get_size = get_size.__get__(owner, type(owner))
+
+        _log.log("DEBUG", "OBJECT", f"JESizeComponent: Created", self.jeid, owner, size)
 
     @property
     def size(self):
@@ -225,6 +246,9 @@ class JESizeComponent(_JEInternEntityComponent):
         return self._size
 
     def copy(self, new_owner):
+
+        _log.log("DEBUG", "ENTITY", f"JESizeComponent: Copied", self.jeid, new_owner)
+
         return JESizeComponent(new_owner, _deepcopy(self._size))
 
 @_documentation
@@ -234,13 +258,23 @@ class JERotationComponent(_JEInternEntityComponent):
     __recursive__ = False
 
     def __init__(self, owner, rotation):
+
+        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'", True)
+        rotation = _safe_cast(_assertion_type(rotation, (float, int), "rotation must be of type 'float' or 'int'"), float)
+
         super().__init__(owner, JERotationComponent)
         self._rotation = rotation
 
         def set_rotation(owner_self, rotation):
+
+            rotation = _safe_cast(_assertion_type(rotation, (float, int), "rotation must be of type 'float' or 'int'"), float)
+
             self.rotation = rotation
 
         def update_rotation(owner_self, *, r = 0):
+
+            r = _safe_cast(_assertion_type(r, (float, int), "r must be of type 'float' or 'int'"), float)
+
             self._rotation += r
 
         def get_rotation(owner_self):
@@ -249,6 +283,8 @@ class JERotationComponent(_JEInternEntityComponent):
         owner.set_rotation = set_rotation.__get__(owner, type(owner))
         owner.update_rotation = update_rotation.__get__(owner, type(owner))
         owner.get_rotation = get_rotation.__get__(owner, type(owner))
+
+        _log.log("DEBUG", "OBJECT", f"JERotationComponent: Created", self.jeid, owner, rotation)
 
     @property
     def rotation(self):
@@ -262,4 +298,7 @@ class JERotationComponent(_JEInternEntityComponent):
         return self._rotation
 
     def copy(self, new_owner):
+
+        _log.log("DEBUG", "ENTITY", f"JERotationComponent: Copied", self.jeid, new_owner)
+
         return JERotationComponent(new_owner, _deepcopy(self._rotation))

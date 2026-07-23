@@ -65,7 +65,7 @@ from jarengine.entity.components_audios import (
     JEMusicComponent as _JEMusicComponent,
     JESoundComponent as _JESoundComponent,
 )
-from jarengine.interns.helpers import assertion_type as _assertion_type
+import jarengine.interns.log as _log
 
 @_documentation
 @_final
@@ -77,6 +77,8 @@ class JEMovementSystem(_JEInternSystems):
             _JEPositionComponent,
             _JEVelocityComponent
         ]
+
+        _log.log("DEBUG", "OBJECT", f"JEMovementSystem: Created", self.jeid, owner)
 
     def update(self, window, entity, entities, dt):
         position = entity.get(_JEPositionComponent)
@@ -95,6 +97,8 @@ class JEAccelerationSystem(_JEInternSystems):
             _JEAccelerationComponent,
             _JEVelocityComponent
         ]
+
+        _log.log("DEBUG", "OBJECT", f"JEAccelerationSystem: Created", self.jeid, owner)
 
     def update(self, window, entity, entities, dt):
         acceleration = entity.get(_JEAccelerationComponent)
@@ -122,6 +126,8 @@ class JERenderSystem(_JEInternSystems):
             _JEPositionComponent
         ]
 
+        _log.log("DEBUG", "OBJECT", f"JERenderSystem: Created", self.jeid, owner)
+
     def sort_cache(self):
         self.cache.sort(
             key=lambda entity:
@@ -129,6 +135,8 @@ class JERenderSystem(_JEInternSystems):
             if entity.get(_JELayerComponent)
             else 0
         )
+
+        _log.log("DEBUG", "SYSTEM", f"JERenderSystem: Cache sorted", self.jeid)
 
     def _is_visible(self, entity, visibility):
 

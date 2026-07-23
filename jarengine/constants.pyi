@@ -106,3 +106,5 @@ JEKey_Right: JEKeyCode
 JEMse_Left: JEMouseCode
 JEMse_Middle: JEMouseCode
 JEMse_Right: JEMouseCode
+
+__all__: list[str]

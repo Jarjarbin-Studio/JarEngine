@@ -68,6 +68,14 @@ class JEBool(JEInternBaseClass):
                 str: String
         """
         ...
+    def __repr__(self) -> str:
+        """
+            Get the string representation of the boolean
+
+            Returns:
+                str: String representation
+        """
+        ...
     def __call__(self) -> JEBool:
         """
             Revers the boolean (False <-> True)

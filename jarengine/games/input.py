@@ -47,6 +47,7 @@ from jarengine.interns.helpers import (
     assertion_type as _assertion_type,
     safe_cast as _safe_cast
 )
+import jarengine.interns.log as _log
 
 @_documentation
 @_final
@@ -77,6 +78,8 @@ class JEInput(_JEInternBaseClass):
         self._keys_down = _PGExtern.key.get_pressed()
         self._mouse_down = _PGExtern.mouse.get_pressed()
         self._mouse_pos =  _JEVector2D(*_PGExtern.mouse.get_pos())
+
+        _log.log("DEBUG", "OBJECT", f"JEInput: Created", self.jeid)
 
     def update(self):
         self._keys_down = _PGExtern.key.get_pressed()

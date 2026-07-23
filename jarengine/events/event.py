@@ -44,6 +44,7 @@ from jarengine.interns.helpers import (
     assertion_type as _assertion_type,
     safe_cast as _safe_cast
 )
+import jarengine.interns.log as _log
 
 @_documentation
 @_final
@@ -93,6 +94,8 @@ class JEEventCode(_JEInternBaseClass):
         self._name = self._name_cache.get(self._event, f"EventUnknown({self._event})")
         self._initialized = True
 
+        _log.log("DEBUG", "OBJECT", f"JEEventCode: Created", self.jeid, event)
+
     def __int__(self):
         return self._event
 
@@ -133,6 +136,8 @@ class JEEventCodeGroup(_JEInternBaseClass):
 
         super().__init__()
         self._events = list(dict.fromkeys(events))
+
+        _log.log("DEBUG", "OBJECT", f"JEEventCodeGroup: Created", self.jeid, events)
 
     def __or__(self, other):
 
@@ -176,6 +181,8 @@ class JEEventWatcher(_JEInternBaseClass):
         )
         self._do = do
 
+        _log.log("DEBUG", "OBJECT", f"JEEventWatcher: Created", self.jeid, on, f"{do.__name__}")
+
     def match(self, event):
         for rule in self._on:
             if event.type == rule:
@@ -183,6 +190,9 @@ class JEEventWatcher(_JEInternBaseClass):
         return False
 
     def __call__(self, game, event):
+
+        _log.log("DEBUG", "EVENT", f"JEEventWatcher: Event triggered", self.jeid, game, event)
+
         self._do(game, event)
 
     @property

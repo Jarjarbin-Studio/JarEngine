@@ -35,6 +35,7 @@ from typing import final as _final
 
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from jarengine.interns.decorators import documentation as _documentation
+import jarengine.interns.log as _log
 
 @_documentation
 @_final
@@ -61,6 +62,8 @@ class JEBool(_JEInternBaseClass):
         super().__init__()
         self._bool = bool(value)
 
+        _log.log("DEBUG", "OBJECT", f"JEBool: Created", self.jeid, value)
+
     def __bool__(self):
         return self._bool
 
@@ -69,6 +72,9 @@ class JEBool(_JEInternBaseClass):
 
     def __str__(self):
         return "JETrue" if self else "JEFalse"
+
+    def __repr__(self):
+        return str(self)
 
     def __call__(self):
         return JEBool(not self)

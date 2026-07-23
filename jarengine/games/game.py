@@ -56,6 +56,7 @@ from jarengine.interns.helpers import (
     safe_cast as _safe_cast,
     enabled as _enabled
 )
+import jarengine.interns.log as _log
 
 @_documentation
 @_final
@@ -89,6 +90,8 @@ class JEGame(_JEInternBaseClass):
         self._event_manager = _JEEventHandler()
         self._systems = _JEContainer(_JEInternSystems, _JEBool(1))
 
+        _log.log("DEBUG", "OBJECT", f"JEGame: Created", self.jeid)
+
     def set_window(self, window):
 
         _assertion_type(window, _JEWindow, "window must be of type 'JEWindow'", True)
@@ -99,6 +102,8 @@ class JEGame(_JEInternBaseClass):
             )
         self._window = window
         self._clock = _JEClock(window.settings.fps)
+
+        _log.log("DEBUG", "ENGINE", f"JEGame: Window added", self.jeid, window)
 
     @property
     def wdw(self):
@@ -141,7 +146,11 @@ class JEGame(_JEInternBaseClass):
         return self._is_open
 
     def close(self):
-        self._is_open = _JEBool(0)
+        if self._is_open:
+
+            _log.log("DEBUG", "ENGINE", f"JEGame: Closed", self.jeid)
+
+            self._is_open = _JEBool(0)
 
     @property
     def resources(self):
@@ -153,12 +162,16 @@ class JEGame(_JEInternBaseClass):
         if self._clock:
             self._clock.target_fps = self._window.settings.fps
 
+        _log.log("DEBUG", "ENGINE", f"JEGame: Game refreshed", self.jeid)
+
     def refresh_entity(self, entity):
 
         _assertion_type(entity, _JEEntity, "entity must be of type 'JEEntity'", True)
 
         for system in self._systems:
             system.refresh_entity(entity)
+
+        _log.log("DEBUG", "ENGINE", f"JEGame: Game refreshed for 1 entity", self.jeid)
 
     def add_entity(self, entity, *, refresh = _JEBool(0)):
 
@@ -179,6 +192,8 @@ class JEGame(_JEInternBaseClass):
         _assertion_type(system, _JEInternSystems, "system must be of type 'JEInternSystems'", True)
 
         self._systems.add(system)
+
+        _log.log("DEBUG", "ENGINE", f"JEGame: System added", self.jeid, system)
 
     @property
     def systems(self):
@@ -221,6 +236,8 @@ class JEGame(_JEInternBaseClass):
 
         window.display()
         window.clear()
+
+        _log.save()
 
     def display(self):
         _PGExtern.display.flip()

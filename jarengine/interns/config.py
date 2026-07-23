@@ -36,7 +36,7 @@ from os import mkdir
 from typing import final as _final
 from datetime import datetime as _datetime
 
-from jarbin_toolkit_config import Config as _JTKInternConfig
+from jarbin_toolkit_config import Config as _JTKExternConfig
 
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from jarengine.interns import JTKExternError as _JTKExternError
@@ -44,35 +44,43 @@ from jarengine.interns.decorators import documentation as _documentation
 
 @_documentation
 @_final
-class JEInternConfig(_JTKInternConfig, _JEInternBaseClass):
+class JEInternConfig(_JTKExternConfig, _JEInternBaseClass):
     __recursive__ = False
 
     project_path = None
     config_path = None
+    state_path = None
     configs = {}
 
-    def __init__(self, name, data = None):
+    def __init__(self, name, data = None, _is_state = False):
         from jarengine.constants import (
             JEVersion_JarEngine as _JEVersion_JarEngine,
             JEVersion_Config as _JEVersion_Config
         )
 
-        if not JEInternConfig.project_path or  not JEInternConfig.config_path:
+        config_path = str(JEInternConfig.state_path if _is_state else JEInternConfig.config_path)
+
+        if (not JEInternConfig.project_path) or (not JEInternConfig.config_path):
             raise _JTKExternError.State.ErrorStateNotInitialized("\nJarEngine.init(path) must be called first")
-        if not exists(JEInternConfig.config_path):
-            mkdir(JEInternConfig.config_path)
+        if not exists(config_path):
+            mkdir(config_path)
 
         if not data:
             data = {}
 
-        super().__init__(JEInternConfig.config_path, {
-            "INFO": {
-                "name": name,                                       #Configuration file identifier.
-                "creation": _datetime.now(),                        #Timestamp when this config was first created.
-                "jarengine_version": str(_JEVersion_JarEngine),     #Version of JarEngine when the config was created.
-                "config_version": str(_JEVersion_Config),           #Version of configuration when the config was created
-            }
-        } | data, file_name=f"je-{name}.ini")
+        super().__init__(
+            config_path,
+            {
+                "INFO": {
+                    "name": name,                                       #Configuration file identifier.
+                    "creation": _datetime.now(),                        #Timestamp when this config was first created.
+                    "jarengine_version": str(_JEVersion_JarEngine),     #Version of JarEngine when the config was created.
+                    "config_version": str(_JEVersion_Config),           #Version of configuration when the config was created
+                }
+            } | data,
+            file_name=f"je-{name}.ini"
+        )
+
         JEInternConfig.configs[name] = self
 
 def get(name, section, setting, _type = str, default = None):
@@ -124,7 +132,7 @@ def init_all():
         JEVersion_Python as _JEVersion_Python
     )
 
-    config = JEInternConfig(
+    JEInternConfig(
         "engine",
         {
             "ENGINE": {
@@ -171,23 +179,11 @@ def init_all():
         }
     )
 
-    config.set(
-        "ENGINE",
-        "version",
-        str(_JEVersion_JarEngine)
-    )
-
-    config.set(
-        "CONFIG",
-        "version",
-        str(_JEVersion_Config)
-    )
-
     JEInternConfig(
         "project",
         {
             "PROJECT": {
-                "name": "Unnamed Project",                          #Defines the display name of the project #Unused
+                "name": "Unnamed Project",                          #Defines the display name of the project
                 "path": JEInternConfig.project_path,                #Defines the absolute path where the project is located #Unused
                 "version": "0.1.0",                                 #Defines the current game version
                 "jarengine_version": str(_JEVersion_JarEngine),     #Defines the required JarEngine version
@@ -197,30 +193,10 @@ def init_all():
             },
 
             "AUTHOR": {
-                "name": "",                                         #Defines the name of the project author #Unused
-                "company": "",                                      #Defines the company or organization associated with the project #Unused
+                "name": "",                                         #Defines the name of the project author
+                "company": "",                                      #Defines the company or organization associated with the project
             },
         }
-    )
-
-    session = JEInternConfig(
-        "session",
-        {
-            "FIRST_RUN": {
-                "timestamp": _datetime.now(),                       #Timestamp of the first time the project was launched.
-            },
-
-            "LAST_RUN": {
-                "timestamp": "",                                    #Timestamp when the project was last launched.
-                "duration": "",                                     #Duration of the previous project execution session.
-            },
-        }
-    )
-
-    session.set(
-        "LAST_RUN",
-        "timestamp",
-        _datetime.now()
     )
 
     JEInternConfig(
@@ -400,9 +376,34 @@ def init_all():
             },
 
             "LOG": {
-                "enabled": True,                                    #Enable or disable engine logging. #Unused
-                "level": "INFO",                                    #Minimum log severity to record. #Unused
-                "file": "jarengine.log",                            #Log file name. #Unused
+                "enabled": True,                                    #Enable or disable engine logging.
+                "level": "INFO",                                    #Minimum log severity to record.
+                "file": "",                                         #Log file name.
+                "clean": True,                                      #Enable log cleaning.
+                "show_jeid": False,                                 #Show JEID in logs.
+                "show_values": False,                               #Show values in logs.
+                "excluded": "JEBool;JEVector2D;JEEvent;JEColor",    #Classes to exclude from logs.
+            },
+
+            "LOG - CATEGORY": {
+                "object": True,                                     #Enable object log category
+                "entity": True,                                     #Enable entity log category.
+                "render": True,                                     #Enable render log category.
+                "input": True,                                      #Enable input log category.
+                "scene": True,                                      #Enable scene log category.
+                "resource": True,                                   #Enable resource log category.
+                "system": True,                                     #Enable system log category.
+                "engine": True,                                     #Enable engine log category.
+                "physics": True,                                    #Enable physics log category.
+                "audio": True,                                      #Enable audio log category.
+                "animation": True,                                  #Enable animation log category.
+                "event": True,                                      #Enable event log category.
+                "config": True,                                     #Enable config log category.
+                "core": False,                                      #Enable core log category.
+                "intern": False,                                    #Enable intern log category.
+                "memory": False,                                    #Enable memory log category.
+                "perf": False,                                      #Enable perf log category.
+                "network": False,                                   #Enable network log category.
             },
 
             "ASSERT": {
@@ -467,6 +468,88 @@ def init_all():
                 "log_events": False,                                #Logs emitted and processed events for debugging purposes #Unused
             },
         }
+    )
+
+    JEInternConfig(
+        "state",
+        {
+            "FIRST_RUN": {
+                "timestamp": _datetime.now(),                       #First time the project was ever launched.
+            },
+
+            "LAST_RUN": {
+                "start": "",                                        #Previous session start timestamp.
+                "end": "",                                          #Previous session end timestamp.
+                "duration": "",                                     #Previous session duration.
+                "clean_exit": True,                                 #Whether the previous session exited normally.
+            },
+
+            "SESSION": {
+                "id": "",                                           #Unique identifier for the current session. #Unused
+                "launches": 0,                                      #Total number of launches.
+            },
+
+            "STATISTICS": {
+                "total_runtime": 0,                                 #Total runtime in seconds. #Unused
+                "average_session": 0,                               #Average session duration in seconds. #Unused
+                "longest_session": 0,                               #Longest session in seconds. #Unused
+                "shortest_session": 0,                              #Shortest session in seconds. #Unused
+            },
+
+            "CRASH": {
+                "crashes": 0,                                       #Number of detected crashes. #Unused
+                "last_crash": "",                                   #Timestamp of the last crash. #Unused
+                "last_error": "",                                   #Last fatal error type. #Unused
+            },
+        },
+        True
+    )
+
+    JEInternConfig(
+        "cache",
+        {
+            "RESOURCE": {
+                "textures": 0,                                      #Cached textures. #Unused
+                "fonts": 0,                                         #Cached fonts. #Unused
+                "sounds": 0,                                        #Cached sounds. #Unused
+                "music": 0,                                         #Cached musics. #Unused
+            },
+
+            "SHADER": {
+                "compiled": 0,                                      #Cached compiled shaders. #Unused
+            },
+
+            "SCENE": {
+                "last_loaded": "",                                  #Last loaded scene cache. #Unused
+            },
+        },
+        True
+    )
+
+    JEInternConfig(
+        "recent",
+        {
+            "PROJECT": {
+                "last_scene": "",                                   #Last scene loaded or active before the application closed. #Unused
+                "last_save": "",                                    #Path of the last save file loaded or written.
+                "last_prefab": "",                                  #Last prefab loaded or instantiated.
+            },
+
+            "WINDOW": {
+                "display": 0,                                       #Display index where the application window was last shown.
+                "x": 0,                                             #Last horizontal position of the application window.
+                "y": 0,                                             #Last vertical position of the application window.
+                "width": 0,                                      #Last width of the application window in pixels.
+                "height": 0,                                      #Last height of the application window in pixels.
+            },
+
+            "ASSET": {
+                "texture": "",                                      #Path of the most recently loaded texture.
+                "font": "",                                         #Path of the most recently loaded font.
+                "sound": "",                                        #Path of the most recently loaded sound effect.
+            },
+        },
+        True
     )
 
 class _Checks:

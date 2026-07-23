@@ -50,6 +50,7 @@ from jarengine.interns.helpers import (
     asset_path as _asset_path,
     safe_cast as _safe_cast
 )
+import jarengine.interns.log as _log
 
 @_documentation
 @_final
@@ -71,6 +72,8 @@ class JETexture(_JEInternResource, _JEInternOwnership):
         except FileNotFoundError:
             raise _JTKExternError.Special.ErrorSpecialConfig(f"\nInvalid texture path. Check assets config at {_JEInternConfig.config_path}")
         self._size = _JEVector2D(self._texture.get_width(), self._texture.get_height())
+
+        _log.log("DEBUG", "OBJECT", f"JETexture: Created", self.jeid, name, path)
 
     @property
     def texture(self):

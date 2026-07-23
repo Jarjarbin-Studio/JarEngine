@@ -48,6 +48,7 @@ from jarengine.entity.components_others import JEGroupComponent as _JEGroupCompo
 from jarengine.events.mouse import JEMouseWatcher as _JEMouseWatcher
 from jarengine.constants import JEMse_Left as _JEMse_Left
 from jarengine.widgets.graphics import JEText as _JEText
+import jarengine.interns.log as _log
 
 @_documentation
 class JEButton(_JEWidget):
@@ -62,6 +63,8 @@ class JEButton(_JEWidget):
 
         self._callback = lambda: None
         self._watcher = None
+
+        _log.log("DEBUG", "OBJECT", f"JEButton: Created", self.jeid, color, outline_color, outline_size)
 
     def on_parent_added(self, parent):
         if isinstance(parent, _JEGame):
@@ -118,6 +121,8 @@ class JEImageButton(_JEWidget):
         self._callback = lambda: None
         self._watcher = None
 
+        _log.log("DEBUG", "OBJECT", f"JEImageButton: Created", self.jeid, texture, flip, color, outline_color, outline_size)
+
     def on_parent_added(self, parent):
         if isinstance(parent, _JEGame):
             self._watcher = _JEMouseWatcher(
@@ -162,6 +167,8 @@ class JEPanel(_JEWidget):
 
         if outline_color and outline_size:
             _JEOutlineComponent(self, outline_color, outline_size)
+
+        _log.log("DEBUG", "OBJECT", f"JEPanel: Created", self.jeid, color, outline_color, outline_size, auto_size)
 
     def add(self, entity):
         self.group_add(entity)
@@ -210,6 +217,8 @@ class JECheckbox(_JEWidget):
 
         self._callback = lambda value: None
         self._watcher = None
+
+        _log.log("DEBUG", "OBJECT", f"JECheckbox: Created", self.jeid, checked, color, checked_color, outline_color, outline_size)
 
     def on_parent_added(self, parent):
         if isinstance(parent, _JEGame):
@@ -288,6 +297,8 @@ class JERadio(_JEWidget):
 
         self.set_visibility = set_visibility.__get__(self, type(self))
 
+        _log.log("DEBUG", "OBJECT", f"JERadio: Created", self.jeid, positions, checked, color, checked_color, outline_color, outline_size, size)
+
     def on_parent_added(self, parent):
 
         if isinstance(parent, _JEGame):
@@ -359,6 +370,8 @@ class JESlider(_JEWidget):
         self.group_add(self._cursor)
 
         self._update_cursor()
+
+        _log.log("DEBUG", "OBJECT", f"JESlider: Created", self.jeid, minimum, maximum, value, color, cursor_color, cursor_size)
 
     def on_parent_added(self, parent):
         if isinstance(parent, _JEGame):
@@ -505,6 +518,8 @@ class JEProgressBar(_JEWidget):
 
         self._update_progress()
 
+        _log.log("DEBUG", "OBJECT", f"JEProgressBar: Created", self.jeid, minimum, maximum, value, color, progress_color)
+
     def set_value(self, value):
         self._value = max(
             self._minimum,
@@ -540,211 +555,3 @@ class JEProgressBar(_JEWidget):
                 size.y
             )
         )
-
-@_documentation
-class JEDropdown(_JEWidget):
-
-    @_documentation
-    class JEDropdownOption(_JEWidget):
-
-        def __init__(self, index, text, font, callback, *, color=_JEColor(100, 100, 100, 255), text_color=_JEColor(255, 255, 255, 255), name="JEDropdownOption", position=_JEVector2D(0, 0), size=_JEVector2D(200, 30), rotation=0.0, layer=0, visibility=_JEBool(1)):
-            raise NotImplementedError
-
-            super().__init__(name=name, position=position, size=size, rotation=rotation, layer=layer, visibility=visibility)
-
-            _JEGroupComponent(self)
-
-            self._index = index
-            self._callback = callback
-
-            self._rectangle = _JEWidget(
-                name=f"{name}:Rectangle",
-                position=_JEVector2D(0, 0),
-                size=size,
-                layer=layer,
-                visibility=visibility
-            )
-
-            _JEColorComponent(self._rectangle, color)
-
-            self._text = _JEText(
-                text,
-                font,
-                color=text_color,
-                name=f"{name}:Text",
-                position=_JEVector2D(5, 0),
-                size=size,
-                layer=layer + 1,
-                visibility=visibility
-            )
-
-            self._button = JEButton(
-                color=_JEColor(0, 0, 0, 0),
-                name=f"{name}:Button",
-                position=_JEVector2D(0, 0),
-                size=size,
-                layer=layer + 2,
-                visibility=visibility
-            )
-
-            self._button.set_callback(
-                self._on_click
-            )
-
-            self.group_add(self._rectangle)
-            self.group_add(self._text)
-            self.group_add(self._button)
-
-        def _on_click(self):
-            if self._callback:
-                self._callback(self._index)
-
-    def __init__(self, options, font, *, selected = 0, color = _JEColor(100, 100, 100, 255), option_color = _JEColor(80, 80, 80, 255), text_color = _JEColor(255, 255, 255, 255), option_size = _JEVector2D(200, 30), name = "JEDropdown", position = _JEVector2D(0, 0), size = _JEVector2D(200, 30), rotation = 0.0, layer = 0, visibility = _JEBool(1)):
-        raise NotImplementedError
-
-        super().__init__(name=name, position=position, size=size, rotation=rotation, layer=layer, visibility=visibility)
-
-        _JEGroupComponent(self)
-
-        self._options = options
-        self._selected = selected
-        self._open = _JEBool(0)
-
-        self._callback = lambda index: None
-
-        self._button = JEButton(
-            color=color,
-            name=f"{name}:Button",
-            position=_JEVector2D(0, 0),
-            size=size,
-            layer=layer + 1,
-            visibility=visibility
-        )
-
-        self._text = _JEText(
-            options[selected],
-            font,
-            color=text_color,
-            name=f"{name}:Text",
-            position=_JEVector2D(5, 0),
-            size=size,
-            layer=layer + 2,
-            visibility=visibility
-        )
-
-        self._button.set_callback(
-            self.toggle
-        )
-
-        self._options_group = _JEWidget(
-            name=f"{name}:Options",
-            position=_JEVector2D(0, 0),
-            size=_JEVector2D(0, 0),
-            layer=layer + 10,
-            visibility=_JEBool(0)
-        )
-
-        _JEGroupComponent(self._options_group)
-
-        self.group_add(self._button)
-        self.group_add(self._text)
-        self.group_add(self._options_group)
-
-        for index, option in enumerate(options):
-
-            widget = JEDropdown.JEDropdownOption(
-                index,
-                option,
-                font,
-                self._select,
-                color=option_color,
-                text_color=text_color,
-                name=f"{name}:Option{index}",
-                position=_JEVector2D(
-                    0,
-                    size.y + index * option_size.y
-                ),
-                size=option_size,
-                layer=layer + 10,
-                visibility=visibility
-            )
-
-            self._options_group.group_add(widget)
-
-    def on_parent_added(self, parent):
-        if isinstance(parent, _JEGame):
-            parent.add_entity(self._button)
-            parent.add_entity(self._text)
-            parent.add_entity(self._options_group)
-
-        super().on_parent_added(parent)
-
-    def set_callback(self, callback):
-        self._callback = callback
-
-    def set_selected(self, index):
-        if index < 0 or index >= len(self._options):
-            return
-
-        self._selected = index
-
-        self._text.set_text(
-            self._options[index]
-        )
-
-    def get_selected(self):
-        return self._selected
-
-    def get_selected_text(self):
-        return self._options[self._selected]
-
-    def open(self):
-        self._open = _JEBool(1)
-
-        self._options_group.set_visibility(
-            _JEBool(1)
-        )
-
-        for option in self._options_group.get_group():
-            option.set_visibility(
-                _JEBool(1)
-            )
-
-    def close(self):
-        self._open = _JEBool(0)
-
-        self._options_group.set_visibility(
-            _JEBool(0)
-        )
-
-        for option in self._options_group.get_group():
-            option.set_visibility(
-                _JEBool(0)
-            )
-
-    @property
-    def is_open(self):
-        return self._open
-
-    def set_visibility(self, visibility):
-        self._set_visibility(visibility)
-
-    def _set_visibility(self, visibility):
-        self.get(_JEVisibilityComponent).visibility = visibility
-
-        for child in self.get_group():
-            child.set_visibility(visibility)
-
-    def toggle(self):
-        if self._open:
-            self.close()
-        else:
-            self.open()
-
-    def _select(self, index):
-        self.set_selected(index)
-
-        self.close()
-
-        if self._callback:
-            self._callback(index)

@@ -32,18 +32,26 @@
 from __future__ import annotations
 
 import inspect
+import sys
 from os.path import exists, join
 from pathlib import Path
 
 from jarengine.interns.config import (
     get as _get,
-    JEInternConfig as _JEInternConfig, JEInternConfig
+    JEInternConfig as _JEInternConfig
 )
 from jarengine.interns import JTKExternError as _JTKExternError
-
+import jarengine.interns.log as _log
 
 _ENGINE_ROOT = Path(__file__).resolve().parents[1]
 
+def _exception_handler(exc_type, exc, traceback):
+    if issubclass(exc_type, _JTKExternError.BaseError):
+        print(exc)
+    else:
+        sys.__excepthook__(exc_type, exc, traceback)
+
+sys.excepthook = _exception_handler
 
 def _caller_location(depth = 2):
     frame = inspect.currentframe()
@@ -90,71 +98,115 @@ def traceback(links):
     if not links:
         return
 
-    print(
-        _JTKExternError.BaseError(
-            f'\n{"\n".join(_links_to_string(links))}',
-            error="JarEngine Traceback"
-        )
+    err = _JTKExternError.BaseError(
+        f'\n{"\n".join(_links_to_string(links))}\n↓↓↓↓↓',
+        error="JarEngine Traceback"
     )
 
-def error(err):
+    _log.log("WARN", "ENGINE", f"A traceback has been generated")
+    _log.comment(err)
+    _log.save()
+
+    print(err)
+
+def error(err, do_traceback = True, _error_title = True):
     mode = _get("engine", "ENGINE", "exception_mode", str, "strict")
 
     if mode == "strict":
         links = _caller_location()
-        traceback(links)
-        raise err
+
+        if len(links) > 1 and do_traceback:
+            traceback(links[0:])
+
+        if isinstance(err, _JTKExternError.BaseError):
+            err.message = f"\n{err.message.strip()}"
+            err.error = f"{'ERROR - ' if _error_title else ''}{err.error}"
+            err.link_data = links[0] if len(links) > 1 and do_traceback else None
+            err.create_link()
+
+            _log.comment(err)
+            _log.save()
+
+            raise err
+        else:
+            err = _JTKExternError.BaseError(f"\n{err.strip()}", error = "ERROR", link = links[0] if do_traceback else None)
+
+            _log.comment(err)
+            _log.log("ERROR", "ENGINE", f"↑↑↑↑↑")
+            _log.save()
+
+            raise err
+
 
     elif mode == "warning":
         links = _caller_location()
 
-        if len(links) > 1:
+        if len(links) > 1 and do_traceback:
             traceback(links[1:])
 
         if isinstance(err, _JTKExternError.BaseError):
-            err.error = f"WARNING - {err.error}"
-            err.link_data = links[0] if len(links) > 1 else None
+            err.message = f"\n{err.message.strip()}"
+            err.error = f"{'WARNING - ' if _error_title else ''}{err.error}"
+            err.link_data = links[0] if len(links) > 1 and do_traceback else None
             err.create_link()
+
+            _log.comment(err)
+            _log.save()
+
             print(err)
         else:
-            print(_JTKExternError.BaseError(f"\n{err.strip()}", error = "WARNING", link = links[0] if len(links) > 1 else None))
+            err = _JTKExternError.BaseError(f"{err.strip()}", error = "WARNING", link = links[0] if do_traceback else None)
 
-def warning(err):
+            _log.comment(err)
+            _log.save()
+
+            print(print)
+
+def warning(err, do_traceback = False, _warn_title = True):
     if _get("engine", "ENGINE", "exception_mode", str, "strict") != "silent":
         links = _caller_location()
 
-        if len(links) > 1:
+        if len(links) > 1 and do_traceback:
             traceback(links[1:])
 
         if isinstance(err, _JTKExternError.BaseError):
-            err.error = f"WARNING - {err.error}"
-            err.link_data = links[0] if len(links) > 1 else None
+            err.message = f"\n{err.message.strip()}"
+            err.error = f"{'WARNING - ' if _warn_title else ''}{err.error}"
+            err.link_data = links[0] if len(links) > 1 and do_traceback else None
             err.create_link()
+
+            _log.comment(err)
+            _log.save()
+
             print(err)
         else:
-            print(_JTKExternError.BaseError(f"{err.strip()}", error = "WARNING", link = links[0] if len(links) > 1 else None))
+            err = _JTKExternError.BaseError(f"{err.strip()}", error = "WARNING", link = links[0] if do_traceback else None)
 
-def assertion(condition, message, strict = False, _depth = 2):
+            _log.comment(err)
+            _log.save()
+
+            print(err)
+
+def assertion(condition, message, strict = False, do_traceback = True, _depth = 2):
     if not condition:
 
-        links = _caller_location(_depth)
-
-        err = _JTKExternError.BaseError(f"{message}", error = "ErrorAssertion", link = links[0] if len(links) > 1 else None)
+        err = _JTKExternError.BaseError(f"{message}", error = "ErrorAssertion")
 
         if strict or _get("engine", "ENGINE", "safe_mode", bool, True):
-            error(err)
+            error(err, do_traceback)
         else:
-            if len(links) > 1:
-                traceback(links[1:])
+            warning(err, do_traceback)
 
-            print(err)
+        _log.log("WARN", "CORE", f"Assertion failed: {message}")
+        _log.comment(err)
+        _log.save()
 
-def assertion_type(value, _type, message, strict = False):
-    assertion(isinstance(value, _type), f"{message} (current: {type(value).__name__})", strict, _depth=3)
+def assertion_type(value, _type, message, strict = False, do_traceback = True):
+    assertion(isinstance(value, _type), f"{message} (current: {type(value).__name__})", strict, do_traceback, _depth=3)
     return value
 
-def assertion_class(value, _class, message, strict = False):
-    assertion(issubclass(value, _class), f"{message} (current: {value.__name__})", strict, _depth=3)
+def assertion_class(value, _class, message, strict = False, do_traceback = True):
+    assertion(issubclass(value, _class), f"{message} (current: {value.__name__})", strict, do_traceback, _depth=3)
     return value
 
 def enabled(config, section, setting = "enabled"):

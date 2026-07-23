@@ -49,6 +49,7 @@ from jarengine.interns.helpers import (
     asset_path as _asset_path,
     safe_cast as _safe_cast
 )
+import jarengine.interns.log as _log
 
 @_documentation
 @_final
@@ -71,6 +72,8 @@ class JEFont(_JEInternResource, _JEInternOwnership):
         except FileNotFoundError:
             raise _JTKExternError.Special.ErrorSpecialConfig(f"\nInvalid font path. Check assets config at {_JEInternConfig.config_path}")
         self._size = size
+
+        _log.log("DEBUG", "OBJECT", f"JEFont: Created", self.jeid, name, path, size)
 
     @property
     def font(self):

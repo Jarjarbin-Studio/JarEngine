@@ -32,6 +32,7 @@
 from __future__ import annotations
 
 from datetime import datetime as _datetime
+from uuid import uuid4 as _uuid4
 
 ##Metadata##
 __author__ = 'Nathan Jarjarbin'
@@ -51,7 +52,8 @@ import jarengine.widgets as Widgets
 from jarengine.constants import *
 
 ##Special##
-_start_time: _datetime | None = None
+_start_time = None
+_session = _uuid4().hex
 
 def _title_color(title):
 
@@ -68,17 +70,19 @@ def _version_color(version):
     return color.rgb_fg(150, 150, 150) + text(str(version)) + color(color.C_RESET)
 
 def init(project_path):
-    global _start_time
+    global _start_time, _session
 
     _start_time = _datetime.now()
 
-    Interns.Config.JEInternConfig.project_path = f"{project_path.removesuffix("/")}"
-    Interns.Config.JEInternConfig.config_path = f"{Interns.Config.JEInternConfig.project_path}/.je-config"
+    project_path = project_path.removesuffix("/")
+
+    Interns.Config.JEInternConfig.project_path = f"{project_path}"
+    Interns.Config.JEInternConfig.config_path = f"{project_path}/.je-config"
+    Interns.Config.JEInternConfig.state_path = f"{project_path}/.je-state"
+    Interns.Log.JEInternLog.project_path = f"{project_path}"
+    Interns.Log.JEInternLog.log_path = f"{project_path}/.je-log"
 
     Interns.Config.init_all()
-    Interns.Config._Checks.compatibility()
-
-    Interns.JTKExternConsole.init(banner=False)
 
     name = Interns.Config.get('project', 'PROJECT', 'name', str, "Unnamed Project")
     version = Interns.Config.get('project', 'PROJECT', 'version', str, "0.0.0")
@@ -88,15 +92,111 @@ def init(project_path):
         f"{_title_color(name)} {_version_color(version)} {(f'(by {author})' if author else "")}"
     )
 
-    return Interns.PGExtern.init()
+    if not Interns.Config.get("state", "LAST_RUN", "clean_exit", bool, True):
+        Interns.Helpers.warning("Previous run crashed")
 
-def quit():
-    if _start_time is not None:
-        duration = _datetime.now() - _start_time
-        Interns.Config.set('session', 'LAST_RUN', 'duration', str(duration))
+    Interns.Config.set("engine", "ENGINE", "version", str(JEVersion_JarEngine))
+    Interns.Config.set("engine", "CONFIG", "version", str(JEVersion_Config))
+    Interns.Config.set("state", "LAST_RUN", "start", _start_time)
+    Interns.Config.set("state", "LAST_RUN", "clean_exit", False)
+    Interns.Config.set("state", "SESSION", "launches",  Interns.Config.get("state", "SESSION", "launches", int, 0) + 1)
+    Interns.Config.set("state", "SESSION", "id", _session)
+    Interns.Config._Checks.compatibility()
+
+    log_levels = Interns.Log._log_levels
+    Interns.Log._log_levels = log_levels[log_levels.index(Interns.Config.get('debug', 'LOG', 'level', str, "") or "INFO"):]
+
+    Interns.Log.JEInternLog(Interns.Config.get('debug', 'LOG', 'file', str, "tmp")).delete()
+    Interns.Log.JEInternLog(Interns.Config.get('debug', 'LOG', 'file', str, "tmp") + "_cleaned").delete()
+    Interns.Log.JEInternLog(Interns.Config.get('debug', 'LOG', 'file', str, "") or str(_start_time))
+
+    ret = Interns.PGExtern.init()
+
+    Interns.Log.log("INFO", "ENGINE", f"JarEngine version {JEVersion_JarEngine} initialized")
+    Interns.Log.log("INFO", "ENGINE", f"Current session: {_session}")
+
+    from jarengine import constants
+
+    globals().update({
+        name: getattr(constants, name)
+        for name in constants.__all__
+    })
+
+    Interns.Log.save()
+
+    return ret
+
+def run(main, *args):
+    ret = None
+
+    try:
+        ret = main(*args)
+
+    except Interns.JTKExternError.BaseError as error:
+        Interns.Helpers.warning(error, True, False)
+
+        print(Interns.JTKExternError.BaseError("An error occurred", error="Caught exception"))
+
+        Interns.Log.save()
+
+        quit(False)
+        exit(84)
+
+    except BaseException as error:
+        Interns.Helpers.warning(error, True, False)
+
+        print(Interns.JTKExternError.BaseError("An unexpected error occurred", error="Uncaught exception"))
+
+        raise error
+
+    finally:
+        return ret
+
+def quit(_clean = True):
+    global _session, _start_time
+
+    if _start_time is not None and _session is not None:
+        _end = _datetime.now()
+        duration = (_end - _start_time).total_seconds()
+
+        Interns.Config.set("state", "LAST_RUN", "end", _end)
+        Interns.Config.set("state", "LAST_RUN", "duration", duration)
+
+        total_runtime = Interns.Config.get("state", "STATISTICS", "total_runtime", float, 0.0)
+        launches = Interns.Config.get("state", "SESSION", "launches", int, 1)
+        longest_session = Interns.Config.get("state", "STATISTICS", "longest_session", float, 0.0)
+        shortest_session = Interns.Config.get("state", "STATISTICS", "shortest_session", float, 0.0)
+
+        new_total_runtime = total_runtime + duration
+        average_session = new_total_runtime / launches
+
+        if duration > longest_session:
+            longest_session = duration
+
+        if shortest_session == 0 or duration < shortest_session:
+            shortest_session = duration
+
+        Interns.Config.set("state", "STATISTICS", "total_runtime", new_total_runtime)
+        Interns.Config.set("state", "STATISTICS", "average_session", average_session)
+        Interns.Config.set("state", "STATISTICS", "longest_session", longest_session)
+        Interns.Config.set("state", "STATISTICS", "shortest_session", shortest_session)
+
+    Interns.Log.log("INFO", "ENGINE", "Engine quit")
+    Interns.Log.save()
+    Interns.Log.close()
+
+    if _clean:
+        Interns.Config.set("state", "LAST_RUN", "clean_exit", True)
+
     Interns.PGExtern.quit()
 
+    _start_time = None
+    _session = None
+
 def _banner():
+
+    Interns.JTKExternConsole.init(banner=False)
+
     ansi = Interns.JTKExternConsole.ANSI
     Interns.JTKExternConsole.Console.print(
         ansi.Line.clear_previous_line(2) +
@@ -120,6 +220,7 @@ __all__ = [
     'Widgets',
     ## Functions ##
     'init',
+    'run',
     'quit',
     ## Constants ##
     # Versions #

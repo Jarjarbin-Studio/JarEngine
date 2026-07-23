@@ -35,7 +35,27 @@ from typing import Optional, Any, TypeVar
 
 from jarengine.systems.version import JEVersion
 
-def assertion(condition: bool, message: str, strict: bool = False):
+def error(err: Exception | str, do_traceback: bool = True):
+    """
+        Show an error
+
+        Parameters:
+            err (Exception | str): error
+            do_traceback (bool) = True: show traceback if True
+    """
+    ...
+
+
+def warning(message: Exception | str, do_traceback: bool = False):
+    """
+        Show a warning
+
+        Parameters:
+            message (Exception | str): message
+            do_traceback (bool) = False: show traceback if True
+    """
+    ...
+def assertion(condition: bool | Any, message: str, strict: bool = False, do_traceback: bool = True):
     """
         Run an assertion
         
@@ -43,9 +63,10 @@ def assertion(condition: bool, message: str, strict: bool = False):
             condition (bool): condition
             message (str): message
             strict (bool): force the exception raise if True
+            do_traceback (bool) = True: show traceback if True
     """
     ...
-def assertion_type(value: Any, _type: type | TypeVar | tuple[type | TypeVar, ...], message: str, strict: bool = False):
+def assertion_type(value: Any, _type: type | TypeVar | tuple[type | TypeVar, ...], message: str, strict: bool = False, do_traceback: bool = True):
     """
         Run a type assertion
 
@@ -54,9 +75,10 @@ def assertion_type(value: Any, _type: type | TypeVar | tuple[type | TypeVar, ...
             _type (type | tuple[type, ...]): type
             message (str): message
             strict (bool): force the exception raise if True
+            do_traceback (bool) = True: show traceback if True
     """
     ...
-def assertion_class(value: Any, _class: type | TypeVar | tuple[type | TypeVar, ...], message: str, strict: bool = False):
+def assertion_class(value: Any, _class: type | TypeVar | tuple[type | TypeVar, ...], message: str, strict: bool = False, do_traceback: bool = True):
     """
         Run a subclass assertion
 
@@ -65,22 +87,7 @@ def assertion_class(value: Any, _class: type | TypeVar | tuple[type | TypeVar, .
             _class (type | tuple[type, ...]): class
             message (str): message
             strict (bool): force the exception raise if True
-    """
-    ...
-def error(err: Exception | str):
-    """
-        Show an error
-        
-        Parameters:
-            err (Exception | str): error
-    """
-    ...
-def warning(message: Exception | str):
-    """
-        Show a warning
-
-        Parameters:
-            message (Exception | str): message
+            do_traceback (bool) = True: show traceback if True
     """
     ...
 def enabled(config: str, section: str, setting: str = "enabled") -> bool:

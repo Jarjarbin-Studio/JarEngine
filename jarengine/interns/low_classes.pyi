@@ -35,6 +35,7 @@ from jarengine.interns.base_classe import JEInternBaseClass
 from jarengine.systems.bool import JEBool
 
 class JEInternGraphic(JEInternBaseClass):
+    name: str
     def __init__(self, name: str):
         """
             JEInternGraphic

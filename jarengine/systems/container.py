@@ -46,6 +46,7 @@ from jarengine.interns.helpers import (
     assertion_class as _assertion_class,
     safe_cast as _safe_cast
 )
+import jarengine.interns.log as _log
 
 _T = _TypeVar("_T", bound=_JEInternBaseClass)
 
@@ -56,15 +57,15 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
     def __init__(self, allowed_type, allow_subclass = _JEBool(0)):
 
         _assertion_type(allowed_type, type, "allowed_type must be of type 'type'", True)
-
         allow_subclass = _safe_cast(_assertion_type(allow_subclass, _JEBool, "allow_subclass must be of type 'JEBool'"), _JEBool)
-
         _assertion_class(allowed_type, _JEInternBaseClass, "allowed_type must be a subclass of 'JEInternBaseClass'", True)
 
         super().__init__()
         self._data = {}
         self._allowed_type = allowed_type
         self._allow_subclass = allow_subclass
+
+        _log.log("DEBUG", "OBJECT", f"JEContainer: Created", self.jeid, allowed_type, allow_subclass)
 
     def add(self, obj):
 

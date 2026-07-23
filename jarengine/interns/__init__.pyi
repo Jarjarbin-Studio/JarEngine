@@ -54,6 +54,8 @@ from . import low_classes as LowClasses
 from . import high_classes as HighClasses
 from . import final_classes as FinalClasses
 from . import config as Config
+from . import log as Log
+from . import helpers as Helpers
 
 
 __all__: list[str] = [
@@ -63,6 +65,8 @@ __all__: list[str] = [
     "HighClasses",
     "FinalClasses",
     "Config",
+    "Helpers",
+    "Log",
     "Decorators",
     "JTKExternConsole",
     "JTKExternError"

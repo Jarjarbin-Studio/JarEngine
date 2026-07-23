@@ -39,6 +39,7 @@ from jarengine.interns.helpers import (
     assertion_type as _assertion_type,
     safe_cast as _safe_cast
 )
+import jarengine.interns.log as _log
 
 @_documentation
 @_final
@@ -54,6 +55,8 @@ class JEVector2D(_JETransform):
         super().__init__()
 
         self._vector = [float(x), float(y)]
+
+        _log.log("DEBUG", "OBJECT", f"JEVector2D: Created", self.jeid, x, y)
 
     @property
     def x(self):
@@ -98,6 +101,8 @@ class JEVector3D(_JETransform):
         super().__init__()
 
         self._vector = [float(x), float(y), float(z)]
+
+        _log.log("DEBUG", "OBJECT", f"JEVector3D: Created", self.jeid, x, y, z)
 
     @property
     def x(self):

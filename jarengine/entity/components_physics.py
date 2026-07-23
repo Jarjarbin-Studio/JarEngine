@@ -42,6 +42,7 @@ from jarengine.interns.helpers import (
 from jarengine.interns.high_classes import JEInternEntityComponent as _JEInternEntityComponent
 from jarengine.interns.decorators import documentation as _documentation
 from jarengine.systems.vector import JEVector2D as _JEVector2D
+import jarengine.interns.log as _log
 
 @_documentation
 @_final
@@ -52,8 +53,8 @@ class JEAccelerationComponent(_JEInternEntityComponent):
 
     def __init__(self, owner, acceleration):
 
-        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'")
-        _assertion_type(acceleration, _JEVector2D, "acceleration must be of type 'JEVector2D'")
+        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'", True)
+        acceleration = _safe_cast(_assertion_type(acceleration, (_JEVector2D, tuple), "acceleration must be of type 'JEVector2D'"), tuple)
 
         super().__init__(owner, JEAccelerationComponent)
         self._acceleration = (
@@ -64,16 +65,14 @@ class JEAccelerationComponent(_JEInternEntityComponent):
 
         def set_acceleration(owner_self, acceleration):
 
-            _assertion_type(acceleration, _JEVector2D, "acceleration must be of type 'JEVector2D'")
+            acceleration = _safe_cast(_assertion_type(acceleration, (_JEVector2D, tuple), "acceleration must be of type 'JEVector2D'"), tuple)
 
             self.acceleration =  acceleration
 
         def update_acceleration(owner_self, *, x = 0, y = 0):
 
-            _assertion_type(acceleration, _JEVector2D, "acceleration must be of type 'JEVector2D'")
-
-            _assertion_type(x, (float, int), "x must be of type 'float' or 'int'")
-            _assertion_type(y, (float, int), "y must be of type 'float' or 'int'")
+            x = _safe_cast(_assertion_type(x, (float, int), "x must be of type 'float' or 'int'"), float)
+            y = _safe_cast(_assertion_type(y, (float, int), "y must be of type 'float' or 'int'"), float)
 
             self._acceleration.x += x
             self._acceleration.y += y
@@ -84,6 +83,8 @@ class JEAccelerationComponent(_JEInternEntityComponent):
         owner.set_acceleration = set_acceleration.__get__(owner, type(owner))
         owner.update_acceleration = update_acceleration.__get__(owner, type(owner))
         owner.get_acceleration = get_acceleration.__get__(owner, type(owner))
+
+        _log.log("DEBUG", "OBJECT", f"JEAccelerationComponent: Created", self.jeid, owner, acceleration)
 
     @property
     def acceleration(self):
@@ -101,6 +102,9 @@ class JEAccelerationComponent(_JEInternEntityComponent):
         return self._acceleration
 
     def copy(self, new_owner):
+
+        _log.log("DEBUG", "ENTITY", f"JEAccelerationComponent: Copied", self.jeid, new_owner)
+
         return JEAccelerationComponent(new_owner, _deepcopy(self._acceleration))
 
 @_documentation
@@ -111,21 +115,21 @@ class JEMassComponent(_JEInternEntityComponent):
 
     def __init__(self, owner, mass):
 
-        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'")
-        _assertion_type(mass, (float, int), "mass must be of type 'float' or 'int'")
+        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'", True)
+        mass = _safe_cast(_assertion_type(mass, (float, int), "mass must be of type 'float' or 'int'"), float)
 
         super().__init__(owner, JEMassComponent)
         self._mass = mass
 
         def set_mass(owner_self, mass):
 
-            _assertion_type(mass, (float, int), "mass must be of type 'float' or 'int'")
+            mass = _safe_cast(_assertion_type(mass, (float, int), "mass must be of type 'float' or 'int'"), float)
 
             self.mass = mass
 
         def update_mass(owner_self, *, m = 0):
 
-            _assertion_type(m, (float, int), "m must be of type 'float' or 'int'")
+            m = _safe_cast(_assertion_type(m, (float, int), "m must be of type 'float' or 'int'"), float)
 
             self._mass += m
 
@@ -135,6 +139,8 @@ class JEMassComponent(_JEInternEntityComponent):
         owner.set_mass = set_mass.__get__(owner, type(owner))
         owner.update_mass = update_mass.__get__(owner, type(owner))
         owner.get_mass = get_mass.__get__(owner, type(owner))
+
+        _log.log("DEBUG", "OBJECT", f"JEMassComponent: Created", self.jeid, owner, mass)
 
     @property
     def mass(self):
@@ -148,4 +154,7 @@ class JEMassComponent(_JEInternEntityComponent):
         return self._mass
 
     def copy(self, new_owner):
+
+        _log.log("DEBUG", "ENTITY", f"JEMassComponent: Copied", self.jeid, new_owner)
+
         return JEMassComponent(new_owner, _deepcopy(self._mass))

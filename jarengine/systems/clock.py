@@ -40,6 +40,7 @@ from jarengine.interns.helpers import (
     assertion_type as _assertion_type,
     safe_cast as _safe_cast
 )
+import jarengine.interns.log as _log
 
 @_documentation
 @_final
@@ -55,6 +56,8 @@ class JEClock(_JEInternBaseClass):
         self._clock = _PGExtern.time.Clock()
         self._target_fps = fps
         self._dt = 0.0
+
+        _log.log("DEBUG", "OBJECT", f"JEClock: Created", self.jeid, fps)
 
     def update(self):
         self._dt = min(self._clock.tick(self._target_fps) / 1000.0, 1/60)

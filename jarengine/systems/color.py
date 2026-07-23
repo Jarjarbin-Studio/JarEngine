@@ -40,6 +40,7 @@ from jarengine.interns.helpers import (
     assertion_type as _assertion_type,
     safe_cast as _safe_cast
 )
+import jarengine.interns.log as _log
 
 @_documentation
 @_final
@@ -61,6 +62,8 @@ class JEColor(_JEInternBaseClass):
         for c in self._color:
             if not (0 <= c <= 255):
                 raise _JTKExternError.Error.ErrorValue("\nInvalid color, every channels must be between 0 and 255.")
+
+        _log.log("DEBUG", "OBJECT", f"JEColor: Created", self.jeid, r, g, b, a)
 
     @property
     def r(self):

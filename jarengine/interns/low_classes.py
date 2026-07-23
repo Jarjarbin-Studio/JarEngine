@@ -38,6 +38,7 @@ from jarengine.interns.helpers import (
     assertion_type as _assertion_type,
     safe_cast as _safe_cast
 )
+import jarengine.interns.log as _log
 
 @_documentation
 class JEInternGraphic(_JEInternBaseClass):
@@ -52,6 +53,8 @@ class JEInternGraphic(_JEInternBaseClass):
         self._name_hash = hash(self.name)
         self._object_hash = hash(self)
         self._destroyed = _JEBool(0)
+
+        _log.log("DEBUG", "OBJECT", f"JEInternGraphic: Created", self.jeid, name)
 
     def destroy(self):
         self._destroyed = _JEBool(1)
@@ -70,6 +73,8 @@ class JEInternGraphicalObject(JEInternGraphic):
         super().__init__(name)
 
         self._dirty = _JEBool(1)
+
+        _log.log("DEBUG", "OBJECT", f"JEInternGraphicalObject: Created", self.jeid, name)
 
     def update(self, dt):
         pass
@@ -95,6 +100,8 @@ class JEInternResource(JEInternGraphic):
         super().__init__(name)
 
         self._path = path
+
+        _log.log("DEBUG", "OBJECT", f"JEInternResource: Created", self.jeid, name, path)
 
     @property
     def path(self):

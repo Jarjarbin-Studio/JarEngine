@@ -48,6 +48,7 @@ from jarengine.interns import (
     PGExtern as _PGExtern,
     JTKExternError as _JTKExternError
 )
+import jarengine.interns.log as _log
 
 @_documentation
 class JESprite(_JEWidget):
@@ -57,6 +58,8 @@ class JESprite(_JEWidget):
 
         _JETextureComponent(self, texture)
         _JEFlipComponent(self, flip)
+
+        _log.log("DEBUG", "OBJECT", f"JESprite: Created", self.jeid, texture, flip)
 
 @_documentation
 class JEText(_JEWidget):
@@ -69,6 +72,10 @@ class JEText(_JEWidget):
         _JEFlipComponent(self, flip)
         if color:
             _JEColorComponent(self, color)
+
+        if len(text) > 50:
+            text = f"{text[:47]}..."
+        _log.log("DEBUG", "OBJECT", f"JEText: Created", self.jeid, text, font, color, flip)
 
 @_documentation
 class JERectangle(_JEWidget):
@@ -93,6 +100,8 @@ class JERectangle(_JEWidget):
 
         _JESurfaceComponent(self, surface)
 
+        _log.log("DEBUG", "OBJECT", f"JERectangle: Created", self.jeid, size, color, outline_color, outline_size)
+
 @_documentation
 class JECircle(_JEWidget):
 
@@ -109,6 +118,8 @@ class JECircle(_JEWidget):
             _PGExtern.draw.circle(surface, outline_color, (radius, radius), radius, outline_size)
 
         _JESurfaceComponent(self, surface)
+
+        _log.log("DEBUG", "OBJECT", f"JECircle: Created", self.jeid, radius, color, outline_color, outline_size)
 
 @_documentation
 class JELine(_JEWidget):
@@ -132,6 +143,8 @@ class JELine(_JEWidget):
         _PGExtern.draw.line(surface, color, local_start, local_end, width)
 
         _JESurfaceComponent(self, surface)
+
+        _log.log("DEBUG", "OBJECT", f"JELine: Created", self.jeid, start, end, color, width)
 
 @_documentation
 class JEPolygon(_JEWidget):
@@ -160,3 +173,5 @@ class JEPolygon(_JEWidget):
             _PGExtern.draw.polygon(surface, outline_color, local_points, outline_size)
 
         _JESurfaceComponent(self, surface)
+
+        _log.log("DEBUG", "OBJECT", f"JEPolygon: Created", self.jeid, points, color, outline_color, outline_size)

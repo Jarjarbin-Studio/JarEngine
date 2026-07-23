@@ -38,16 +38,14 @@ from typing import (
 
 from jarengine.events.event import JEEventCode as _JEEventCode
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
-from jarengine.interns import (
-    PGExtern as _PGExtern,
-    JTKExternError as _JTKExternError
-)
+from jarengine.interns import PGExtern as _PGExtern
 from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.interns.decorators import documentation as _documentation
 from jarengine.interns.helpers import (
     assertion_type as _assertion_type,
     safe_cast as _safe_cast
 )
+import jarengine.interns.log as _log
 
 @_documentation
 @_final
@@ -108,6 +106,8 @@ class JEKeyCode(_JEInternBaseClass):
         self._name = self._name_cache.get(self._key, f"KeyUnknown({self._key})")
         self._initialized = True
 
+        _log.log("DEBUG", "OBJECT", f"JEKeyCode: Created", self.jeid, key)
+
     def __int__(self):
         return self._key
 
@@ -148,6 +148,8 @@ class JEKeyCodeGroup(_JEInternBaseClass):
 
         super().__init__()
         self._keys = list(dict.fromkeys(keys))
+
+        _log.log("DEBUG", "OBJECT", f"JEKeyCodeGroup: Created", self.jeid, keys)
 
     def __or__(self, other):
 
@@ -194,6 +196,8 @@ class JEKeyWatcher(_JEInternBaseClass):
         )
         self._do = do
 
+        _log.log("DEBUG", "OBJECT", f"JEKeyWatcher: Created", self.jeid, on, f"{do.__name__}", on_press)
+
     def match(self, event):
         if event.type == self._on_param:
             for rule in self._on:
@@ -202,6 +206,9 @@ class JEKeyWatcher(_JEInternBaseClass):
         return False
 
     def __call__(self, game, event):
+
+        _log.log("DEBUG", "EVENT", f"JEKeyWatcher: Event triggered", self.jeid, game, event)
+
         self._do(game, event)
 
     @property

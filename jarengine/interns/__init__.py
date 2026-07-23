@@ -41,6 +41,8 @@ import jarengine.interns.low_classes as LowClasses
 import jarengine.interns.high_classes as HighClasses
 import jarengine.interns.final_classes as FinalClasses
 import jarengine.interns.config as Config
+import jarengine.interns.helpers as Helpers
+import jarengine.interns.log as Log
 
 __all__ = [
     "PGExtern",
@@ -51,5 +53,7 @@ __all__ = [
     "Config",
     "Decorators",
     "JTKExternConsole",
-    "JTKExternError"
+    "JTKExternError",
+    "Helpers",
+    "Log"
 ]

@@ -39,16 +39,14 @@ from typing import (
 from jarengine.events.keyboard import JEKeyCode
 from jarengine.events.event import JEEventCode as _JEEventCode
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
-from jarengine.interns import (
-    PGExtern as _PGExtern,
-    JTKExternError as _JTKExternError
-)
+from jarengine.interns import PGExtern as _PGExtern
 from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.interns.decorators import documentation as _documentation
 from jarengine.interns.helpers import (
     assertion_type as _assertion_type,
     safe_cast as _safe_cast
 )
+import jarengine.interns.log as _log
 
 @_documentation
 @_final
@@ -95,6 +93,8 @@ class JEMouseCode(_JEInternBaseClass):
         self._name = self._name_cache.get(self._mouse, f"MouseUnknown({self._mouse})")
         self._initialized = True
 
+        _log.log("DEBUG", "OBJECT", f"JEMouseCode: Created", self.jeid, mouse)
+
     def __int__(self):
         return self._mouse
 
@@ -138,6 +138,8 @@ class JEMouseCodeGroup(_JEInternBaseClass):
 
         super().__init__()
         self._mouses = list(dict.fromkeys(mouses))
+
+        _log.log("DEBUG", "OBJECT", f"JEMouseCodeGroup: Created", self.jeid, mouses)
 
     def __or__(self, other):
 
@@ -184,6 +186,8 @@ class JEMouseWatcher(_JEInternBaseClass):
         )
         self._do = do
 
+        _log.log("DEBUG", "OBJECT", f"JEMouseWatcher: Created", self.jeid, on, f"{do.__name__}", on_press)
+
     def match(self, event):
 
         if event.type == self._on_param:
@@ -193,6 +197,8 @@ class JEMouseWatcher(_JEInternBaseClass):
         return False
 
     def __call__(self, game, event):
+
+        _log.log("DEBUG", "EVENT", f"JEMouseWatcher: Event triggered", self.jeid, game, event)
 
         self._do(game, event)
 

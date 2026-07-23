@@ -54,7 +54,6 @@ class JETransform(_JEInternBaseClass):
         return (getattr(self, f, 0.0) for f in self._fields)
 
     def _create(self, x, y, z):
-
         try:
             return type(self)(x, y, z)
         except TypeError:

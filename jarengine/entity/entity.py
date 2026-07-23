@@ -42,17 +42,20 @@ from jarengine.interns.low_classes import JEInternGraphicalObject as _JEInternGr
 from jarengine.systems.container import JEContainer as _JEContainer
 from jarengine.systems.bool import JEBool as _JEBool
 from jarengine.interns.decorators import documentation as _documentation
+import jarengine.interns.log as _log
 
 @_documentation
 class JEEntity(_JEInternGraphicalObject, _JEInternOwnership):
 
     def __init__(self, *, name = "JEEntity"):
 
-        _assertion_type(name, str, "name must be of type 'str'")
+        name = _safe_cast(_assertion_type(name, str, "name must be of type 'str'"), str)
 
         super().__init__(name)
         self._components = _JEContainer(_JEInternEntityComponent, _JEBool(1))
         self._components.add(_JEInternEmptyComponent(self))
+
+        _log.log("DEBUG", "OBJECT", f"JEEntity: Created", self.jeid, name)
 
     @property
     def parent(self):
@@ -64,13 +67,13 @@ class JEEntity(_JEInternGraphicalObject, _JEInternOwnership):
 
     def add_component(self, component):
 
-        _assertion_type(component, _JEInternEntityComponent, "component must be of type 'JEInternEntityComponent'")
+        _assertion_type(component, _JEInternEntityComponent, "component must be of type 'JEInternEntityComponent'", True)
 
         self._components.add(component)
 
     def get(self, component):
 
-        _assertion_type(component, type, "component must be of type 'JEInternEntityComponent'")
+        _assertion_type(component, type, "component must be of type 'type'", True)
 
         for c in self._components:
             if isinstance(c, component):
@@ -78,9 +81,12 @@ class JEEntity(_JEInternGraphicalObject, _JEInternOwnership):
         return self._components.get(_type=_JEInternEmptyComponent)
 
     def copy(self):
-        new_entity = JEEntity(name = self.name)
+        new_entity = JEEntity(name = f"{self.name}Copy")
         for c in self._components:
             c.copy(new_entity)
+
+        _log.log("DEBUG", "ENTITY", f"JEEntity: Copied", self.jeid, new_entity)
+
         return new_entity
 
     def __deepcopy__(self, memo):

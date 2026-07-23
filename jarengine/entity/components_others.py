@@ -41,6 +41,7 @@ from jarengine.interns.helpers import (
 from jarengine.interns.high_classes import JEInternEntityComponent as _JEInternEntityComponent
 from jarengine.interns.decorators import documentation as _documentation
 from jarengine.entity.entity import JEEntity as _JEEntity
+import jarengine.interns.log as _log
 
 @_documentation
 @_final
@@ -48,19 +49,19 @@ class JEGroupComponent(_JEInternEntityComponent):
 
     def __init__(self, owner):
 
-        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'")
+        _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'", True)
 
         super().__init__(owner, JEGroupComponent)
 
         def group_add(owner_self, entity):
 
-            _assertion_type(entity, _JEEntity, "entity must be of type 'JEEntity'")
+            _assertion_type(entity, _JEEntity, "entity must be of type 'JEEntity'", True)
 
             self.group = entity
 
         def group_remove(owner_self, entity):
 
-            _assertion_type(entity, _JEEntity, "entity must be of type 'JEEntity'")
+            _assertion_type(entity, _JEEntity, "entity must be of type 'JEEntity'", True)
 
             self.group_remove(entity)
 
@@ -70,6 +71,8 @@ class JEGroupComponent(_JEInternEntityComponent):
         owner.group_add = group_add.__get__(owner, type(owner))
         owner.group_remove = group_remove.__get__(owner, type(owner))
         owner.get_group = get_group.__get__(owner, type(owner))
+
+        _log.log("DEBUG", "OBJECT", f"JEGroupComponent: Created", self.jeid, owner)
 
     @property
     def group(self):
@@ -91,4 +94,7 @@ class JEGroupComponent(_JEInternEntityComponent):
         new_group = JEGroupComponent(new_owner)
         for e in self.children:
             new_group.group = _deepcopy(e)
+
+        _log.log("DEBUG", "ENTITY", f"JEGroupComponent: Copied", self.jeid, new_owner)
+
         return new_group

@@ -49,6 +49,7 @@ from jarengine.interns.helpers import (
     asset_path as _asset_path,
     safe_cast as _safe_cast
 )
+import jarengine.interns.log as _log
 
 @_documentation
 @_final
@@ -69,6 +70,8 @@ class JESound(_JEInternResource, _JEInternOwnership):
             self._sound = _PGExtern.mixer.Sound(path)
         except FileNotFoundError:
             raise _JTKExternError.Special.ErrorSpecialConfig(f"\nInvalid sound path. Check assets config at {_JEInternConfig.config_path}")
+
+        _log.log("DEBUG", "OBJECT", f"JESound: Created", self.jeid, name, path)
 
     @property
     def sound(self):

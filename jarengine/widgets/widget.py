@@ -44,6 +44,7 @@ from jarengine.entity.components_graphics import (
 )
 from jarengine.systems.vector import JEVector2D as _JEVector2D
 from jarengine.interns.decorators import documentation as _documentation
+import jarengine.interns.log as _log
 
 @_documentation
 class JEWidget(_JEEntity):
@@ -62,6 +63,8 @@ class JEWidget(_JEEntity):
 
         self.get_visibility = get_visibility.__get__(self, type(self))
 
+        _log.log("DEBUG", "OBJECT", f"JEWidget: Created", self.jeid, name, position, size, rotation, layer, visibility)
+
     def _get_visible(self, entity):
 
         if not entity.get(_JEVisibilityComponent)():
@@ -75,4 +78,8 @@ class JEWidget(_JEEntity):
         return _JEBool(1)
 
     def copy(self):
-        return super().copy()
+        ret = super().copy()
+
+        _log.log("DEBUG", "ENTITY", f"JEWidget: {self.name!r} copied to {ret.name!r}", self.jeid)
+
+        return ret

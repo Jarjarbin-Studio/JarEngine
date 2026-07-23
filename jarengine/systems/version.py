@@ -37,6 +37,7 @@ from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClas
 from jarengine.interns.decorators import documentation as _documentation
 from jarengine.interns import PGExtern as _PGExtern
 from jarengine.interns.helpers import assertion_type as _assertion_type
+import jarengine.interns.log as _log
 
 class JECompatibility(IntEnum):
     OK = 0
@@ -50,6 +51,8 @@ class JEVersion(_PGExtern.version.SoftwareVersion, _JEInternBaseClass):
 
     def __init__(self, *args, **kwargs):
         super().__init__()
+
+        _log.log("DEBUG", "OBJECT", f"JEVersion: Created", self.jeid, *args)
 
     def compatibility(self, other):
 
