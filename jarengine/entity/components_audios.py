@@ -45,7 +45,6 @@ from jarengine.interns.decorators import documentation as _documentation
 from jarengine.resources.music import JEMusic as _JEMusic
 from jarengine.resources.sound import JESound as _JESound
 import jarengine.interns.log as _log
-from resources import music
 
 
 @_documentation
