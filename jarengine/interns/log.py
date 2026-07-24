@@ -135,10 +135,17 @@ def comment(string):
         _current_log.comment(_clean_text(string), _current_log._func)
 
 def save():
-    log("DEBUG", "ENGINE", "Saving log...")
+    buffer = _current_log.buffer
+
+    if not buffer:
+        return
+
+    log("DEBUG", "ENGINE", f"{len(buffer)} log saved")
+
+    buffer += _current_log.buffer
+
     if _current_log is not None:
-        _current_log.save_batch(_current_log.buffer)
-    log("DEBUG", "ENGINE", "Log saved...")
+        _current_log.save_batch(buffer)
 
 def clean():
     if _current_log is None:
