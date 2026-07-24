@@ -80,7 +80,9 @@ class JEGame(_JEInternBaseClass):
         if JEGame._is_created:
             return
         JEGame._is_created = _JEBool(1)
+
         super().__init__()
+
         self._window = None
         self._resources = _JEInternResources()
         self._entities = _JEContainer(_JEEntity)
@@ -89,6 +91,7 @@ class JEGame(_JEInternBaseClass):
         self._is_open = _JEBool(1)
         self._event_manager = _JEEventHandler()
         self._systems = _JEContainer(_JEInternSystems, _JEBool(1))
+        self._log_delay = 0
 
         _log.log("DEBUG", "OBJECT", f"JEGame: Created", self.jeid)
 
@@ -103,7 +106,7 @@ class JEGame(_JEInternBaseClass):
         self._window = window
         self._clock = _JEClock(window.settings.fps)
 
-        _log.log("DEBUG", "ENGINE", f"JEGame: Window added", self.jeid, window)
+        _log.log("INFO", "ENGINE", f"JEGame: Window added", self.jeid, window)
 
     @property
     def wdw(self):
@@ -148,7 +151,7 @@ class JEGame(_JEInternBaseClass):
     def close(self):
         if self._is_open:
 
-            _log.log("DEBUG", "ENGINE", f"JEGame: Closed", self.jeid)
+            _log.log("INFO", "ENGINE", f"JEGame: Closed", self.jeid)
 
             self._is_open = _JEBool(0)
 
@@ -162,7 +165,7 @@ class JEGame(_JEInternBaseClass):
         if self._clock:
             self._clock.target_fps = self._window.settings.fps
 
-        _log.log("DEBUG", "ENGINE", f"JEGame: Game refreshed", self.jeid)
+        _log.log("INFO", "ENGINE", f"JEGame: Game refreshed", self.jeid)
 
     def refresh_entity(self, entity):
 
@@ -171,7 +174,7 @@ class JEGame(_JEInternBaseClass):
         for system in self._systems:
             system.refresh_entity(entity)
 
-        _log.log("DEBUG", "ENGINE", f"JEGame: Game refreshed for 1 entity", self.jeid)
+        _log.log("INFO", "ENGINE", f"JEGame: Game refreshed for 1 entity", self.jeid)
 
     def add_entity(self, entity, *, refresh = _JEBool(0)):
 
@@ -193,7 +196,7 @@ class JEGame(_JEInternBaseClass):
 
         self._systems.add(system)
 
-        _log.log("DEBUG", "ENGINE", f"JEGame: System added", self.jeid, system)
+        _log.log("INFO", "ENGINE", f"JEGame: System added", self.jeid, system)
 
     @property
     def systems(self):
@@ -237,7 +240,11 @@ class JEGame(_JEInternBaseClass):
         window.display()
         window.clear()
 
-        _log.save()
+        self._log_delay += 1
+
+        if self._log_delay >= self.wdw.settings.fps / 2:
+            _log.save()
+            self._log_delay = 0
 
     def display(self):
         _PGExtern.display.flip()

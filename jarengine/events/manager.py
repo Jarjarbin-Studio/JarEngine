@@ -141,7 +141,7 @@ class JEEventHandler(_JEInternBaseClass):
 
         self._watchers.append(watcher)
 
-        _log.log("DEBUG", "EVENT", f"JEEventHandler: Watcher added", self.jeid, watcher)
+        _log.log("INFO", "EVENT", f"JEEventHandler: Watcher added", self.jeid, watcher)
 
     def remove(self, watcher):
 
@@ -157,12 +157,12 @@ class JEEventHandler(_JEInternBaseClass):
                 self._watchers.remove(w)
                 return
 
-        _log.log("DEBUG", "EVENT", f"JEEventHandler: Watcher removed", self.jeid, watcher)
+        _log.log("INFO", "EVENT", f"JEEventHandler: Watcher removed", self.jeid, watcher)
 
     def clear(self):
         self._watchers.clear()
 
-        _log.log("DEBUG", "EVENT", f"JEEventHandler: Cleared", self.jeid)
+        _log.log("INFO", "EVENT", f"JEEventHandler: Cleared", self.jeid)
 
     def has(self, code):
 

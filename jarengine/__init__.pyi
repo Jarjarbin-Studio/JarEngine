@@ -60,12 +60,12 @@ def init(project_path: str) -> tuple[int, int]:
             tuple[int, int]: PyGame numpass, numfail
     """
     ...
-def run(main: Callable[[...], None], *args: Any) -> Any:
+def run(main: Callable, *args: Any) -> Any:
     """
         Run the main for proper error handling.
         
         Parameters:
-            main (Callable[[...], None]): Main function
+            main (Callable[[...], ...]): Main function
             *args (Any): Arguments
         
         Returns:

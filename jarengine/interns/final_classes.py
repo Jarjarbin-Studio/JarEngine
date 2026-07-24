@@ -144,6 +144,8 @@ class JEInternWindowSettings(_JEInternBaseClass):
 
         _assertion_type(size, _JEVector2D, "fps must be of type 'JEVector2D'", True)
 
+        _log.log("INFO", "SCENE", f"JEInternWindowSettings: Size set", self.jeid, size)
+
         self._size = size
 
     @property
@@ -158,6 +160,8 @@ class JEInternWindowSettings(_JEInternBaseClass):
     def fps(self, fps):
 
         fps = _safe_cast(_assertion_type(fps, int, "fps must be of type 'int'"), int)
+
+        _log.log("INFO", "SCENE", f"JEInternWindowSettings: FPS set", self.jeid, fps)
 
         self._fps = fps
 
@@ -181,6 +185,8 @@ class JEInternWindowSettings(_JEInternBaseClass):
     def title(self, title):
 
         title = _safe_cast(_assertion_type(title, str, "title must be of type 'str'"), str)
+
+        _log.log("INFO", "SCENE", f"JEInternWindowSettings: Title set", self.jeid, title)
 
         self._title = title
         _PGExtern.display.set_caption(title)

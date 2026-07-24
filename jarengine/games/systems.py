@@ -136,7 +136,7 @@ class JERenderSystem(_JEInternSystems):
             else 0
         )
 
-        _log.log("DEBUG", "SYSTEM", f"JERenderSystem: Cache sorted", self.jeid)
+        _log.log("INFO", "SYSTEM", f"JERenderSystem: Cache sorted", self.jeid)
 
     def _is_visible(self, entity, visibility):
 
@@ -328,9 +328,9 @@ class JERenderSystem(_JEInternSystems):
 
         if surface:
             self._render_surface(window, x, y, surface, size, rotation, flip, color)
-        if text and font:
+        elif text and font:
             self._render_text(window, x, y, text, font, color, rotation, flip)
-        if texture:
+        elif texture:
             self._render_texture(window, x, y, texture, size, rotation, flip, color)
         elif size and (color or outline):
             self._render_rectangle(window, x, y, size, color, outline)

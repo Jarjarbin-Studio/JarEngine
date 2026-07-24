@@ -58,12 +58,13 @@ class JEButton(JEWidget):
                 visibility (JEBool) = JETrue: visibility
         """
         ...
-    def set_callback(self, callback: Callable[[], None]):
+    def set_callback(self, callback: Callable[[], None], callback_right: Callable[[], None] = lambda: None):
         """
             Set the function to be called when button clicked
             
             Parameters:
                 callback (Callable[[], None]): callback function
+                callback_right (Callable[[], None]) = lambda: None: callback function for right click
         """
         ...
 

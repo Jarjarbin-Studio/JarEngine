@@ -64,18 +64,17 @@ class JESprite(_JEWidget):
 @_documentation
 class JEText(_JEWidget):
 
-    def __init__(self, text, font, *, color = None, flip = (_JEBool(0), _JEBool(0)), name = "JEText", position = _JEVector2D(0, 0), size = _JEVector2D(0, 0), rotation = 0.0, layer = 0, visibility = _JEBool(1)):
+    def __init__(self, text, font, *, color = None, name = "JEText", position = _JEVector2D(0, 0), size = _JEVector2D(0, 0), rotation = 0.0, layer = 0, visibility = _JEBool(1)):
         super().__init__(name=name, position=position, size=size, rotation=rotation, layer=layer, visibility=visibility)
 
         _JETextComponent(self, text)
         _JEFontComponent(self, font)
-        _JEFlipComponent(self, flip)
         if color:
             _JEColorComponent(self, color)
 
         if len(text) > 50:
             text = f"{text[:47]}..."
-        _log.log("DEBUG", "OBJECT", f"JEText: Created", self.jeid, text, font, color, flip)
+        _log.log("DEBUG", "OBJECT", f"JEText: Created", self.jeid, text, font, color)
 
 @_documentation
 class JERectangle(_JEWidget):

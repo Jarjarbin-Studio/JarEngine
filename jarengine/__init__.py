@@ -37,7 +37,7 @@ from uuid import uuid4 as _uuid4
 ##Metadata##
 __author__ = 'Nathan Jarjarbin'
 __email__ = 'nathan.amaraggi@epitech.eu'
-__version__ = "1.9.1"
+__version__ = "1.10.3"
 __config_version__ = "0.2.0"
 __license__ = "GPL"
 
@@ -106,9 +106,10 @@ def init(project_path):
     log_levels = Interns.Log._log_levels
     Interns.Log._log_levels = log_levels[log_levels.index(Interns.Config.get('debug', 'LOG', 'level', str, "") or "INFO"):]
 
-    Interns.Log.JEInternLog(Interns.Config.get('debug', 'LOG', 'file', str, "tmp")).delete()
-    Interns.Log.JEInternLog(Interns.Config.get('debug', 'LOG', 'file', str, "tmp") + "_cleaned").delete()
-    Interns.Log.JEInternLog(Interns.Config.get('debug', 'LOG', 'file', str, "") or str(_start_time))
+    if Interns.Helpers.enabled("debug", "LOG"):
+        Interns.Log.JEInternLog(Interns.Config.get('debug', 'LOG', 'file', str, "tmp")).delete()
+        Interns.Log.JEInternLog(Interns.Config.get('debug', 'LOG', 'file', str, "tmp") + "_cleaned").delete()
+        Interns.Log.JEInternLog(Interns.Config.get('debug', 'LOG', 'file', str, "") or str(_start_time))
 
     ret = Interns.PGExtern.init()
 
@@ -131,23 +132,27 @@ def run(main, *args):
 
     try:
         ret = main(*args)
+        Interns.Log.save()
 
     except Interns.JTKExternError.BaseError as error:
         Interns.Helpers.warning(error, True, False)
-
         print(Interns.JTKExternError.BaseError("An error occurred", error="Caught exception"))
-
-        Interns.Log.save()
 
         quit(False)
         exit(84)
 
-    except BaseException as error:
+    except Exception as error:
         Interns.Helpers.warning(error, True, False)
-
         print(Interns.JTKExternError.BaseError("An unexpected error occurred", error="Uncaught exception"))
 
-        raise error
+        quit(False)
+        exit(1)
+
+    except (KeyboardInterrupt, SystemExit):
+        error = Interns.JTKExternError.BaseError("Game interrupted", error="KeyboardInterrupt")
+        Interns.Helpers.warning(error, False, False)
+
+        quit()
 
     finally:
         return ret

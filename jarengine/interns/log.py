@@ -101,7 +101,7 @@ class JEInternLog(_JTKExternLog, _JEInternBaseClass):
 
 def _clean_text(text):
     if isinstance(text, _JTKExternError.BaseError):
-        return f"{text.error}\n{text.message[1:]}"
+        return f"{text.error}{''.join([f'\n    {line}' for line in text.message.removeprefix("\n").split("\n")])}"
     text.strip().replace("  ", " ")
     if "\033" in text:
         return _ansi_escape.sub("", text)
@@ -135,8 +135,10 @@ def comment(string):
         _current_log.comment(_clean_text(string), _current_log._func)
 
 def save():
+    log("DEBUG", "ENGINE", "Saving log...")
     if _current_log is not None:
         _current_log.save_batch(_current_log.buffer)
+    log("DEBUG", "ENGINE", "Log saved...")
 
 def clean():
     if _current_log is None:

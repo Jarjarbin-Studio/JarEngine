@@ -159,7 +159,7 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
         elif jeid and jeid in self._data:
             return self._data.pop(jeid)
         elif index:
-            return self._data.pop(self._data.values()[index].jeid)
+            return self._data.pop(list(self._data.values())[index].jeid)
         elif instance:
             for key, obj in self._data.items():
                 if obj == instance:

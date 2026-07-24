@@ -93,7 +93,7 @@ class JESprite(JEWidget):
         ...
 
 class JEText(JEWidget):
-    def __init__(self, text: str, font: JEFont, *, color: Optional[JEColor | tuple[int, int, int] | tuple[int, int, int, int]] = None, flip: tuple[JEBool, JEBool] = (JEFalse, JEFalse), name: str = "JEText", position: JEVector2D | tuple[float, float] = JEVector2D(0, 0), size: JEVector2D | tuple[float, float] = JEVector2D(0, 0), rotation: float = 0.0, layer: int = 0, visibility: JEBool = JETrue):
+    def __init__(self, text: str, font: JEFont, *, color: Optional[JEColor | tuple[int, int, int] | tuple[int, int, int, int]] = None, name: str = "JEText", position: JEVector2D | tuple[float, float] = JEVector2D(0, 0), size: JEVector2D | tuple[float, float] = JEVector2D(0, 0), rotation: float = 0.0, layer: int = 0, visibility: JEBool = JETrue):
         """
             JEText
 
@@ -101,7 +101,6 @@ class JEText(JEWidget):
                 text (str): text
                 font (JEFont): font
                 color (Optional[JEColor | tuple[int, int, int] | tuple[int, int, int, int]]) = None: color
-                flip (tuple[JEBool, JEBool]) = (JEFalse, JEFalse): flip
                 name (str) = "JEText": name
                 position (JEVector2D | tuple[float, float]) = (0, 0): position
                 size (JEVector2D | tuple[float, float]) = (0, 0): size

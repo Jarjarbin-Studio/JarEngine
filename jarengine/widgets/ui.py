@@ -46,8 +46,10 @@ from jarengine.entity.components_graphics import (
 )
 from jarengine.entity.components_others import JEGroupComponent as _JEGroupComponent
 from jarengine.events.mouse import JEMouseWatcher as _JEMouseWatcher
-from jarengine.constants import JEMse_Left as _JEMse_Left
-from jarengine.widgets.graphics import JEText as _JEText
+from jarengine.constants import (
+    JEMse_Left as _JEMse_Left,
+    JEMse_Right as _JEMse_Right
+)
 import jarengine.interns.log as _log
 
 @_documentation
@@ -59,25 +61,30 @@ class JEButton(_JEWidget):
         _JEColorComponent(self, color)
 
         if outline_color and outline_size:
-            _JEOutlineComponent(self, (outline_color, outline_size))
+            _JEOutlineComponent(self, outline_color, outline_size)
 
-        self._callback = lambda: None
-        self._watcher = None
+        self._callback = [lambda: None, lambda: None]
+        self._watcher = [None, None]
 
         _log.log("DEBUG", "OBJECT", f"JEButton: Created", self.jeid, color, outline_color, outline_size)
 
     def on_parent_added(self, parent):
         if isinstance(parent, _JEGame):
-            self._watcher = _JEMouseWatcher(
+            self._watcher[0] = _JEMouseWatcher(
                 _JEMse_Left,
                 self._on_click
             )
-            parent.event.add(self._watcher)
+            parent.event.add(self._watcher[0])
+            self._watcher[1] = _JEMouseWatcher(
+                _JEMse_Right,
+                self._on_click
+            )
+            parent.event.add(self._watcher[1])
 
         super().on_parent_added(parent)
 
-    def set_callback(self, callback):
-        self._callback = callback
+    def set_callback(self, callback1, callback2 = lambda: None):
+        self._callback = [callback1, callback2]
 
     def _on_click(self, game, event):
         if not self.get_visibility():
@@ -86,14 +93,13 @@ class JEButton(_JEWidget):
         mouse = game.input.mouse_pos()
         position = self.get_world_position()
         size = self.get_size()
-        inside = (            position.x <= mouse.x <= position.x + size.x
-            and
-
-            position.y <= mouse.y <= position.y + size.y
-        )
+        inside = (position.x <= mouse.x <= position.x + size.x) and (position.y <= mouse.y <= position.y + size.y)
 
         if inside and self._callback:
-            self._callback()
+            if event.mouse == _JEMse_Left:
+                self._callback[0]()
+            if event.mouse == _JEMse_Right:
+                self._callback[1]()
 
 @_documentation
 class JEImageButton(_JEWidget):

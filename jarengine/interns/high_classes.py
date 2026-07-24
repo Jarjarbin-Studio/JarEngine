@@ -60,7 +60,7 @@ class JEInternOwnership(_JEInternBaseClass):
         self._parents.add(parent)
         self.on_parent_added(parent)
 
-        _log.log("DEBUG", "CORE", f"JEInternOwnership: Parent added", self.jeid, parent)
+        _log.log("DEBUG", "INTERN", f"JEInternOwnership: Parent added", self.jeid, parent)
 
     @property
     def children(self):
@@ -72,7 +72,7 @@ class JEInternOwnership(_JEInternBaseClass):
 
         self._children.add(child)
 
-        _log.log("DEBUG", "CORE", f"JEInternOwnership: Child added", self.jeid, child)
+        _log.log("DEBUG", "INTERN", f"JEInternOwnership: Child added", self.jeid, child)
 
     def on_parent_added(self, parent):
         pass
@@ -137,7 +137,7 @@ class JEInternSystems(JEInternOwnership):
 
         self.sort_cache()
 
-        _log.log("DEBUG", "SYSTEM", f"JEInternSystems: Cache refreshed", self.jeid)
+        _log.log("INFO", "SYSTEM", f"JEInternSystems: Cache refreshed", self.jeid)
 
     def refresh_entity(self, entity):
         from jarengine.entity.entity import JEEntity as _JEEntity
@@ -153,7 +153,7 @@ class JEInternSystems(JEInternOwnership):
         if entity in self.cache:
             self.cache.remove(entity)
 
-        _log.log("DEBUG", "SYSTEM", f"JEInternSystems: Cache refreshed for 1 entity", self.jeid, entity)
+        _log.log("INFO", "SYSTEM", f"JEInternSystems: Cache refreshed for 1 entity", self.jeid, entity)
 
     def sort_cache(self):
         pass

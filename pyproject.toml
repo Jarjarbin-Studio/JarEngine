@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "jarengine"
-version = "1.10.1"
+version = "1.10.3"
 description = "Wrapper over PyGame providing simple ECS and easy-to-use API."
 authors = [
     { name = "Nathan Jarjarbin", email = "nathan.amaraggi@epitech.eu" }
@@ -16,7 +16,7 @@ license = "GPL-3.0-or-later"
 dependencies = [
     "jarbin_toolkit_console>=0.1.2.5",
     "jarbin_toolkit_error>=0.1.6.1",
-    "jarbin-toolkit-log>=0.2.3.0",
+    "jarbin-toolkit-log>=0.2.3.2",
     "pygame>=2.6.1",
     "datetime==6.0"
 ]
