@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v2.0
+# Version: jarengine-v2
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -164,7 +164,6 @@ def error(err, do_traceback=True, _error_title=True):
 
     raise err
 
-
 def warning(err, do_traceback=False, _warn_title=True):
     if _get("engine", "ENGINE", "exception_mode", str, "strict") == "silent":
         return
@@ -275,4 +274,4 @@ def safe_cast(value, _type):
         except (TypeError, ValueError):
             error(_JTKExternError.JErrorType(f"\nCast failed due to invalid type"))
             return value
-    return value
+    return _type(value)

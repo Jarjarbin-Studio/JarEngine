@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v2.0
+# Version: jarengine-v2
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================

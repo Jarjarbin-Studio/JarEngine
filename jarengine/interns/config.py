@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v2.0
+# Version: jarengine-v2
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -477,6 +477,7 @@ def init_all():
                 "enabled": True,                                    #Enable or disable engine logging.
                 "level": "INFO",                                    #Minimum log severity to record.
                 "file": "",                                         #Log file name.
+                "keep_one": False,                                  #Remove every log from previous run.
                 "clean": True,                                      #Enable log cleaning.
                 "show_jeid": False,                                 #Show JEID in logs.
                 "show_values": False,                               #Show values in logs.

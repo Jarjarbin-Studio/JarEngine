@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v2.0
+# Version: jarengine-v2
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -125,12 +125,7 @@ class JEInternBaseClass:
                 rgb: tuple[int, int, int],
                 text: str
             ) -> str:
-            return (
-                _JTKExternConsole.Text.Format.apply(
-                    text,
-                    _JTKExternConsole.ANSI.Color.rgb_fg(*rgb),
-                ) + _JTKExternConsole.ANSI.Color(_JTKExternConsole.ANSI.Color.C_RESET).s
-            )
+            return _JTKExternConsole.Text(text).f_color_foreground(_JTKExternConsole.ColorRGB(*rgb))
 
         def colorize(
                 text: str,
@@ -233,7 +228,7 @@ class JEInternBaseClass:
 
             module_name = getattr(type(value), "__module__", "")
             if module_name.startswith("pygame"):
-                rendered = f"{type(value).__name__} (PGExtern)"
+                rendered = f"{type(value).__name__} (PyGame)"
                 category = "pygame"
 
             lines.append(
@@ -331,15 +326,23 @@ class JEInternBaseClass:
                 if isinstance(attr, property) and not attr_name.startswith("_"):
                     try:
                         props[f"@{attr_name}"] = getattr(self, attr_name)
+                    except NotImplementedError:
+                        props[f"@{attr_name}"] = f"<error: not implemented>"
                     except Exception as err:
                         props[f"@{attr_name}"] = f"<error: {err}>"
 
             all_attrs = {**public_attrs, **props}
 
+            if "@jeid" in all_attrs:
+                append_leaf("JEID", colorize("JEID", "id"), all_attrs["@jeid"], new_prefix, len(all_attrs) == 1)
+                all_attrs.pop("@jeid")
+
             for index, (attr_name, attr_value) in enumerate(all_attrs.items()):
                 last_item = index == len(all_attrs) - 1
-                attr_name = "JEID" if attr_name == "jeid" else attr_name
-                attr_label = colorize(attr_name, "id" if attr_name == "JEID" else "attribute")
+                attr_label = colorize(attr_name, "attribute")
+
+                if attr_name == "@jeid":
+                    continue
 
                 if isinstance(attr_value, JEInternBaseClass):
                     append_child_object(attr_label, attr_value, new_prefix, last_item)

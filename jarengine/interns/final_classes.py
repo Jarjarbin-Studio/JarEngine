@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v2.0
+# Version: jarengine-v2
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -81,20 +81,19 @@ class JEInternResources(_JEInternBaseClass):
         super().__init__()
 
         self._textures = _JEContainer(_JETexture)
-        self._animations = _JEContainer(_JEInternGraphic)
         self._font = _JEContainer(_JEFont)
         self._music = _JEContainer(_JEMusic)
         self._sound = _JEContainer(_JESound)
+        self._animations = _JEContainer(_JEInternGraphic)
+        self._shaders = _JEContainer(_JEInternGraphic)
+        self._scenes = _JEContainer(_JEInternGraphic)
+        self._prefabs = _JEContainer(_JEInternGraphic)
 
         _log.log("DEBUG", "OBJECT", f"JEInternResources: Created", self.jeid)
 
     @property
     def texture(self):
         return self._textures
-
-    @property
-    def animations(self):
-        raise NotImplementedError
 
     @property
     def font(self):
@@ -107,6 +106,22 @@ class JEInternResources(_JEInternBaseClass):
     @property
     def sound(self):
         return self._sound
+
+    @property
+    def animations(self):
+        raise NotImplementedError
+
+    @property
+    def shaders(self):
+        raise NotImplementedError
+
+    @property
+    def scenes(self):
+        raise NotImplementedError
+
+    @property
+    def prefabs(self):
+        raise NotImplementedError
 
 @_documentation
 @_final

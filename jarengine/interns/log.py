@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v2.0
+# Version: jarengine-v2
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -31,7 +31,6 @@
 
 from __future__ import annotations
 
-from collections import OrderedDict
 import re
 from typing import final as _final
 
@@ -41,6 +40,7 @@ from jarbin_toolkit_log import (
     LogType as _LogType,
 )
 
+from jarengine.interns.config import get as _get
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from jarengine.interns import JTKExternError as _JTKExternError
 from jarengine.interns.decorators import documentation as _documentation
@@ -83,11 +83,11 @@ class JEInternLog(_JTKExternLog, _JEInternBaseClass):
 
         super().__init__(
             JEInternLog.log_path,
-            f"je-log-{name}",
+            name,
             type=_LogType.JAR_LOG,
             metadata={
-                "engine": "JarEngine",
-                "logger": name,
+                "application": _get('project', 'PROJECT', 'name', str, "Unnamed Project"),
+                "version": _get('project', 'PROJECT', 'version', str, "0.0.0"),
             },
             run_id=_session,
         )

@@ -89,15 +89,6 @@ class JEInternResources(JEInternBaseClass):
         """
         ...
     @property
-    def animations(self) -> JEContainer[JEInternGraphic]:
-        """
-            Get animations storage
-
-            Returns:
-                JEContainer[JEInternGraphic]: Animation resources (not implemented)
-        """
-        ...
-    @property
     def font(self) -> JEContainer[JEFont]:
         """
             Get fonts storage
@@ -122,6 +113,42 @@ class JEInternResources(JEInternBaseClass):
 
             Returns:
                 JEContainer[JESound]: Sound resources
+        """
+        ...
+    @property
+    def animations(self) -> JEContainer[JEInternGraphic]:
+        """
+            Get animations storage
+
+            Returns:
+                JEContainer[JEInternGraphic]: Animation resources (not implemented)
+        """
+        ...
+    @property
+    def shaders(self) -> JEContainer[JEInternGraphic]:
+        """
+            Get shaders storage
+
+            Returns:
+                JEContainer[JEInternGraphic]: Shader resources (not implemented)
+        """
+        ...
+    @property
+    def scenes(self) -> JEContainer[JEInternGraphic]:
+        """
+            Get scenes storage
+
+            Returns:
+                JEContainer[JEInternGraphic]: Scene resources (not implemented)
+        """
+        ...
+    @property
+    def prefabs(self) -> JEContainer[JEInternGraphic]:
+        """
+            Get prefabs storage
+
+            Returns:
+                JEContainer[JEInternGraphic]: Prefab resources (not implemented)
         """
         ...
 

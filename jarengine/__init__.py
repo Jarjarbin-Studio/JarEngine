@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v2.0
+# Version: jarengine-v2
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -31,14 +31,15 @@
 
 from __future__ import annotations
 
-import os
+from os import remove
+from glob import glob
 from datetime import datetime as _datetime
 from uuid import uuid4 as _uuid4
 
 ##Metadata##
 __author__ = 'Nathan Jarjarbin'
 __email__ = 'nathan.amaraggi@epitech.eu'
-__version__ = "2.0.0"
+__version__ = "2.0.1"
 __config_version__ = "0.2.0"
 __license__ = "GPL"
 
@@ -65,8 +66,8 @@ def _version_color(version):
     return Interns.JTKExternConsole.Text(version).f_color_foreground(Interns.JTKExternConsole.ColorRGB(150, 150, 150))
 
 def _rm(filename):
-    if os.path.exists(filename):
-        os.remove(filename)
+    for file in glob(filename):
+        remove(file)
 
 def init(project_path):
     global _start_time, _session
@@ -106,9 +107,10 @@ def init(project_path):
     Interns.Log._log_levels = log_levels[log_levels.index(Interns.Config.get('debug', 'LOG', 'level', str, "") or "INFO"):]
 
     if Interns.Helpers.enabled("debug", "LOG"):
-        _rm(Interns.Config.get('debug', 'LOG', 'file', str, "tmp"))
-        _rm(Interns.Config.get('debug', 'LOG', 'file', str, "tmp") + "_cleaned")
-        Interns.Log.JEInternLog(Interns.Config.get('debug', 'LOG', 'file', str, "") or str(_start_time), _session = _session)
+        log_file_name = Interns.Config.get('debug', 'LOG', 'file', str, "")
+        if Interns.Config.get('debug', 'LOG', 'keep_one', bool, False):
+            _rm(f"{project_path}/.je-log/*{log_file_name}*.jar-log")
+        Interns.Log.JEInternLog(f"je-log-{log_file_name}" if log_file_name else "je-log", _session = _session)
 
     ret = Interns.PGExtern.init()
 
@@ -198,10 +200,27 @@ def quit(_clean = True):
     _session = None
 
 def _banner():
+    Text = Interns.JTKExternConsole.Text
     Cursor = Interns.JTKExternConsole.ANSI.Cursor.CursorPosition
+    Screen = Interns.JTKExternConsole.ANSI.Screen.ScreenErase
+
+    top = Text(
+        f"{_title_color("JarEngine")} {_version_color(JEVersion_JarEngine)}, "
+        f"{_title_color("JarEngine-Config")} {_version_color(JEVersion_Config)} "
+    ).f_layout_align_center(50)
+
+    center = Text("-").f_layout_pad_center(50)
+
+    bottom = Text(
+        f"{_title_color("PyGame")} {_version_color(JEVersion_PyGame)}, "
+        f"{_title_color("SDL")} {_version_color(JEVersion_SDL)}, "
+        f"{_title_color("Python")} {_version_color(JEVersion_Python)}"
+    ).f_layout_align_center(50)
+
     Interns.JTKExternConsole.Console.Console.print(
-        Cursor.previous_line(2) +
-        f"{_title_color("JarEngine")} {_version_color(JEVersion_JarEngine)} ({_title_color("PyGame")} {_version_color(JEVersion_PyGame)}, {_title_color("SDL")} {_version_color(JEVersion_SDL)}, {_title_color("Python")} {_version_color(JEVersion_Python)})"
+        (f"{Cursor.previous_line() + Screen.erase_line()}" * 2) +
+        Text(f"{top}\n{center}\n{bottom}").f_border_box(border=Interns.JTKExternConsole.PresetBorder.ROUND, padding=0),
+        end="\n\n"
     )
 
 __all__ = [
