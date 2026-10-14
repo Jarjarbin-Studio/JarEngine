@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.10
+# Version: jarengine-v2.0
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -70,7 +70,7 @@ class JETexture(_JEInternResource, _JEInternOwnership):
         try:
             self._texture = _PGExtern.image.load(path).convert_alpha()
         except FileNotFoundError:
-            raise _JTKExternError.Special.ErrorSpecialConfig(f"\nInvalid texture path. Check assets config at {_JEInternConfig.config_path}")
+            raise _JTKExternError.JErrorFileNotFound(f"Invalid texture path. Check assets config at {_JEInternConfig.config_path}")
         self._size = _JEVector2D(self._texture.get_width(), self._texture.get_height())
 
         _log.log("DEBUG", "OBJECT", f"JETexture: Created", self.jeid, name, path)

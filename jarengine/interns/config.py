@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.10
+# Version: jarengine-v2.0
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -29,18 +29,25 @@
 #
 # =============================================================================
 
+
 from __future__ import annotations
 
-from os.path import exists
-from os import mkdir
-from typing import final as _final
+from pathlib import Path
 from datetime import datetime as _datetime
+from typing import final as _final
 
 from jarbin_toolkit_config import Config as _JTKExternConfig
+from jarbin_toolkit_config.errors import (
+    ConfigTypeJError as _ConfigTypeJError,
+    ConfigValueJError as _ConfigValueJError,
+    ConfigRuntimeJError as _ConfigRuntimeJError,
+    ConfigFileNotFoundJError as _ConfigFileNotFoundJError,
+)
 
 from jarengine.interns.base_classe import JEInternBaseClass as _JEInternBaseClass
 from jarengine.interns import JTKExternError as _JTKExternError
 from jarengine.interns.decorators import documentation as _documentation
+
 
 @_documentation
 @_final
@@ -52,77 +59,168 @@ class JEInternConfig(_JTKExternConfig, _JEInternBaseClass):
     state_path = None
     configs = {}
 
-    def __init__(self, name, data = None, _is_state = False):
+    def __init__(
+        self,
+        name,
+        data = None,
+        _is_state = False,
+        *,
+        directory = None,
+        metadata = None,
+        has_extension = True,
+        _token = None,
+    ):
+        # Internal construction used by Config.create() and Config.open().
+        if _token is not None:
+            super().__init__(
+                directory,
+                name,
+                metadata=metadata,
+                has_extension=has_extension,
+                _token=_token,
+            )
+            return
+
         from jarengine.constants import (
             JEVersion_JarEngine as _JEVersion_JarEngine,
-            JEVersion_Config as _JEVersion_Config
+            JEVersion_Config as _JEVersion_Config,
         )
 
-        config_path = str(JEInternConfig.state_path if _is_state else JEInternConfig.config_path)
+        if not JEInternConfig.project_path or not (
+            JEInternConfig.state_path if _is_state
+            else JEInternConfig.config_path
+        ):
+            raise _JTKExternError.JErrorRuntime(
+                "JarEngine.init(path) must be called first"
+            )
 
-        if (not JEInternConfig.project_path) or (not JEInternConfig.config_path):
-            raise _JTKExternError.State.ErrorStateNotInitialized("\nJarEngine.init(path) must be called first")
-        if not exists(config_path):
-            mkdir(config_path)
+        config_directory = Path(
+            JEInternConfig.state_path
+            if _is_state
+            else JEInternConfig.config_path
+        )
 
-        if not data:
+        if data is None:
             data = {}
 
-        super().__init__(
-            config_path,
-            {
-                "INFO": {
-                    "name": name,                                       #Configuration file identifier.
-                    "creation": _datetime.now(),                        #Timestamp when this config was first created.
-                    "jarengine_version": str(_JEVersion_JarEngine),     #Version of JarEngine when the config was created.
-                    "config_version": str(_JEVersion_Config),           #Version of configuration when the config was created
-                }
-            } | data,
-            file_name=f"je-{name}.ini"
-        )
+        if not isinstance(data, dict):
+            raise _JTKExternError.JErrorType(
+                "Config data must be a dictionary"
+            )
+
+        file_name = f"je-{name}"
+
+        try:
+            try:
+                config = _JTKExternConfig.open(
+                    config_directory,
+                    file_name,
+                )
+            except _ConfigFileNotFoundJError:
+                config = _JTKExternConfig.create(
+                    config_directory,
+                    file_name,
+                )
+
+                config.set_batch({
+                    "INFO": {
+                        "name": name,
+                        "creation": _datetime.now().isoformat(),
+                        "jarengine_version": str(_JEVersion_JarEngine),
+                        "config_version": str(_JEVersion_Config),
+                    },
+                    **data,
+                })
+            else:
+                for section, options in data.items():
+                    if not config.section_exists(section):
+                        config.section_add(section)
+
+                    for option, value in options.items():
+                        if not config.option_exists(section, option):
+                            config.set(section, option, value)
+
+
+        except _ConfigValueJError as error:
+            raise _JTKExternError.JErrorKey(
+                str(error)
+            ) from error
+        except _ConfigRuntimeJError as error:
+            raise _JTKExternError.JErrorRuntime(
+                str(error)
+            ) from error
+
+        self.__dict__.update(config.__dict__)
+
+        self.config_name = name
+        self.is_state = _is_state
 
         JEInternConfig.configs[name] = self
 
-def get(name, section, setting, _type = str, default = None):
-    if name not in JEInternConfig.configs:
-        raise _JTKExternError.Special.ErrorSpecialConfig(f"\nNo config named {name} is opened")
 
-    _GETTERS = {
-        str: lambda c, s, o: c.get(s, o),
-        bool: lambda c, s, o: c.get_bool(s, o),
-        int: lambda c, s, o: c.get_int(s, o),
-        float: lambda c, s, o: c.get_float(s, o),
-    }
+def get(name, section, setting, _type=str, default=None):
+    if name not in JEInternConfig.configs:
+        raise _JTKExternError.JErrorFileNotFound(
+            f"No config named {name} is opened"
+        )
 
     config = JEInternConfig.configs[name]
 
+    getters = {
+        str: config.get,
+        bool: config.get_bool,
+        int: config.get_int,
+        float: config.get_float,
+    }
+
     try:
-        getter = _GETTERS.get(_type)
+        getter = getters.get(_type)
 
-        if getter:
-            return getter(config, section, setting)
+        if getter is not None:
+            return getter(section, setting)
 
-        return config.get(section, setting, _type)
+        # Support other types through explicit conversion.
+        return _type(config.get(section, setting))
 
-    except ValueError as e:
+    except _ConfigTypeJError as error:
         if default is not None:
             return default
-        raise _JTKExternError.Special.ErrorSpecialConfig("\nInvalid value type") from e
+        raise _JTKExternError.JErrorType(
+            "Invalid value type"
+        ) from error
 
-    except Exception as e:
+    except _ConfigValueJError as error:
         if default is not None:
             return default
-        raise _JTKExternError.Special.ErrorSpecialConfig("\nSection or setting not found") from e
+        raise _JTKExternError.JErrorKey(
+            "Section or setting not found"
+        ) from error
+
+    except (ValueError, TypeError) as error:
+        if default is not None:
+            return default
+        raise _JTKExternError.JErrorType(
+            "Invalid value type"
+        ) from error
+
 
 def set(name, section, setting, value):
-    if not name in JEInternConfig.configs:
-        raise _JTKExternError.Special.ErrorSpecialConfig(f"\nNo config named {name} is opened")
+    if name not in JEInternConfig.configs:
+        raise _JTKExternError.JErrorFileNotFound(
+            f"No config named {name} is opened"
+        )
 
     try:
-        JEInternConfig.configs[name].set(section, setting, value)
+        JEInternConfig.configs[name].set(
+            section,
+            setting,
+            value,
+        )
+    except _ConfigValueJError as error:
+        raise _JTKExternError.JErrorKey(
+            str(error)
+        ) from error
 
-    except Exception:
-        raise _JTKExternError.Special.ErrorSpecialConfig("\nSection or setting not found")
 
 def init_all():
     from jarengine.constants import (
@@ -474,7 +572,7 @@ def init_all():
         "state",
         {
             "FIRST_RUN": {
-                "timestamp": _datetime.now(),                       #First time the project was ever launched.
+                "timestamp": _datetime.now().isoformat(),           #First time the project was ever launched.
             },
 
             "LAST_RUN": {
@@ -572,8 +670,8 @@ class _Checks:
 
         def _check(current, required, name):
             status = current.compatibility(required)
-            err = _JTKExternError.Special.ErrorSpecialConfig(
-                f"\nCompatibility failure on {name} "
+            err = _JTKExternError.JErrorSystem(
+                f"Compatibility failure on {name} "
                 f"(current: {current}, required: {required})"
             )
 

@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.10
+# Version: jarengine-v2.0
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -62,8 +62,8 @@ class JEInput(_JEInternBaseClass):
 
     def __new__(cls, *args, **kwargs):
         if cls._instance is not None:
-            raise _JTKExternError.Error.ErrorRuntime(
-                "\nInstance already exists. Only one input manager is allowed."
+            raise _JTKExternError.JErrorRuntime(
+                "Instance already exists. Only one input manager is allowed."
             )
 
         cls._instance = super().__new__(cls)
@@ -110,4 +110,4 @@ class JEInput(_JEInternBaseClass):
         elif isinstance(code, _JEMouseCode):
             return self.is_mouse_down(code)
         else:
-            raise _JTKExternError.Error.ErrorRuntime()
+            raise _JTKExternError.JErrorRuntime()

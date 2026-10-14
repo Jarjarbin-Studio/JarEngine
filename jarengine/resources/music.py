@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.10
+# Version: jarengine-v2.0
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -65,6 +65,6 @@ class JEMusic(_JEInternResource, _JEInternOwnership):
 
         self._path = path
         if not _exists(path):
-            raise _JTKExternError.Special.ErrorSpecialConfig(f"\nInvalid music path. Check assets config at {_JEInternConfig.config_path}")
+            raise _JTKExternError.JErrorFileNotFound(f"Invalid music path. Check assets config at {_JEInternConfig.config_path}")
 
         _log.log("DEBUG", "OBJECT", f"JEMusic: Created", self.jeid, name, path)

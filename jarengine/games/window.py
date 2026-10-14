@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.10
+# Version: jarengine-v2.0
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -62,8 +62,8 @@ class JEWindow(_JEInternBaseClass):
 
     def __new__(cls, *args, **kwargs):
         if cls._instance is not None:
-            raise _JTKExternError.Error.ErrorRuntime(
-                "\nInstance already exists. Only one window is allowed."
+            raise _JTKExternError.JErrorRuntime(
+                "Instance already exists. Only one window is allowed."
             )
 
         cls._instance = super().__new__(cls)

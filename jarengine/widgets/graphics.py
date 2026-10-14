@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.10
+# Version: jarengine-v2.0
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -152,7 +152,7 @@ class JEPolygon(_JEWidget):
         raw_points = [tuple(point) for point in points]
 
         if len(raw_points) < 3:
-            raise _JTKExternError.Error.ErrorValue("\nJEPolygon requires at least 3 points.")
+            raise _JTKExternError.JErrorValue("JEPolygon requires at least 3 points.")
 
         min_x = min(point[0] for point in raw_points)
         min_y = min(point[1] for point in raw_points)

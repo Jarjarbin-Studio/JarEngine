@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.10
+# Version: jarengine-v2.0
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -108,8 +108,8 @@ class JEEventHandler(_JEInternBaseClass):
 
     def __new__(cls, *args, **kwargs):
         if cls._instance is not None:
-            raise _JTKExternError.Error.ErrorRuntime(
-                "\nInstance already exists. Only one event handler is allowed."
+            raise _JTKExternError.JErrorRuntime(
+                "Instance already exists. Only one event handler is allowed."
             )
 
         cls._instance = super().__new__(cls)
@@ -135,8 +135,8 @@ class JEEventHandler(_JEInternBaseClass):
         _assertion_type(watcher, (_JEEventWatcher, _JEKeyWatcher, _JEMouseWatcher), "watcher must be of type 'JEEventWatcher', 'JEKeyWatcher' or 'JEMouseWatcher'", True)
 
         if not isinstance(watcher, (_JEEventWatcher, _JEKeyWatcher, _JEMouseWatcher)):
-            raise _JTKExternError.Error.ErrorType(
-                "\nOnly JEEventWatcher, JEKeyWatcher and JEMouseWatcher can be added."
+            raise _JTKExternError.JErrorType(
+                "Only JEEventWatcher, JEKeyWatcher and JEMouseWatcher can be added."
             )
 
         self._watchers.append(watcher)
@@ -148,8 +148,8 @@ class JEEventHandler(_JEInternBaseClass):
         _assertion_type(watcher, (_JEEventWatcher, _JEKeyWatcher, _JEMouseWatcher), "watcher must be of type 'JEEventWatcher', 'JEKeyWatcher' or 'JEMouseWatcher'", True)
 
         if not self.has(watcher):
-            raise _JTKExternError.Error.ErrorRuntime(
-                f"\n{watcher!r} not found in watcher list."
+            raise _JTKExternError.JErrorRuntime(
+                f"{watcher!r} not found in watcher list."
             )
 
         for w in self._watchers:

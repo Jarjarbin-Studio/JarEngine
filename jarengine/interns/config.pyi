@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.10
+# Version: jarengine-v2.0
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -31,6 +31,7 @@
 
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Optional, Any
 
 from jarbin_toolkit_config import Config as JTKExternConfig
@@ -42,13 +43,16 @@ class JEInternConfig(JTKExternConfig, JEInternBaseClass):
     config_path: Optional[str]          #Path of the configs (dependent of project_path)
     state_path: Optional[str]           #Path to the state configs (dependent of project_path)
     configs: dict[str, JEInternConfig]  #Opened configs
-    def __init__(self, name: str, data: Optional[dict[str, dict[str, Any]]] = None):
+    def __init__(self, name: str, data: Optional[dict[str, dict[str, Any]]] = None, *, directory: Optional[str | Path] = None, metadata: Optional[dict[str, str]] = None, has_extension: bool = True):
         """
             JEInternConfig
-            
+
             Parameters:
-                name (str): Name of the configuration
-                data (Optional[dict[str, dict[str, Any]]]) = None: Configuration data
+                name (str): Name of the configuration.
+                data (Optional[dict[str, dict[str, Any]]], optional): Configuration sections and their options.
+                directory (Optional[str | Path], optional): Directory containing the configuration file. Used internally when constructing the underlying Config instance.
+                metadata (Optional[dict[str, str]], optional): Metadata associated with the configuration. Used internally by the underlying Config instance.
+                has_extension (bool, optional): Whether to append the .ini extension to the filename.
         """
         ...
 

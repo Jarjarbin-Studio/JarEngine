@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.10
+# Version: jarengine-v2.0
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -61,7 +61,7 @@ class JEColor(_JEInternBaseClass):
 
         for c in self._color:
             if not (0 <= c <= 255):
-                raise _JTKExternError.Error.ErrorValue("\nInvalid color, every channels must be between 0 and 255.")
+                raise _JTKExternError.JErrorValue("Invalid color, every channels must be between 0 and 255.")
 
         _log.log("DEBUG", "OBJECT", f"JEColor: Created", self.jeid, r, g, b, a)
 

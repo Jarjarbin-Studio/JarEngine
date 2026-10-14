@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.10
+# Version: jarengine-v2.0
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -31,13 +31,14 @@
 
 from __future__ import annotations
 
+import os
 from datetime import datetime as _datetime
 from uuid import uuid4 as _uuid4
 
 ##Metadata##
 __author__ = 'Nathan Jarjarbin'
 __email__ = 'nathan.amaraggi@epitech.eu'
-__version__ = "1.10.3"
+__version__ = "2.0.0"
 __config_version__ = "0.2.0"
 __license__ = "GPL"
 
@@ -57,17 +58,15 @@ _session = _uuid4().hex
 
 def _title_color(title):
 
-    text = Interns.JTKExternConsole.Text.Text
-    color = Interns.JTKExternConsole.ANSI.Color
-
-    return color.rgb_fg(70, 160, 255) + text(str(title)) + color(color.C_RESET)
+    return Interns.JTKExternConsole.Text(title).f_color_foreground(Interns.JTKExternConsole.ColorRGB(70, 160, 255))
 
 def _version_color(version):
 
-    text = Interns.JTKExternConsole.Text.Text
-    color = Interns.JTKExternConsole.ANSI.Color
+    return Interns.JTKExternConsole.Text(version).f_color_foreground(Interns.JTKExternConsole.ColorRGB(150, 150, 150))
 
-    return color.rgb_fg(150, 150, 150) + text(str(version)) + color(color.C_RESET)
+def _rm(filename):
+    if os.path.exists(filename):
+        os.remove(filename)
 
 def init(project_path):
     global _start_time, _session
@@ -88,7 +87,7 @@ def init(project_path):
     version = Interns.Config.get('project', 'PROJECT', 'version', str, "0.0.0")
     author = Interns.Config.get('project', 'AUTHOR', 'name', str, None)
 
-    Interns.JTKExternConsole.Console.print(
+    Interns.JTKExternConsole.Console.Console.print(
         f"{_title_color(name)} {_version_color(version)} {(f'(by {author})' if author else "")}"
     )
 
@@ -107,9 +106,9 @@ def init(project_path):
     Interns.Log._log_levels = log_levels[log_levels.index(Interns.Config.get('debug', 'LOG', 'level', str, "") or "INFO"):]
 
     if Interns.Helpers.enabled("debug", "LOG"):
-        Interns.Log.JEInternLog(Interns.Config.get('debug', 'LOG', 'file', str, "tmp")).delete()
-        Interns.Log.JEInternLog(Interns.Config.get('debug', 'LOG', 'file', str, "tmp") + "_cleaned").delete()
-        Interns.Log.JEInternLog(Interns.Config.get('debug', 'LOG', 'file', str, "") or str(_start_time))
+        _rm(Interns.Config.get('debug', 'LOG', 'file', str, "tmp"))
+        _rm(Interns.Config.get('debug', 'LOG', 'file', str, "tmp") + "_cleaned")
+        Interns.Log.JEInternLog(Interns.Config.get('debug', 'LOG', 'file', str, "") or str(_start_time), _session = _session)
 
     ret = Interns.PGExtern.init()
 
@@ -134,22 +133,22 @@ def run(main, *args):
         ret = main(*args)
         Interns.Log.save()
 
-    except Interns.JTKExternError.BaseError as error:
+    except Interns.JTKExternError.BaseJError as error:
         Interns.Helpers.warning(error, True, False)
-        print(Interns.JTKExternError.BaseError("An error occurred", error="Caught exception"))
+        print(Interns.JTKExternError.BaseJError("An error occurred", error="Caught exception"))
 
         quit(False)
         exit(84)
 
     except Exception as error:
         Interns.Helpers.warning(error, True, False)
-        print(Interns.JTKExternError.BaseError("An unexpected error occurred", error="Uncaught exception"))
+        print(Interns.JTKExternError.BaseJError("An unexpected error occurred", error="Uncaught exception"))
 
         quit(False)
         exit(1)
 
     except (KeyboardInterrupt, SystemExit):
-        error = Interns.JTKExternError.BaseError("Game interrupted", error="KeyboardInterrupt")
+        error = Interns.JTKExternError.BaseJError("Game interrupted", error="KeyboardInterrupt")
         Interns.Helpers.warning(error, False, False)
 
         quit()
@@ -199,12 +198,9 @@ def quit(_clean = True):
     _session = None
 
 def _banner():
-
-    Interns.JTKExternConsole.init(banner=False)
-
-    ansi = Interns.JTKExternConsole.ANSI
-    Interns.JTKExternConsole.Console.print(
-        ansi.Line.clear_previous_line(2) +
+    Cursor = Interns.JTKExternConsole.ANSI.Cursor.CursorPosition
+    Interns.JTKExternConsole.Console.Console.print(
+        Cursor.previous_line(2) +
         f"{_title_color("JarEngine")} {_version_color(JEVersion_JarEngine)} ({_title_color("PyGame")} {_version_color(JEVersion_PyGame)}, {_title_color("SDL")} {_version_color(JEVersion_SDL)}, {_title_color("Python")} {_version_color(JEVersion_Python)})"
     )
 

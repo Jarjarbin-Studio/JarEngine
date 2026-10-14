@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.10
+# Version: jarengine-v2.0
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -56,7 +56,7 @@ class JEInternBaseClass:
 
     @jeid.setter
     def jeid(self, value):
-        raise _JTKExternError.Error.ErrorValue("\nJEID must not be changed")
+        raise _JTKExternError.JErrorValue("JEID must not be changed")
 
     def __str__(self):
         name = getattr(self, "name", None)

@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.10
+# Version: jarengine-v2.0
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -70,8 +70,8 @@ class JEGame(_JEInternBaseClass):
 
     def __new__(cls, *args, **kwargs):
         if cls._instance is not None:
-            raise _JTKExternError.Error.ErrorRuntime(
-                "\nInstance already exists. Only one game is allowed."
+            raise _JTKExternError.JErrorRuntime(
+                "Instance already exists. Only one game is allowed."
             )
         cls._instance = super().__new__(cls)
         return cls._instance
@@ -100,8 +100,8 @@ class JEGame(_JEInternBaseClass):
         _assertion_type(window, _JEWindow, "window must be of type 'JEWindow'", True)
 
         if self._window:
-            raise _JTKExternError.Error.ErrorRuntime(
-                f"\nWindow already set."
+            raise _JTKExternError.JErrorRuntime(
+                f"Window already set."
             )
         self._window = window
         self._clock = _JEClock(window.settings.fps)
@@ -111,8 +111,8 @@ class JEGame(_JEInternBaseClass):
     @property
     def wdw(self):
         if not self._window:
-            raise _JTKExternError.State.ErrorStateNotInitialized(
-                "\nWindow not set."
+            raise _JTKExternError.JErrorValue(
+                "Window not set."
             )
         return self._window
 

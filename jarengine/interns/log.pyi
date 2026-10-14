@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.10
+# Version: jarengine-v2.0
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -31,65 +31,59 @@
 
 from __future__ import annotations
 
-from typing import Optional, Any
+from typing import Any, Optional
 
+from jarbin_toolkit_log import Log as JTKExternLog
 from jarengine.interns.base_classe import JEInternBaseClass
 from jarengine.interns import JTKExternError
 
-from jarbin_toolkit_log import Log as JTKExternLog
 
 _current_log: Optional[JEInternLog]
 _log_levels: list[str]
 
+
 class JEInternLog(JTKExternLog, JEInternBaseClass):
-    project_path: Optional[str]     #Path of the project, set at runtime by the init
-    log_path: Optional[str]         #Path of the configs (dependent of project_path)
-    def __init__(self, name):
+    project_path: Optional[str]  #Path of the project, set at runtime by the init
+    log_path: Optional[str]  #Path of the configs (dependent of project_path)
+    def __init__(self, name: str, _session: str):
         """
-            JEInternLog
+            Initialize a named JarEngine logger.
 
             Parameters:
-                name (str): Name of the log
-        """
-        ...
-    @property
-    def buffer(self) -> list[str]:
-        """
-            Get the log buffer
-
-            Returns:
-                list[str]: log buffer
+                name: Name identifying this logger.
         """
         ...
 
 def log(status: str, title: str, description: str, jeid: Optional[str] = None, *values: Any):
     """
-        Register a new log.
-        Status : INFO, DEBUG, VALID, WARN, ERROR, CRIT
+        Register a log entry.
+
+        Supported statuses are ``INFO``, ``DEBUG``, ``VALID``,
+        ``WARN``, ``ERROR``, and ``CRIT``.
 
         Parameters:
-            status (str): status
-            title (str): title
-            description (str): description
-            jeid (str): jeid
-            *values (Any): log values
+            status: Severity/status of the entry.
+            title: Category or scope of the entry.
+            description: Message to log.
+            jeid: Optional JarEngine identifier.
+            *values: Optional values included when value logging is enabled.
     """
     ...
 def comment(string: str | JTKExternError.BaseError):
     """
-        Comment a message into the log file
+        Add a comment to the log.
 
         Parameters:
-            string (str | JTKExternError.BaseError): comment message
+            string: Comment text or a JarEngine error object.
     """
     ...
 def save():
     """
-        Save the logs in batch to the file
+        Flush pending log entries to the log file.
     """
     ...
 def close():
     """
-        Close the log
+        Flush and close the active log.
     """
     ...

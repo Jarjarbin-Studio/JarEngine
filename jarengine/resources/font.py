@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.10
+# Version: jarengine-v2.0
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -70,7 +70,7 @@ class JEFont(_JEInternResource, _JEInternOwnership):
         try:
             self._font = _PGExtern.font.Font(path, size)
         except FileNotFoundError:
-            raise _JTKExternError.Special.ErrorSpecialConfig(f"\nInvalid font path. Check assets config at {_JEInternConfig.config_path}")
+            raise _JTKExternError.JErrorFileNotFound(f"Invalid font path. Check assets config at {_JEInternConfig.config_path}")
         self._size = size
 
         _log.log("DEBUG", "OBJECT", f"JEFont: Created", self.jeid, name, path, size)

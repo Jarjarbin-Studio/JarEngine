@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.10
+# Version: jarengine-v2.0
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -30,6 +30,10 @@
 # =============================================================================
 
 from __future__ import annotations
+
+import os
+
+os.environ["JARBIN_CONSOLE_NO_BANNER"] = "1"
 
 import pygame as PGExtern
 import jarbin_toolkit_console as JTKExternConsole

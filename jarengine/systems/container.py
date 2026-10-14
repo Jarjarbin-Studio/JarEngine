@@ -7,7 +7,7 @@
 # game development and prototyping.
 #
 # =============================================================================
-# Version: jarengine-v1.10
+# Version: jarengine-v2.0
 # Author: Jarjarbin Studio
 # Licence: GPL v3
 # =============================================================================
@@ -112,8 +112,8 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
             _assertion_type(_type, type, "_type must be of type 'type'", True)
 
         if not (name or jeid or _type) and index is None:
-            raise _JTKExternError.Error.ErrorKey(
-                "\nName, JEID, index or type are required."
+            raise _JTKExternError.JErrorKey(
+                "Name, JEID, index or type are required."
             )
 
         if name:
@@ -129,8 +129,8 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
                 if isinstance(obj, _type):
                     return obj
         if default == NotImplemented:
-            raise _JTKExternError.Error.ErrorKey(
-                f"\n{f'{index!r}' if not index is None else f'{name or jeid or _type!r}'} not in container."
+            raise _JTKExternError.JErrorKey(
+                f"{f'{index!r}' if not index is None else f'{name or jeid or _type!r}'} not in container."
             )
         return default
 
@@ -148,8 +148,8 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
             _assertion_type(_type, type, "_type must be of type 'type'", True)
 
         if not (name or jeid or index or instance or _type):
-            raise _JTKExternError.Error.ErrorKey(
-                "\nName, JEID, index, instance or type are required."
+            raise _JTKExternError.JErrorKey(
+                "Name, JEID, index, instance or type are required."
             )
 
         if name:
@@ -168,8 +168,8 @@ class JEContainer(_Generic[_T], _JEInternBaseClass):
             for key, obj in self._data.items():
                 if isinstance(obj, _type):
                     return self._data.pop(key)
-        raise _JTKExternError.Error.ErrorKey(
-            f"\n{name or jeid or index or instance or _type!r} not in container."
+        raise _JTKExternError.JErrorKey(
+            f"{name or jeid or index or instance or _type!r} not in container."
         )
 
     def clear(self):
