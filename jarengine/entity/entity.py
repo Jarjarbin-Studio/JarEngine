@@ -51,7 +51,8 @@ class JEEntity(_JEInternGraphicalObject, _JEInternOwnership):
 
         name = _safe_cast(_assertion_type(name, str, "name must be of type 'str'"), str)
 
-        super().__init__(name)
+        _JEInternGraphicalObject.__init__(self, name)
+        _JEInternOwnership.__init__(self)
         self._components = _JEContainer(_JEInternEntityComponent, _JEBool(1))
         self._components.add(_JEInternEmptyComponent(self))
 

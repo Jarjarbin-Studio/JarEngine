@@ -61,6 +61,7 @@ class JEBool(_JEInternBaseClass):
 
         super().__init__()
         self._bool = bool(value)
+        self._initialized = True
 
         _log.log("DEBUG", "OBJECT", f"JEBool: Created", self.jeid, value)
 

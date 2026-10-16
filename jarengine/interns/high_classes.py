@@ -86,7 +86,9 @@ class JEInternEntityComponent(_JEInternGraphic, JEInternOwnership):
         _assertion_type(owner, _JEEntity, "owner must be of type 'JEEntity'", True)
         _assertion_type(_type, type, "_type must be of type 'type'", True)
 
-        super().__init__(f"{_type.__name__}({owner.jeid})")
+        _JEInternGraphic.__init__(self, f"{_type.__name__}({owner.jeid})")
+        JEInternOwnership.__init__(self)
+
         self.add_parent(owner)
         owner.add_component(self)
 

@@ -81,7 +81,8 @@ class JEInternLog(_JTKExternLog, _JEInternBaseClass):
                 "JarEngine.init(path) must be called first"
             )
 
-        super().__init__(
+        _JTKExternLog.__init__(
+            self,
             JEInternLog.log_path,
             name,
             type=_LogType.JAR_LOG,
@@ -91,6 +92,7 @@ class JEInternLog(_JTKExternLog, _JEInternBaseClass):
             },
             run_id=_session,
         )
+        _JEInternBaseClass.__init__(self)
 
         _current_log = self
 

@@ -61,7 +61,8 @@ class JETexture(_JEInternResource, _JEInternOwnership):
         name = _safe_cast(_assertion_type(name, str, "name must be of type 'str'"), str)
         path = _safe_cast(_assertion_type(path, str, "path must be of type 'str'"), str)
 
-        super().__init__(name, path)
+        _JEInternResource.__init__(self, name, path)
+        _JEInternOwnership.__init__(self)
 
         if not "/" in path:
             path = _asset_path(_get("assets", "DIRECTORY", "texture", str, "textures"), path)

@@ -61,7 +61,8 @@ class JEFont(_JEInternResource, _JEInternOwnership):
         path = _safe_cast(_assertion_type(path, str, "path must be of type 'str'"), str)
         size = _safe_cast(_assertion_type(size, int, "size must be of type 'int'"), int)
 
-        super().__init__(name, path)
+        _JEInternResource.__init__(self, name, path)
+        _JEInternOwnership.__init__(self)
 
         if not "/" in path:
             path = _asset_path(_get("assets", "DIRECTORY", "font", str, "fonts"), path)

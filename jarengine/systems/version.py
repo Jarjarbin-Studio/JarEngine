@@ -50,7 +50,8 @@ class JEVersion(_PGExtern.version.SoftwareVersion, _JEInternBaseClass):
     __recursive__ = False
 
     def __init__(self, *args, **kwargs):
-        super().__init__()
+        _PGExtern.version.SoftwareVersion.__init__(self)
+        _JEInternBaseClass.__init__(self)
 
         _log.log("DEBUG", "OBJECT", f"JEVersion: Created", self.jeid, *args)
 

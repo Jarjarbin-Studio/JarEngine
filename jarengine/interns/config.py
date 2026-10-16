@@ -72,13 +72,15 @@ class JEInternConfig(_JTKExternConfig, _JEInternBaseClass):
     ):
         # Internal construction used by Config.create() and Config.open().
         if _token is not None:
-            super().__init__(
+            _JTKExternConfig.__init__(
+                self,
                 directory,
                 name,
                 metadata=metadata,
                 has_extension=has_extension,
                 _token=_token,
             )
+            _JEInternBaseClass.__init__(self)
             return
 
         from jarengine.constants import (
@@ -671,7 +673,7 @@ class _Checks:
 
         def _check(current, required, name):
             status = current.compatibility(required)
-            err = _JTKExternError.JErrorSystem(
+            err = _JTKExternError.BaseJError(
                 f"Compatibility failure on {name} "
                 f"(current: {current}, required: {required})"
             )
